@@ -42,7 +42,19 @@ public class BascketDAOImpl implements BascketDAO {
 
 	@Override
 	public int bascketInsert(BascketDTO bascket) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = "insert bascket into values(bascket_code_seq.nextval, ?, ?, ?, sysdate)";
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, bascket.getUser_id());
+			ps.setInt(2, bascket.getMenu_code());
+			ps.setInt(3, bascket.getBasket_quantity());
+
+		} finally {
+			DBUtil.dbClose(con, ps);
+		}
 		return 0;
 	}
 
@@ -57,10 +69,4 @@ public class BascketDAOImpl implements BascketDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	public static void main(String[] args) throws SQLException {
-		BascketDAOImpl a = new BascketDAOImpl();
-		a.bascketSelectAll("testid");
-	}
-
 }
