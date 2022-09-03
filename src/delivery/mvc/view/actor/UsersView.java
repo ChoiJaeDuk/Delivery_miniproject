@@ -5,6 +5,7 @@ import java.util.Scanner;
 import delivery.mvc.view.MenuView;
 import delivery.mvc.view.orders.BascketView;
 import delivery.mvc.view.orders.CategoriesView;
+import delivery.mvc.view.orders.OrdersView;
 import delivery.mvc.view.user.mypageView;
 
 public class UsersView {
@@ -68,11 +69,11 @@ public class UsersView {
 				case 2:
 					CategoriesView.chineseFood();//중식
 				case 3:
-					//한식
+					CategoriesView.koreanFood();//한식
 				case 4:
-					//가게 검색
+					OrdersView.storeSelect();//가게 검색
 				case 5:
-					//메뉴 검색
+					OrdersView.menuSelect();//메뉴 검색					
 				case 6:
 					users(); //뒤로가기
 					return;

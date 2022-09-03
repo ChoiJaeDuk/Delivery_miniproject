@@ -11,17 +11,17 @@ public class BascketView {
 	public static void bascket() {
 		
 		while(true) {
-			System.out.println("--------------------------------------------------------");
-			System.out.println("                        [ 장바구니 ]                    ");
+			System.out.println("--------------------------------------------------------------------");
+			System.out.println("                              [ 장바구니 ]                          ");
 			System.out.println();
-			System.out.println("메뉴 코드     가게이름       메뉴이름      수량     가격");
-			System.out.println("= = = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+			System.out.println("메뉴 코드     가게이름              메뉴이름           수량     가격");
+			System.out.println("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ");
 			System.out.println("\n\n\n\n");// 장바구니에 담긴 내역
-			System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = =");
+			System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = =");
 			System.out.println("총 금액 : " + "???원");
-			System.out.println("--------------------------------------------------------");
-			System.out.println("1.수량 수정하기  2.메뉴 삭제하기  3.주문하기  4.뒤로가기");
-			System.out.println("--------------------------------------------------------");
+			System.out.println("--------------------------------------------------------------------");
+			System.out.println("1.수량 수정하기      2.메뉴 삭제하기      3.주문하기      4.뒤로가기");
+			System.out.println("--------------------------------------------------------------------");
 			System.out.println("* * * 번호를 입력해주세요. >> ");
 			
 			int bascket = Integer.parseInt(sc.nextLine());

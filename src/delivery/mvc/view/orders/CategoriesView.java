@@ -30,7 +30,7 @@ public class CategoriesView {
 				case 6:
 					//스테이크
 				case 7:										
-					UsersView.users(); //뒤로가기
+					UsersView.category(); //뒤로가기
 					return;
 				
 				//그 외 번호 입력 시 오류메세지		
@@ -51,21 +51,21 @@ public class CategoriesView {
 			System.out.println("                            [ 중식 ]                            ");
 			System.out.println();
 			System.out.println("----------------------------------------------------------------");
-			System.out.println("7.면              8.요리             9.밥             10.뒤로가기");
+			System.out.println("7.면             8.요리             9.밥             10.뒤로가기");
 			System.out.println("----------------------------------------------------------------");
 			System.out.println("* * * 번호를 입력해주세요. >> ");
 			
 			int chineseFood = Integer.parseInt(sc.nextLine());
 		
 			switch (chineseFood) {
-				case 4:
+				case 7:
 					//면
-				case 5:
+				case 8:
 					//요리
-				case 6:
+				case 9:
 					//밥
-				case 7:										
-					UsersView.users(); //뒤로가기
+				case 10:										
+					UsersView.category(); //뒤로가기
 					return;
 				
 				//그 외 번호 입력 시 오류메세지		
@@ -84,7 +84,7 @@ public class CategoriesView {
 		while(true) {
 			System.out.println("----------------------------------------------------------------");
 			System.out.println();
-			System.out.println("                            [ 중식 ]                            ");
+			System.out.println("                            [ 한식 ]                            ");
 			System.out.println();
 			System.out.println("----------------------------------------------------------------");
 			System.out.println("10.찌개           11.볶음          12.찜/탕          13.뒤로가기");
@@ -94,14 +94,14 @@ public class CategoriesView {
 			int koreanFood = Integer.parseInt(sc.nextLine());
 		
 			switch (koreanFood) {
-				case 4:
+				case 10:
 					//찌개
-				case 5:
+				case 11:
 					//볶음
-				case 6:
+				case 12:
 					//찜/탕
-				case 7:										
-					UsersView.users(); //뒤로가기
+				case 13:										
+					UsersView.category(); //뒤로가기
 					return;
 				
 				//그 외 번호 입력 시 오류메세지		
