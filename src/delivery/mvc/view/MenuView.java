@@ -18,19 +18,21 @@ public class MenuView {
 			int menu = Integer.parseInt(sc.nextLine());
 			
 			switch (menu) {
-			case 1:
-				LoginLogoutView.login(); //로그인
-				break;
-			case 2:
-				RegisterView.register();// 회원가입
-				break;
+				case 1:
+					LoginLogoutView.login(); //로그인
+					break;
+				case 2:
+					RegisterView.register();// 회원가입
+					break;
 				
-			case 3:
-				FindView.find();// 아이디*비밀번호 찾기
-				break;
+				case 3:
+					FindView.find();// 아이디*비밀번호 찾기
+					break;
 
-			case 4:
-				System.exit(0); //종료
+				case 4:
+					System.exit(0); //종료
+				
+				//그 외 번호 입력시 오류 메세지 출력
 			}
 		}
 
