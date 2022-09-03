@@ -8,6 +8,7 @@ public class StartView {
 		MenuView.menu();
 		 System.out.println("-----------");
 		 System.out.println("test");
+		 System.out.println("-----------");
 	}
 
 }
