@@ -1,0 +1,14 @@
+diff a/src/delivery/mvc/view/orders/OrdersView.java b/src/delivery/mvc/view/orders/OrdersView.java	(rejected hunks)
+@@ -32,9 +32,9 @@
+ 					//����
+ 				case 3:															
+ 					UsersView.category(); //�ڷΰ���
+-					return;
+-				
+-				//�� �� ��ȣ �Է� �� �����޼���		
++					return;				
++				default:
++					   System.out.println("* * * ��ȣ�� �߸� �Է��ϼ̽��ϴ�.\n\n");//�� �� ��ȣ �Է� �� �����޼���		
+ 					
+ 			}//switch��	
+ 		}//while��

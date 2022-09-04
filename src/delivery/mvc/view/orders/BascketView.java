@@ -35,9 +35,9 @@ public class BascketView {
 					//주문하기
 				case 4:
 					UsersView.users(); //뒤로가기
-					return;
-				
-				//그 외 번호 입력 시 오류메세지		
+					return;				
+				default:
+					   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");//그 외 번호 입력 시 오류메세지		
 					
 			}//switch끝	
 		}//while끝

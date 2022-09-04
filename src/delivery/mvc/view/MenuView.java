@@ -2,9 +2,9 @@ package delivery.mvc.view;
 
 import java.util.Scanner;
 
-import delivery.mvc.view.user.FindView;
-import delivery.mvc.view.user.LoginLogoutView;
-import delivery.mvc.view.user.RegisterView;
+import delivery.mvc.view.user_function.FindView;
+import delivery.mvc.view.user_function.LoginLogoutView;
+import delivery.mvc.view.user_function.RegisterView;
 
 
 public class MenuView {
@@ -32,7 +32,8 @@ public class MenuView {
 				case 4:
 					System.exit(0); //종료
 				
-				//그 외 번호 입력시 오류 메세지 출력
+				default:
+					   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 			}
 		}
 

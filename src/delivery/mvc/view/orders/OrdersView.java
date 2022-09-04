@@ -17,7 +17,7 @@ public class OrdersView {
 			System.out.println();
 			System.out.println("가게코드     가게이름          배달팁         후기/평점   주문건");
 			System.out.println("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-			System.out.println("\n\n\n\n");// 가게목록
+			System.out.println("\n\n\n\n");// 전체가게목록
 			System.out.println("----------------------------------------------------------------");
 			System.out.println("1.가게 선택                  2.정렬                   3.뒤로가기");
 			System.out.println("----------------------------------------------------------------");
@@ -31,10 +31,10 @@ public class OrdersView {
 				case 2:
 					//정렬
 				case 3:															
-					UsersView.category(); //뒤로가기
-					return;
-				
-				//그 외 번호 입력 시 오류메세지		
+				//	UsersView.category(); //뒤로가기
+					return;				
+				default:
+					   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");//그 외 번호 입력 시 오류메세지		
 					
 			}//switch끝	
 		}//while끝
