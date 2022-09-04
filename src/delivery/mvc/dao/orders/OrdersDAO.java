@@ -1,15 +1,17 @@
 package delivery.mvc.dao.orders;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import delivery.mvc.dto.OrderLineDTO;
+import delivery.mvc.dto.BascketDTO;
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
 
 public interface OrdersDAO {
-	List<OrdersDTO> list = new ArrayList<OrdersDTO>();
-	
+	List<BascketDTO> bascketDTO = new ArrayList<BascketDTO>(); 
+	List<OrdersDTO> ordersList = new ArrayList<OrdersDTO>();
 	
 	/**
 	 * Orders 값 삽입한다 (데이터값 삽입하는 것이기 때문에 리턴값 없음!)
@@ -17,6 +19,8 @@ public interface OrdersDAO {
 	 * */
 	public int orderInsert(String user_id, int store_code, int order_total_price, int delivery_code) throws SQLException;
 	
+	
+	public int[] orderLineInsert(Connection con  , OrdersDTO orders) throws SQLException;
 	
 	/**
 	 * Store_Code를 입력받아 해당되는 데이터 리스트를 반환한다
@@ -29,14 +33,14 @@ public interface OrdersDAO {
 	 * 판매자가 배달 승인,거부 값 입력  Orders테이블의 delivery_code와 승인시간(SYSDATE), 예상배송대기시간 업데이트 한다.
 	 * ppt 34p ~ 35p 주문 승인 취소하기
 	 * */
-	public OrdersDTO approveOrder(int delivery_code, int order_delivery_time, int ordercode) throws SQLException;		
+	public OrdersDTO approveOrder(int delivery_code, int order_delivery_time, int order_code) throws SQLException;		
 	
 
 	/**
 	 *  order_code를 받아 해당되는 주문 상세를 조회한다.
 	 * ppt 35p 주문상세보기
 	 * */
-	public List<OrderLineDTO> selectOrderLine(int order_code) throws SQLException;
+	public List<MenuDTO> selectOrderLine(String user_id) throws SQLException;
 
 	/**
 	 * 회원이 주문을 환불신청한다.

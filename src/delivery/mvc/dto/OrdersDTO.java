@@ -1,5 +1,8 @@
 package delivery.mvc.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrdersDTO {
 	private int order_code;
 	private String user_id;
@@ -11,7 +14,34 @@ public class OrdersDTO {
 	private int delivery_code;
 	
 	
+	private UsersDTO users;
+	private Delivery_StatusDTO delivery_status;
+	private List<OrderLineDTO> orderLineList = new ArrayList<OrderLineDTO>();
+	  
+	
 	public OrdersDTO() { }
+	
+	
+	
+	
+	public OrdersDTO(String user_id) {
+		super();
+		this.user_id = user_id;
+	}
+
+
+
+
+	public OrdersDTO(int order_code, String user_id, UsersDTO users, Delivery_StatusDTO delivery_status) {
+		super();
+		this.order_code = order_code;
+		this.user_id = user_id;
+		this.users = users;
+		this.delivery_status = delivery_status;
+	}
+
+
+
 	public OrdersDTO(int order_code, String user_id, int store_code, String order_date ,int order_total_price,
 			String order_approval_time, String order_delivery_time, int delivery_code) {
 		super();
@@ -95,8 +125,30 @@ public class OrdersDTO {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+	public UsersDTO getUsers() {
+		return users;
+	}
+	public void setUsers(UsersDTO users) {
+		this.users = users;
+	}
+	public Delivery_StatusDTO getDelivery_status() {
+		return delivery_status;
+	}
+	public void setDelivery_status(Delivery_StatusDTO delivery_status) {
+		this.delivery_status = delivery_status;
+	}
+
+
+
+	public List<OrderLineDTO> getOrderLineList() {
+		return orderLineList;
+	}
+
+
+
+	public void setOrderLineList(List<OrderLineDTO> orderLineList) {
+		this.orderLineList = orderLineList;
+	}
 	
 	
 	

@@ -4,15 +4,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import delivery.mvc.dao.bascket.BascketDAO;
+import delivery.mvc.dao.bascket.BascketDAOImpl;
+import delivery.mvc.dto.BascketDTO;
+import delivery.mvc.dto.Delivery_StatusDTO;
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrderLineDTO;
 import delivery.mvc.dto.OrdersDTO;
+import delivery.mvc.dto.UsersDTO;
 import util.DbUtil;
 
 public class OrdersDAOImpl implements OrdersDAO {
-
-	
+	BascketDAO bascketDao = new BascketDAOImpl();
+	List<BascketDTO> bascketlist = new ArrayList<BascketDTO>(); 
+	List<OrdersDTO> ordersList = new ArrayList<OrdersDTO>();
 	/**
 	 * Orders 값 삽입한다 (데이터값 삽입하는 것이기 때문에 리턴값 없음!)
 	 * 총 가격(order_total_price)는 장바구니에서 가져올 예정!!!!
@@ -27,21 +35,35 @@ public class OrdersDAOImpl implements OrdersDAO {
 		int result = 0;
 		try {
 			con = DbUtil.getConnection();
+			con.setAutoCommit(false);
+			
 			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, SYSDATE, ?,NULL,NULL,?)");
 			ps.setString(1,user_id);
 			ps.setInt(2, store_code );
 			ps.setInt(3, order_total_price);
 			ps.setInt(4, delivery_code);
-	       
+			
+			orders = new OrdersDTO(user_id);
+			
 			result = ps.executeUpdate(); 
 	        
 			if(result == 0) {
+				con.rollback();
 				throw new SQLException("등록할 수 없습니다.");
 			}else {
-				orderLineInsert(con, orders);
+				int re [] = orderLineInsert(con, orders);
+				for(int i : re) {
+					if(i != 1) {//
+						con.rollback();
+						throw new SQLException("주문할 수 없습니다...");
+					}
+				}
+				con.commit();
 			}
+			
 		}finally {
-			DbUtil.dbClose(con, ps);
+			con.commit();
+			DbUtil.dbClose(con, ps, null);
 		}
 		return result;
 	}
@@ -51,27 +73,29 @@ public class OrdersDAOImpl implements OrdersDAO {
 	 * 주문상세 등록하기 
 	 * OrdersDTO에 orderlinelist객체 생성해야함.
 	 * */
-	public int orderLineInsert(Connection con  , OrdersDTO orders) throws SQLException{
+	public int[] orderLineInsert(Connection con  , OrdersDTO orders) throws SQLException{
 			
 		  PreparedStatement ps=null;
-		  String sql="";
+		  String sql="INSERT INTO ORDER_LINE VALUES(ORDER_LINE_CODE_SEQ.NEXTVAL,ORDER_CODE_SEQ.CURRVAL,?,?)";
+		  int result [] = null;
 		 try {
 			 ps = con.prepareStatement(sql);
-			 for( OrderLineDTO orderline : orders.getOrderLineList()) {
-			  
-//			   ps.setString(1, );
-//			   ps.setInt(2, );//
-//			   ps.setInt(3, );//
-//			   ps.setInt(4, ));//
-//			   ps.addBatch(); //일괄처리할 작업에 추가
-//			   ps.clearParameters();
+		//	 for( OrderLineDTO orderline : orders.getOrderLineList()) {
+				 bascketlist = bascketDao.bascketSelectAll(orders.getUser_id());
+				 for (BascketDTO bascket : bascketlist) {
+						
+					 ps.setInt(1, bascket.getMenu_code());
+					 ps.setInt(2, bascket.getBasket_quantity());
+					 ps.addBatch();
+					 ps.clearParameters();
+				 }
 			   
-		  }
+		//  }
 		  result = ps.executeBatch();//일괄처리
 		  
 		   
     }finally {
-    	DbUtil.dbClose(null, ps);
+    	DbUtil.dbClose(null, ps, null);
     }
 		
 		return result;
@@ -83,9 +107,38 @@ public class OrdersDAOImpl implements OrdersDAO {
 	 * ppt 33p 주문목록 불러오기
 	 * */
 	@Override
-	public List<OrdersDTO> selectOrderList(int store_code) {
+	public List<OrdersDTO> selectOrderList(int store_code)throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		OrdersDTO orders = null;
+		UsersDTO users = null;	
+		Delivery_StatusDTO delivery_status = null;
 		
-		return null;
+		List<OrdersDTO> listOrders = new ArrayList<OrdersDTO>();
+		
+		try {
+			con = DbUtil.getConnection();
+			ps= con.prepareStatement("SELECT O.ORDER_CODE, O.USER_ID, U.USER_PHONE, U.USER_ADDR, D.DELIVERY_STATUS\r\n"
+					+ "FROM USERS U , ORDERS O ,DELIVERY_STATUS D \r\n"
+					+ "WHERE U.USER_ID = O.USER_ID AND O.DELIVERY_CODE = D.DELIVERY_CODE AND O.STORE_CODE = ?");
+			
+			ps.setInt(1, store_code);
+		    rs = ps.executeQuery(); 
+		    
+		    while(rs.next()) {
+		    	
+		    	users = new UsersDTO(rs.getString(3), rs.getString(4));
+		    	delivery_status = new Delivery_StatusDTO(rs.getString(5));
+		    	orders = new OrdersDTO(rs.getInt(1), rs.getString(2), users, delivery_status);
+		    	listOrders.add(orders);
+		    }
+		      
+		    
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return listOrders;
 	}
 
 	
@@ -121,11 +174,43 @@ public class OrdersDAOImpl implements OrdersDAO {
 	
 	
 	/**
-	 *  order_code를 받아 해당되는 주문 상세를 조회한다.
+	 *  user_id를 받아 해당되는 주문 상세를 조회한다.
 	 * ppt 35p 주문상세보기
 	 * */
-	public List<OrderLineDTO> selectOrderLine(int order_code) throws SQLException{
-		return null;
+	public List<MenuDTO> selectOrderLine(String user_id) throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		BascketDTO bascket = null;
+		
+		MenuDTO menuDTO = null;
+		List<MenuDTO> listMenu = new ArrayList<MenuDTO>();
+		
+		try {
+			con = DbUtil.getConnection();
+			ps= con.prepareStatement("SELECT M.MENU_NAME, B.BASKET_QUANTITY, M.MENU_PRICE, SUM(M.MENU_PRICE*B.BASKET_QUANTITY)\r\n"
+					+ "FROM BASCKET B JOIN MENU M \r\n"
+					+ "ON B.MENU_CODE = M.MENU_CODE\r\n"
+					+ "GROUP BY  M.MENU_NAME, B.BASKET_QUANTITY, B.USER_ID, M.MENU_PRICE\r\n"
+					+ "HAVING B.USER_ID = ?");
+			
+			ps.setString(1, user_id);
+		    rs = ps.executeQuery(); 
+		    
+		    while(rs.next()) {
+		    	
+		    	bascket = new BascketDTO(rs.getInt(2));
+		    	menuDTO = new MenuDTO(rs.getString(1), bascket, rs.getInt(3), rs.getInt(4));
+		    	listMenu.add(menuDTO);
+		    }
+		      
+		    
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return listMenu;
+
 	}
 	
 	
@@ -189,12 +274,26 @@ public class OrdersDAOImpl implements OrdersDAO {
 	public static void main(String [] args) {
 		try {
 			OrdersDAOImpl orderDAO = new OrdersDAOImpl();
-			//orderDAO.orderInsert("testid",3, 50000,3);
+			//orderDAO.orderInsert("testid",3, 990000,1);
+			
+		
 			//orderDAO.approveOrder(2, 20, 12);
 			//orderDAO.cancelOrder(1);
-			int i = orderDAO.totalPriceSelect("testid");
-			System.out.println("실행완료" + i);
-		} catch (SQLException e) {
+			//int i = orderDAO.totalPriceSelect("testid");
+			/*
+			List<MenuDTO> l = orderDAO.selectOrderLine("testid");
+			for (MenuDTO list : l) {
+				System.out.println(list.getMenu_name() + "  " + list.getBascket().getBasket_quantity() + "   " + list.getMenu_price() + "   " + list.getTotal_price() );
+			}
+			*/
+			/*
+			List<OrdersDTO> ordersList = orderDAO.selectOrderList(2);
+			for (OrdersDTO o: ordersList) {
+				System.out.println(o.getOrder_code() + "  " + o.getUser_id() + "  " + o.getUsers().getUsers_phone() + "  " + o.getUsers().getUsers_addr() + "  " + o.getDelivery_status().getDelivery_status());
+			}
+			*/
+			System.out.println("성공");
+			} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

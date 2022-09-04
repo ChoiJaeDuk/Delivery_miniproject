@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Properties;
 
 import delivery.mvc.dto.BascketDTO;
-import delivery.mvc.util.DBUtil;
+import util.DbUtil;
 
 public class BascketDAOImpl implements BascketDAO {
-	private Properties proFile = DBUtil.getProFile();
+	private Properties proFile = DbUtil.getProFile();
 	
 	@Override
 	public List<BascketDTO> bascketSelectAll(String users_id) throws SQLException {
@@ -29,7 +29,7 @@ public class BascketDAOImpl implements BascketDAO {
 				*/
 		String sql_bascket = "Select * from bascket where user_id=?";
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql_bascket);
 			ps.setString(1, users_id);
 			rs = ps.executeQuery();
@@ -42,11 +42,22 @@ public class BascketDAOImpl implements BascketDAO {
 						rs.getString(5)));
 			}
 		} finally {
-			DBUtil.dbClose(con, ps, rs);
+			DbUtil.dbClose(con, ps, rs);
 		}
 		return list;
 	}
-
+	public static void main(String [] args) {
+		BascketDAO b = new BascketDAOImpl();
+		try {
+			List<BascketDTO> list = b.bascketSelectAll("testid");
+			for(BascketDTO ba : list) {
+				System.out.println(ba.getUser_id());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	@Override
 	public int bascketInsert(BascketDTO bascket) throws SQLException {
 		Connection con = null;
@@ -54,14 +65,14 @@ public class BascketDAOImpl implements BascketDAO {
 		String sql = "insert into bascket values(bascket_code_seq.nextval, ?, ?, ?, sysdate)";
 		int result = 0;
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, bascket.getUser_id());
 			ps.setInt(2, bascket.getMenu_code());
 			ps.setInt(3, bascket.getBasket_quantity());
 			result = ps.executeUpdate();
 		} finally {
-			DBUtil.dbClose(con, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}
@@ -73,14 +84,14 @@ public class BascketDAOImpl implements BascketDAO {
 		String sql = "update bascket set basket_quantity = ? where menu_code = ? and user_id =?";
 		int result = 0;
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, num);
 			ps.setInt(2, bascket.getMenu_code());
 			ps.setString(3, bascket.getUser_id());
 			result = ps.executeUpdate();
 		} finally {
-			DBUtil.dbClose(con, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}
@@ -92,13 +103,13 @@ public class BascketDAOImpl implements BascketDAO {
 		String sql_delete = "delete from bascket where menu_code = ? and user_id =?";
 		int result = 0;
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql_delete);
 			ps.setInt(1, menu_code);
 			ps.setString(2, users_id);
 			result = ps.executeUpdate();
 		} finally {
-			DBUtil.dbClose(con, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}
@@ -113,12 +124,12 @@ public class BascketDAOImpl implements BascketDAO {
 		String sql_delete = "delete from bascket where user_id =?";
 		int result = 0;
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql_delete);
 			ps.setString(1, users_id);
 			result = ps.executeUpdate();
 		} finally {
-			DBUtil.dbClose(con, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}

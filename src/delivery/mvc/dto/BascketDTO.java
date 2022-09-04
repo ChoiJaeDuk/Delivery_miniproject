@@ -16,6 +16,11 @@ public class BascketDTO {
 	private int sum_price;
 	
 	public BascketDTO() {}
+	
+	public BascketDTO(int basket_quantity) {
+		this.basket_quantity = basket_quantity;
+	}
+	
 	public BascketDTO(String user_id, int menu_code) {
 		this.user_id = user_id;
 		this.menu_code = menu_code;

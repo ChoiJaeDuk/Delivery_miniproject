@@ -7,10 +7,17 @@ public class Delivery_StatusDTO {
 	 * 2 : 완료
 	 * 3 : 취소
 	 */
-	private int delivery_status;
+	private String delivery_status;
 	
 	public Delivery_StatusDTO() { }
-	public Delivery_StatusDTO(int delivery_code, int delivery_status) {
+	
+	
+	public Delivery_StatusDTO(String delivery_status) {
+		this.delivery_status = delivery_status;
+	}
+
+
+	public Delivery_StatusDTO(int delivery_code, String delivery_status) {
 		super();
 		this.delivery_code = delivery_code;
 		this.delivery_status = delivery_status;
@@ -21,10 +28,10 @@ public class Delivery_StatusDTO {
 	public void setDelivery_code(int delivery_code) {
 		this.delivery_code = delivery_code;
 	}
-	public int getDelivery_status() {
+	public String getDelivery_status() {
 		return delivery_status;
 	}
-	public void setDelivery_status(int delivery_status) {
+	public void setDelivery_status(String delivery_status) {
 		this.delivery_status = delivery_status;
 	}
 	@Override

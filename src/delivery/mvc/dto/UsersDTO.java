@@ -13,6 +13,21 @@ public class UsersDTO {
 	
 	
 	public UsersDTO() { }
+	
+	
+	
+
+
+
+	public UsersDTO(String users_phone,String users_addr) {
+		super();
+		this.users_addr = users_addr;
+		this.users_phone = users_phone;
+	}
+
+
+
+
 
 
 	public UsersDTO(String users_id, int job_code, String users_pwd, String users_name, String users_nick,

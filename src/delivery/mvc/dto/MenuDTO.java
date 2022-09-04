@@ -1,5 +1,7 @@
 package delivery.mvc.dto;
 
+import java.util.List;
+
 public class MenuDTO {
 	private int menu_code;
 	private String menu_name;
@@ -9,7 +11,18 @@ public class MenuDTO {
 	private int category_code;
 	private int store_code;
 	
+	private int total_price;
+	private BascketDTO bascket;
+	
+	
 	public MenuDTO() {}
+	
+	public MenuDTO(String name, BascketDTO bascket , int menu_price, int total_price) {
+		this.menu_name = name;
+		this.bascket = bascket;
+		this.menu_price = menu_price;
+		this.total_price = total_price;
+	}
 	public MenuDTO(int category_code, int store_code, String menu_name, int menu_price, int soldout_status) {
 		this.menu_name = menu_name;
 		this.menu_price = menu_price;
@@ -23,6 +36,8 @@ public class MenuDTO {
 		this.menu_code = menu_code;
 		this.menu_regist_date = menu_regist_date;
 	}
+	
+	
 
 	public int getMenu_code() {
 		return menu_code;
@@ -100,6 +115,24 @@ public class MenuDTO {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	public BascketDTO getBascket() {
+		return bascket;
+	}
+
+	public void setBascket(BascketDTO bascket) {
+		this.bascket = bascket;
+	}
+
+	public int getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
+	}
+	
+	
 	
 	
 	
