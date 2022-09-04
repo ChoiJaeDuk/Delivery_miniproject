@@ -1,6 +1,7 @@
 package delivery.mvc.dao.users;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.UsersDTO;
@@ -21,32 +22,50 @@ public interface UsersDAO {
 	/**
 	 * 회원가입
 	 */
-	UsersDTO join() throws SQLException;
+	int join(UsersDTO usersDTO) throws SQLException;
 	
 	
 	/**
 	 * 아이디 찾기
 	 */
-	UsersDTO searchId(String users_id, String users_jumin) throws SQLException;
+	String searchId(String users_id, String users_jumin) throws SQLException;
 	
 	
 	/**
-	 * 비밀번호 찾기
+	 * 비밀번호 찾기(새로운 비밀번호 설정)
 	 */
-	UsersDTO searchPwd(String users_id, String users_name, String users_jumin) throws SQLException;
+	int searchPwd(String users_id, String users_name, String users_jumin, String newpwd) throws SQLException;
 	
 	
 	
 	/**
-	 * 개인정보 수정
+	 * 개인정보 수정(닉네임)
 	 */
-	int usersUpdate(UsersDTO usersDTO) throws SQLException;
+	int nickUpdate(String oldNick, String newNick) throws SQLException;
+	
+	/**
+	 * 개인정보 수정(주소)
+	 */
+	int addrUpdate(String oldAddr, String newAddr) throws SQLException;
+	
+	/**
+	 * 개인정보 수정(폰번호)
+	 */
+	int phoneUpdate(String oldPhone, String newPhone) throws SQLException;
+	
+	/**
+	 * 개인정보 수정(비번)
+	 */
+	int pwdUpdate(String oldPwd, String newPwd) throws SQLException;
+	
+	
+	
 	
 	
 	/**
 	 * 배송시간 조회
 	 */
-	OrdersDTO selectDelivery_time(String deliveryTime) throws SQLException;
+	List<OrdersDTO> selectDelivery_time(int order_code) throws SQLException;
 	
 	
 	/**

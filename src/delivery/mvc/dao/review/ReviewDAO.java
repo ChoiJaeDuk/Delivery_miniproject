@@ -16,7 +16,7 @@ public interface ReviewDAO {
 	/**
 	 * 후기 목록조회
 	 */
-	List<ReviewDTO> reviewSelectAll() throws SQLException;
+	List<ReviewDTO> reviewSelectAll(int stores_code) throws SQLException;
 	
 	
 	/**
