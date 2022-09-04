@@ -1,4 +1,4 @@
-package delivery.mvc.util;
+package delivery.mvc.utill;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -20,6 +20,7 @@ public class DbUtil {
 			proFile.load(new FileInputStream("resources/db.properties"));
 			//proFile.load(new FileInputStream("board.properties"));
 			
+			
 			Class.forName(proFile.getProperty("driverName"));
 
 		} catch (Exception e) {
@@ -39,6 +40,17 @@ public class DbUtil {
 				proFile.getProperty("userPass"));
 	}
 	
+	public static void close(Connection con, Statement st) {
+		try {
+			
+			if(st != null) st.close();
+			if(con != null) con.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public static void close(Connection con, Statement st, ResultSet rs) {
 		try {
@@ -51,14 +63,14 @@ public class DbUtil {
 		}
 	}
 	
+	
 	public static void main (String[] args) {
-	      try {
-	         System.out.println("******메인 시작**********");
-	         Connection con = DbUtil.getConnection();
-	         System.out.println("con = "+ con);
-	      }catch(Exception e) {
-	         e.printStackTrace();
-	      }
-	   }
-
+		try {
+			System.out.println("******메인 시작**********");
+			Connection con = DbUtil.getConnection();
+			System.out.println("con = "+ con);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
