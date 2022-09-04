@@ -3,7 +3,7 @@ package delivery.mvc.dao.menu;
 import java.sql.SQLException;
 import java.util.List;
 
-import delivery.mvc.dto.BascketDTO;
+import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.MenuDTO;
 
 /**

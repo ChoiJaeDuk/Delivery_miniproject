@@ -12,12 +12,12 @@ public class MenuDTO {
 	private int store_code;
 	
 	private int total_price;
-	private BascketDTO bascket;
+	private BasketDTO bascket;
 	
 	
 	public MenuDTO() {}
 	
-	public MenuDTO(String name, BascketDTO bascket , int menu_price, int total_price) {
+	public MenuDTO(String name, BasketDTO bascket , int menu_price, int total_price) {
 		this.menu_name = name;
 		this.bascket = bascket;
 		this.menu_price = menu_price;
@@ -116,11 +116,11 @@ public class MenuDTO {
 		return builder.toString();
 	}
 
-	public BascketDTO getBascket() {
+	public BasketDTO getBascket() {
 		return bascket;
 	}
 
-	public void setBascket(BascketDTO bascket) {
+	public void setBascket(BasketDTO bascket) {
 		this.bascket = bascket;
 	}
 

@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import delivery.mvc.dao.bascket.BascketDAO;
-import delivery.mvc.dao.bascket.BascketDAOImpl;
-import delivery.mvc.dto.BascketDTO;
+import delivery.mvc.dao.basket.BasketDAO;
+import delivery.mvc.dao.basket.BasketDAOImpl;
+import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.Delivery_StatusDTO;
 import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
@@ -17,8 +17,8 @@ import delivery.mvc.dto.UsersDTO;
 import util.DbUtil;
 
 public class OrdersDAOImpl implements OrdersDAO {
-	BascketDAO bascketDao = new BascketDAOImpl();
-	List<BascketDTO> bascketlist = new ArrayList<BascketDTO>(); 
+	BasketDAO basketDao = new BasketDAOImpl();
+	List<BasketDTO> bascketlist = new ArrayList<BasketDTO>(); 
 	List<OrdersDTO> ordersList = new ArrayList<OrdersDTO>();
 	/**
 	 * Orders 값 삽입한다 (데이터값 삽입하는 것이기 때문에 리턴값 없음!)
@@ -80,8 +80,8 @@ public class OrdersDAOImpl implements OrdersDAO {
 		 try {
 			 ps = con.prepareStatement(sql);
 		//	 for( OrderLineDTO orderline : orders.getOrderLineList()) {
-				 bascketlist = bascketDao.bascketSelectAll(orders.getUser_id());
-				 for (BascketDTO bascket : bascketlist) {
+				 bascketlist = basketDao.basketSelectAll(orders.getUser_id());
+				 for (BasketDTO bascket : bascketlist) {
 						
 					 ps.setInt(1, bascket.getMenu_code());
 					 ps.setInt(2, bascket.getBasket_quantity());
@@ -181,7 +181,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		
-		BascketDTO bascket = null;
+		BasketDTO bascket = null;
 		
 		MenuDTO menuDTO = null;
 		List<MenuDTO> listMenu = new ArrayList<MenuDTO>();
@@ -199,7 +199,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 		    
 		    while(rs.next()) {
 		    	
-		    	bascket = new BascketDTO(rs.getInt(2));
+		    	bascket = new BasketDTO(rs.getInt(2));
 		    	menuDTO = new MenuDTO(rs.getString(1), bascket, rs.getInt(3), rs.getInt(4));
 		    	listMenu.add(menuDTO);
 		    }

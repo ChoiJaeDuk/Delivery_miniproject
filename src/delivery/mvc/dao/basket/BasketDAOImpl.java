@@ -1,4 +1,4 @@
-package delivery.mvc.dao.bascket;
+package delivery.mvc.dao.basket;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,18 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import delivery.mvc.dto.BascketDTO;
+import delivery.mvc.dto.BasketDTO;
 import util.DbUtil;
 
-public class BascketDAOImpl implements BascketDAO {
+public class BasketDAOImpl implements BasketDAO {
 	private Properties proFile = DbUtil.getProFile();
 	
 	@Override
-	public List<BascketDTO> bascketSelectAll(String users_id) throws SQLException {
+	public List<BasketDTO> basketSelectAll(String users_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<BascketDTO> list = new ArrayList<BascketDTO>();
+		List<BasketDTO> list = new ArrayList<BasketDTO>();
 		/*
 		String sql_bascket = "SELECT B.MENU_CODE, S.STORE_NAME, M.MENU_NAME, B.BASKET_QUANTITY, SUM(M.MENU_PRICE*B.BASKET_QUANTITY), s.Store_code\r\n"
 				+ "FROM BASCKET B JOIN MENU M ON B.MENU_CODE = M.MENU_CODE\r\n"
@@ -34,7 +34,7 @@ public class BascketDAOImpl implements BascketDAO {
 			ps.setString(1, users_id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				list.add(new BascketDTO(
+				list.add(new BasketDTO(
 						rs.getInt(1),
 						rs.getString(2),
 						rs.getInt(3),
@@ -47,10 +47,10 @@ public class BascketDAOImpl implements BascketDAO {
 		return list;
 	}
 	public static void main(String [] args) {
-		BascketDAO b = new BascketDAOImpl();
+		BasketDAO b = new BasketDAOImpl();
 		try {
-			List<BascketDTO> list = b.bascketSelectAll("testid");
-			for(BascketDTO ba : list) {
+			List<BasketDTO> list = b.basketSelectAll("testid");
+			for(BasketDTO ba : list) {
 				System.out.println(ba.getUser_id());
 			}
 		} catch (SQLException e) {
@@ -59,7 +59,7 @@ public class BascketDAOImpl implements BascketDAO {
 		
 	}
 	@Override
-	public int bascketInsert(BascketDTO bascket) throws SQLException {
+	public int basketInsert(BasketDTO bascket) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "insert into bascket values(bascket_code_seq.nextval, ?, ?, ?, sysdate)";
@@ -78,7 +78,7 @@ public class BascketDAOImpl implements BascketDAO {
 	}
 
 	@Override
-	public int bascketUpdate(BascketDTO bascket, int num) throws SQLException {
+	public int basketUpdate(BasketDTO bascket, int num) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "update bascket set basket_quantity = ? where menu_code = ? and user_id =?";
@@ -97,7 +97,7 @@ public class BascketDAOImpl implements BascketDAO {
 	}
 	
 	@Override
-	public int  bascketDelete(int menu_code, String users_id) throws SQLException {
+	public int  basketDelete(int menu_code, String users_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql_delete = "delete from bascket where menu_code = ? and user_id =?";
@@ -118,7 +118,7 @@ public class BascketDAOImpl implements BascketDAO {
 	 * 장바구니 결제하기
 	 */
 	@Override
-	public int bascketDelete(String users_id) throws SQLException {
+	public int basketDelete(String users_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql_delete = "delete from bascket where user_id =?";

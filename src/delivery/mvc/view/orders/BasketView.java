@@ -3,7 +3,7 @@ package delivery.mvc.view.orders;
 import java.util.Scanner;
 import delivery.mvc.view.actor.UsersView;
 
-public class BascketView {
+public class BasketView {
 	static Scanner sc = new Scanner(System.in);
 	/**
 	 * 장바구니 조회

@@ -23,7 +23,7 @@ public class UsersView {
 			case 1:
 				OrdersView.deliveryMenu();// 배달
 			case 2:
-				BascketView.bascket();// 장바구니 조회
+				BasketView.bascket();// 장바구니 조회
 			case 3:
 				mypageView.mypage();// 마이페이지
 			case 4:

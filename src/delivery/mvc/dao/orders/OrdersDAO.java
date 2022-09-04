@@ -5,12 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import delivery.mvc.dto.BascketDTO;
+import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
 
 public interface OrdersDAO {
-	List<BascketDTO> bascketDTO = new ArrayList<BascketDTO>(); 
+	List<BasketDTO> bascketDTO = new ArrayList<BasketDTO>(); 
 	List<OrdersDTO> ordersList = new ArrayList<OrdersDTO>();
 	
 	/**

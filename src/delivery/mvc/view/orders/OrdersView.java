@@ -371,7 +371,7 @@ public class OrdersView {
 				menu();
 				break;
 			case 2:
-				BascketView.bascket();
+				BasketView.bascket();
 				break;
 			case 3:
 				stores();

@@ -2,7 +2,7 @@ package delivery.mvc.dto;
 /**
  * 장바구니 객체화
  */
-public class BascketDTO {
+public class BasketDTO {
 	//필드
 	private int basket_code;
 	private String user_id;
@@ -15,27 +15,27 @@ public class BascketDTO {
 	private String menu_name;
 	private int sum_price;
 	
-	public BascketDTO() {}
+	public BasketDTO() {}
 	
-	public BascketDTO(int basket_quantity) {
+	public BasketDTO(int basket_quantity) {
 		this.basket_quantity = basket_quantity;
 	}
 	
-	public BascketDTO(String user_id, int menu_code) {
+	public BasketDTO(String user_id, int menu_code) {
 		this.user_id = user_id;
 		this.menu_code = menu_code;
 	}
-	public BascketDTO(String user_id, int menu_code, int basket_quantity) {
+	public BasketDTO(String user_id, int menu_code, int basket_quantity) {
 		this(user_id, menu_code);
 		this.basket_quantity = basket_quantity;
 	}
-	public BascketDTO(int basket_code, String user_id, int menu_code, int basket_quantity, String basket_date) {
+	public BasketDTO(int basket_code, String user_id, int menu_code, int basket_quantity, String basket_date) {
 		this(user_id, menu_code, basket_quantity);
 		this.basket_code = basket_code;
 		this.basket_date = basket_date;
 	}
 	
-	public BascketDTO(String user_id, int menu_code, int basket_quantity, String store_name, String menu_name, int sum_price, int store_code) {
+	public BasketDTO(String user_id, int menu_code, int basket_quantity, String store_name, String menu_name, int sum_price, int store_code) {
 		this.user_id = user_id;
 		this.menu_code = menu_code;
 		this.basket_quantity = basket_quantity;
