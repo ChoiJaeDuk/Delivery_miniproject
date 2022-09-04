@@ -49,7 +49,7 @@ public class StartView {
 			//int result = a.menuDelete(8);
 			//if(result==0) throw new SQLException("삭제 실패");
 			//else System.out.println("삭제 성공");
-			s.bascketDelete(list);
+			//s.bascketDelete(list);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

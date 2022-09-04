@@ -22,7 +22,12 @@ public interface BascketService {
 	public int bascketUpdate(BascketDTO bascket, int num) throws SQLException;
 	
 	/**
-	 * 장바구니 삭제(결제)하기
+	 * 장바구니 삭제하기
 	 */
-	public int bascketDelete(List<BascketDTO> list) throws SQLException;
+	int bascketDelete(int menu_code, String user_id) throws SQLException;
+	
+	/**
+	 * 장바구니 결제하기
+	 */
+	int bascketDelete(String users_id) throws SQLException;
 }

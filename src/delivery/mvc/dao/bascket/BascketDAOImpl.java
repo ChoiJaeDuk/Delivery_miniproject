@@ -20,11 +20,14 @@ public class BascketDAOImpl implements BascketDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<BascketDTO> list = new ArrayList<BascketDTO>();
+		/*
 		String sql_bascket = "SELECT B.MENU_CODE, S.STORE_NAME, M.MENU_NAME, B.BASKET_QUANTITY, SUM(M.MENU_PRICE*B.BASKET_QUANTITY), s.Store_code\r\n"
 				+ "FROM BASCKET B JOIN MENU M ON B.MENU_CODE = M.MENU_CODE\r\n"
 				+ "JOIN STORES S ON S.STORE_CODE = M.STORE_CODE\r\n"
 				+ "GROUP BY B.MENU_CODE, S.STORE_NAME, M.MENU_NAME, B.BASKET_QUANTITY, B.USER_ID, s.store_code\r\n"
 				+ "HAVING B.USER_ID = ?";
+				*/
+		String sql_bascket = "Select * from bascket where user_id=?";
 		try {
 			con = DBUtil.getConnection();
 			ps = con.prepareStatement(sql_bascket);
@@ -32,13 +35,11 @@ public class BascketDAOImpl implements BascketDAO {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				list.add(new BascketDTO(
-						users_id,
 						rs.getInt(1),
-						rs.getInt(4),
 						rs.getString(2),
-						rs.getString(3),
-						rs.getInt(5),
-						rs.getInt(6)));
+						rs.getInt(3),
+						rs.getInt(4),
+						rs.getString(5)));
 			}
 		} finally {
 			DBUtil.dbClose(con, ps, rs);
@@ -83,7 +84,46 @@ public class BascketDAOImpl implements BascketDAO {
 		}
 		return result;
 	}
+	
+	@Override
+	public int  bascketDelete(int menu_code, String users_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql_delete = "delete from bascket where menu_code = ? and user_id =?";
+		int result = 0;
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql_delete);
+			ps.setInt(1, menu_code);
+			ps.setString(2, users_id);
+			result = ps.executeUpdate();
+		} finally {
+			DBUtil.dbClose(con, ps);
+		}
+		return result;
+	}
+	
+	/**
+	 * 장바구니 결제하기
+	 */
+	@Override
+	public int bascketDelete(String users_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql_delete = "delete from bascket where user_id =?";
+		int result = 0;
+		try {
+			con = DBUtil.getConnection();
+			ps = con.prepareStatement(sql_delete);
+			ps.setString(1, users_id);
+			result = ps.executeUpdate();
+		} finally {
+			DBUtil.dbClose(con, ps);
+		}
+		return result;
+	}
 
+	/*
 	@Override
 	public int bascketDelete(List<BascketDTO> list) throws SQLException {
 		Connection con = null;
@@ -132,4 +172,5 @@ public class BascketDAOImpl implements BascketDAO {
 		}
 		return result;
 	}
+	*/
 }

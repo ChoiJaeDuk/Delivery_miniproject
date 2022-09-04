@@ -9,7 +9,7 @@ import delivery.mvc.dto.BascketDTO;
 
 public class BascketServiceImpl implements BascketService {
 	BascketDAO bascketDAO = new BascketDAOImpl();
-	
+
 	@Override
 	public List<BascketDTO> bascketSelectAll(String user_id) throws SQLException {
 		List<BascketDTO> list = bascketDAO.bascketSelectAll(user_id);
@@ -22,7 +22,7 @@ public class BascketServiceImpl implements BascketService {
 		int result = bascketDAO.bascketInsert(bascket);
 		if(result==0) throw new SQLException("등록이 실패되었습니다");
 		return result;
-		
+
 	}
 
 	@Override
@@ -33,8 +33,15 @@ public class BascketServiceImpl implements BascketService {
 	}
 
 	@Override
-	public int bascketDelete(List<BascketDTO> list) throws SQLException {
-		int result = bascketDAO.bascketDelete(list);
+	public int bascketDelete(int menu_code, String user_id) throws SQLException {
+		int result = bascketDAO.bascketDelete(menu_code, user_id);
+		if(result==0) throw new SQLException("삭제 실패되었습니다");
+		return result;
+	}
+
+	@Override
+	public int bascketDelete(String users_id) throws SQLException {
+		int result = bascketDAO.bascketDelete(users_id);
 		if(result==0) throw new SQLException("삭제 실패되었습니다");
 		return result;
 	}
