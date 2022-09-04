@@ -2,9 +2,9 @@ package delivery.mvc.view;
 
 import java.util.Scanner;
 
-import delivery.mvc.view.user.FindView;
-import delivery.mvc.view.user.LoginLogoutView;
-import delivery.mvc.view.user.RegisterView;
+import delivery.mvc.view.user_function.FindView;
+import delivery.mvc.view.user_function.LoginLogoutView;
+import delivery.mvc.view.user_function.RegisterView;
 
 
 public class MenuView {
@@ -18,19 +18,22 @@ public class MenuView {
 			int menu = Integer.parseInt(sc.nextLine());
 			
 			switch (menu) {
-			case 1:
-				LoginLogoutView.login(); //로그인
-				break;
-			case 2:
-				RegisterView.register();// 회원가입
-				break;
+				case 1:
+					LoginLogoutView.login(); //로그인
+					break;
+				case 2:
+					RegisterView.register();// 회원가입
+					break;
 				
-			case 3:
-				FindView.find();// 아이디*비밀번호 찾기
-				break;
+				case 3:
+					FindView.find();// 아이디*비밀번호 찾기
+					break;
 
-			case 4:
-				System.exit(0); //종료
+				case 4:
+					System.exit(0); //종료
+				
+				default:
+					   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 			}
 		}
 

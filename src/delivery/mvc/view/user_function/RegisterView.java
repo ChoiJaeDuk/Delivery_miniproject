@@ -1,4 +1,4 @@
-package delivery.mvc.view.user;
+package delivery.mvc.view.user_function;
 
 import java.util.Scanner;
 

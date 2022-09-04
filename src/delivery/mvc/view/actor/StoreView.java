@@ -6,8 +6,8 @@ import delivery.mvc.view.MenuView;
 import delivery.mvc.view.store_function.ManageOrderView;
 import delivery.mvc.view.store_function.ManageStoreView;
 import delivery.mvc.view.store_function.MypageForStoreView;
-import delivery.mvc.view.user.LoginLogoutView;
-import delivery.mvc.view.user.RegisterView;
+//import delivery.mvc.view.user.LoginLogoutView;
+//import delivery.mvc.view.user.RegisterView;
 
 
 

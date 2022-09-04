@@ -28,26 +28,16 @@ public class DbUtil {
 			e.printStackTrace();
 		}
 	}
-	 /* 로드
-	 */
-	static {
-		try {
-			//외부 properteis파일 로딩하기
-			proFile.load(new FileInputStream("resources/db.properties"));
-			//proFile.load(new FileInputStream("board.properties"));
-			
-			Class.forName(proFile.getProperty("driverName"));
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
+
 
 
 	
 	public static Properties getProFile() {
 		return proFile;
 	}
+
 
 	
 	
@@ -84,10 +74,14 @@ public class DbUtil {
 			if(con != null) con.close();
 	
 	}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		e.printStackTrace();
 	}
+	}
+
+
 	
+	
+
 	public static void main(String[] args) {
 		try {
 			System.out.println("***메인시작****");

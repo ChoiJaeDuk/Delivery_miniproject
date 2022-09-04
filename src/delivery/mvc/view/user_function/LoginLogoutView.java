@@ -1,11 +1,13 @@
-package delivery.mvc.view.user;
+package delivery.mvc.view.user_function;
 
 import java.util.Scanner;
+
+import delivery.mvc.view.MenuView;
 
 public class LoginLogoutView {
 	private static Scanner sc = new Scanner(System.in);
 	/**
-	 * 로그인 기능
+	 * 로그인 
 	 */
 	
 	public static void login() {
@@ -16,6 +18,18 @@ public class LoginLogoutView {
 		 String usersPwd = sc.nextLine();
 		 
 		 //컨트롤러 호출하기 
+		 
+		 
+	}
+	
+	/**
+	 * 로그아웃
+	 */
+	public static void logOut() {
+		
+		//컨트롤러 호출하기
+		MenuView.menu();
+		
 	}
 	
 	/***
