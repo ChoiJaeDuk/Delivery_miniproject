@@ -8,17 +8,20 @@ import delivery.mvc.dao.menu.MenuDAO;
 import delivery.mvc.dao.menu.MenuDAOImpl;
 import delivery.mvc.dto.BascketDTO;
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.service.bascket.BascketService;
+import delivery.mvc.service.bascket.BascketServiceImpl;
 
 public class StartView {
 
 	public static void main(String[] args) {
 		System.out.println("이야야");
-		//BascketDAOImpl a = new BascketDAOImpl();
-		MenuDAO a = new MenuDAOImpl();
+		BascketService s = new BascketServiceImpl();
+		BascketDAOImpl a = new BascketDAOImpl();
+		//MenuDAO a = new MenuDAOImpl();
 		
 		try {
-			//List<BascketDTO> list =a.bascketSelectAll("testid");
-			//System.out.println(list);
+			List<BascketDTO> list =a.bascketSelectAll("testid3");
+			System.out.println(list);
 			
 			//int result = a.bascketInsert(new BascketDTO("testid3", 4, 1));
 			//if(result==0) throw new SQLException("등록실패");
@@ -43,9 +46,10 @@ public class StartView {
 			//if(result==0) throw new SQLException("변경 실패");
 			//else System.out.println("변경 성공");
 			
-			int result = a.menuDelete(8);
-			if(result==0) throw new SQLException("삭제 실패");
-			else System.out.println("삭제 성공");
+			//int result = a.menuDelete(8);
+			//if(result==0) throw new SQLException("삭제 실패");
+			//else System.out.println("삭제 성공");
+			s.bascketDelete(list);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

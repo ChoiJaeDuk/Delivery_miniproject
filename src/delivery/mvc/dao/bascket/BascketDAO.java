@@ -26,5 +26,5 @@ public interface BascketDAO {
 	/**
 	 * 장바구니 삭제하기
 	 */
-	int bascketDelete(BascketDTO bascket) throws SQLException;	
+	int  bascketDelete(List<BascketDTO> list) throws SQLException;	
 }
