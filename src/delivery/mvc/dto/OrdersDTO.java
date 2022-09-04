@@ -4,18 +4,21 @@ public class OrdersDTO {
 	private int order_code;
 	private String user_id;
 	private String order_date;
+	private int store_code;
 	private int order_total_price;
 	private String order_approval_time;
 	private String order_delivery_time;
 	private int delivery_code;
 	
+	
 	public OrdersDTO() { }
-	public OrdersDTO(int order_code, String user_id, String order_date, int order_total_price,
+	public OrdersDTO(int order_code, String user_id, int store_code, String order_date ,int order_total_price,
 			String order_approval_time, String order_delivery_time, int delivery_code) {
 		super();
 		this.order_code = order_code;
 		this.user_id = user_id;
 		this.order_date = order_date;
+		this.store_code = store_code;
 		this.order_total_price = order_total_price;
 		this.order_approval_time = order_approval_time;
 		this.order_delivery_time = order_delivery_time;
@@ -63,6 +66,13 @@ public class OrdersDTO {
 	public void setDelivery_code(int delivery_code) {
 		this.delivery_code = delivery_code;
 	}
+	
+	public int getStore_code() {
+		return store_code;
+	}
+	public void setStore_code(int store_code) {
+		this.store_code = store_code;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -72,6 +82,8 @@ public class OrdersDTO {
 		builder.append(user_id);
 		builder.append(", order_date=");
 		builder.append(order_date);
+		builder.append(", store_code=");
+		builder.append(store_code);
 		builder.append(", order_total_price=");
 		builder.append(order_total_price);
 		builder.append(", order_approval_time=");
@@ -83,6 +95,7 @@ public class OrdersDTO {
 		builder.append("]");
 		return builder.toString();
 	}
+	
 	
 	
 	

@@ -9,16 +9,19 @@ public class MenuDTO {
 	private int category_code;
 	private int store_code;
 	
-	public MenuDTO() { }
-	public MenuDTO(int menu_code, String menu_name, int menu_price, int soldout_status, String menu_regist_date,
-			int category_code, int store_code) {
-		this.menu_code = menu_code;
+	public MenuDTO() {}
+	public MenuDTO(int category_code, int store_code, String menu_name, int menu_price, int soldout_status) {
 		this.menu_name = menu_name;
 		this.menu_price = menu_price;
 		this.soldout_status = soldout_status;
-		this.menu_regist_date = menu_regist_date;
 		this.category_code = category_code;
 		this.store_code = store_code;
+	}
+	public MenuDTO(int menu_code, String menu_name, int menu_price, int soldout_status, String menu_regist_date,
+			int category_code, int store_code) {
+		this(category_code, store_code, menu_name, menu_price, soldout_status);
+		this.menu_code = menu_code;
+		this.menu_regist_date = menu_regist_date;
 	}
 
 	public int getMenu_code() {

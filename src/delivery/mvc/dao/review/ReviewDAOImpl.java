@@ -66,7 +66,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			}
 			
 		}finally {
-			DbUtil.close(con, ps, rs);
+			DbUtil.dbClose(con, ps, rs);
 		}		
 		
 		return list;

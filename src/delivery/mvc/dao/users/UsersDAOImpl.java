@@ -40,7 +40,7 @@ public class UsersDAOImpl implements UsersDAO {
 			}
 			
 		} finally {
-			DbUtil.close(con, ps, rs);
+			DbUtil.dbClose(con, ps, rs);
 		}
 
 		
@@ -111,7 +111,7 @@ public class UsersDAOImpl implements UsersDAO {
 			}
 			
 		} finally {
-			DbUtil.close(con, ps, rs);
+			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		
@@ -284,7 +284,7 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			
 		} finally {
-			DbUtil.close(con, ps, rs);
+			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		

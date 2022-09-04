@@ -41,7 +41,7 @@ public class DbUtil {
 	}
 	
 
-	public static void close(Connection con, Statement st, ResultSet rs) {
+	public static void dbClose(Connection con, Statement st, ResultSet rs) {
 		try {
 			if(rs != null) rs.close();
 			if(st != null) st.close();
