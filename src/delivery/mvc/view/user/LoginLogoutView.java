@@ -17,4 +17,12 @@ public class LoginLogoutView {
 		 
 		 //컨트롤러 호출하기 
 	}
+	
+	/***
+	 * 로그아웃
+	 */
+	public static void logout() {
+		 //세션을 종료하는 메소드를 호출
+	
+	}
 }
