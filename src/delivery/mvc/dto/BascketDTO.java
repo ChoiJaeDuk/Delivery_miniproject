@@ -1,20 +1,27 @@
 package delivery.mvc.dto;
-
+/**
+ * 장바구니 객체화
+ */
 public class BascketDTO {
+	//필드
 	private int basket_code;
 	private String user_id;
 	private int menu_code;
 	private int basket_quantity;
 	private String basket_date;
 	
-	public BascketDTO() { }
-	
-	public BascketDTO(int basket_code, String user_id, int menu_code, int basket_quantity, String basket_date) {
-		super();
-		this.basket_code = basket_code;
+	public BascketDTO() {}
+	public BascketDTO(String user_id, int menu_code) {
 		this.user_id = user_id;
 		this.menu_code = menu_code;
+	}
+	public BascketDTO(String user_id, int menu_code, int basket_quantity) {
+		this(user_id, menu_code);
 		this.basket_quantity = basket_quantity;
+	}
+	public BascketDTO(int basket_code, String user_id, int menu_code, int basket_quantity, String basket_date) {
+		this(user_id, menu_code, basket_quantity);
+		this.basket_code = basket_code;
 		this.basket_date = basket_date;
 	}
 

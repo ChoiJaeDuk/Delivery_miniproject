@@ -1,5 +1,7 @@
 package delivery.mvc.dao.bascket;
-
+/**
+ * 장바구니 정보를 데이터베이스에 저장 또는 읽어오는 클래스
+ */
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,5 +26,5 @@ public interface BascketDAO {
 	/**
 	 * 장바구니 삭제하기
 	 */
-	int bascketDelete(String menu_code) throws SQLException;	
+	int bascketDelete(BascketDTO bascket) throws SQLException;	
 }
