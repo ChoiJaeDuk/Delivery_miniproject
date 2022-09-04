@@ -18,7 +18,7 @@ public class DbUtil {
 	static {
 		try {
 			//외부 properteis파일 로딩하기
-			proFile.load(new FileInputStream("resources/dbInfo.properties"));
+			proFile.load(new FileInputStream("resources/db.properties"));
 			//proFile.load(new FileInputStream("board.properties"));
 			
 			Class.forName(proFile.getProperty("driverName"));
@@ -41,7 +41,7 @@ public class DbUtil {
 	}
 	
 
-	public static void close(Connection con, Statement st, ResultSet rs) {
+	public static void dbClose(Connection con, Statement st, ResultSet rs) {
 		try {
 			if(rs != null) rs.close();
 			if(st != null) st.close();

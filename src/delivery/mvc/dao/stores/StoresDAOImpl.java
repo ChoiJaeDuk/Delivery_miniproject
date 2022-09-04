@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delivery.mvc.dto.StoresDTO;
-import delivery.mvc.util.DbUtil;
+import util.DbUtil;
 
 public class StoresDAOImpl implements StoresDAO {
 
