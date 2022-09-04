@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/haewo/Downloads/ojdbc8-full/ojdbc8-full/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="C:/app/jieun/product/21c/dbhomeXE/jdbc/lib/ojdbc8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
