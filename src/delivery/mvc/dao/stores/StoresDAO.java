@@ -1,5 +1,6 @@
 package delivery.mvc.dao.stores;
 
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public interface StoresDAO {
 	   WHERE STORE_CODE = ?  AND STORE_REGIS_STATUS = '´ë±â' AND STORE_APPROVAL_DATE IS NULL;
 	 * */
 	int storeRegis(int no, int store_code) throws SQLException;
+}
 	
 
-	
-}
+
