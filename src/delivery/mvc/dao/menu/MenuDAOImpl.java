@@ -7,9 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import delivery.mvc.dto.BascketDTO;
 import delivery.mvc.dto.MenuDTO;
-import delivery.mvc.util.DBUtil;
+import util.DbUtil;
 
 public class MenuDAOImpl implements MenuDAO {
 
@@ -21,7 +20,7 @@ public class MenuDAOImpl implements MenuDAO {
 		List<MenuDTO> list = new ArrayList<MenuDTO>();
 		String sql = "select * from menu where store_code = ?";
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, store_code);
 			rs = ps.executeQuery();
@@ -36,7 +35,7 @@ public class MenuDAOImpl implements MenuDAO {
 						rs.getInt(3)));
 			}
 		} finally {
-			DBUtil.dbClose(con, ps, rs);
+			DbUtil.dbClose(con, ps, rs);
 		}
 		return list;
 	}
@@ -48,7 +47,7 @@ public class MenuDAOImpl implements MenuDAO {
 		String sql = "insert into menu values(menu_code_seq.nextval, ?, ?, ?, ?, ?, sysdate)";
 		int result = 0;
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, menu.getCategory_code());
 			ps.setInt(2, menu.getStore_code());
@@ -57,7 +56,7 @@ public class MenuDAOImpl implements MenuDAO {
 			ps.setInt(5, menu.getSoldout_status());
 			result = ps.executeUpdate();
 		} finally {
-			DBUtil.dbClose(con, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}
@@ -69,14 +68,14 @@ public class MenuDAOImpl implements MenuDAO {
 		String sql = "update menu set menu_price=?, soldout_status=? where menu_code=?";
 		int result = 0;
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, price);
 			ps.setInt(2, status);
 			ps.setInt(3, menu_code);
 			result = ps.executeUpdate();
 		} finally {
-			DBUtil.dbClose(con, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}
@@ -88,12 +87,12 @@ public class MenuDAOImpl implements MenuDAO {
 		String sql = "delete from menu where menu_code=?";
 		int result = 0;
 		try {
-			con = DBUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, menu_code);
 			result = ps.executeUpdate();
 		} finally {
-			DBUtil.dbClose(con, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}
