@@ -41,6 +41,7 @@ public interface StoresDAO {
 	 * 가게 등록하기
 	 * INSERT INTO STORES VALUES(STORE_CODE_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,DEFAULT,SYSDATE,DEFAULT,NULL);
 	 * */
+	//int storeStatus(StoresDTO storesDTO) throws SQLException;
 	int storeInsert(StoresDTO storesDTO) throws SQLException;
 	
 	/**
@@ -54,8 +55,7 @@ public interface StoresDAO {
 	 * 가게 오픈 설정
 	 * update stores set store_status = ? where user_id = ?
 	 * */
-	//int storeStatus(StoresDTO storesDTO) throws SQLException;
-	int storeStatus(int no, String user_id) throws SQLException;
+	int storeStatusUpdate(StoresDTO storesDTO) throws SQLException;
 	
 	/**
 	 * 가게신청 승인,거부
@@ -64,7 +64,20 @@ public interface StoresDAO {
 	 * UPDATE STORES SET STORE_REGIS_STATUS = '승인', STORE_APPROVAL_DATE = SYSDATE
 	   WHERE STORE_CODE = ?  AND STORE_REGIS_STATUS = '대기' AND STORE_APPROVAL_DATE IS NULL;
 	 * */
-	int storeRegis(int no, int store_code) throws SQLException;
+	int storeRegis(StoresDTO storesDTO) throws SQLException;
+
+	/**
+	 * 가게매출현황조회
+	 * SELECT MENU.MENU_CODE, MENU.MENU_NAME, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE)
+		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE
+		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE
+		GROUP BY MENU.MENU_CODE, MENU.MENU_NAME, ORDERS.STORE_CODE
+		HAVING ORDERS.STORE_CODE = ?;
+	 * 
+	 * */
+	
+	//List<StoresDTO> storesSales(int store_code) throws SQLException;
+
 }
 	
 
