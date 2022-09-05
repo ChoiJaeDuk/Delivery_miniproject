@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
-import delivery.mvc.dto.OrdersDTO;
+import delivery.mvc.dao.orderline.OrderLineDAO;
+import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.dto.OrderLineDTO;
+import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.dto.UsersDTO;
 import util.DbUtil;
 
@@ -49,7 +51,8 @@ public class UsersDAOImpl implements UsersDAO {
 
 	@Override //??????????????@@@@@@@@@@@@@@@@@@@@@
 	public void usersLogout() throws SQLException {
-		// TODO Auto-generated method stub
+	    UsersDTO user = null;
+	    System.out.println("로그아웃되었습니다.");
 
 	}
 
@@ -251,18 +254,21 @@ public class UsersDAOImpl implements UsersDAO {
 	
 
 	@Override
-	public List<OrdersDTO> selectDelivery_time(int order_code) throws SQLException {
+	public List<OrderLineDTO> selectDelivery_time(int order_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String result = null;
-		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
+		List<OrderLineDTO> listOL = new ArrayList<OrderLineDTO>();
 		
-		String sql = "SELECT O.ORDER_LINE_CODE ,M.MENU_NAME , O.ORDER_QUANTITY, M.MENU_PRICE "
+		StoresDTO store = null;
+		MenuDTO menu = null;
+		OrderLineDTO ol = null;
+		
+		String sql = "SELECT O.ORDER_LINE_CODE , S.STORE_NAME, M.MENU_NAME , O.ORDER_QUANTITY, M.MENU_PRICE "
 				+ "FROM ORDER_LINE O, MENU M, STORES S "
 				+ "WHERE O.MENU_CODE = M.MENU_CODE AND S.STORE_CODE = M.STORE_CODE "
-				+ "AND O.ORDER_CODE = ?";
-		
+				+ "AND O.ORDER_CODE = ?";		
 		
 		try {
 			con = DbUtil.getConnection();
@@ -272,23 +278,16 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			rs =ps.executeQuery();
 			while(rs.next()) {
-				HashMap hm = new HashMap();
-				hm.put("ORDER_LINE_CODE", rs.getString("ORDER_LINE_CODE"));
-				hm.put("MENU_NAME", rs.getString("MENU_NAME"));
-				hm.put("ORDER_QUANTITY", rs.getString("ORDER_QUANTITY"));
-				hm.put("MENU_PRICE", rs.getString("MENU_PRICE"));
-			//	list.add(hm);
-				
-				
-			}
-			
-			
+				store = new StoresDTO(rs.getString(2));
+				menu = new MenuDTO(rs.getString(3),rs.getInt(5));
+				ol = new OrderLineDTO(rs.getInt(1), rs.getInt(4), menu, store);
+				listOL.add(ol);								
+			}			
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
-		}
+		}		
 		
-		
-		return list;
+		return listOL;
 	}
 
 	@Override // 환불은 주문코드로하는 것이 맞을거 같습니다.
@@ -323,6 +322,14 @@ public class UsersDAOImpl implements UsersDAO {
 		try {
 			String id = user.searchId("테스트", "000000-0000000");
 			System.out.println(id);
+			
+/*			
+			List<OrderLineDTO> oll = user.selectDelivery_time(1);
+			for(OrderLineDTO list : oll) {
+				System.out.println(list.getOrder_line_code()+ "  " +  list.getStore().getStore_name() + "  " + list.getMenu().getMenu_name() + "  " + list.getOrder_quntity() + "  " + list.getMenu().getMenu_price() );
+			}
+*/			
+			System.out.println("끝");
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
