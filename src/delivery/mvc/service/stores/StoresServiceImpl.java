@@ -85,8 +85,8 @@ public class StoresServiceImpl implements StoresService {
 	}
 
 	@Override
-	public void storeStatusUpdate(StoresDTO storesDTO) throws SQLException {
-		int result = storeDAO.storeStatusUpdate(storesDTO);
+	public void storeStatusUpdate(int store_status, String user_id) throws SQLException {
+		int result = storeDAO.storeStatusUpdate(store_status, user_id);
 		if(result == 0)
 			throw new SQLException("가게오픈설정을 실패했습니다.");
 
@@ -117,6 +117,7 @@ public class StoresServiceImpl implements StoresService {
 			throw new SQLException(menu_code + "에 해당하는 매출정보가 없습니다.");
 	
 		return list;
+		
 	}
 
 }

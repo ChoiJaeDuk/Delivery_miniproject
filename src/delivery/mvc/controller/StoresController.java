@@ -15,8 +15,9 @@ public class StoresController {
 	public static void storesInfoSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesInfoSelectAll();
+			System.out.println(list);
 		}catch(SQLException e){
-			
+			System.out.println("¿À·ù");
 		}
 	}
 	
@@ -78,9 +79,9 @@ public class StoresController {
 		}
 	}
 	
-	public static void storeStatusUpdate(StoresDTO storesDTO){
+	public static void storeStatusUpdate(int store_status, String user_id){
 		try {
-			storesService.storeStatusUpdate(storesDTO);
+			storesService.storeStatusUpdate(store_status,user_id);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
