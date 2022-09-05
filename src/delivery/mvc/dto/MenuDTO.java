@@ -17,6 +17,10 @@ public class MenuDTO {
 	
 	public MenuDTO() {}
 	
+	public MenuDTO(int store_code) {
+		this.store_code = store_code;
+	}
+	
 	public MenuDTO(String name, BasketDTO basket , int menu_price, int total_price) {
 		this.menu_name = name;
 		this.basket = basket;

@@ -15,11 +15,33 @@ public class StoresDTO {
 	private String store_regis_date;
 	private String store_regis_status;
 	private String store_approval_date;
+
 	
-	private String menu_name;
+	private int review_count;	
+	private int avg_star_grade;
+	private int order_count;
+	
 	
 	public StoresDTO() { }
 	
+	
+	
+	
+
+	public StoresDTO(int store_code, String store_name, int store_delivery_fee, int review_count, int avg_star_grade,
+			int order_count) {
+		super();
+		this.store_code = store_code;
+		this.store_name = store_name;
+		this.store_delivery_fee = store_delivery_fee;
+		this.review_count = review_count;
+		this.avg_star_grade = avg_star_grade;
+		this.order_count = order_count;
+	}
+
+
+
+
 
 	public StoresDTO(int store_code, String user_id, String store_name, String store_addr, String store_phone,
 			String store_business_no, int category_code, String store_detail, int store_delivery_fee, int store_status,
@@ -154,15 +176,6 @@ public class StoresDTO {
 	}
 	
 
-	public String getMenu_name() {
-		return menu_name;
-	}
-
-
-	public void setMenu_name(String menu_name) {
-		this.menu_name = menu_name;
-	}
-
 
 	@Override
 	public String toString() {
@@ -196,7 +209,46 @@ public class StoresDTO {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
+
+
+	public int getReview_count() {
+		return review_count;
+	}
+
+
+
+	public void setReview_count(int review_count) {
+		this.review_count = review_count;
+	}
+
+
+
+	public int getAvg_star_grade() {
+		return avg_star_grade;
+	}
+
+
+
+	public void setAvg_star_grade(int avg_star_grade) {
+		this.avg_star_grade = avg_star_grade;
+	}
+
+
+
+	public int getOrder_count() {
+		return order_count;
+	}
+
+
+
+	public void setOrder_count(int order_count) {
+		this.order_count = order_count;
+	}
+
+
+
+
 	
 	
 	

@@ -1,9 +1,11 @@
 package delivery.mvc.dao.stores;
 
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.StoresDTO;
 
 public interface StoresDAO {
@@ -25,11 +27,17 @@ public interface StoresDAO {
 	List<StoresDTO> storeSelectById(String user_id) throws SQLException;
 	
 	/**
-	 * 메뉴이름에 해당하는 가게 검색
+	 * 리턴받은 store_code로 메뉴 조회
 	 * select * from stores where menu_name = %?%;
 	 * */
 	List<StoresDTO> storesSelectByMenu(String menu_name) throws SQLException;
 
+	
+	/**
+	 * 메뉴이름을 검색해 해당 store_code 리턴 
+	 * */
+	List<MenuDTO> storeCodeSelectByMenu(Connection con, String menu_name) throws SQLException;
+	
 	
 	/**
 	 * 카테고리에 해당하는 가게 검색
