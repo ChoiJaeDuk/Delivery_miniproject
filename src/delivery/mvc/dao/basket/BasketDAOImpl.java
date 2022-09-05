@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Properties;
 
 import delivery.mvc.dto.BasketDTO;
+import delivery.mvc.dto.OrdersDTO;
 import util.DbUtil;
 
 public class BasketDAOImpl implements BasketDAO {
@@ -118,18 +119,17 @@ public class BasketDAOImpl implements BasketDAO {
 	 * 장바구니 결제하기
 	 */
 	@Override
-	public int basketDelete(String user_id) throws SQLException {
-		Connection con = null;
+	public int basketDelete(Connection con, OrdersDTO orders) throws SQLException {
 		PreparedStatement ps = null;
 		String sql_delete = "delete from bascket where user_id =?";
 		int result = 0;
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql_delete);
-			ps.setString(1, user_id);
+			ps.setString(1, orders.getUser_id());
 			result = ps.executeUpdate();
 		} finally {
-			DbUtil.dbClose(con, ps);
+			DbUtil.dbClose(null, ps);
 		}
 		return result;
 	}

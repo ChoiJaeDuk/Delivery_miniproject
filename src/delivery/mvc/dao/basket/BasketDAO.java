@@ -1,4 +1,5 @@
 package delivery.mvc.dao.basket;
+import java.sql.Connection;
 /**
  * 장바구니 정보를 데이터베이스에 저장 또는 읽어오는 클래스
  */
@@ -6,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import delivery.mvc.dto.BasketDTO;
+import delivery.mvc.dto.OrdersDTO;
 
 public interface BasketDAO {
 	/**
@@ -31,5 +33,5 @@ public interface BasketDAO {
 	/**
 	 * 장바구니 결제하기
 	 */
-	int basketDelete(String users_id) throws SQLException;
+	int basketDelete(Connection con, OrdersDTO orders) throws SQLException;
 }

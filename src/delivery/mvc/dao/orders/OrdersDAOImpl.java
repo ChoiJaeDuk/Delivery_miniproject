@@ -57,6 +57,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 						throw new SQLException("주문할 수 없습니다...");
 					}
 				}
+				basketDao.basketDelete(con, orders);
 				con.commit();
 			}
 			
@@ -270,32 +271,34 @@ public class OrdersDAOImpl implements OrdersDAO {
 	
 	
 	//테스트합니다!!!!!
-//	public static void main(String [] args) {
-//		try {
-//			OrdersDAOImpl orderDAO = new OrdersDAOImpl();
-//			//orderDAO.orderInsert("testid",3, 990000,1);
+	public static void main(String [] args) {
+		try {
+			OrdersDAOImpl orderDAO = new OrdersDAOImpl();
+			orderDAO.orderInsert("testid",3, 990000,1);
+			
 //			
 //		
-//			//orderDAO.approveOrder(2, 20, 12);
+//			orderDAO.approveOrder(2, 20, 12);
 //			//orderDAO.cancelOrder(1);
 //			//int i = orderDAO.totalPriceSelect("testid");
-//			/*
-//			List<MenuDTO> l = orderDAO.selectOrderLine("testid");
-//			for (MenuDTO list : l) {
-//				System.out.println(list.getMenu_name() + "  " + list.getBascket().getBasket_quantity() + "   " + list.getMenu_price() + "   " + list.getTotal_price() );
-//			}
-//			*/
-//			/*
-//			List<OrdersDTO> ordersList = orderDAO.selectOrderList(2);
-//			for (OrdersDTO o: ordersList) {
-//				System.out.println(o.getOrder_code() + "  " + o.getUser_id() + "  " + o.getUsers().getUsers_phone() + "  " + o.getUsers().getUsers_addr() + "  " + o.getDelivery_status().getDelivery_status());
-//			}
-//			*/
-//			System.out.println("성공");
-//			} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+//			
+			/*
+			List<MenuDTO> l = orderDAO.selectOrderLine("testid");
+			for (MenuDTO list : l) {
+				System.out.println(list.getMenu_name() + "  " + list.getBascket().getBasket_quantity() + "   " + list.getMenu_price() + "   " + list.getTotal_price() );
+			}
+		*/
+			/*
+			List<OrdersDTO> ordersList = orderDAO.selectOrderList(2);
+			for (OrdersDTO o: ordersList) {
+				System.out.println(o.getOrder_code() + "  " + o.getUser_id() + "  " + o.getUsers().getUsers_phone() + "  " + o.getUsers().getUsers_addr() + "  " + o.getDelivery_status().getDelivery_status());
+			}
+			*/
+			System.out.println("성공");
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
