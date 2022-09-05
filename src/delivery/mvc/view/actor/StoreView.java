@@ -2,6 +2,7 @@ package delivery.mvc.view.actor;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.OrdersController;
 import delivery.mvc.view.MenuView;
 import delivery.mvc.view.store_function.ManageOrderView;
 import delivery.mvc.view.store_function.ManageStoreView;
@@ -16,7 +17,7 @@ public class StoreView {
 	
 	public static void main(String[] args) {
 		 StoreView.menu();
-		 System.out.println("-----------");
+		 
 	}
 	
 
@@ -29,13 +30,17 @@ public class StoreView {
 			
 			switch (menu) {
 			case 1:
-				//삼진님의 회원 메소드 호출//회원모드
+				UsersView.users();//삼진님의 회원 메소드 호출//회원모드
 				
 				
 			case 2:
 				StoreView.printMenuForStores();// 판매자모드 
 				//MenuView.printMenu();
-							
+				
+			default:
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				menu();
+				break;				
 			
 			}
 		}
@@ -72,13 +77,17 @@ public class StoreView {
 					
 				case 2 :
 					ManageOrderView.manageOrder();//주문관리
+					
 					return;
 				case 3 :
 					MypageForStoreView.mypageForStore();//마이페이지
 					return;
 				case 4 :
 					MenuView.menu();//로그아웃
-					
+				default:
+					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+					printMenuForStores();
+					break;	
 				}
 		}
 

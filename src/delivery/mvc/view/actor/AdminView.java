@@ -3,6 +3,7 @@ package delivery.mvc.view.actor;
 import java.util.Scanner;
 
 import delivery.mvc.view.admin_function.AdminControlView;
+import delivery.mvc.view.admin_function.ReviewControlView;
 import delivery.mvc.view.user_function.LoginLogoutView;
 
 public class AdminView {
@@ -27,6 +28,7 @@ public class AdminView {
 				AdminControlView.adminControl();
 				break;
 			case 2:
+				ReviewControlView.storeList();
 				break;
 			case 3:
 				LoginLogoutView.logOut();

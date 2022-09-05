@@ -1,0 +1,16 @@
+diff a/src/delivery/mvc/view/orders/StoreArrange.java b/src/delivery/mvc/view/orders/StoreArrange.java	(rejected hunks)
+@@ -2,8 +2,14 @@
+ 
+ import java.util.Scanner;
+ 
++
++
+ public class StoreArrange {
+ 	static Scanner sc = new Scanner(System.in);
++	private static int[] subFoodList;
++	//UserOrdersView uo = new UserOrdersView();
++	static int c= UserOrdersView.category;
++	
+ 	
+ 	/**
+ 	 * ���ķ��̾ƿ�

@@ -4,38 +4,40 @@ import java.util.Scanner;
 
 import delivery.mvc.view.actor.StoreView;
 
-
-////////////////////////////메솓,...메소드..어떡해용ㅁ...
-
 public class ManageStoreView {
 	private static Scanner sc= new Scanner(System.in);
 	
-	//public static void main(String[] args) {
-	//	ManageStoreView.manageStore();
-	//}
+	public static void main(String[] args) {
+		ManageStoreView.manageStore();
+	}
 	
 	public static void manageStore() {
 		while (true) {
 			ManageStoreView.printMenu();
-			int menu = Integer.parseInt(sc.nextLine());
+			int menuno = Integer.parseInt(sc.nextLine());
 			
-			switch (menu) {
+			switch (menuno) {
 			case 1:
 				ManageStoreView.storeStatus();//오픈 클로즈
-				return;
+				break;
 				
 			case 2:
 				ManageStoreView.manageMenu();//메뉴관리
-				return;
+				break;
 			case 3:
 				ManageStoreView.salesStatistics();//판매통계
-				return;
+				break;
 			case 4:
 				ManageStoreView.manageReview();// 후기관리
-				return;
+				break;
 			case 5:	
-				System.exit(0);//종료 
-				return;
+				StoreView.printMenuForStores();//종료 
+				break;
+				
+			default:
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				manageStore();
+				break;	
 			}
 		}
 	}
@@ -44,7 +46,7 @@ public class ManageStoreView {
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [가 게 관 리]                                      ");
 		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("1. open/close 상태 설정      2. 메뉴 관리     3. 판매통계    4. 후기관리    5. 종료");
+		System.out.println("1. open/close 상태 설정    2. 메뉴 관리     3. 판매통계    4. 후기관리    5. 뒤로가기");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
 	}
@@ -75,8 +77,14 @@ public class ManageStoreView {
 				storeStatus();
 				break;		
 			case 3:
-				printMenu();//뒤로가기
+				manageStore();//뒤로가기
 				break;
+				
+			default:
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				storeStatus();
+				break;	
+
 			}
 		}
 	}
@@ -112,20 +120,29 @@ public class ManageStoreView {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					insertMenu();//메뉴등록					
+					insertMenu();//메뉴등록	
+					manageMenu();
 					return;
 				case 2:
 					updateMenu();//메뉴수정
+					manageMenu();
 					return;
 				case 3:
 					deleteMenu();//메뉴삭제
+					manageMenu();
 					return;
 				case 4:
 					showMenu();//메뉴조회
+					manageMenu();
 					return;
 				case 5:
-					printMenu(); //뒤로가기
-					return;
+					manageStore(); //뒤로가기
+					break;
+					
+				default:
+					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+					manageMenu();
+					break;		
 				
 			}
 			
@@ -137,23 +154,42 @@ public class ManageStoreView {
 	 * 2-1 메뉴등록
 	 * */
 	public static void insertMenu() {
+		
 			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                               [ 양식 카테고리 목록 ]                             ");
+			System.out.println("                      ["+ "getCategoryCode" + " 카테고리 목록 ]                   ");
 			System.out.println("\n");
-			System.out.println("                 4. 피자          5.파스타            6.스테이크            ");
+			/*
+			if(getCategoryCode ==1) {
+				System.out.println("                 4. 피자          5.파스타            6.스테이크            ");
+				System.out.println("----------------------------------------------------------------------------------");
+			}else if(getCategoryCode==2) {
+				System.out.println("7.면             8.요리             9.밥             13.뒤로가기");
+				System.out.println("----------------------------------------------------------------\n");
+			}else if(getCategoryCode ==3) {
+				System.out.println("10.찌개           11.볶음          12.찜/탕          13.뒤로가기");
+				System.out.println("----------------------------------------------------------------\n");
+			}
+			*/
+			System.out.println("                     [ 양식 카테고리 목록 ]//판매자 신청때 입력한 값받아오기       ");
+			System.out.println("\n");
+			System.out.println("    4. 피자          5.파스타      6.스테이크          //위 값따라 설정            ");
 			System.out.println("----------------------------------------------------------------------------------");
+
 			
-			System.out.println("* * * 양식 카테고리 번호를 입력해주세요 >> ");
+			
+			System.out.println("* * *"+"getCategoryCode"+"  카테고리 번호를 입력해주세요 >> ");
 			String categoryNo = sc.nextLine();
+			
 			System.out.println("* * * 메뉴 이름을 입력해주세요 >> ");
 			String menuName = sc.nextLine();
 			System.out.println("* * * 메뉴 가격을 입력해주세요 >> ");
 			String menuPrice = sc.nextLine();
 			
-			//MenuDTO menu =  new MenuDTO();
+			//MenuDTO menu =  new MenuDTO(categoryNo,?,?);
 	    	//컨트롤러.insert(menu);
 		}
 		
+	
 	
 	
 	/**
@@ -209,11 +245,17 @@ public class ManageStoreView {
 			switch(menu) {
 				case 1:
 					salesDetail();//세부 매출 조회 
+					salesStatistics();
 					return;
 					
 				case 2:
-					printMenu(); //뒤로가기
+					//뒤로가기
 					return;
+					
+				default:
+					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+					salesStatistics();
+					break;	
 				
 			}
 			
@@ -246,21 +288,27 @@ public class ManageStoreView {
 			switch(menu) {
 				case 1:
 					insertReply();//댓글작성
-					reviewList();
+					manageReview();
 					return;
 					
 				case 2:
 					updateReply();//댓글수정
-					reviewList();
+					manageReview();
 					return;
 					
 				case 3:
 					deleteReply();//댓글삭제
+					manageReview();
 					return;
 					
 				case 4:
-					printMenu(); //뒤로가기
+					//뒤로가기
 					return;
+					
+				default:
+					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+					manageReview();
+					break;	
 				
 			}
 			
@@ -268,9 +316,7 @@ public class ManageStoreView {
 	}//메소드끝
 	
 	
-	/**
-	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~수정중~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	 
+	/**	 
 	  4-1 댓글작성
 	*/
 	public static void insertReply() {
@@ -306,7 +352,7 @@ public class ManageStoreView {
 	*/
 	public static void deleteReply() {
 		menuList();
-		System.out.println("* * * 삭제할 리뷰 코드를 입력해주세요 >> ");
+		System.out.println("* * * 삭제할 후기 코드를 입력해주세요 >> ");
 		String no = sc.nextLine();
 		
 		//컨트롤러.delete(no);
@@ -333,9 +379,9 @@ public class ManageStoreView {
 	public static void  reviewList() {
 	System.out.println("----------------------------------------------------------------------------------");
 	System.out.println("                                [   후   기   ]                                   ");
-	System.out.println("         닉네임      주문코드       별점        후기          등록일              ");
+	System.out.println("         후기코드      usderid       별점        후기          등록일              ");
 	System.out.println("----------------------------------------------------------------------------------");
-	System.out.println("          홍길똥      ????           4          맛있어유~       2022-09-01        ");
+	System.out.println("          1111      ??usderid?           4          맛있어유~       2022-09-01        ");
 	System.out.println("----------------------------------------------------------------------------------");
 		
 	}

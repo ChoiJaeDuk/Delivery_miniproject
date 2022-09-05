@@ -49,7 +49,11 @@ public class StoresDTO {
 		this.avg_star_grade = avg_star_grade;
 		this.order_count = order_count;
 	}
-
+	
+	public StoresDTO(String store_regis_status, int store_code) {
+		this.store_regis_status = store_regis_status;
+		this.store_code = store_code;
+	}
 
 
 

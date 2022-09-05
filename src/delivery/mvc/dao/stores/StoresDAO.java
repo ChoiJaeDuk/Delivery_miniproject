@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 
 public interface StoresDAO {
@@ -29,7 +30,7 @@ public interface StoresDAO {
 	 * 회원아이디에 해당하는 가게 검색
 	 * select * from stores where user_id = ?;
 	 * */
-	List<StoresDTO> storeSelectById(String user_id) throws SQLException;
+	StoresDTO storeSelectById(String user_id) throws SQLException;
 	
 	/**
 	 * 리턴받은 store_code로 메뉴 조회
@@ -41,7 +42,7 @@ public interface StoresDAO {
 	/**
 	 * 메뉴이름을 검색해 해당 store_code 리턴 
 	 * */
-	List<MenuDTO> storeCodeSelectByMenu(Connection con, String menu_name) throws SQLException;
+	//List<MenuDTO> storeCodeSelectByMenu(Connection con, String menu_name) throws SQLException;
 	
 	
 	/**
@@ -57,7 +58,7 @@ public interface StoresDAO {
 	//int storeStatus(StoresDTO storesDTO) throws SQLException;
 	int storeInsert(StoresDTO storesDTO) throws SQLException;
 	
-	/**
+	/** --세션
 	 * 가게 정보 수정하기
 	 * update stores set (stores_name = ?, store_addr = ?, store_phone = ?, store_detail = ?) 
 	 * where user_id = ?;
@@ -65,10 +66,10 @@ public interface StoresDAO {
 	int storeUpdate(StoresDTO storesDTO) throws SQLException;
 	
 	/**
-	 * 가게 오픈 설정
+	 * 가게 오픈 설정 -- 세션
 	 * update stores set store_status = ? where user_id = ?
 	 * */
-	int storeStatusUpdate(StoresDTO storesDTO) throws SQLException;
+	int storeStatusUpdate(int store_status, String user_id) throws SQLException;
 	
 	/**
 	 * 가게신청 승인,거부
@@ -93,15 +94,16 @@ public interface StoresDAO {
 	List<StoresDTO> storesSales() throws SQLException;
 	
 	/**
-	 * 가게별 메뉴당 매출조회
-	 * SELECT MENU.MENU_CODE, MENU.MENU_NAME, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS MENU_TOTAL_SALES
-		FROM ORDERS RIGHT OUTER JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE
-		LEFT OUTER JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE
-		GROUP BY MENU.MENU_CODE, MENU.MENU_NAME, ORDERS.STORE_CODE
-		HAVING ORDERS.STORE_CODE = ?;
-	 * */
+	 * 가게별 메뉴당 월별 매출조회
+	 * SELECT TO_CHAR(ORDERS.ORDER_DATE,'MM') as 월, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT
+		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE
+		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE
+		GROUP BY MENU.MENU_CODE, ORDERS.STORE_CODE, to_char(orders.order_date,'MM')
+		HAVING ORDERS.STORE_CODE = ? and menu.menu_code = ?
+		order by 월;
+	*/
 	
-	/***/
+	List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException;
 
 }
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 import util.DbUtil;
 
@@ -42,7 +43,6 @@ public class StoresDAOImpl implements StoresDAO {
 		
 	}
 	
-
 	@Override
 	public List<StoresDTO> storesSelectAll() throws SQLException {
 		
@@ -57,7 +57,6 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
 				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE";
-
 		
 		try {
 			con = DbUtil.getConnection();
@@ -79,8 +78,6 @@ public class StoresDAOImpl implements StoresDAO {
 		
 	}
 
-	
-	
 
 	@Override
 	public StoresDTO storeSelcetByCode(int store_code) throws SQLException {
@@ -114,11 +111,11 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override //-16 한사람이 가게를 두개 생성하니깐 가게 선택하는 것이 있어야하지 않을까 ? -> 한사람은 가게 한개 생성 
-	public List<StoresDTO> storeSelectById(String user_id) throws SQLException {//RETURN STORESDTO 
+	public StoresDTO storeSelectById(String user_id) throws SQLException {//RETURN STORESDTO 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<StoresDTO> list = new ArrayList<StoresDTO>();
+		StoresDTO stores = new StoresDTO();
 		String sql = "select * from stores where users_id = ?";
 		
 		try {
@@ -128,20 +125,18 @@ public class StoresDAOImpl implements StoresDAO {
 			
 			rs = ps.executeQuery();
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				
-				StoresDTO stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+				stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), 
 						rs.getString(11), rs.getString(12), rs.getString(13));
-				
-				list.add(stores);
 			
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
-		return list;
+		return stores;
 	}
 	
 	@Override // 조인해결필요 메뉴 이름 후기/별점, 주문건 컬럼 조인필요
@@ -154,7 +149,7 @@ public class StoresDAOImpl implements StoresDAO {
 		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
 		StoresDTO stores = null;
  		String store_name = null;
-		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_CODE), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
 				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE\r\n"
@@ -162,8 +157,8 @@ public class StoresDAOImpl implements StoresDAO {
 		
 		try {
 			con = DbUtil.getConnection();
-			menuList = storeCodeSelectByMenu(con, menu_name);
-			System.out.println(menuList);
+			menuList = this.storeCodeSelectByMenu(con, menu_name);
+		
 			for(MenuDTO m: menuList) {
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, m.getStore_code());
@@ -185,9 +180,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 	
 	
-	
-	@Override
-	public List<MenuDTO> storeCodeSelectByMenu(Connection con , String menu_name) throws SQLException {
+	private List<MenuDTO> storeCodeSelectByMenu(Connection con , String menu_name) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
@@ -237,7 +230,6 @@ public class StoresDAOImpl implements StoresDAO {
 				
 				while(rs.next()) {
 					
-					
 					stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
 					list.add(stores);
 				}
@@ -250,7 +242,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override
-	public int storeInsert(StoresDTO storesDTO) throws SQLException {
+	public int storeInsert(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storeDTO)
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "insert into stores values(store_code_seq.nextval,?,?,?,?,?,?,?,?,default,sysdate,default,null)";
@@ -270,8 +262,7 @@ public class StoresDAOImpl implements StoresDAO {
 			ps.setInt(8, storesDTO.getStore_delivery_fee());
 			
 			result = ps.executeUpdate();
-			
-			
+				
 		}finally {
 			DbUtil.dbClose(con, ps);
 		}
@@ -280,7 +271,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override
-	public int storeUpdate(StoresDTO storesDTO) throws SQLException {
+	public int storeUpdate(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storesDTO)
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "update stores set (stores_name = ?, store_addr = ?, store_phone = ?, store_detail = ?) \r\n"
@@ -306,18 +297,18 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override //db에는 close = 0, open = 1 레이아웃 open = 1, close = 2
-	public int storeStatusUpdate(StoresDTO storesDTO) throws SQLException {
+	public int storeStatusUpdate(int store_status, String user_id) throws SQLException {//(String user_id, store_status)
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "update stores set store_status = ? where user_id = ?";
+		String sql = "update stores set store_status = ? where users_id = ?";
 		int result = 0;
 		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1,storesDTO.getStore_status());
-			ps.setString(2, storesDTO.getUser_id());
+			ps.setInt(1,store_status);//ps.setString(1, store_status)
+			ps.setString(2, user_id);//ps.setInt(2, user_id)
 			
 			result = ps.executeUpdate();
 				
@@ -389,30 +380,79 @@ public class StoresDAOImpl implements StoresDAO {
 		return list;
 	}
 	
+	@Override
+	public List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
+		String sql = "SELECT TO_CHAR(ORDERS.ORDER_DATE,'MM') as 월, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
+				+ "		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE\r\n"
+				+ "		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE\r\n"
+				+ "		GROUP BY MENU.MENU_CODE, ORDERS.STORE_CODE, to_char(orders.order_date,'MM')\r\n"
+				+ "		HAVING ORDERS.STORE_CODE = ? and menu.menu_code = ?\r\n"
+				+ "		order by 월";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, store_code);
+			ps.setInt(2, menu_code);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				OrdersDTO orders = new OrdersDTO(rs.getString(1), rs.getInt(2));
+				list.add(orders);
+			}
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		return list;
+	}
+
+
+	
 	
 	public static void main(String[] args)  {
 		StoresDAOImpl dao = new StoresDAOImpl();
 	
 		try{
-			
-			List<StoresDTO> storesList = dao.storesSelectByCategory(1);
-			for(StoresDTO st : storesList) {
-				System.out.println(st.getStore_code() + "   " + st.getStore_name() + "   " + st.getStore_delivery_fee()+ "   "+
-			st.getReview_count() + "   "+ st.getAvg_star_grade() + "   "+ st.getOrder_count());
+		
+		
+		/*	List<StoresDTO> list = dao.storesInfoSelectAll();
+			for(StoresDTO s : list) {
+				System.out.println(s);
 			}
+			
+			List<StoresDTO> list2 = dao.storesSelectAll();
+			for(StoresDTO s : list2) {
+				System.out.println(s);
+			}*/
+			
+			//List<StoresDTO> list2 = dao.storesSelectByCategory(2);
+			//for(StoresDTO s : list2) {
+			//	System.out.println(s.getStore_code() );
+			//}
 			
 			
 			//int result = dao.storeRegis(1,4);
 			//System.out.println(result);
-			//int result = dao.storeStatus(1, "testid3");
+			
+			StoresDTO sdf = new StoresDTO("승인", 5);
+			System.out.println(sdf);
+			//int result = dao.storeRegis(new StoresDTO("승인", 5));
+			//System.out.println();
 			//System.out.println(result);
-
+		
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 			
 	}
+
 
 
 

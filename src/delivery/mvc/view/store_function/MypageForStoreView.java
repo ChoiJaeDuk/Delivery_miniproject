@@ -28,6 +28,11 @@ public class MypageForStoreView {
 			case 2 : 
 				StoreView.printMenuForStores();//뒤로가기
 				return;
+				
+			default:
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				mypageForStore();
+				break;	
 			}
 
 		}
@@ -47,7 +52,7 @@ public class MypageForStoreView {
 		System.out.println("* * * 간단한 가게 소개를 입력해주세요(최대 30 자) >> ");
 		String info = sc.nextLine();
 		System.out.println("---------------------------------------------------------------------");
-		System.out.println("              1. 수정하기              2. 뒤로가기                  ");
+		System.out.println("              1. 수정하기              2. 취소                  ");
 		System.out.println("---------------------------------------------------------------------");
 		
 		
@@ -55,12 +60,17 @@ public class MypageForStoreView {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					update();//t수정하기
+					update();//수정하기
 					printMenu();
-					return;
+					break;
 				case 2:
 					printMenu(); //뒤로가기
-					return;
+					break;
+					
+				default:
+					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+					updateStoreInfo();
+					break;	
 					
 					//컨트롤러로 pwd보내서 맞는지 확인
 			}
@@ -78,14 +88,11 @@ public class MypageForStoreView {
 	
 	
 	public static void printMenu() {
-			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                              xxxx가게입니다.                                    ");
-			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                                   정 보 불 러 오 기                             ");
-			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                1. 판매자 정보 수정                  2. 뒤로가기                   ");
-			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("* * * 번호를 입력해주세요. >>  ");
+		storeDetail();
+		System.out.println("                1. 판매자 정보 수정                  2. 뒤로가기                  ");
+		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("* * * 번호를 입력해주세요. >>  ");;
+			
 		}
 	
 	

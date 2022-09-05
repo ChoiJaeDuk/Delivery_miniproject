@@ -17,12 +17,28 @@ public class OrdersDTO {
 	private UsersDTO users;
 	private Delivery_StatusDTO delivery_status;
 	private List<OrderLineDTO> orderLineList = new ArrayList<OrderLineDTO>();
+	
+	private String month;
+	private int menu_sales;
+
 	  
 	
 	public OrdersDTO() { }
 	
 	
 	
+	public OrdersDTO(int order_code, int delivery_code) {
+		super();
+		this.order_code = order_code;
+		this.delivery_code = delivery_code;
+	}
+
+
+
+	public OrdersDTO(String month, int menu_sales) {
+		this.month = month;
+		this.menu_sales = menu_sales;
+	}
 	
 	public OrdersDTO(String user_id) {
 		super();
@@ -112,6 +128,28 @@ public class OrdersDTO {
 	public void setStore_code(int store_code) {
 		this.store_code = store_code;
 	}
+	
+	
+	public String getMonth() {
+		return month;
+	}
+
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+
+	public int getMenu_sales() {
+		return menu_sales;
+	}
+
+
+	public void setMenu_sales(int menu_sales) {
+		this.menu_sales = menu_sales;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
