@@ -23,7 +23,7 @@ public interface StoresService {
 	 
 	 void storeUpdate(StoresDTO storesDTO) throws SQLException;
 	 
-	 void storeStatusUpdate(StoresDTO storesDTO) throws SQLException;
+	 void storeStatusUpdate(int store_status, String user_id) throws SQLException;
 	 
 	 void storeRegis(StoresDTO storesDTO) throws SQLException;
 	 
