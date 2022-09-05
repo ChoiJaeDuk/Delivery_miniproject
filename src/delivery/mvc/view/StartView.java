@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import delivery.mvc.controller.BasketController;
 import delivery.mvc.controller.MenuController;
 import delivery.mvc.dao.stores.StoresDAO;
 import delivery.mvc.dao.stores.StoresDAOImpl;
@@ -13,8 +14,13 @@ import delivery.mvc.dto.StoresDTO;
 public class StartView {
 
 	public static void main(String[] args) {
-		MenuController mc = new MenuController();
+		//MenuController mc = new MenuController();
+		BasketController bc = new BasketController();
 		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("내 장바구니 정보 좀 가져와봥");
+		bc.basketMenuSelect("testid3");
+		
 		
 		/*
 		System.out.println("가게 선택하셈 ㅇㅇ");
@@ -48,6 +54,44 @@ public class StartView {
 		int menu_price = Integer.parseInt(sc.nextLine());
 		
 		mc.menuInsert(new MenuDTO(category, store.getStore_code(), menu_name, menu_price, 1));
+		*/
+		
+		/*
+		System.out.println("나 메뉴 가격 비싸게 팔거임 수정 ㄱㄱ");
+		System.out.println("내 메뉴들 가지고 와봐");
+		System.out.println("가게 선택하셈 ㅇㅇ");
+		System.out.print("가게 코드 >>");
+		int store_code = Integer.parseInt(sc.nextLine());
+		mc.menuSelectByAll(store_code);
+		
+		System.out.println("변경할 메뉴 코드 ㄱㄱ");
+		System.out.print("메뉴 코드 >>");
+		int menu_code = Integer.parseInt(sc.nextLine());
+		
+		//변경사항
+		System.out.println("변경할 이름 ㄱㄱ");
+		String menu_name = sc.nextLine();
+		System.out.println("변경할 가격 ㄱㄱ");
+		int menu_price = Integer.parseInt(sc.nextLine());
+		System.out.println("변경할 품절여부 ㄱㄱ");
+		int status = Integer.parseInt(sc.nextLine());
+		
+		mc.menuUpdate(new MenuDTO(menu_code, menu_name, menu_price, status));
+		*/
+		
+		/*
+		System.out.println("나 이 메뉴 더이상 안할거임");
+		System.out.println("메뉴 코드들 가지고 와봐");
+		System.out.println("가게 선택하셈 ㅇㅇ");
+		System.out.print("가게 코드 >>");
+		int store_code = Integer.parseInt(sc.nextLine());
+		mc.menuSelectByAll(store_code);
+		
+		System.out.println("삭제할 메뉴 코드 ㄱㄱ");
+		System.out.print("메뉴 코드 >>");
+		int menu_code = Integer.parseInt(sc.nextLine());
+		
+		mc.menuDelete(menu_code);
 		*/
 	}
 }

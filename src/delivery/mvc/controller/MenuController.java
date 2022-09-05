@@ -43,12 +43,25 @@ public class MenuController {
 	 * 작성자 : 박해원
 	 * 설명 : 해당 가게의 메뉴 정보를 수정함
 	 */
-	public static void menuUpdate(int menu_code, int price, int status) {
+	public static void menuUpdate(MenuDTO menu) {
 		try {
-			service.menuUpdate(menu_code, price, status);
-			System.out.println(menu.getMenu_name()+" 메뉴가 변경되었습니다");
+			service.menuUpdate(menu);
+			System.out.println(menu.getMenu_name()+" 메뉴로 변경되었습니다");
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+	}//menuUpdate end
+	
+	/**
+	 * 작성자 : 박해원
+	 * 설명 : 해당 가게의 메뉴를 삭제함
+	 */
+	public static void menuDelete(int menu_code) {
+		try {
+			service.menuDelete(menu_code);
+			System.out.println("메뉴가 삭제되었습니다");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }//class end
