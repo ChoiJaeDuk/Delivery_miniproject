@@ -2,7 +2,7 @@ package delivery.mvc.dto;
 
 public class UsersDTO {
 	private String user_id;
-	private int job_code;
+	private String job_code;
 	private String user_pwd;
 	private String user_name;
 	private String user_nick;
@@ -30,7 +30,7 @@ public class UsersDTO {
 
 
 
-	public UsersDTO(String users_id, int job_code, String users_pwd, String users_name, String users_nick,
+	public UsersDTO(String users_id, String job_code, String users_pwd, String users_name, String users_nick,
 			String users_addr, String users_phone, String users_jumin, String users_regist_date) {
 		super();
 		this.user_id = users_id;
@@ -55,12 +55,12 @@ public class UsersDTO {
 	}
 
 
-	public int getJob_code() {
+	public String getJob_code() {
 		return job_code;
 	}
 
 
-	public void setJob_code(int job_code) {
+	public void setJob_code(String job_code) {
 		this.job_code = job_code;
 	}
 

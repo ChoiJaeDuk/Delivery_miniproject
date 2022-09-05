@@ -8,6 +8,40 @@ public class OrderLineDTO {
 	
 	public OrderLineDTO() { }
 
+////////////////////////////////////////////////////////////////////////////////////
+	/*
+	 * usersDAOImpl.selectDelivery_time() join문을 위한 생성자
+	 */
+	private MenuDTO menu;
+	private StoresDTO store;
+
+	public OrderLineDTO(int order_line_code, int order_quntity, MenuDTO menu, StoresDTO store) {
+		this.order_line_code = order_line_code;
+		this.order_quntity = order_quntity;
+		this.menu = menu;
+		this.store = store;
+	}
+
+	public MenuDTO getMenu() {
+		return menu;
+	}
+
+	public void setMenu(MenuDTO menu) {
+		this.menu = menu;
+	}
+
+	public StoresDTO getStore() {
+		return store;
+	}
+
+	public void setStore(StoresDTO store) {
+		this.store = store;
+	}
+	
+	
+////////////////////////////////////////////////////////////////////////////////////	
+
+
 	public OrderLineDTO(int order_line_code, int order_code, int menu_code, int order_quntity) {
 		super();
 		this.order_line_code = order_line_code;

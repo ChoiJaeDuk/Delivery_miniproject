@@ -27,6 +27,7 @@ public class StoresDTO {
 	
 	public StoresDTO() { }
 	
+
 	
 	public StoresDTO(int store_code, String store_name, int total_sales, int total_sales_for_stores, int total_sales_for_master ) {
 		this.store_code = store_code;
@@ -51,6 +52,11 @@ public class StoresDTO {
 
 
 
+
+	//usersDAOImpl.selectDelivery_time() join문을 위한 생성자(이종민)
+		public StoresDTO(String store_name) {
+			this.store_name = store_name;
+		}
 
 
 	public StoresDTO(int store_code, String user_id, String store_name, String store_addr, String store_phone,
