@@ -12,6 +12,7 @@ import delivery.mvc.dao.basket.BasketDAOImpl;
 import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.Delivery_StatusDTO;
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.dto.OrderLineDTO;
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.UsersDTO;
 import util.DbUtil;
@@ -176,31 +177,28 @@ public class OrdersDAOImpl implements OrdersDAO {
 	 *  user_id를 받아 해당되는 주문 상세를 조회한다.
 	 * ppt 35p 주문상세보기
 	 * */
-	public List<MenuDTO> selectOrderLine(String user_id) throws SQLException{
+	public List<MenuDTO> selectOrderLine(int order_code) throws SQLException{
 		Connection con=null;
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		
-		BasketDTO bascket = null;
-		
+		OrderLineDTO orderLine = null;
 		MenuDTO menuDTO = null;
 		List<MenuDTO> listMenu = new ArrayList<MenuDTO>();
 		
 		try {
 			con = DbUtil.getConnection();
-			ps= con.prepareStatement("SELECT M.MENU_NAME, B.BASKET_QUANTITY, M.MENU_PRICE, SUM(M.MENU_PRICE*B.BASKET_QUANTITY)\r\n"
-					+ "FROM BASCKET B JOIN MENU M \r\n"
-					+ "ON B.MENU_CODE = M.MENU_CODE\r\n"
-					+ "GROUP BY  M.MENU_NAME, B.BASKET_QUANTITY, B.USER_ID, M.MENU_PRICE\r\n"
-					+ "HAVING B.USER_ID = ?");
+			ps= con.prepareStatement("SELECT M.MENU_NAME, OL.ORDER_QUANTITY, M.MENU_PRICE, OL.ORDER_QUANTITY * M.MENU_PRICE AS TOTAL\r\n"
+					+ "FROM MENU M, ORDER_LINE OL\r\n"
+					+ "WHERE M.MENU_CODE = OL.MENU_CODE AND ORDER_CODE = ?");
 			
-			ps.setString(1, user_id);
+			ps.setInt(1, order_code);
 		    rs = ps.executeQuery(); 
 		    
 		    while(rs.next()) {
 		    	
-		    	bascket = new BasketDTO(rs.getInt(2));
-		    	menuDTO = new MenuDTO(rs.getString(1), bascket, rs.getInt(3), rs.getInt(4));
+		    	orderLine = new OrderLineDTO(rs.getInt(2));
+		    	menuDTO = new MenuDTO(rs.getString(1), orderLine, rs.getInt(3), rs.getInt(4));
 		    	listMenu.add(menuDTO);
 		    }
 		      
@@ -282,11 +280,13 @@ public class OrdersDAOImpl implements OrdersDAO {
 			int i = orderDAO.totalPriceSelect("testid");
 //			
 			/*
-			List<MenuDTO> l = orderDAO.selectOrderLine("testid");
+			
+			List<MenuDTO> l = orderDAO.selectOrderLine(1);
 			for (MenuDTO list : l) {
-				System.out.println(list.getMenu_name() + "  " + list.getBascket().getBasket_quantity() + "   " + list.getMenu_price() + "   " + list.getTotal_price() );
+				System.out.println(list.getMenu_name() + "  " + list.getOrderLine().getOrder_quntity() + "   " + list.getMenu_price() + "   " + list.getTotal_price() );
+				
 			}
-		*/
+			*/
 			/*
 			List<OrdersDTO> ordersList = orderDAO.selectOrderList(2);
 			for (OrdersDTO o: ordersList) {

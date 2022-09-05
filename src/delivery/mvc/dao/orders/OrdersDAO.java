@@ -40,7 +40,7 @@ public interface OrdersDAO {
 	 *  order_code를 받아 해당되는 주문 상세를 조회한다.
 	 * ppt 35p 주문상세보기
 	 * */
-	public List<MenuDTO> selectOrderLine(String user_id) throws SQLException;
+	public List<MenuDTO> selectOrderLine(int order_code) throws SQLException;
 
 	/**
 	 * 회원이 주문을 환불신청한다.
