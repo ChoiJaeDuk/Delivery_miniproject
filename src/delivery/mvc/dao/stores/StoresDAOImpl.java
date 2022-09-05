@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 import util.DbUtil;
 
@@ -160,7 +161,7 @@ public class StoresDAOImpl implements StoresDAO {
 		
 		try {
 			con = DbUtil.getConnection();
-			menuList = storeCodeSelectByMenu(con, menu_name);
+			menuList = this.storeCodeSelectByMenu(con, menu_name);
 			System.out.println(menuList);
 			for(MenuDTO m: menuList) {
 				ps = con.prepareStatement(sql);
@@ -183,9 +184,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 	
 	
-	
-	@Override
-	public List<MenuDTO> storeCodeSelectByMenu(Connection con , String menu_name) throws SQLException {
+	private List<MenuDTO> storeCodeSelectByMenu(Connection con , String menu_name) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
@@ -387,16 +386,50 @@ public class StoresDAOImpl implements StoresDAO {
 		return list;
 	}
 	
+	@Override
+	public List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
+		String sql = "SELECT TO_CHAR(ORDERS.ORDER_DATE,'MM') as ¿ù, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
+				+ "		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE\r\n"
+				+ "		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE\r\n"
+				+ "		GROUP BY MENU.MENU_CODE, ORDERS.STORE_CODE, to_char(orders.order_date,'MM')\r\n"
+				+ "		HAVING ORDERS.STORE_CODE = ? and menu.menu_code = ?\r\n"
+				+ "		order by ¿ù";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, store_code);
+			ps.setInt(2, menu_code);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				OrdersDTO orders = new OrdersDTO(rs.getString(1), rs.getInt(2));
+				list.add(orders);
+			}
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		return list;
+	}
+
+
+	
 	
 	public static void main(String[] args)  {
 		StoresDAOImpl dao = new StoresDAOImpl();
 	
 		try{
 			
-			List<StoresDTO> storesList = dao.storesSelectByCategory(1);
-			for(StoresDTO st : storesList) {
-				System.out.println(st.getStore_code() + "   " + st.getStore_name() + "   " + st.getStore_delivery_fee()+ "   "+
-			st.getReview_count() + "   "+ st.getAvg_star_grade() + "   "+ st.getOrder_count());
+			List<OrdersDTO> ordersList = dao.menuSalesByMonth(2,3);
+			for(OrdersDTO or : ordersList) {
+				System.out.println(or.getMonth() + "   " + or.getMenu_sales());
+			
 			}
 			
 			
@@ -411,6 +444,7 @@ public class StoresDAOImpl implements StoresDAO {
 		}
 			
 	}
+
 
 
 

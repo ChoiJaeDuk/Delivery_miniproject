@@ -3,6 +3,7 @@ package delivery.mvc.service.stores;
 import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 
 public interface StoresService {
@@ -28,5 +29,6 @@ public interface StoresService {
 	 
 	 List<StoresDTO> storesSales() throws SQLException;
 	 
+	 List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException;
 	 
 }
