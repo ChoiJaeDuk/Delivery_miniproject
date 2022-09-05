@@ -20,7 +20,7 @@ public class StoresDAOImpl implements StoresDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
-		String sql = "select * from stores";
+		String sql = "select * from stores order by store_regis_status";
 		
 		try {
 			con = DbUtil.getConnection();
@@ -245,6 +245,7 @@ public class StoresDAOImpl implements StoresDAO {
 	public int storeInsert(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storeDTO)
 		Connection con = null;
 		PreparedStatement ps = null;
+
 		String sql = "insert into stores values(store_code_seq.nextval,?,?,?,?,?,?,?,?,default,sysdate,default,null)";
 		int result = 0;
 		

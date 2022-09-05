@@ -24,6 +24,7 @@ public class StoresController {
 	public static void storesSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesSelectAll();
+			System.out.println(list);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -90,6 +91,7 @@ public class StoresController {
 	public static void storeRegis(StoresDTO storesDTO){
 		try {
 			storesService.storeRegis(storesDTO);
+			System.out.println("º¯°æ");
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
