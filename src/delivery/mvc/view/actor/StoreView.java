@@ -16,7 +16,7 @@ public class StoreView {
 	
 	public static void main(String[] args) {
 		 StoreView.menu();
-		 System.out.println("-----------");
+		 
 	}
 	
 
@@ -29,13 +29,17 @@ public class StoreView {
 			
 			switch (menu) {
 			case 1:
-				//삼진님의 회원 메소드 호출//회원모드
+				UsersView.users();//삼진님의 회원 메소드 호출//회원모드
 				
 				
 			case 2:
 				StoreView.printMenuForStores();// 판매자모드 
 				//MenuView.printMenu();
-							
+				
+			default:
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				menu();
+				break;				
 			
 			}
 		}
@@ -78,7 +82,10 @@ public class StoreView {
 					return;
 				case 4 :
 					MenuView.menu();//로그아웃
-					
+				default:
+					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+					printMenuForStores();
+					break;	
 				}
 		}
 

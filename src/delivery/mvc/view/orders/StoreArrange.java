@@ -10,6 +10,8 @@ public class StoreArrange {
 	static int subFoodList;
 	
 	static Scanner sc = new Scanner(System.in);
+	//UserOrdersView uo = new UserOrdersView();
+	
 	
 	
 	/**
@@ -70,7 +72,7 @@ public class StoreArrange {
 		
 		
 		int menuarrange = Integer.parseInt(sc.nextLine());
-		
+
 		switch(menuarrange) {
 			case 1:
 				UserCategorySelect.menuSelect(); 
@@ -98,9 +100,8 @@ public class StoreArrange {
 	 */
 	
 	public static void categoryArrange() {
-		
 		arrangeLayout();
-		
+
 		int categoryArrange = Integer.parseInt(sc.nextLine());
 		switch(categoryArrange) {
 			case 1:

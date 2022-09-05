@@ -63,7 +63,7 @@ public class UserOrdersView {
 
 	
 	
-	/**
+	/**s
 	 * 음식 카테고리
 	 */
 	public static void category(int category) {
@@ -281,13 +281,13 @@ public class UserOrdersView {
 				stores(subFoodList);
 				break;
 			case 2:
-				if (index[0] == 0)					
-					StoreArrange.arrange(); // 전체가게조회 --> 전체 가게목록을 정렬
+				if (index[0] == 0)
+					// 하위카테고리(예:피자)만 파는 가게목록을 띄워줘야함. ???? 사용자 입력값에 따라 가게목록 호출해야하는데.....어렵다...
+					StoreArrange.arrange(); // 전체가게조회 --> 전체 가게목록을 정렬해서 출력해야함.
 				else if (index[0] == 1)
-					StoreArrange.menuarrange(); // %메뉴%를 파는 가게 목록 정렬
+					StoreArrange.menuarrange(); // %메뉴%를 파는 가게 목록 정렬하기...
 				else if(index[0] == 2)
-					StoreArrange.categoryArrange(); //하위카테고리 정렬
-
+					StoreArrange.categoryArrange();
 				break;
 			
 			case 3:
@@ -295,6 +295,10 @@ public class UserOrdersView {
 				//category(category);
 				//subFood(subFoodList); //3 , 4 , 
 				return;
+			case 4 :
+				category(category);
+				 //subFood(subFoodList); //3 , 4 , 
+				break;
 		
 			default:
 				   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
@@ -303,8 +307,6 @@ public class UserOrdersView {
 		}//switch끝
 	}
 
-	
-	
 	
 	/**
 	 * 가게
