@@ -5,6 +5,7 @@ import java.util.List;
 
 import delivery.mvc.dao.stores.StoresDAO;
 import delivery.mvc.dao.stores.StoresDAOImpl;
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 
 public class StoresServiceImpl implements StoresService {
@@ -104,6 +105,16 @@ public class StoresServiceImpl implements StoresService {
 		List<StoresDTO> list = storesSales();
 		if(list.size() == 0)
 			throw new SQLException("가게 매출정보가 없습니다.");
+	
+		return list;
+	}
+
+	@Override
+	public List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException {
+		List<OrdersDTO> list = menuSalesByMonth(store_code, menu_code);
+				
+		if(list.size() == 0)
+			throw new SQLException(menu_code + "에 해당하는 매출정보가 없습니다.");
 	
 		return list;
 	}
