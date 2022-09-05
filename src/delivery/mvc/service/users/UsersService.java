@@ -53,6 +53,11 @@ public interface UsersService {
 	 */
 	void pwdUpdate(String oldPwd, String newPwd) throws SQLException;
 	
+	/**
+	 * 주문 리스트(회원아이디) 
+	 */
+	List<OrdersDTO> selectOrderList(String user_id) throws SQLException;
+	
 	
 	/**
 	 * 배송시간 조회

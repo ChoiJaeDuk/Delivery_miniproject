@@ -36,7 +36,7 @@ public class UsersServiceImpl implements UsersService {
 	public String searchId(String users_id, String users_jumin) throws SQLException {
 		String result = usersDAO.searchId(users_id, users_jumin);
 		if(result == null) throw new SQLException("정보를 찾을 수 없습니다.");
-		return null;
+		return result;
 	}
 
 	@Override
@@ -75,6 +75,14 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
+	public List<OrdersDTO> selectOrderList(String user_id) throws SQLException {
+		List<OrdersDTO> list = usersDAO.selectOrderList(user_id);
+		if(list.size() == 0 || list.isEmpty()) throw new SQLException(user_id + "에 해당하는 정보가 없습니다.");
+		return list;
+	}
+	
+
+	@Override
 	public List<OrderLineDTO> selectDelivery_time(int order_code) throws SQLException {
 		List<OrderLineDTO> list = usersDAO.selectDelivery_time(order_code);
 		if(list.size() == 0 || list.isEmpty()) throw new SQLException(order_code + "에 해당하는 정보가 없습니다.");
@@ -86,5 +94,7 @@ public class UsersServiceImpl implements UsersService {
 		int result = usersDAO.cancelOrder(order_code);
 		if(result ==0) throw new SQLException(order_code + "의 주문취소를 실패했습니다.");
 	}
+
+
 
 }
