@@ -29,7 +29,7 @@ public interface StoresDAO {
 	 * 회원아이디에 해당하는 가게 검색
 	 * select * from stores where user_id = ?;
 	 * */
-	List<StoresDTO> storeSelectById(String user_id) throws SQLException;
+	StoresDTO storeSelectById(String user_id) throws SQLException;
 	
 	/**
 	 * 리턴받은 store_code로 메뉴 조회

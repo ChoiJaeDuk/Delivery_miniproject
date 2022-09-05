@@ -114,11 +114,11 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override //-16 한사람이 가게를 두개 생성하니깐 가게 선택하는 것이 있어야하지 않을까 ? -> 한사람은 가게 한개 생성 
-	public List<StoresDTO> storeSelectById(String user_id) throws SQLException {//RETURN STORESDTO 
+	public StoresDTO storeSelectById(String user_id) throws SQLException {//RETURN STORESDTO 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<StoresDTO> list = new ArrayList<StoresDTO>();
+		StoresDTO stores = new StoresDTO();
 		String sql = "select * from stores where users_id = ?";
 		
 		try {
@@ -128,20 +128,18 @@ public class StoresDAOImpl implements StoresDAO {
 			
 			rs = ps.executeQuery();
 			
-			while(rs.next()) {
+			if(rs.next()) {
 				
-				StoresDTO stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+				stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), 
 						rs.getString(11), rs.getString(12), rs.getString(13));
-				
-				list.add(stores);
 			
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
-		return list;
+		return stores;
 	}
 	
 	@Override // 조인해결필요 메뉴 이름 후기/별점, 주문건 컬럼 조인필요
