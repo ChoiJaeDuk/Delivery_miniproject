@@ -10,9 +10,9 @@ import delivery.mvc.view.actor.StoreView;
 public class ManageStoreView {
 	private static Scanner sc= new Scanner(System.in);
 	
-	public static void main(String[] args) {
-		ManageStoreView.manageStore();
-	}
+	//public static void main(String[] args) {
+	//	ManageStoreView.manageStore();
+	//}
 	
 	public static void manageStore() {
 		while (true) {
@@ -22,20 +22,20 @@ public class ManageStoreView {
 			switch (menu) {
 			case 1:
 				ManageStoreView.storeStatus();//오픈 클로즈
-				break;
+				return;
 				
 			case 2:
 				ManageStoreView.manageMenu();//메뉴관리
-				break;
+				return;
 			case 3:
 				ManageStoreView.salesStatistics();//판매통계
-				break;
+				return;
 			case 4:
 				ManageStoreView.manageReview();// 후기관리
-				break;
+				return;
 			case 5:	
-				StoreView.printMenuForStores();//종료 
-				break;
+				System.exit(0);//종료 
+				return;
 			}
 		}
 	}
@@ -208,7 +208,7 @@ public class ManageStoreView {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					//세부 매출 조회 
+					salesDetail();//세부 매출 조회 
 					return;
 					
 				case 2:
@@ -240,20 +240,22 @@ public class ManageStoreView {
 		reviewList();
 		System.out.println("        1. 댓글작성      2. 댓글수정       3. 댓글삭제       4. 뒤로가기          ");
 		System.out.println("----------------------------------------------------------------------------------");
-		
+		System.out.println("* * * 번호를 입력해주세요 >> ");
 		while(true) {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					//댓글작성
+					insertReply();//댓글작성
+					reviewList();
 					return;
 					
 				case 2:
-					//댓글수정
+					updateReply();//댓글수정
+					reviewList();
 					return;
 					
 				case 3:
-					//댓글삭제
+					deleteReply();//댓글삭제
 					return;
 					
 				case 4:
@@ -268,56 +270,48 @@ public class ManageStoreView {
 	
 	/**
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~수정중~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	 * 
-	 * 
-	  4-1 댓글작성
 	 
-	public static void insertMenu() {
-			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                               [ 양식 카테고리 목록 ]                             ");
-			System.out.println("\n");
-			System.out.println("                 4. 피자          5.파스타            6.스테이크            ");
-			System.out.println("----------------------------------------------------------------------------------");
+	  4-1 댓글작성
+	*/
+	public static void insertReply() {
+					
+			System.out.println("* * * 후기코드를 입력해주세요 >> ");
+			String reviewNo = sc.nextLine();
+			System.out.println("* * * 댓글을 입력해주세요 >> ");
+			String content = sc.nextLine();
+		
 			
-			System.out.println("* * * 양식 카테고리 번호를 입력해주세요 >> ");
-			String categoryNo = sc.nextLine();
-			System.out.println("* * * 메뉴 이름을 입력해주세요 >> ");
-			String menuName = sc.nextLine();
-			System.out.println("* * * 메뉴 가격을 입력해주세요 >> ");
-			String menuPrice = sc.nextLine();
-			
-			//MenuDTO menu =  new MenuDTO();
-	    	//컨트롤러.insert(menu);
+			//ReviewDTO(??) reply =  new ReviewDTO();
+	    	//컨트롤러.insert(reply);
 		}
 		
 	
-	
+	/**
 	
 	 4-2 댓글수정
-	 
-	public static void updateMenu() {
+*/ 
+	public static void updateReply() {
 		menuList();
-		System.out.println("* * * 수정할 메뉴 코드를 입력해주세요 >> ");
+		System.out.println("* * * 수정할 후기 코드를 입력해주세요 >> ");
 		String no = sc.nextLine();
-		System.out.println("* * * 변경할 메뉴 이름을 입력해주세요 >> ");
-		String newName = sc.nextLine();
-		System.out.println("* * * 변경할 메뉴 가격을 입력해주세요 >> ");
-		String newPrice = sc.nextLine();
+		System.out.println("* * * 변경할 댓글내용을 입력해주세요 >> ");
+		String newContent = sc.nextLine();
+
 		
-		//MenuDTO menu =  new MenuDTO(bo,newname,newprice);
-    	//컨트롤러.update(menu);
+		//ReviewDTO(??) reply =  new ReviewDTO(no,newContent);
+    	//컨트롤러.update(reply);
 	}
-	
-	 4-3 댓글삭제
-	
-	public static void deleteMenu() {
+	/**
+	 *4-3 댓글삭제
+	*/
+	public static void deleteReply() {
 		menuList();
 		System.out.println("* * * 삭제할 리뷰 코드를 입력해주세요 >> ");
 		String no = sc.nextLine();
 		
 		//컨트롤러.delete(no);
 	}
-	*/
+	
 	
 	
 	
@@ -333,7 +327,9 @@ public class ManageStoreView {
 		System.out.println("          ㅇㅇ          323         010-        ㅁㅇ        대기/줍비/중/완료/취  ");
 		System.out.println("----------------------------------------------------------------------------------");
 	}
-	
+	/**
+	 * 댓글리스트/후기리스트
+	 * */
 	public static void  reviewList() {
 	System.out.println("----------------------------------------------------------------------------------");
 	System.out.println("                                [   후   기   ]                                   ");
