@@ -1,15 +1,22 @@
 package delivery.mvc.dao.stores;
 
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.StoresDTO;
 
 public interface StoresDAO {
 	/**
-	 * 가게목록 전체검색
+	 * 가게정보 전체검색
 	 * select * from stores;(join?)
+	 * */
+	List<StoresDTO> storesInfoSelectAll() throws SQLException;
+	
+	/**
+	 * 가게목록(별점,후기,주문건) 전체검색
 	 * */
 	List<StoresDTO> storesSelectAll() throws SQLException;
 	
@@ -25,11 +32,17 @@ public interface StoresDAO {
 	List<StoresDTO> storeSelectById(String user_id) throws SQLException;
 	
 	/**
-	 * 메뉴이름에 해당하는 가게 검색
+	 * 리턴받은 store_code로 메뉴 조회
 	 * select * from stores where menu_name = %?%;
 	 * */
 	List<StoresDTO> storesSelectByMenu(String menu_name) throws SQLException;
 
+	
+	/**
+	 * 메뉴이름을 검색해 해당 store_code 리턴 
+	 * */
+	List<MenuDTO> storeCodeSelectByMenu(Connection con, String menu_name) throws SQLException;
+	
 	
 	/**
 	 * 카테고리에 해당하는 가게 검색
@@ -67,16 +80,28 @@ public interface StoresDAO {
 	int storeRegis(StoresDTO storesDTO) throws SQLException;
 
 	/**
-	 * 가게매출현황조회
-	 * SELECT MENU.MENU_CODE, MENU.MENU_NAME, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE)
-		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE
-		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE
-		GROUP BY MENU.MENU_CODE, MENU.MENU_NAME, ORDERS.STORE_CODE
-		HAVING ORDERS.STORE_CODE = ?;
+	 * 가게매출현황조회 -10p
+	 * SELECT stores.STORE_CODE, STORE_NAME, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,
+		(SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES,
+		(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_MASTER
+		FROM ORDERS join stores 
+		on orders.store_code = stores.store_code
+		GROUP BY stores.STORE_CODE, store_name ;
 	 * 
 	 * */
 	
-	//List<StoresDTO> storesSales(int store_code) throws SQLException;
+	List<StoresDTO> storesSales() throws SQLException;
+	
+	/**
+	 * 가게별 메뉴당 매출조회
+	 * SELECT MENU.MENU_CODE, MENU.MENU_NAME, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS MENU_TOTAL_SALES
+		FROM ORDERS RIGHT OUTER JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE
+		LEFT OUTER JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE
+		GROUP BY MENU.MENU_CODE, MENU.MENU_NAME, ORDERS.STORE_CODE
+		HAVING ORDERS.STORE_CODE = ?;
+	 * */
+	
+	/***/
 
 }
 	

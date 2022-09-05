@@ -1,7 +1,9 @@
 package delivery.mvc.service.users;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import delivery.mvc.dto.OrderLineDTO;
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.UsersDTO;
 
@@ -55,11 +57,11 @@ public interface UsersService {
 	/**
 	 * 배송시간 조회
 	 */
-	OrdersDTO selectDelivery_time(int order_code) throws SQLException;
+	List<OrderLineDTO> selectDelivery_time(int order_code) throws SQLException;
 	
 	
 	/**
 	 * 환불&주문 취소
 	 */
-	int cancelOrder(int order_code) throws SQLException;
+	void cancelOrder(int order_code) throws SQLException;
 }

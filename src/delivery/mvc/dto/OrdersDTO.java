@@ -29,8 +29,17 @@ public class OrdersDTO {
 		this.user_id = user_id;
 	}
 
-
-
+/////////////////////////////////////////////////////
+	//UsersDAOImpl.selectOrderList()를 위한 생성 (이종민)
+	public OrdersDTO(int order_code, String order_date, int order_total_price, Delivery_StatusDTO delivery_status,
+			String order_delivery_time) {
+		this.order_code = order_code;
+		this.order_date = order_date;
+		this.order_total_price = order_total_price;
+		this.order_delivery_time = order_delivery_time;
+		this.delivery_status = delivery_status;
+	}
+/////////////////////////////////////////////////////
 
 	public OrdersDTO(int order_code, String user_id, UsersDTO users, Delivery_StatusDTO delivery_status) {
 		super();

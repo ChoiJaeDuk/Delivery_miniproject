@@ -7,13 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.StoresDTO;
 import util.DbUtil;
 
 public class StoresDAOImpl implements StoresDAO {
 
 	@Override //후기/별점, 주문건 컬럼 조인필요->필요없을듯
-	public List<StoresDTO> storesSelectAll() throws SQLException {
+	public List<StoresDTO> storesInfoSelectAll() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -40,6 +41,46 @@ public class StoresDAOImpl implements StoresDAO {
 		return list;
 		
 	}
+	
+
+	@Override
+	public List<StoresDTO> storesSelectAll() throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<StoresDTO> list = new ArrayList<StoresDTO>();
+		
+		StoresDTO stores = null;
+ 
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
+				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
+				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
+				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE";
+
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);				
+			rs = ps.executeQuery();
+				
+			while(rs.next()) {
+				
+				stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
+				list.add(stores);
+				
+			}
+			
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		return list;
+		
+	}
+
+	
+	
 
 	@Override
 	public StoresDTO storeSelcetByCode(int store_code) throws SQLException {
@@ -102,7 +143,7 @@ public class StoresDAOImpl implements StoresDAO {
 		
 		return list;
 	}
-
+	
 	@Override // 조인해결필요 메뉴 이름 후기/별점, 주문건 컬럼 조인필요
 	public List<StoresDTO> storesSelectByMenu(String menu_name) throws SQLException{
 	
@@ -110,22 +151,31 @@ public class StoresDAOImpl implements StoresDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
-		String store_name = null;
-		String sql = "select * from stores join menu on stores.store_code = menu.store_code where menu_name like ?";
+		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
+		StoresDTO stores = null;
+ 		String store_name = null;
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
+				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
+				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
+				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE\r\n"
+				+ "HAVING S.STORE_CODE = ?";
 		
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setString(1, "%"+menu_name+"%");
-			
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				StoresDTO stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-												 rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), 
-												 rs.getString(11), rs.getString(12), rs.getString(13));
-
-				list.add(stores);
+			menuList = storeCodeSelectByMenu(con, menu_name);
+			System.out.println(menuList);
+			for(MenuDTO m: menuList) {
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, m.getStore_code());
+				
+				rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					
+					
+					stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
+					list.add(stores);
+				}
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -133,28 +183,65 @@ public class StoresDAOImpl implements StoresDAO {
 		
 		return list;
 	}
-
+	
+	
+	
 	@Override
+	public List<MenuDTO> storeCodeSelectByMenu(Connection con , String menu_name) throws SQLException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
+		String sql = "SELECT DISTINCT STORE_CODE FROM MENU WHERE MENU_NAME LIKE ?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, "%"+menu_name+"%");
+			
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				MenuDTO menu = new MenuDTO(rs.getInt(1));
+				menuList.add(menu);
+			
+			}
+		}finally {
+			DbUtil.dbClose(null, ps, rs);
+		}
+		return menuList;
+	}
+	
+
+	@Override //조인 
 	public List<StoresDTO> storesSelectByCategory(int category_code) throws SQLException {//후기/별점, 주문건 컬럼 조인필요
+		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
-		String sql = "select * from stores where category_code = ?";
+	
+		StoresDTO stores = null;
+ 		
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
+				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
+				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
+				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, CATEGORY_CODE\r\n"
+				+ "HAVING CATEGORY_CODE = ?";
 		
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, category_code);
+	
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, category_code);
+				
+				rs = ps.executeQuery();
+				
+				while(rs.next()) {
+					
+					
+					stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
+					list.add(stores);
+				}
 			
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				StoresDTO stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-												 rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), 
-												 rs.getString(11), rs.getString(12), rs.getString(13));
-				list.add(stores);
-			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
@@ -239,32 +326,6 @@ public class StoresDAOImpl implements StoresDAO {
 		}
 		return result;
 	}
-	
-	/*public int storeStatus(int no, String user_id) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps = null;
-		int result = 0;
-		String sql = null;
-		
-		if(no ==1) {
-			sql = "update stores set store_status = 1 where users_id = ?";
-		}else {
-			sql = "update stores set store_status = 0 where users_id = ?";
-		}
-		
-		try {
-			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
-			
-			ps.setString(1, user_id);
-			
-			result = ps.executeUpdate();
-				
-		}finally {
-			DbUtil.dbClose(con, ps);
-		}
-		return result;
-	}*/
 
 	@Override
 	public int storeRegis(StoresDTO storesDTO) throws SQLException { //DB 생성시 (-)승인날짜 (+)결과날짜
@@ -295,26 +356,64 @@ public class StoresDAOImpl implements StoresDAO {
 		return result;
 	}
 	
+	/**
+	 * 가게별 매출 현황 조회 
+	 * */
+	@Override
+	public List<StoresDTO> storesSales() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<StoresDTO> list = new ArrayList<StoresDTO>();
+		String sql = "SELECT stores.STORE_CODE, STORE_NAME, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,\r\n"
+				+ "		(SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES,\r\n"
+				+ "		(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_MASTER\r\n"
+				+ "		FROM ORDERS join stores \r\n"
+				+ "		on orders.store_code = stores.store_code\r\n"
+				+ "		GROUP BY stores.STORE_CODE, store_name ";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				StoresDTO stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
+				list.add(stores);
+			}
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		return list;
+	}
+	
+	
 	public static void main(String[] args)  {
 		StoresDAOImpl dao = new StoresDAOImpl();
 	
 		try{
 			
-			StoresDTO store = dao.storeSelcetByCode(1);
-			System.out.println(store);
+			List<StoresDTO> storesList = dao.storesSelectByCategory(1);
+			for(StoresDTO st : storesList) {
+				System.out.println(st.getStore_code() + "   " + st.getStore_name() + "   " + st.getStore_delivery_fee()+ "   "+
+			st.getReview_count() + "   "+ st.getAvg_star_grade() + "   "+ st.getOrder_count());
+			}
 			
 			
 			//int result = dao.storeRegis(1,4);
 			//System.out.println(result);
 			//int result = dao.storeStatus(1, "testid3");
 			//System.out.println(result);
+
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-	
+			
 	}
+
 
 
 }

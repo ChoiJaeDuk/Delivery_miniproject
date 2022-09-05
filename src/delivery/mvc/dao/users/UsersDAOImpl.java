@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
+import delivery.mvc.dto.Delivery_StatusDTO;
+import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.dto.OrderLineDTO;
 import delivery.mvc.dto.OrdersDTO;
+import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.dto.UsersDTO;
 import util.DbUtil;
 
@@ -35,7 +38,7 @@ public class UsersDAOImpl implements UsersDAO {
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				usersDTO = new UsersDTO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+				usersDTO = new UsersDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
 			
 			}
 			
@@ -49,7 +52,8 @@ public class UsersDAOImpl implements UsersDAO {
 
 	@Override //??????????????@@@@@@@@@@@@@@@@@@@@@
 	public void usersLogout() throws SQLException {
-		// TODO Auto-generated method stub
+	    UsersDTO user = null;
+	    System.out.println("로그아웃되었습니다.");
 
 	}
 
@@ -66,7 +70,7 @@ public class UsersDAOImpl implements UsersDAO {
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, usersDTO.getUsers_id());
-			ps.setInt(2, usersDTO.getJob_code());
+			ps.setString(2, usersDTO.getJob_code());
 			ps.setString(3, usersDTO.getUsers_pwd());
 			ps.setString(4, usersDTO.getUsers_name());
 			ps.setString(5, usersDTO.getUsers_nick());
@@ -248,21 +252,60 @@ public class UsersDAOImpl implements UsersDAO {
 		return result;
 	}
 	
+
+	@Override
+	public List<OrdersDTO> selectOrderList(String user_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		List<OrdersDTO> listO = new ArrayList<OrdersDTO>();
+		
+		Delivery_StatusDTO status = null;
+		OrdersDTO order = null;
+		
+		String sql = "SELECT ORDER_CODE, ORDER_DATE, ORDER_TOTAL_PRICE, DELIVERY_STATUS,ORDER_DELIVERY_TIME "
+				+ "FROM ORDERS O JOIN DELIVERY_STATUS D "
+				+ "ON O.DELIVERY_CODE = D.DELIVERY_CODE "
+				+ "WHERE O.USER_ID = ?";		
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, user_id);
+			
+			rs =ps.executeQuery();
+			while(rs.next()) {
+				status = new Delivery_StatusDTO(rs.getString(4));
+				order = new OrdersDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), status, rs.getString(5));
+				
+				listO.add(order);								
+			}			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}		
+		
+		return listO;
+	}
 	
 
 	@Override
-	public List<OrdersDTO> selectDelivery_time(int order_code) throws SQLException {
+	public List<OrderLineDTO> selectDelivery_time(int order_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String result = null;
-		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
+		List<OrderLineDTO> listOL = new ArrayList<OrderLineDTO>();
 		
-		String sql = "SELECT O.ORDER_LINE_CODE ,M.MENU_NAME , O.ORDER_QUANTITY, M.MENU_PRICE "
+		StoresDTO store = null;
+		MenuDTO menu = null;
+		OrderLineDTO ol = null;
+		
+		String sql = "SELECT O.ORDER_LINE_CODE , S.STORE_NAME, M.MENU_NAME , O.ORDER_QUANTITY, M.MENU_PRICE "
 				+ "FROM ORDER_LINE O, MENU M, STORES S "
 				+ "WHERE O.MENU_CODE = M.MENU_CODE AND S.STORE_CODE = M.STORE_CODE "
-				+ "AND O.ORDER_CODE = ?";
-		
+				+ "AND O.ORDER_CODE = ?";		
 		
 		try {
 			con = DbUtil.getConnection();
@@ -272,23 +315,16 @@ public class UsersDAOImpl implements UsersDAO {
 			
 			rs =ps.executeQuery();
 			while(rs.next()) {
-				HashMap hm = new HashMap();
-				hm.put("ORDER_LINE_CODE", rs.getString("ORDER_LINE_CODE"));
-				hm.put("MENU_NAME", rs.getString("MENU_NAME"));
-				hm.put("ORDER_QUANTITY", rs.getString("ORDER_QUANTITY"));
-				hm.put("MENU_PRICE", rs.getString("MENU_PRICE"));
-			//	list.add(hm);
-				
-				
-			}
-			
-			
+				store = new StoresDTO(rs.getString(2));
+				menu = new MenuDTO(rs.getString(3),rs.getInt(5));
+				ol = new OrderLineDTO(rs.getInt(1), rs.getInt(4), menu, store);
+				listOL.add(ol);								
+			}			
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
-		}
+		}		
 		
-		
-		return list;
+		return listOL;
 	}
 
 	@Override // 환불은 주문코드로하는 것이 맞을거 같습니다.
@@ -321,12 +357,44 @@ public class UsersDAOImpl implements UsersDAO {
 	public static void main(String[] args) {
 		UsersDAO user = new UsersDAOImpl();
 		try {
+
+/*
 			String id = user.searchId("테스트", "000000-0000000");
 			System.out.println(id);
+*/			
+/*			
+			List<OrderLineDTO> oll = user.selectDelivery_time(1);
+			for(OrderLineDTO list : oll) {
+				System.out.println(list.getOrder_line_code()+ "  " +  list.getStore().getStore_name() + "  " + list.getMenu().getMenu_name() + "  " + list.getOrder_quntity() + "  " + list.getMenu().getMenu_price() );
+			}
+*/			
+/*			
+			List<OrdersDTO> order = user.selectOrderList("testid");
+			for(OrdersDTO list : order) {
+				System.out.println(list.getOrder_code()+ "  " +  list.getOrder_date() + "  " + list.getOrder_total_price()+ "  " + list.getDelivery_code() + "  " + list.getOrder_delivery_time() );
+			}
+*/	
+/*			
+			int result = user.join(new UsersDTO("jj", "A", "asd123", "김이박최", "김나박이", "서울경기인천", "010-4554-8822", "111111-2222222","2022-09-05"));
+			if(result == 1) System.out.println("로그인");
+			else System.out.println("실패");
+*/
+/*			
+			int result = user.searchPwd("jj", "김이박최", "111111-2222222", "asd111");
+			if(result == 1) System.out.println("변경");
+			else System.out.println("실패");
+*/
+			int result = user.addrUpdate("서울경기인천", "서울대구대전부산");
+			if(result == 1) System.out.println("주소변경");
+			else System.out.println("실패");
+			
+			System.out.println("끝");
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}
 	}
+
+
 
 }

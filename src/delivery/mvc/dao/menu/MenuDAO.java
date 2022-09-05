@@ -23,13 +23,11 @@ public interface MenuDAO {
 	/**
 	 * 메뉴 수정하기
 	 */
+	int menuUpdate(int menu_code, int price, int status) throws SQLException;
 	
 	/**
 	 * 메뉴 삭제하기
 	 */
-
-	int menuUpdate(int menu_code, int price, int status) throws SQLException;
-
 	int menuDelete(int menu_code) throws SQLException;	
 	
 	
