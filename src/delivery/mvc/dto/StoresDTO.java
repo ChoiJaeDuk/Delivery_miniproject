@@ -43,6 +43,11 @@ public class StoresDTO {
 
 
 
+	//usersDAOImpl.selectDelivery_time() join문을 위한 생성자(이종민)
+		public StoresDTO(String store_name) {
+			this.store_name = store_name;
+		}
+
 
 
 	public StoresDTO(String store_name) {
