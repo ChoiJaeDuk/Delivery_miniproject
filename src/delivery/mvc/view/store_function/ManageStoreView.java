@@ -58,7 +58,7 @@ public class ManageStoreView {
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [open/close 상태 ]                                 ");
 		
-		System.out.println("-------------지금은"+ "(db업데이트문불러오기)+"+" 상태입니다 -------------------------------");
+
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("	      	1. open              2. close               3.뒤로가기                ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -156,7 +156,7 @@ public class ManageStoreView {
 	public static void insertMenu() {
 		
 			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                      ["+ "getCategoryCode" + " 카테고리 목록 ]                   ");
+			//System.out.println("                      ["+ getCategoryCode + " 카테고리 목록 ]                   ");
 			System.out.println("\n");
 			/*
 			if(getCategoryCode ==1) {
