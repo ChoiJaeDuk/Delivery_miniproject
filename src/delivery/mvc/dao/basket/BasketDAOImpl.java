@@ -9,25 +9,20 @@ import java.util.List;
 import java.util.Properties;
 
 import delivery.mvc.dto.BasketDTO;
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
+import delivery.mvc.dto.StoresDTO;
 import util.DbUtil;
 
 public class BasketDAOImpl implements BasketDAO {
 	private Properties proFile = DbUtil.getProFile();
-	
+
 	@Override
 	public List<BasketDTO> basketSelectAll(String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<BasketDTO> list = new ArrayList<BasketDTO>();
-		/*
-		String sql_bascket = "SELECT B.MENU_CODE, S.STORE_NAME, M.MENU_NAME, B.BASKET_QUANTITY, SUM(M.MENU_PRICE*B.BASKET_QUANTITY), s.Store_code\r\n"
-				+ "FROM BASCKET B JOIN MENU M ON B.MENU_CODE = M.MENU_CODE\r\n"
-				+ "JOIN STORES S ON S.STORE_CODE = M.STORE_CODE\r\n"
-				+ "GROUP BY B.MENU_CODE, S.STORE_NAME, M.MENU_NAME, B.BASKET_QUANTITY, B.USER_ID, s.store_code\r\n"
-				+ "HAVING B.USER_ID = ?";
-				*/
 		String sql_bascket = "Select * from bascket where user_id=?";
 		try {
 			con = DbUtil.getConnection();
@@ -47,18 +42,43 @@ public class BasketDAOImpl implements BasketDAO {
 		}
 		return list;
 	}
-	public static void main(String [] args) {
-		BasketDAO b = new BasketDAOImpl();
+
+	/**
+	 * 이게 장바구니 검색인듯
+	 */
+	@Override
+	public List<MenuDTO> basketMenuSelect(String users_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		BasketDTO bascket = null;
+		MenuDTO menuDTO = null;
+		StoresDTO storeDTO = null;
+		List<MenuDTO> list = new ArrayList<MenuDTO>();
+		String sql_bascket = "SELECT B.MENU_CODE, S.STORE_NAME, M.MENU_NAME, B.BASKET_QUANTITY, M.MENU_PRICE,SUM(M.MENU_PRICE*B.BASKET_QUANTITY)\r\n"
+				+ "FROM BASCKET B JOIN MENU M ON B.MENU_CODE = M.MENU_CODE\r\n"
+				+ "JOIN STORES S ON S.STORE_CODE = M.STORE_CODE\r\n"
+				+ "GROUP BY B.MENU_CODE, S.STORE_NAME, M.MENU_NAME, B.BASKET_QUANTITY, B.USER_ID, M.MENU_PRICE\r\n"
+				+ "HAVING B.USER_ID = ?";
+
 		try {
-			List<BasketDTO> list = b.basketSelectAll("testid");
-			for(BasketDTO ba : list) {
-				System.out.println(ba.getUser_id());
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql_bascket);
+			ps.setString(1, users_id);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				//public MenuDTO(int menu_code, StoresDTO store, String name, BasketDTO basket , int menu_price, int total_price) {
+				bascket = new BasketDTO(rs.getInt(4));
+				storeDTO = new StoresDTO(rs.getString(2));
+		    	menuDTO = new MenuDTO(rs.getInt(1), storeDTO, rs.getNString(3), bascket, rs.getInt(5), rs.getInt(6));
+		    	list.add(menuDTO);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
 		}
-		
+		return list;
 	}
+
 	@Override
 	public int basketInsert(BasketDTO basket) throws SQLException {
 		Connection con = null;
@@ -96,7 +116,7 @@ public class BasketDAOImpl implements BasketDAO {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public int  basketDelete(int menu_code, String user_id) throws SQLException {
 		Connection con = null;
@@ -114,7 +134,7 @@ public class BasketDAOImpl implements BasketDAO {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 장바구니 결제하기
 	 */
@@ -133,55 +153,4 @@ public class BasketDAOImpl implements BasketDAO {
 		}
 		return result;
 	}
-
-	/*
-	@Override
-	public int bascketDelete(List<BascketDTO> list) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql_delete = "delete from bascket where menu_code = ? and user_id =?";
-		String sql_insert_1 = "insert into orders values(ORDER_CODE_SEQ.nextval, ?, ?, sysdate, ?, null, null, 1)";
-		String sql_insert_2="insert into order_line values(ORDER_LINE_CODE_SEQ.nextval, ORDER_CODE_SEQ.CURRVAL, ?, ?)";
-		int result = 0;
-		int sum = 0;
-		try {
-			con = DBUtil.getConnection();
-			con.setAutoCommit(false);
-			
-			for(BascketDTO bb : list) {
-				sum =+ bb.getSum_price();
-			}
-			
-			BascketDTO b = list.get(0);
-			ps = con.prepareStatement(sql_insert_1);
-			ps.setString(1, b.getUser_id());
-			ps.setInt(2, b.getStore_code());
-			ps.setInt(3, sum);
-			result = ps.executeUpdate();
-			if(result==0) throw new SQLException("주문 등록 실패");
-			ps.close();
-			
-			for(BascketDTO bascket : list) {
-			ps = con.prepareStatement(sql_delete);
-			ps.setInt(1, bascket.getMenu_code());
-			ps.setString(2, bascket.getUser_id());
-			result = ps.executeUpdate();
-			if(result==0) throw new SQLException("장바구니 삭제실패");
-			ps.close();
-			
-			ps = con.prepareStatement(sql_insert_2);
-			ps.setInt(1, bascket.getMenu_code());
-			ps.setInt(2, bascket.getBasket_quantity());
-			result = ps.executeUpdate();
-			if(result==0) throw new SQLException("주문 상세 등록 실패");
-			}
-			con.commit();
-		} finally {
-			con.rollback();
-			DBUtil.dbClose(con, ps);
-		}
-		return result;
-	}
-	*/
 }

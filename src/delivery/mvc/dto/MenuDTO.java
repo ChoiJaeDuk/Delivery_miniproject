@@ -13,10 +13,19 @@ public class MenuDTO {
 	
 	private int total_price;
 	private BasketDTO basket;
+	private StoresDTO store;
 	
 	
 	public MenuDTO() {}
 	
+	public MenuDTO(int menu_code, StoresDTO store, String name, BasketDTO basket , int menu_price, int total_price) {
+		this.menu_code = menu_code;
+		this.store = store;
+		this.menu_name = name;
+		this.basket = basket;
+		this.menu_price = menu_price;
+		this.total_price = total_price;
+	}
 	public MenuDTO(String name, BasketDTO basket , int menu_price, int total_price) {
 		this.menu_name = name;
 		this.basket = basket;
@@ -130,6 +139,14 @@ public class MenuDTO {
 
 	public void setTotal_price(int total_price) {
 		this.total_price = total_price;
+	}
+
+	public StoresDTO getStore() {
+		return store;
+	}
+
+	public void setStore(StoresDTO store) {
+		this.store = store;
 	}
 	
 	
