@@ -24,7 +24,6 @@ public class BasketController {
 						+"\t"+menu.getMenu_name()
 						+"\t"+menu.getMenu_price()
 						+"\t"+menu.getBasket().getBasket_quantity());
-				System.out.println("");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
