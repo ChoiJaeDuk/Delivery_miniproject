@@ -31,8 +31,8 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 	@Override
-	public List<MenuDTO> selectOrderLine(String user_id) throws SQLException {
-		List<MenuDTO> list = ordersDao.selectOrderLine(user_id);
+	public List<MenuDTO> selectOrderLine(int order_code) throws SQLException {
+		List<MenuDTO> list = ordersDao.selectOrderLine(order_code);
 		if(list == null || list.size() == 0)throw new SQLException("주문 상세내역이 없습니다.");
 		return list;
 		

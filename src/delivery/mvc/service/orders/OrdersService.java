@@ -29,7 +29,7 @@ public interface OrdersService {
 	/**
 	 * 35p
 	 * */
-	public List<MenuDTO> selectOrderLine(String user_id) throws SQLException;
+	public List<MenuDTO> selectOrderLine(int order_code) throws SQLException;
 	
 	
 	/**

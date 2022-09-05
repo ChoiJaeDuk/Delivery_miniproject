@@ -4,7 +4,7 @@ public class OrderLineDTO {
 	private int order_line_code;
 	private int order_code;
 	private int menu_code;
-	private int order_quntity;
+	private int order_quantity;
 	
 	public OrderLineDTO() { }
 
@@ -15,9 +15,13 @@ public class OrderLineDTO {
 	private MenuDTO menu;
 	private StoresDTO store;
 
+	public OrderLineDTO(int order_quantity) {
+		this.order_quantity = order_quantity;
+	}
+	
 	public OrderLineDTO(int order_line_code, int order_quntity, MenuDTO menu, StoresDTO store) {
 		this.order_line_code = order_line_code;
-		this.order_quntity = order_quntity;
+		this.order_quantity = order_quntity;
 		this.menu = menu;
 		this.store = store;
 	}
@@ -42,12 +46,12 @@ public class OrderLineDTO {
 ////////////////////////////////////////////////////////////////////////////////////	
 
 
-	public OrderLineDTO(int order_line_code, int order_code, int menu_code, int order_quntity) {
+	public OrderLineDTO(int order_line_code, int order_code, int menu_code, int order_quantity) {
 		super();
 		this.order_line_code = order_line_code;
 		this.order_code = order_code;
 		this.menu_code = menu_code;
-		this.order_quntity = order_quntity;
+		this.order_quantity = order_quantity;
 	}
 
 	public int getOrder_line_code() {
@@ -75,11 +79,11 @@ public class OrderLineDTO {
 	}
 
 	public int getOrder_quntity() {
-		return order_quntity;
+		return order_quantity;
 	}
 
-	public void setOrder_quntity(int order_quntity) {
-		this.order_quntity = order_quntity;
+	public void setOrder_quntity(int order_quantity) {
+		this.order_quantity = order_quantity;
 	}
 
 	@Override
@@ -92,7 +96,7 @@ public class OrderLineDTO {
 		builder.append(", menu_code=");
 		builder.append(menu_code);
 		builder.append(", order_quntity=");
-		builder.append(order_quntity);
+		builder.append(order_quantity);
 		builder.append("]");
 		return builder.toString();
 	}
