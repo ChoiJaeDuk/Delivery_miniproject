@@ -21,11 +21,21 @@ public class StoresDTO {
 	private int avg_star_grade;
 	private int order_count;
 	
+	private int total_sales;
+	private int total_sales_for_stores;
+	private int total_sales_for_master;
 	
 	public StoresDTO() { }
 	
 	
-	
+	public StoresDTO(int store_code, String store_name, int total_sales, int total_sales_for_stores, int total_sales_for_master ) {
+		this.store_code = store_code;
+		this.store_name = store_name;
+		this.total_sales = total_sales;
+		this.total_sales_for_stores = total_sales_for_stores;
+		this.total_sales_for_master = total_sales_for_master;
+		
+	}
 	
 
 	public StoresDTO(int store_code, String store_name, int store_delivery_fee, int review_count, int avg_star_grade,
@@ -175,6 +185,67 @@ public class StoresDTO {
 		this.store_approval_date = store_approval_date;
 	}
 	
+	public int getReview_count() {
+		return review_count;
+	}
+
+
+
+	public void setReview_count(int review_count) {
+		this.review_count = review_count;
+	}
+
+
+
+	public int getAvg_star_grade() {
+		return avg_star_grade;
+	}
+
+
+
+	public void setAvg_star_grade(int avg_star_grade) {
+		this.avg_star_grade = avg_star_grade;
+	}
+
+	public int getOrder_count() {
+		return order_count;
+	}
+
+
+
+	public void setOrder_count(int order_count) {
+		this.order_count = order_count;
+	}
+
+
+	public int getTotal_sales() {
+		return total_sales;
+	}
+
+
+	public void setTotal_sales(int total_sales) {
+		this.total_sales = total_sales;
+	}
+	
+
+	public int getTotal_sales_for_stores() {
+		return total_sales_for_stores;
+	}
+
+
+	public void setTotal_sales_for_stores(int total_sales_for_stores) {
+		this.total_sales_for_stores = total_sales_for_stores;
+	}
+
+
+	public int getTotal_sales_for_master() {
+		return total_sales_for_master;
+	}
+
+
+	public void setTotal_sales_for_master(int total_sales_for_master) {
+		this.total_sales_for_master = total_sales_for_master;
+	}
 
 
 	@Override
@@ -210,48 +281,5 @@ public class StoresDTO {
 		return builder.toString();
 	}
 
-
-
-	public int getReview_count() {
-		return review_count;
-	}
-
-
-
-	public void setReview_count(int review_count) {
-		this.review_count = review_count;
-	}
-
-
-
-	public int getAvg_star_grade() {
-		return avg_star_grade;
-	}
-
-
-
-	public void setAvg_star_grade(int avg_star_grade) {
-		this.avg_star_grade = avg_star_grade;
-	}
-
-
-
-	public int getOrder_count() {
-		return order_count;
-	}
-
-
-
-	public void setOrder_count(int order_count) {
-		this.order_count = order_count;
-	}
-
-
-
-
-	
-	
-	
-	
 
 }
