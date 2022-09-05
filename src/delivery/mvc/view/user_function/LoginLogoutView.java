@@ -4,10 +4,12 @@ import java.util.Scanner;
 
 import delivery.mvc.view.MenuView;
 
+
 public class LoginLogoutView {
+
 	private static Scanner sc = new Scanner(System.in);
 	/**
-	 * 로그인 
+	 * 1.로그인 
 	 */
 	
 	public static void login() {
@@ -21,6 +23,9 @@ public class LoginLogoutView {
 		 
 		 
 	}
+	
+	
+
 	
 	/**
 	 * 로그아웃
