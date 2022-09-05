@@ -3,6 +3,7 @@ package delivery.mvc.dto;
 import delivery.mvc.dto.BasketDTO;
 
 public class MenuDTO {
+	//필드
 	private int menu_code;
 	private String menu_name;
 	private int menu_price;
@@ -10,22 +11,18 @@ public class MenuDTO {
 	private String menu_regist_date;
 	private int category_code;
 	private int store_code;
-	
+
 	private int total_price;
 	private OrderLineDTO orderLine;
 	private BasketDTO basket;
 	private StoresDTO store;
-	
-	
-	public MenuDTO() {}
 
-	
+	//생성자
+	public MenuDTO() {}
 
 	public MenuDTO(int store_code) {
 		this.store_code = store_code;
 	}
-	
-
 
 	public MenuDTO(int menu_code, StoresDTO store, String name, BasketDTO basket , int menu_price, int total_price) {
 		this.menu_code = menu_code;
@@ -36,19 +33,32 @@ public class MenuDTO {
 		this.total_price = total_price;
 	}
 
-
-
 	//usersDAOImpl.selectDelivery_time() join문을 위한 생성자(이종민)
 	public MenuDTO(String menu_name, int menu_price) {
 		this.menu_name = menu_name;
 		this.menu_price = menu_price;
 	}
 
-
-
-
-
+	//작성자 : 최재덕
 	public MenuDTO(String name, OrderLineDTO orderLine , int menu_price, int total_price) {
+		this.menu_name = name;
+		this.orderLine = orderLine;
+		this.menu_price = menu_price;
+		this.total_price = total_price;
+
+	}
+
+	/**
+	 * 작성자 : 박해원
+	 * 설명 : 메뉴를 수정하기 위한 생성자
+	 */
+	public MenuDTO(int menu_code, String menu_name, int menu_price, int soldout_status) {
+		this(menu_name, menu_price);
+		this.menu_code = menu_code;
+		this.soldout_status = soldout_status;
+	}
+
+	public MenuDTO(String name, BasketDTO basket , int menu_price, int total_price) {
 		this.menu_name = name;
 		this.orderLine = orderLine;
 		this.menu_price = menu_price;
@@ -67,8 +77,8 @@ public class MenuDTO {
 		this.menu_code = menu_code;
 		this.menu_regist_date = menu_regist_date;
 	}
-	
-	
+
+
 
 	public int getMenu_code() {
 		return menu_code;
@@ -178,11 +188,11 @@ public class MenuDTO {
 	public void setBasket(BasketDTO basket) {
 		this.basket = basket;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 }
