@@ -15,14 +15,30 @@ import delivery.mvc.dto.StoresDTO;
 public class StartView {
 
 	public static void main(String[] args) {
-		//MenuController mc = new MenuController();
+		MenuController mc = new MenuController();
 		BasketController bc = new BasketController();
 		Scanner sc = new Scanner(System.in);
 		
-		
+		/*
 		System.out.println("내 장바구니 정보 좀 가져와봥");
 		bc.basketMenuSelect("testid3");
+		*/
 		
+		/*
+		System.out.println("나 이거 살거야!!!!");
+		System.out.println("메뉴 정보를 가져와바");
+		mc.menuSelectByAll(1);
+		
+		System.out.println("추가할 메뉴 코드는 ?");
+		System.out.print("메뉴 코드 >>");
+		int menu_code = Integer.parseInt(sc.nextLine());
+		
+		System.out.println("추가할 메뉴의 수량은 ?");
+		System.out.print("수량 >>");
+		int basket_quantity = Integer.parseInt(sc.nextLine());
+		
+		bc.basketInsert(new BasketDTO("testid3", menu_code, basket_quantity));
+		*/
 		
 		/*
 		System.out.println("이 메뉴 할인행사 들어가서 수정해야할것같아");
@@ -37,6 +53,18 @@ public class StartView {
 		int basket_quantity = Integer.parseInt(sc.nextLine());
 		
 		bc.basketUpdate(new BasketDTO("testid3", menu_code), basket_quantity);
+		*/
+		
+		/*
+		System.out.println("나 이거 안살거야");
+		System.out.println("내 장바구니 정보 좀 가져와봥");
+		bc.basketMenuSelect("testid3");
+		
+		System.out.println("삭제할 메뉴 코드 는 ?");
+		System.out.print("메뉴 코드 >>");
+		int menu_code = Integer.parseInt(sc.nextLine());
+		
+		bc.basketDelete(menu_code, "testid3");
 		*/
 		
 		/*
