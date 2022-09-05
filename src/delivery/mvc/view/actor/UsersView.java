@@ -21,11 +21,11 @@ public class UsersView {
 
 			switch (users) {
 			case 1:
-				OrdersView.deliveryMenu();// 배달
+				UserOrdersView.deliveryMenu();// 배달
 			case 2:
-				BasketView.bascket();// 장바구니 조회
+				UserBascketView.bascket();// 장바구니 조회
 			case 3:
-				mypageView.mypage();// 마이페이지
+				MypageView.mypage();// 마이페이지
 			case 4:
 				LoginLogoutView.logOut();// 로그아웃
 

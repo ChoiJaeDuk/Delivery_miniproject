@@ -15,6 +15,7 @@ public class RegisterView {
 		System.out.println("--------------------------------------------------------------------");
 		System.out.print("* * * 아이디를 입력해주세요. >> ");
 		String usersId = sc.nextLine();
+		//중복확인!!
 
 		System.out.print("* * * 비밀번호를 입력해주세요. >> ");
 		String usersPwd = sc.nextLine();
@@ -24,6 +25,7 @@ public class RegisterView {
 		
 		System.out.print("* * * 닉네임을 입력해주세요. >> ");
 		String usersNic = sc.nextLine();
+		//중복확인!!
 		
 		System.out.print("* * * 주소를 입력해주세요. >> ");
 		String usersAddr = sc.nextLine();
@@ -36,6 +38,7 @@ public class RegisterView {
 
 
 
+		
 
 		// 컨트롤러 호출하기
 	}

@@ -9,7 +9,7 @@ public class StoreReviewView {
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("후기불러오기\n\n\n\n");
 		
-		OrdersView.stores();
+		UserOrdersView.stores();
 	}
 	
 

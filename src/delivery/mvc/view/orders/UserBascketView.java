@@ -3,8 +3,14 @@ package delivery.mvc.view.orders;
 import java.util.Scanner;
 import delivery.mvc.view.actor.UsersView;
 
-public class BasketView {
+public class UserBascketView {
 	static Scanner sc = new Scanner(System.in);
+	
+	
+	public static void main(String[] args) {
+		bascket();
+	}
+	
 	/**
 	 * 장바구니 조회
 	 */
@@ -28,11 +34,14 @@ public class BasketView {
 		
 			switch (bascket) {
 				case 1:
-					//수량 수정하기
+					bascketUpdate();
+					break;
 				case 2:
-					//메뉴 삭제하기
+					bascketDelet();
+					break;
 				case 3:
-					//주문하기
+					bascketOrder();
+					break;
 				case 4:
 					UsersView.users(); //뒤로가기
 					return;				
@@ -47,16 +56,37 @@ public class BasketView {
 	/**
 	 * 장바구니 수량 수정
 	 */
+	public static void bascketUpdate() {
+		System.out.println("* * * 수정할 메뉴코드를 입력해주세요. >> ");
+		int menuCode = Integer.parseInt(sc.nextLine());
+		
+		System.out.println("* * * 수정할 수량을 입력해주세요. >> ");
+		int bascketQuantity = Integer.parseInt(sc.nextLine());
+		
+		bascket(); //수정 사항 업데이트한 후, 장바구니 조회
+	}
 	
 	
 	/**
 	 * 장바구니 메뉴 삭제
 	 */
-	
+	public static void bascketDelet() {
+		System.out.println("* * * 삭제할 메뉴코드를 입력해주세요. >> ");
+		int menuCode = Integer.parseInt(sc.nextLine());
+		
+		bascket(); //업데이트한 후, 장바구니 조회
+	}
 	
 	/**
 	 * 장바구니 주문하기
 	 */
+	public static void bascketOrder() {
+		System.out.println("* * * 주문이 완료되었습니다. >> ");
+		System.out.println("* * * 주문 승인을 대기 중입니다. >> \n\n");
+		
+		UsersView.users();
+	}
+	
 	
 
 }

@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 import delivery.mvc.view.actor.UsersView;
 
-public class OrdersView {
+public class UserOrdersView {
 	
 	public static void main(String[] args) {
 		deliveryMenu();
 		//subFoodList();
 		//storeSelect();
-		stores();
+		//stores();
 	}
 	
 	static Scanner sc = new Scanner(System.in);
@@ -42,10 +42,13 @@ public class OrdersView {
 				category(category);
 				break;
 			case 4:
-				//가게검색
+				UserCategorySelect.totalStoreList(); 
+				System.out.println("전체 가게 목록 불러오기\n\n\n\n");
+				storeSelect();
 				break;
 			case 5:
-				//메뉴검색
+				UserCategorySelect.menuSelect();
+				storeSelect();
 				break;
 			case 6:
 				UsersView.users();
@@ -108,11 +111,6 @@ public class OrdersView {
 				subFood(category);
 				return;
 			
-			case 4:
-			
-			case 5:
-			case 6:
-			
 			case 13:
 				deliveryMenu();
 				return;
@@ -123,16 +121,7 @@ public class OrdersView {
 		
 		
 	}
-		
-	/**
-	 * 전체가게목록	
-	 */
-	public static void totalStoreList() {
-		
-	}
-	
-	
-	
+
 	
 	/**
 	 * 하위 카테고리 - 가게목록
@@ -295,6 +284,7 @@ public class OrdersView {
 				stores();
 				break;
 			case 2:
+				StoreArrange.arrange();
 				break;
 			
 			case 3:
@@ -333,7 +323,7 @@ public class OrdersView {
 				StoreReviewView.review();
 				break;
 			case 3:
-				subFood(stores);
+				deliveryMenu();
 				return;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
@@ -370,12 +360,15 @@ public class OrdersView {
 				
 				menu();
 				break;
+				
 			case 2:
-				BasketView.bascket();
+				UserBascketView.bascket();
 				break;
+				
 			case 3:
 				stores();
 				break;
+				
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 				menu();
@@ -383,4 +376,6 @@ public class OrdersView {
 			
 		}
 	}
+	
+	
 }
