@@ -39,11 +39,4 @@ public class BasketServiceImpl implements BasketService {
 		return result;
 	}
 
-	@Override
-	public int bascketDelete(String users_id) throws SQLException {
-		int result = bascketDAO.basketDelete(users_id);
-		if(result==0) throw new SQLException("삭제 실패되었습니다");
-		return result;
-	}
-
 }

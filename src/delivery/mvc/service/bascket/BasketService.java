@@ -26,8 +26,4 @@ public interface BasketService {
 	 */
 	int bascketDelete(int menu_code, String user_id) throws SQLException;
 	
-	/**
-	 * 장바구니 결제하기
-	 */
-	int bascketDelete(String users_id) throws SQLException;
 }
