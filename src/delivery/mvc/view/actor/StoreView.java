@@ -2,6 +2,7 @@ package delivery.mvc.view.actor;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.OrdersController;
 import delivery.mvc.view.MenuView;
 import delivery.mvc.view.store_function.ManageOrderView;
 import delivery.mvc.view.store_function.ManageStoreView;
@@ -76,6 +77,7 @@ public class StoreView {
 					
 				case 2 :
 					ManageOrderView.manageOrder();//주문관리
+					
 					return;
 				case 3 :
 					MypageForStoreView.mypageForStore();//마이페이지

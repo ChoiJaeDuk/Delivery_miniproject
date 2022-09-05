@@ -2,6 +2,8 @@ package delivery.mvc.view.store_function;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.OrdersController;
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.view.actor.StoreView;
 
 public class ManageOrderView {
@@ -13,13 +15,13 @@ private static Scanner sc= new Scanner(System.in);
 	
 	public static void manageOrder() {
 		while (true) {
+
 			ManageOrderView.printMenu();
 			int menu = Integer.parseInt(sc.nextLine());
 			
 			switch (menu) {
 			case 1:
 				ManageOrderView.orderDetail();//주문상세보기
-				
 				break;
 				
 			case 2:
@@ -49,11 +51,13 @@ private static Scanner sc= new Scanner(System.in);
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("            ["+orderCode+"에 따른 ㅇㅇㅇ(db불러옴)회원 주문 상세 ]                            ");
 		System.out.println("                 메뉴         수량         금액          총금액                   ");
-		System.out.println("	                        db에서 불러울곳                                                      ");
+		OrdersController.selectOrderLine(Integer.parseInt(orderCode));                                             
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("       	1. 주문승인하기         2. 주문취소하기          3. 뒤로가기              ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
+		
+		
 		//System.out.println("* * * 예상 배달시간을 입력해주세요. >> ");
 		
 		while (true) {
@@ -61,11 +65,12 @@ private static Scanner sc= new Scanner(System.in);
 			
 			switch (menu) {
 			case 1:
-				acceptOrder();//주문승인하기
+				acceptOrder(orderCode);//주문승인하기
+				
 				return;
 				
 			case 2:
-				refuseOrder();//주문취소하기
+				refuseOrder(orderCode);//주문취소하기
 				return;		
 				
 			case 3:
@@ -83,17 +88,18 @@ private static Scanner sc= new Scanner(System.in);
 	/**
 	 * 1-1 주문승인하기
 	 * */
-	public static void acceptOrder() {
-		System.out.println("* * * 예상 배달시간을 입력해주세요. >> ");
+	public static void acceptOrder(String orderCode) {
+		System.out.print("예상 배달시간을 입력해주세요 : ");
 		String expectedTime = sc.nextLine();
+		OrdersController.approveOrder(new OrdersDTO(Integer.parseInt(orderCode),1),Integer.parseInt(expectedTime));
 		System.out.println("db쿼리문 배달상태 업데이트 ");
 	}
 	
 	/**
 	 * 1-2 주문취소하기
 	 * */
-	public static void refuseOrder() {
-		
+	public static void refuseOrder(String orderCode) {
+		OrdersController.cancelOrder(Integer.parseInt(orderCode));
 		System.out.println("db쿼리문 주문취소");
 	}
 	
@@ -158,7 +164,7 @@ private static Scanner sc= new Scanner(System.in);
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("        주문코드      회원 ID       전화번호        주소       배달상태           ");
 		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("          ㅇㅇ          323         010-        ㅁㅇ        대기/줍비/중/완료/취  ");
+		OrdersController.selectOrderList(2);
 		System.out.println("----------------------------------------------------------------------------------");
 	}
 	

@@ -18,7 +18,7 @@ public class StartView {
 		BasketService s = new BasketServiceImpl();
 		BasketDAOImpl a = new BasketDAOImpl();
 		//MenuDAO a = new MenuDAOImpl();
-		
+		MenuView.menu();
 		try {
 			List<BasketDTO> list =a.basketSelectAll("testid3");
 			System.out.println(list);

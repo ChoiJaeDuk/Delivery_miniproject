@@ -25,6 +25,16 @@ public class OrdersDTO {
 	
 	public OrdersDTO() { }
 	
+	
+	
+	public OrdersDTO(int order_code, int delivery_code) {
+		super();
+		this.order_code = order_code;
+		this.delivery_code = delivery_code;
+	}
+
+
+
 	public OrdersDTO(String month, int menu_sales) {
 		this.month = month;
 		this.menu_sales = menu_sales;
