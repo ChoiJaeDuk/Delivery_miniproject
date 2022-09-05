@@ -13,12 +13,12 @@ import delivery.mvc.view.store_function.MypageForStoreView;
 
 public class StoreView {
 	private static Scanner sc = new Scanner(System.in);
-	/*
+	
 	public static void main(String[] args) {
 		 StoreView.menu();
 		 System.out.println("-----------");
 	}
-	*/
+	
 
 	
 
