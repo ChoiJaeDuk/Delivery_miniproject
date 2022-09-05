@@ -72,7 +72,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override
-	public List<StoresDTO> storeSelectById(String users_id) throws SQLException {
+	public List<StoresDTO> storeSelectById(String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -82,7 +82,7 @@ public class StoresDAOImpl implements StoresDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, users_id);
+			ps.setString(1, user_id);
 			
 			rs = ps.executeQuery();
 			

@@ -12,14 +12,14 @@ public class MenuDTO {
 	private int store_code;
 	
 	private int total_price;
-	private BasketDTO bascket;
+	private BasketDTO basket;
 	
 	
 	public MenuDTO() {}
 	
-	public MenuDTO(String name, BasketDTO bascket , int menu_price, int total_price) {
+	public MenuDTO(String name, BasketDTO basket , int menu_price, int total_price) {
 		this.menu_name = name;
-		this.bascket = bascket;
+		this.basket = basket;
 		this.menu_price = menu_price;
 		this.total_price = total_price;
 	}
@@ -117,11 +117,11 @@ public class MenuDTO {
 	}
 
 	public BasketDTO getBascket() {
-		return bascket;
+		return basket;
 	}
 
 	public void setBascket(BasketDTO bascket) {
-		this.bascket = bascket;
+		this.basket = bascket;
 	}
 
 	public int getTotal_price() {

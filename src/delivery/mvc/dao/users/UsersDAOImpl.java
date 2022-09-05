@@ -17,7 +17,7 @@ public class UsersDAOImpl implements UsersDAO {
 	private Properties proFile = DbUtil.getProFile();
 
 	@Override
-	public UsersDTO usersLogin(String users_id, String users_pwd) throws SQLException {
+	public UsersDTO usersLogin(String user_id, String user_pwd) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -29,8 +29,8 @@ public class UsersDAOImpl implements UsersDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setString(1, users_id);
-			ps.setString(2, users_pwd);
+			ps.setString(1, user_id);
+			ps.setString(2, user_pwd);
 			
 			rs = ps.executeQuery();
 			
@@ -88,7 +88,7 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	@Override // return String 
-	public String searchId(String users_name, String users_jumin) throws SQLException {
+	public String searchId(String user_name, String user_jumin) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -100,8 +100,8 @@ public class UsersDAOImpl implements UsersDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, users_name);
-			ps.setString(2, users_jumin);
+			ps.setString(1, user_name);
+			ps.setString(2, user_jumin);
 			
 			rs=ps.executeQuery();
 			if (rs.next()) { //이것도 인수로 아이디 주민을 받는 생성자 따로 만들어야?
@@ -119,7 +119,7 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	@Override
-	public int searchPwd(String users_id, String users_name, String users_jumin, String newpwd) throws SQLException {
+	public int searchPwd(String user_id, String user_name, String user_jumin, String newpwd) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		UsersDTO usersDTO = null;
@@ -131,9 +131,9 @@ public class UsersDAOImpl implements UsersDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, newpwd);
-			ps.setString(2, users_id);
-			ps.setString(3, users_name);
-			ps.setString(4, users_jumin);
+			ps.setString(2, user_id);
+			ps.setString(3, user_name);
+			ps.setString(4, user_jumin);
 			
 			result = ps.executeUpdate();
 			

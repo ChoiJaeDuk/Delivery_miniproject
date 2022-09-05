@@ -15,7 +15,7 @@ public class BasketDAOImpl implements BasketDAO {
 	private Properties proFile = DbUtil.getProFile();
 	
 	@Override
-	public List<BasketDTO> basketSelectAll(String users_id) throws SQLException {
+	public List<BasketDTO> basketSelectAll(String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -31,7 +31,7 @@ public class BasketDAOImpl implements BasketDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql_bascket);
-			ps.setString(1, users_id);
+			ps.setString(1, user_id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				list.add(new BasketDTO(
@@ -59,7 +59,7 @@ public class BasketDAOImpl implements BasketDAO {
 		
 	}
 	@Override
-	public int basketInsert(BasketDTO bascket) throws SQLException {
+	public int basketInsert(BasketDTO basket) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "insert into bascket values(bascket_code_seq.nextval, ?, ?, ?, sysdate)";
@@ -67,9 +67,9 @@ public class BasketDAOImpl implements BasketDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, bascket.getUser_id());
-			ps.setInt(2, bascket.getMenu_code());
-			ps.setInt(3, bascket.getBasket_quantity());
+			ps.setString(1, basket.getUser_id());
+			ps.setInt(2, basket.getMenu_code());
+			ps.setInt(3, basket.getBasket_quantity());
 			result = ps.executeUpdate();
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -78,7 +78,7 @@ public class BasketDAOImpl implements BasketDAO {
 	}
 
 	@Override
-	public int basketUpdate(BasketDTO bascket, int num) throws SQLException {
+	public int basketUpdate(BasketDTO basket, int num) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "update bascket set basket_quantity = ? where menu_code = ? and user_id =?";
@@ -87,8 +87,8 @@ public class BasketDAOImpl implements BasketDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, num);
-			ps.setInt(2, bascket.getMenu_code());
-			ps.setString(3, bascket.getUser_id());
+			ps.setInt(2, basket.getMenu_code());
+			ps.setString(3, basket.getUser_id());
 			result = ps.executeUpdate();
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -97,7 +97,7 @@ public class BasketDAOImpl implements BasketDAO {
 	}
 	
 	@Override
-	public int  basketDelete(int menu_code, String users_id) throws SQLException {
+	public int  basketDelete(int menu_code, String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql_delete = "delete from bascket where menu_code = ? and user_id =?";
@@ -106,7 +106,7 @@ public class BasketDAOImpl implements BasketDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql_delete);
 			ps.setInt(1, menu_code);
-			ps.setString(2, users_id);
+			ps.setString(2, user_id);
 			result = ps.executeUpdate();
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -118,7 +118,7 @@ public class BasketDAOImpl implements BasketDAO {
 	 * 장바구니 결제하기
 	 */
 	@Override
-	public int basketDelete(String users_id) throws SQLException {
+	public int basketDelete(String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql_delete = "delete from bascket where user_id =?";
@@ -126,7 +126,7 @@ public class BasketDAOImpl implements BasketDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql_delete);
-			ps.setString(1, users_id);
+			ps.setString(1, user_id);
 			result = ps.executeUpdate();
 		} finally {
 			DbUtil.dbClose(con, ps);
