@@ -268,7 +268,8 @@ public class OrdersDAOImpl implements OrdersDAO {
 	
 	
 	//테스트합니다!!!!!
-	public static void main(String [] args) {
+	/*
+	 * public static void main(String [] args) {
 		try {
 			OrdersDAOImpl orderDAO = new OrdersDAOImpl();
 			//orderDAO.orderInsert("testid",3, 990000,1);
@@ -292,12 +293,12 @@ public class OrdersDAOImpl implements OrdersDAO {
 			for (OrdersDTO o: ordersList) {
 				System.out.println(o.getOrder_code() + "  " + o.getUser_id() + "  " + o.getUsers().getUsers_phone() + "  " + o.getUsers().getUsers_addr() + "  " + o.getDelivery_status().getDelivery_status());
 			}
-			*/
+			
 			System.out.println("성공");
 			} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

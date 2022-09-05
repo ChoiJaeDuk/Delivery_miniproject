@@ -3,6 +3,7 @@ package delivery.mvc.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.service.orders.OrdersService;
 import delivery.mvc.service.orders.OrdersServiceImpl;
@@ -50,7 +51,21 @@ public class OrdersController {
 	/**
 	 * user_id를 받아 주문상세를 조회한다.
 	 * */
-	public static void selectOrderLine() {
-		
+	public static void selectOrderLine(int order_code) {
+		try {
+			List<MenuDTO> list = orderService.selectOrderLine(order_code);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void cancelOrder(int order_code) {
+		try {
+			orderService.cancelOrder(order_code);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
