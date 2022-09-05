@@ -24,6 +24,7 @@ public class StoresDTO {
 	
 	public StoresDTO() { }
 	
+
 	
 	
 	
@@ -42,6 +43,11 @@ public class StoresDTO {
 
 
 
+
+
+	public StoresDTO(String store_name) {
+		this.store_name = store_name;
+	}
 
 	public StoresDTO(int store_code, String user_id, String store_name, String store_addr, String store_phone,
 			String store_business_no, int category_code, String store_detail, int store_delivery_fee, int store_status,

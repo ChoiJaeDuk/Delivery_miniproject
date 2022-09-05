@@ -13,14 +13,26 @@ public class MenuDTO {
 	
 	private int total_price;
 	private BasketDTO basket;
+	private StoresDTO store;
 	
 	
 	public MenuDTO() {}
 	
+
 	public MenuDTO(int store_code) {
 		this.store_code = store_code;
 	}
 	
+
+	public MenuDTO(int menu_code, StoresDTO store, String name, BasketDTO basket , int menu_price, int total_price) {
+		this.menu_code = menu_code;
+		this.store = store;
+		this.menu_name = name;
+		this.basket = basket;
+		this.menu_price = menu_price;
+		this.total_price = total_price;
+	}
+
 	public MenuDTO(String name, BasketDTO basket , int menu_price, int total_price) {
 		this.menu_name = name;
 		this.basket = basket;
@@ -110,12 +122,8 @@ public class MenuDTO {
 		builder.append(menu_price);
 		builder.append(", soldout_status=");
 		builder.append(soldout_status);
-		builder.append(", menu_regist_date=");
-		builder.append(menu_regist_date);
 		builder.append(", category_code=");
 		builder.append(category_code);
-		builder.append(", store_code=");
-		builder.append(store_code);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -134,6 +142,14 @@ public class MenuDTO {
 
 	public void setTotal_price(int total_price) {
 		this.total_price = total_price;
+	}
+
+	public StoresDTO getStore() {
+		return store;
+	}
+
+	public void setStore(StoresDTO store) {
+		this.store = store;
 	}
 	
 	

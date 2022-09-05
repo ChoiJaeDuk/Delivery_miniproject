@@ -14,15 +14,15 @@ public interface MenuService {
 	/**
 	 * 메뉴 등록하기
 	 */
-	int menuInsert(MenuDTO menu) throws SQLException;
+	void menuInsert(MenuDTO menu) throws SQLException;
 
 	/**
 	 * 메뉴 수정하기
 	 */
-	int menuUpdate(int menu_code, int price, int status) throws SQLException;
+	void menuUpdate(int menu_code, int price, int status) throws SQLException;
 
 	/**
 	 * 메뉴 삭제하기
 	 */
-	int menuDelete(int menu_code) throws SQLException;	
+	void menuDelete(int menu_code) throws SQLException;	
 }
