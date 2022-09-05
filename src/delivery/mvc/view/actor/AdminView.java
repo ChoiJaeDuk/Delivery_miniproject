@@ -8,6 +8,10 @@ import delivery.mvc.view.user_function.LoginLogoutView;
 public class AdminView {
 	
 	static Scanner sc = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		admin();
+	}
 
 	public static void admin() {
 		System.out.println("--------------------------------------------------------------------\n");

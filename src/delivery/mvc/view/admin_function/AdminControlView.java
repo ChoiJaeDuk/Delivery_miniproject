@@ -20,9 +20,13 @@ public class AdminControlView {
 		int adminControl = Integer.parseInt(sc.nextLine());
 		switch(adminControl) {
 			case 1:
+				storeInfo();//가게정보 조회
 				System.out.println("* * * 가게 코드를 입력해주세요. >> ");
 				int storeCode = Integer.parseInt(sc.nextLine());
-				storeControl();				
+				
+				storeControl();//가게관리
+				storeInfo();//가게 정보 업데이트 후 다시 조회!
+								
 				break;
 				
 			case 2:
@@ -40,22 +44,73 @@ public class AdminControlView {
 	
 	
 	/**
-	 * 가게관리
+	 * 가게 정보
 	 */
-	public static void storeControl() {
+	public static void storeInfo() {
 		System.out.println("--------------------------------------------------------------------\n");
 		System.out.println("                [ " + "storeName" + " 가게 정보 ]                   \n");
 		System.out.println("가게정보 불러오기!!   \n\n\n\n");
-		System.out.println("--------------------------------------------------------------------");
-		System.out.println("1.판매자 신청 승인하기     2.판매자 신청 거부하기     3.뒤로가기");
 		System.out.println("--------------------------------------------------------------------");
 		
 	}
 	
 	
 	/**
+	 * 가게관리
+	 */
+	public static void storeControl() {
+		//System.out.println("* * * 가게 코드를 입력해주세요. >> ");
+		//int storeCode = Integer.parseInt(sc.nextLine());
+		
+		System.out.println("--------------------------------------------------------------------");
+		System.out.println("1.판매자 신청 승인하기     2.판매자 신청 거부하기     3.뒤로가기");
+		System.out.println("--------------------------------------------------------------------");
+		System.out.println("* * * 번호를 입력해주세요. >> ");
+		
+		int storeControl = Integer.parseInt(sc.nextLine());
+		switch(storeControl) {
+			case 1:
+				storeState();
+				
+				System.out.println("* * * 가게 코드를 입력해주세요. >> ");				
+				int storeCode = Integer.parseInt(sc.nextLine());
+				
+				storeState(); //업데이트 된 가게 목록 불러오기!!!				
+				adminControl();
+				break;
+			case 2:
+				storeState();
+				break;
+			case 3:
+				adminControl();
+				break;
+			default :
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				storeControl();
+				break;
+		}//switch끝
+	}
+
+	
+	/**
+	 * 판매자 승인 상태
+	 */
+	public static void storeState() {
+		System.out.println("----------------------------------------------------------------\n");
+		System.out.println("                          [ 가게 목록 ]                         \n");
+		System.out.println("가게 코드                 가게 이름             판매자 승인 상태");
+		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
+		System.out.println("가게 승인상태 데이터 불러오기!!!           대기/승인/반려 \n\n\n");
+		System.out.println("----------------------------------------------------------------\n");
+		
+	}
+	
+	/**
 	 * 매출현황조회
 	 */
+	
+	
+	
 	
 
 }
