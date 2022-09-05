@@ -12,7 +12,7 @@ import util.DbUtil;
 
 public class StoresDAOImpl implements StoresDAO {
 
-	@Override //후기/별점, 주문건 컬럼 조인필요
+	@Override //후기/별점, 주문건 컬럼 조인필요->필요없을듯
 	public List<StoresDTO> storesSelectAll() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -38,9 +38,10 @@ public class StoresDAOImpl implements StoresDAO {
 		}
 		
 		return list;
+		
 	}
 
-	@Override //가게 상세정보 조인필요 카테고리 부분 
+	@Override
 	public StoresDTO storeSelcetByCode(int store_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -71,8 +72,8 @@ public class StoresDAOImpl implements StoresDAO {
 	
 	}
 
-	@Override
-	public List<StoresDTO> storeSelectById(String user_id) throws SQLException {
+	@Override //-16 한사람이 가게를 두개 생성하니깐 가게 선택하는 것이 있어야하지 않을까 ? -> 한사람은 가게 한개 생성 
+	public List<StoresDTO> storeSelectById(String user_id) throws SQLException {//RETURN STORESDTO 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -102,7 +103,7 @@ public class StoresDAOImpl implements StoresDAO {
 		return list;
 	}
 
-	@Override // 조인해결필요 메뉴 이름
+	@Override // 조인해결필요 메뉴 이름 후기/별점, 주문건 컬럼 조인필요
 	public List<StoresDTO> storesSelectByMenu(String menu_name) throws SQLException{
 	
 		Connection con = null;
@@ -134,7 +135,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override
-	public List<StoresDTO> storesSelectByCategory(int category_code) throws SQLException {
+	public List<StoresDTO> storesSelectByCategory(int category_code) throws SQLException {//후기/별점, 주문건 컬럼 조인필요
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -218,7 +219,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override //db에는 close = 0, open = 1 레이아웃 open = 1, close = 2
-	/*public int storeStatus(StoresDTO storesDTO) throws SQLException {
+	public int storeStatusUpdate(StoresDTO storesDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "update stores set store_status = ? where user_id = ?";
@@ -237,9 +238,9 @@ public class StoresDAOImpl implements StoresDAO {
 			DbUtil.dbClose(con, ps);
 		}
 		return result;
-	}*/
+	}
 	
-	public int storeStatus(int no, String user_id) throws SQLException {
+	/*public int storeStatus(int no, String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -263,33 +264,33 @@ public class StoresDAOImpl implements StoresDAO {
 			DbUtil.dbClose(con, ps);
 		}
 		return result;
-	}
+	}*/
 
 	@Override
-	public int storeRegis(int no, int store_code) throws SQLException {
+	public int storeRegis(StoresDTO storesDTO) throws SQLException { //DB 생성시 (-)승인날짜 (+)결과날짜
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
 		int result = 0;
 		
-		if(no == 1) {
-			sql = "update stores set store_regis_status = '승인', store_approval_date = sysdate where store_code = ? and store_regis_status = '대기' and store_approval_date is null";
+		if(storesDTO.getStore_regis_status().equals("승인")) {
+			sql = "update stores set store_regis_status = ?, store_approval_date = sysdate where store_code = ? and store_regis_status = '대기' and store_approval_date is null";
 		}else {
-			sql = "update stores set store_regis_status = '반려' where store_code = ? and store_regis_status = '대기' and store_approval_date is null";
+			sql = "update stores set store_regis_status = ? where store_code = ? and store_regis_status = '대기' and store_approval_date is null";
 		}
 		
 			try {
 				con = DbUtil.getConnection();
 				ps = con.prepareStatement(sql);
 			
-				ps.setInt(1, store_code);
+				ps.setString(1, storesDTO.getStore_regis_status());
+				ps.setInt(2, storesDTO.getStore_code());
 					
 				result = ps.executeUpdate();
 				
 			}finally {
 				DbUtil.dbClose(con, ps);
 			}
-			
 			
 		return result;
 	}
@@ -299,14 +300,14 @@ public class StoresDAOImpl implements StoresDAO {
 	
 		try{
 			
-			//StoresDTO store = dao.storeSelcetByCode(1);
-			//System.out.println(store);
+			StoresDTO store = dao.storeSelcetByCode(1);
+			System.out.println(store);
 			
 			
 			//int result = dao.storeRegis(1,4);
 			//System.out.println(result);
-			int result = dao.storeStatus(1, "testid3");
-			System.out.println(result);
+			//int result = dao.storeStatus(1, "testid3");
+			//System.out.println(result);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
