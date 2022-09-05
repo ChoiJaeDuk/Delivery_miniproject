@@ -69,7 +69,7 @@ public interface StoresDAO {
 	 * 가게 오픈 설정 -- 세션
 	 * update stores set store_status = ? where user_id = ?
 	 * */
-	int storeStatusUpdate(StoresDTO storesDTO) throws SQLException;
+	int storeStatusUpdate(int store_status, String user_id) throws SQLException;
 	
 	/**
 	 * 가게신청 승인,거부
