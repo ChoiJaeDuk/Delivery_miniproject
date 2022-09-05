@@ -2,6 +2,8 @@ package delivery.mvc.view.store_function;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.StoresController;
+import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.view.actor.StoreView;
 
 public class ManageStoreView {
@@ -49,16 +51,23 @@ public class ManageStoreView {
 		System.out.println("1. open/close 상태 설정    2. 메뉴 관리     3. 판매통계    4. 후기관리    5. 뒤로가기");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
+		
 	}
 	
 	/*
 	 * 1. open/close 상태 설정하기
 	 * */
-	public static void storeStatus() {
+	public static void storeStatus() { //세션
+		StoresDTO store = new StoresDTO();
+		String user_id =null;
+		String status = null;
+		if(store.getStore_status() == 0 ) status = "close";
+		else status = "open";
+		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [open/close 상태 ]                                 ");
 		
-		System.out.println("-------------지금은"+ "(db업데이트문불러오기)+"+" 상태입니다 -------------------------------");
+		System.out.println("-------------지금은" + status + " 상태입니다 -------------------------------");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("	      	1. open              2. close               3.뒤로가기                ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -68,12 +77,12 @@ public class ManageStoreView {
 			
 			switch (menu) {
 			case 1:
-				openStore();
+				openStore(0,user_id);
 				storeStatus();
 				return; 
 				
 			case 2:
-				closeStore();
+				closeStore(0, user_id);
 				storeStatus();
 				break;		
 			case 3:
@@ -92,15 +101,15 @@ public class ManageStoreView {
 	/**
 	 * 1-1 open상태
 	 * */
-	public static void openStore() {
-		System.out.println("db쿼리문 오픈 업데이트 ");
+	public static void openStore(int store_status, String user_id) {
+		StoresController.storeStatusUpdate(store_status, user_id);
 	}
 	
 	/**
 	 * 1-2 close상태
 	 * */
-	public static void closeStore() {
-		System.out.println("db쿼리문 클로즈 업데이트 ");
+	public static void closeStore(int store_status, String user_id) {
+		StoresController.storeStatusUpdate(store_status, user_id);
 	}
 
 
@@ -236,6 +245,7 @@ public class ManageStoreView {
 		System.out.println("               메뉴코드            메뉴이름             총 매출                   ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("              111111                  피자               5000000                  ");
+		StoresController.storesSales();
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("               	1. 세부 매출 조회              2. 뒤로가기                        ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -264,12 +274,13 @@ public class ManageStoreView {
 	/**
 	 * 3-1 세부매출조회
 	 * */
-	public static void salesDetail() {
+	public static void salesDetail() {//가게에 
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                              [   ㅇㅇㅇ 월별 매출 현황 조회  ]                                 ");
-		System.out.println("               메뉴코드            메뉴이름             총 매출                   ");		
+		System.out.println("       월        메뉴코드            메뉴이름             총 매출                   ");		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("     ex)            1111                피자              5,000,000        ");
+		
 		System.out.println("----------------------------------------------------------------------------------");
 	
 		
