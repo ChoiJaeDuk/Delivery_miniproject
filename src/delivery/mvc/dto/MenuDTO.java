@@ -1,6 +1,6 @@
 package delivery.mvc.dto;
 
-import java.util.List;
+import delivery.mvc.dto.BasketDTO;
 
 public class MenuDTO {
 	private int menu_code;
@@ -16,11 +16,23 @@ public class MenuDTO {
 	
 	
 	public MenuDTO() {}
+
 	
 	public MenuDTO(int store_code) {
 		this.store_code = store_code;
 	}
 	
+
+
+	//usersDAOImpl.selectDelivery_time() join문을 위한 생성자(이종민)
+	public MenuDTO(String menu_name, int menu_price) {
+		this.menu_name = menu_name;
+		this.menu_price = menu_price;
+	}
+
+
+
+
 	public MenuDTO(String name, BasketDTO basket , int menu_price, int total_price) {
 		this.menu_name = name;
 		this.basket = basket;
