@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import delivery.mvc.dto.OrderLineDTO;
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.UsersDTO;
 
 public interface UsersDAO {
@@ -68,11 +69,16 @@ public interface UsersDAO {
 	
 	
 	
+	/**
+	 * 주문리스트
+	 * ppt 64
+	 */
+	List<OrdersDTO> selectOrderList(String user_id) throws SQLException;
 	
 	
 	/**
-	 * 배송시간 조회
-	 * ppt 64
+	 * [주문 상세보기]
+	 * ppt 65
 	 */
 	List<OrderLineDTO> selectDelivery_time(int order_code) throws SQLException;
 	

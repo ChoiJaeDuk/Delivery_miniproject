@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import delivery.mvc.dao.orderline.OrderLineDAO;
+import delivery.mvc.dto.Delivery_StatusDTO;
 import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrderLineDTO;
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.dto.UsersDTO;
 import util.DbUtil;
@@ -251,6 +252,42 @@ public class UsersDAOImpl implements UsersDAO {
 		return result;
 	}
 	
+
+	@Override
+	public List<OrdersDTO> selectOrderList(String user_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		List<OrdersDTO> listO = new ArrayList<OrdersDTO>();
+		
+		Delivery_StatusDTO status = null;
+		OrdersDTO order = null;
+		
+		String sql = "SELECT ORDER_CODE, ORDER_DATE, ORDER_TOTAL_PRICE, DELIVERY_STATUS,ORDER_DELIVERY_TIME "
+				+ "FROM ORDERS O JOIN DELIVERY_STATUS D "
+				+ "ON O.DELIVERY_CODE = D.DELIVERY_CODE "
+				+ "WHERE O.USER_ID = ?";		
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, user_id);
+			
+			rs =ps.executeQuery();
+			while(rs.next()) {
+				status = new Delivery_StatusDTO(rs.getString(4));
+				order = new OrdersDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), status, rs.getString(5));
+				
+				listO.add(order);								
+			}			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}		
+		
+		return listO;
+	}
 	
 
 	@Override
@@ -320,20 +357,30 @@ public class UsersDAOImpl implements UsersDAO {
 	public static void main(String[] args) {
 		UsersDAO user = new UsersDAOImpl();
 		try {
+
+/*
 			String id = user.searchId("테스트", "000000-0000000");
 			System.out.println(id);
-			
+*/			
 /*			
 			List<OrderLineDTO> oll = user.selectDelivery_time(1);
 			for(OrderLineDTO list : oll) {
 				System.out.println(list.getOrder_line_code()+ "  " +  list.getStore().getStore_name() + "  " + list.getMenu().getMenu_name() + "  " + list.getOrder_quntity() + "  " + list.getMenu().getMenu_price() );
 			}
 */			
+			List<OrdersDTO> order = user.selectOrderList("testid");
+			for(OrdersDTO list : order) {
+				System.out.println(list.getOrder_code()+ "  " +  list.getOrder_date() + "  " + list.getOrder_total_price()+ "  " + list.getDelivery_code() + "  " + list.getOrder_delivery_time() );
+			}
+			
+			
 			System.out.println("끝");
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}
 	}
+
+
 
 }
