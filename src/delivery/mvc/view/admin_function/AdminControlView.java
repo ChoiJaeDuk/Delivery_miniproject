@@ -30,6 +30,7 @@ public class AdminControlView {
 				break;
 				
 			case 2:
+				salesStatus();
 				break;
 			case 3:
 				AdminView.admin();
@@ -80,6 +81,13 @@ public class AdminControlView {
 				break;
 			case 2:
 				storeState();
+				
+
+				System.out.println("* * * 가게 코드를 입력해주세요. >> ");				
+				storeCode = Integer.parseInt(sc.nextLine());
+				
+				storeState(); //업데이트 된 가게 목록 불러오기!!!				
+				adminControl();
 				break;
 			case 3:
 				adminControl();
@@ -108,6 +116,49 @@ public class AdminControlView {
 	/**
 	 * 매출현황조회
 	 */
+	public static void salesStatus( ) {
+		System.out.println("----------------------------------------------------------------\n");
+		System.out.println("                       [ 매출 현황 목록 ]                       \n");
+		System.out.println("매출 코드   가게 이름     총 매출     가게 매출     운영자 매출");
+		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
+		System.out.println("데이터 불러오기!!\n\n\n\n");
+		System.out.println("----------------------------------------------------------------\n");
+		System.out.println("1. 세부 매출 내역 조회     2.뒤로가기");
+		System.out.println("----------------------------------------------------------------\n");
+		System.out.println("* * * 번호를 입력해주세요. >> ");
+		
+		int salesStatus = Integer.parseInt(sc.nextLine());
+		switch(salesStatus) {
+			case 1:
+				System.out.println("* * * 가게코드를 입력해주세요. >> ");
+				int storeCode = Integer.parseInt(sc.nextLine());
+				salesDetail();
+				salesStatus();
+				break;
+				
+			case 2:
+				adminControl();
+				break;
+			default :
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				salesStatus();
+				break;
+		}//switch끝
+	}
+	
+	/**
+	 * 세부매출내역 조회
+	 */
+	public static void salesDetail() {
+		System.out.println("----------------------------------------------------------------\n");
+		System.out.println("            [ " + "storeName" + "세부 매출 현황 ]               \n");
+		System.out.println("구분       총 매출             운영자 매출           판매자 매출");
+		System.out.println("----------------------------------------------------------------\n");
+		System.out.println("가게별 월 매출 select!!!!!\n\n\n");
+		System.out.println("----------------------------------------------------------------\n");
+	}
+	
+	
 	
 	
 	

@@ -137,14 +137,27 @@ public class ManageStoreView {
 	 * 2-1 메뉴등록
 	 * */
 	public static void insertMenu() {
+		
 			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                               [ 양식 카테고리 목록 ]                             ");
+			System.out.println("                      ["+ "getCategoryCode" + " 카테고리 목록 ]                   ");
 			System.out.println("\n");
-			System.out.println("                 4. 피자          5.파스타            6.스테이크            ");
-			System.out.println("----------------------------------------------------------------------------------");
+			/*
+			if(getCategoryCode ==1) {
+				System.out.println("                 4. 피자          5.파스타            6.스테이크            ");
+				System.out.println("----------------------------------------------------------------------------------");
+			}else if(getCategoryCode==2) {
+				System.out.println("7.면             8.요리             9.밥             13.뒤로가기");
+				System.out.println("----------------------------------------------------------------\n");
+			}else if(getCategoryCode ==3) {
+				System.out.println("10.찌개           11.볶음          12.찜/탕          13.뒤로가기");
+				System.out.println("----------------------------------------------------------------\n");
+			}
+			*/
 			
-			System.out.println("* * * 양식 카테고리 번호를 입력해주세요 >> ");
+			
+			System.out.println("* * *"+"getCategoryCode"+"  카테고리 번호를 입력해주세요 >> ");
 			String categoryNo = sc.nextLine();
+			
 			System.out.println("* * * 메뉴 이름을 입력해주세요 >> ");
 			String menuName = sc.nextLine();
 			System.out.println("* * * 메뉴 가격을 입력해주세요 >> ");
@@ -154,6 +167,7 @@ public class ManageStoreView {
 	    	//컨트롤러.insert(menu);
 		}
 		
+	
 	
 	
 	/**
