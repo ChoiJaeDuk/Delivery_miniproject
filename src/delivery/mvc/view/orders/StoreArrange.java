@@ -2,8 +2,14 @@ package delivery.mvc.view.orders;
 
 import java.util.Scanner;
 
+
+
 public class StoreArrange {
 	static Scanner sc = new Scanner(System.in);
+	private static int[] subFoodList;
+	//UserOrdersView uo = new UserOrdersView();
+	static int c= UserOrdersView.category;
+	
 	
 	/**
 	 * 정렬레이아웃
@@ -62,9 +68,9 @@ public class StoreArrange {
 		arrangeLayout();
 		System.out.println("* * * 번호를 입력해주세요. >> ");
 		
-		int arrange = Integer.parseInt(sc.nextLine());
+		int menuarrange = Integer.parseInt(sc.nextLine());
 		
-		switch(arrange) {
+		switch(menuarrange) {
 			case 1:
 				UserCategorySelect.menuSelect(); 
 				System.out.println("주문 많은 순서로 %메뉴%가 포함된 가게 목록 불러오기\n\n\n\n");
@@ -84,4 +90,36 @@ public class StoreArrange {
 				break;
 		}//switch끝
 	}
+	
+	/**
+	 * 하위 카테고리 정렬(피자, 찌개, ...)
+	 */
+	
+	public static void categoryArrange() {
+		arrangeLayout();
+		
+		
+		
+		int categoryArrange = Integer.parseInt(sc.nextLine());
+		switch(categoryArrange) {
+			case 1:
+				UserCategorySelect.menuSelect(); 
+				System.out.println("주문 많은 순서로 하위카테고리 포함된 가게 목록 불러오기\n\n\n\n");
+				break;
+			case 2:
+				UserCategorySelect.totalStoreList(); 
+				System.out.println("평점 높은 순서로 하위카테고리가 포함된 가게 목록 불러오기\n\n\n\n");
+				break;
+			case 3:
+				System.out.println("배달팁 낮은 순서로 하위카테고리가 포함된 가게 목록 불러오기\n\n\n\n");
+				break;
+			case 4:
+				UserOrdersView.category(c);
+				break;
+			default :
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				menuarrange();
+				break;
+		}//switch끝) 
+	}	
 }

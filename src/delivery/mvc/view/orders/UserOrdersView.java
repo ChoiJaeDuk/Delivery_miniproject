@@ -63,7 +63,7 @@ public class UserOrdersView {
 
 	
 	
-	/**
+	/**s
 	 * 음식 카테고리
 	 */
 	public static void category(int category) {
@@ -225,39 +225,39 @@ public class UserOrdersView {
 		switch(subFoodList ) {//subFoodList에 가게목록을 담아서 리턴해준다.
 			case 4:
 				System.out.println("피자 가게목록\n\n\n\n");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			case 5:
 				System.out.println("파스타 가게목록\n\n\n\n");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			case 6:
 				System.out.println("스테이크 가게목록\n\n\n\n");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			case 7:
 				System.out.println("면 가게목록");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			case 8:
 				System.out.println("요리 가게목록");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			case 9:
 				System.out.println("밥 가게목록");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			case 10:
 				System.out.println("찌개 가게목록");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			case 11:
 				System.out.println("볶음 가게목록");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			case 12:
 				System.out.println("찜/탕 가게목록");
-				storeSelect(subFoodList);
+				storeSelect(9, 2);
 				break;
 			
 		}//switch끝
@@ -281,17 +281,19 @@ public class UserOrdersView {
 				stores(subFoodList);
 				break;
 			case 2:
-				if(index[0]==0)
-				//하위카테고리(예:피자)만 파는 가게목록을 띄워줘야함. ???? 사용자 입력값에 따라 가게목록 호출해야하는데.....어렵다...
-				StoreArrange.arrange(); //전체가게조회 --> 전체 가게목록을 정렬해서 출력해야함.
-				else if(index[0]==1)
-				   StoreArrange.menuarrange();//%메뉴%를 파는 가게 목록 정렬하기...
-				
+				if (index[0] == 0)
+					// 하위카테고리(예:피자)만 파는 가게목록을 띄워줘야함. ???? 사용자 입력값에 따라 가게목록 호출해야하는데.....어렵다...
+					StoreArrange.arrange(); // 전체가게조회 --> 전체 가게목록을 정렬해서 출력해야함.
+				else if (index[0] == 1)
+					StoreArrange.menuarrange(); // %메뉴%를 파는 가게 목록 정렬하기...
+				else if(index[0] == 2)
+					StoreArrange.categoryArrange();
+
 				break;
 			
 			case 3:
-				//category(category);
-				 subFood(subFoodList); //3 , 4 , 
+				category(category);
+				 //subFood(subFoodList); //3 , 4 , 
 				break;
 		
 			default:
