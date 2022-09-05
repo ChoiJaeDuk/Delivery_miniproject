@@ -24,8 +24,8 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public void menuUpdate(int menu_code, int price, int status) throws SQLException {
-		int result = menuDAO.menuUpdate(menu_code, price, status);
+	public void menuUpdate(MenuDTO menu) throws SQLException {
+		int result = menuDAO.menuUpdate(menu);
 		if(result==0) throw new SQLException("변경 실패");
 	}
 

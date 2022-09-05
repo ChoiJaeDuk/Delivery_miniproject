@@ -19,7 +19,7 @@ public interface MenuService {
 	/**
 	 * 메뉴 수정하기
 	 */
-	void menuUpdate(int menu_code, int price, int status) throws SQLException;
+	void menuUpdate(MenuDTO menu) throws SQLException;
 
 	/**
 	 * 메뉴 삭제하기
