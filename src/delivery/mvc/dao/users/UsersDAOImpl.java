@@ -38,7 +38,7 @@ public class UsersDAOImpl implements UsersDAO {
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				usersDTO = new UsersDTO(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+				usersDTO = new UsersDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
 			
 			}
 			
@@ -70,7 +70,7 @@ public class UsersDAOImpl implements UsersDAO {
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, usersDTO.getUsers_id());
-			ps.setInt(2, usersDTO.getJob_code());
+			ps.setString(2, usersDTO.getJob_code());
 			ps.setString(3, usersDTO.getUsers_pwd());
 			ps.setString(4, usersDTO.getUsers_name());
 			ps.setString(5, usersDTO.getUsers_nick());
@@ -368,11 +368,25 @@ public class UsersDAOImpl implements UsersDAO {
 				System.out.println(list.getOrder_line_code()+ "  " +  list.getStore().getStore_name() + "  " + list.getMenu().getMenu_name() + "  " + list.getOrder_quntity() + "  " + list.getMenu().getMenu_price() );
 			}
 */			
+/*			
 			List<OrdersDTO> order = user.selectOrderList("testid");
 			for(OrdersDTO list : order) {
 				System.out.println(list.getOrder_code()+ "  " +  list.getOrder_date() + "  " + list.getOrder_total_price()+ "  " + list.getDelivery_code() + "  " + list.getOrder_delivery_time() );
 			}
-			
+*/	
+/*			
+			int result = user.join(new UsersDTO("jj", "A", "asd123", "김이박최", "김나박이", "서울경기인천", "010-4554-8822", "111111-2222222","2022-09-05"));
+			if(result == 1) System.out.println("로그인");
+			else System.out.println("실패");
+*/
+/*			
+			int result = user.searchPwd("jj", "김이박최", "111111-2222222", "asd111");
+			if(result == 1) System.out.println("변경");
+			else System.out.println("실패");
+*/
+			int result = user.addrUpdate("서울경기인천", "서울대구대전부산");
+			if(result == 1) System.out.println("주소변경");
+			else System.out.println("실패");
 			
 			System.out.println("끝");
 		} catch (SQLException e) {
