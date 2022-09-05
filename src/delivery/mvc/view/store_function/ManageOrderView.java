@@ -67,9 +67,15 @@ private static Scanner sc= new Scanner(System.in);
 			case 2:
 				refuseOrder();//주문취소하기
 				return;		
+				
 			case 3:
 				printMenu();//뒤로가기
 				break;
+				
+			default:
+				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+				orderDetail();
+				break;	
 			} 
 		}
 	}
@@ -115,10 +121,15 @@ private static Scanner sc= new Scanner(System.in);
 				case 2:
 					finishDelivery();//배달완료
 					return;
-
+					
 				case 3:
 					printMenu(); //뒤로가기
 					return;
+					
+				default:
+					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+					manageDelivery();
+					break;	
 				
 			}
 			
