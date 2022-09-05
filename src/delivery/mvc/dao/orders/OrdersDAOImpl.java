@@ -26,23 +26,22 @@ public class OrdersDAOImpl implements OrdersDAO {
 	 * INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, SYSDATE, ?,NULL,NULL,?)
 	 * */
 	@Override
-	public int orderInsert(String user_id, int store_code, int order_total_price, int delivery_code) throws SQLException {
+	public int orderInsert(OrdersDTO orders) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
 		//String sql = 
-		OrdersDTO orders = null;
+	
 		int result = 0;
 		try {
 			con = DbUtil.getConnection();
 			con.setAutoCommit(false);
 			
 			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, SYSDATE, ?,NULL,NULL,?)");
-			ps.setString(1,user_id);
-			ps.setInt(2, store_code );
-			ps.setInt(3, order_total_price);
-			ps.setInt(4, delivery_code);
+			ps.setString(1,orders.getUser_id());
+			ps.setInt(2, orders.getStore_code());
+			ps.setInt(3, totalPriceSelect(orders.getUser_id()));
+			ps.setInt(4, orders.getDelivery_code());
 			
-			orders = new OrdersDTO(user_id);
 			
 			result = ps.executeUpdate(); 
 	        
@@ -148,10 +147,10 @@ public class OrdersDAOImpl implements OrdersDAO {
 	 * UPDATE ORDERS SET DELIVERY_CODE = ?, ORDER_APPROVAL_TIME = CURRENT_DATE ,ORDER_DELIVERY_TIME = (CURRENT_DATE + ?/(24*60)) WHERE ORDER_CODE = ?
 	 * */
 	@Override
-	public OrdersDTO approveOrder(int delivery_code, int order_delivery_time, int order_code) throws SQLException {
+	public int approveOrder(OrdersDTO orders, int delivery_time) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
-		OrdersDTO orders = null;
+		int result = 0;
 		  
 		try {
 			con = DbUtil.getConnection();
@@ -159,16 +158,16 @@ public class OrdersDAOImpl implements OrdersDAO {
 					+ "SET DELIVERY_CODE = ?, ORDER_APPROVAL_TIME = CURRENT_DATE ,ORDER_DELIVERY_TIME = (CURRENT_DATE + ?/(24*60)) "
 					+ "WHERE ORDER_CODE = ?");
 			
-			ps.setInt(1, delivery_code);
-			ps.setInt(2, order_delivery_time);
-			ps.setInt(3, order_code);
+			ps.setInt(1, orders.getDelivery_code());
+			ps.setInt(2, delivery_time);
+			ps.setInt(3, orders.getOrder_code());
 			
-			ps.executeUpdate(); 
+			result = ps.executeUpdate(); 
 	        
 		}finally {
 			DbUtil.dbClose(con, ps);
 		}
-		return orders;
+		return result;
 	}
 
 	
@@ -274,13 +273,13 @@ public class OrdersDAOImpl implements OrdersDAO {
 	public static void main(String [] args) {
 		try {
 			OrdersDAOImpl orderDAO = new OrdersDAOImpl();
-			orderDAO.orderInsert("testid",3, 990000,1);
+			//orderDAO.orderInsert("testid",3, 990000,1);
 			
 //			
 //		
-//			orderDAO.approveOrder(2, 20, 12);
+			//orderDAO.approveOrder(2, 20, 12);
 //			//orderDAO.cancelOrder(1);
-//			//int i = orderDAO.totalPriceSelect("testid");
+			int i = orderDAO.totalPriceSelect("testid");
 //			
 			/*
 			List<MenuDTO> l = orderDAO.selectOrderLine("testid");
