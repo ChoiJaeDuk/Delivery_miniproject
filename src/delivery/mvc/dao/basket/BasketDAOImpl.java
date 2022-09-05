@@ -67,7 +67,6 @@ public class BasketDAOImpl implements BasketDAO {
 			ps.setString(1, users_id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				//public MenuDTO(int menu_code, StoresDTO store, String name, BasketDTO basket , int menu_price, int total_price) {
 				bascket = new BasketDTO(rs.getInt(4));
 				storeDTO = new StoresDTO(rs.getString(2));
 		    	menuDTO = new MenuDTO(rs.getInt(1), storeDTO, rs.getNString(3), bascket, rs.getInt(5), rs.getInt(6));

@@ -115,12 +115,8 @@ public class MenuDTO {
 		builder.append(menu_price);
 		builder.append(", soldout_status=");
 		builder.append(soldout_status);
-		builder.append(", menu_regist_date=");
-		builder.append(menu_regist_date);
 		builder.append(", category_code=");
 		builder.append(category_code);
-		builder.append(", store_code=");
-		builder.append(store_code);
 		builder.append("]");
 		return builder.toString();
 	}
