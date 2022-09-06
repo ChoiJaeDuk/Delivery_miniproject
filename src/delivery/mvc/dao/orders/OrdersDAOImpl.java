@@ -217,17 +217,17 @@ public class OrdersDAOImpl implements OrdersDAO {
 	 * ppt 65p
 	 * */
 	@Override
-	public int cancelOrder(int order_code) throws SQLException {
+	public int orderStatusUpdate(int order_code, int order_status_code) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
 		int result = 0;
 		 
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement("UPDATE ORDERS SET DELIVERY_CODE = 3 WHERE ORDER_CODE = ?");
+			ps = con.prepareStatement("UPDATE ORDERS SET DELIVERY_CODE = ? WHERE ORDER_CODE = ?");
 			
-			ps.setInt(1, order_code);
-			
+			ps.setInt(1, order_status_code);
+			ps.setInt(2, order_code);
 			result = ps.executeUpdate(); 
 	        if (result == 0) {
 	        	throw new SQLException("½ÇÆÐ");

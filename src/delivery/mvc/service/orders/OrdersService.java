@@ -36,7 +36,7 @@ public interface OrdersService {
 	 * 65p 회원이 환불 신청 (주문 취소)
 	 * */
 	
-	public void cancelOrder(int order_code) throws SQLException;
+	public void orderStatusUpdate(int order_code,int order_status_code) throws SQLException;
 	
 	
 	
