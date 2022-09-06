@@ -20,8 +20,8 @@ public class StoresServiceImpl implements StoresService {
 	}
 
 	@Override
-	public List<StoresDTO> storesSelectAll() throws SQLException {
-		List<StoresDTO> list = storesDAO.storesSelectAll();
+	public List<StoresDTO> storesSelectAll(String arrange) throws SQLException {
+		List<StoresDTO> list = storesDAO.storesSelectAll(arrange);
 		if(list.size() == 0)
 			throw new SQLException("가게 정보가 없습니다.");
 		

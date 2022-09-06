@@ -40,11 +40,12 @@ public class StoresController {
 	
 	
 	//회원이 가게 조회
-	public static void storesSelectAll() {
+	public static void storesSelectAll(String arrange) {
 		try {
-			List<StoresDTO> list = storesService.storesSelectAll();
-			SuccessView.selectStoreList(list);
 
+			List<StoresDTO> list = storesService.storesSelectAll(arrange);
+			SuccessView.selectStoreList(list);
+			
 			
 		}catch(SQLException e){
 			//e.printStackTrace();

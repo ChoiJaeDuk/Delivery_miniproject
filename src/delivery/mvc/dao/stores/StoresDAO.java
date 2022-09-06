@@ -19,7 +19,7 @@ public interface StoresDAO {
 	/**
 	 * 가게목록(별점,후기,주문건) 전체검색
 	 * */
-	List<StoresDTO> storesSelectAll() throws SQLException;
+	List<StoresDTO> storesSelectAll(String arrange) throws SQLException;
 	
 	/**
 	 * 가게코드로 가게 검색

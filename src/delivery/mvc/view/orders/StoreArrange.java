@@ -2,6 +2,7 @@ package delivery.mvc.view.orders;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.StoresController;
 import delivery.mvc.session.SessionSet;
 
 
@@ -41,15 +42,17 @@ public class StoreArrange {
 		
 		switch(arrange) {
 			case 1:
-				UserCategorySelect.totalStoreList(); 
-				System.out.println("주문 많은 순서로 전체 가게 목록 불러오기\n\n\n\n");
+				//UserCategorySelect.totalStoreList(); 
+			
+				StoresController.storesSelectAll("ORDER BY ORDER_COUNT DESC");
 				break;
 			case 2:
-				UserCategorySelect.totalStoreList(); 
-				System.out.println("평점 높은 순서로 전체 가게 목록 불러오기\n\n\n\n");
+				//UserCategorySelect.totalStoreList(); 
+				
+				StoresController.storesSelectAll("ORDER BY STAR_AVG DESC");
 				break;
 			case 3:
-				System.out.println("배달팁 낮은 순서로 전체 가게 목록 불러오기\n\n\n\n");
+				StoresController.storesSelectAll("ORDER BY STORE_DELIVERY_FEE");
 				break;
 			case 4:
 				UserOrdersView.storeSelect(0);

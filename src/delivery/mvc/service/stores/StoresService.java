@@ -10,7 +10,7 @@ import delivery.mvc.dto.StoresDTO;
 public interface StoresService {
 	 List<StoresDTO> storesInfoSelectAll() throws SQLException;
 	 
-	 List<StoresDTO> storesSelectAll() throws SQLException;
+	 List<StoresDTO> storesSelectAll(String arrange) throws SQLException;
 	 
 	 StoresDTO storeSelcetByCode(int store_code) throws SQLException;
 	 

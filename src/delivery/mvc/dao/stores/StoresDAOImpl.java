@@ -44,23 +44,26 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 	
 	@Override
-	public List<StoresDTO> storesSelectAll() throws SQLException {
+	public List<StoresDTO> storesSelectAll(String arrange) throws SQLException {
 		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
-		
+	
 		StoresDTO stores = null;
- 
-		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
+		
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, "
+				+ "COUNT(DISTINCT R.REVIEW_DETAIL) AS REVIEW_COUNT, NVL(AVG(R.STAR_GRADE),0) AS STAR_AVG , COUNT(O.ORDER_CODE) AS ORDER_COUNT\r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
-				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE";
+				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE " + arrange;
 		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);				
+			
+			//ps.setString(1, "S.STORE_DELIVERY_FEE DESC");
 			rs = ps.executeQuery();
 				
 			while(rs.next()) {
