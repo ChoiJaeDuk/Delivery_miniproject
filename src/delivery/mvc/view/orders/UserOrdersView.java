@@ -9,7 +9,7 @@ import delivery.mvc.view.actor.UsersView;
 public class UserOrdersView {
 	
 	private static final String usersId = null;
-
+	
 
 	public static void main(String[] args) {
 		deliveryMenu();
@@ -50,7 +50,7 @@ public class UserOrdersView {
 					break;
 				case 5:
 					UserCategorySelect.menuSelect();
-					storeSelect(9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
+					storeSelect( 9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 6:
 					UsersView.users(usersId);
@@ -316,14 +316,14 @@ public class UserOrdersView {
 	/**
 	 * 가게
 	 */
-	public static void stores( /*int ... subFoodList*/ int storeCode) {
+	public static void stores(int storeCode) {
 		//StoresDTO stores = new StoresDTO();
 		
 				
 		System.out.println("----------------------------------------------------------------");
-		//System.out.println("                      [ " + stores.getStore_name() + " ]                    \n");
-		//System.out.println("가게를 소개하는 부분입니다. 가게를 소개해주세요. 안녕하세요.    \n\n\n"+ stores.getStore_detail());
+	
 		StoresController.storeSelcetByCode(storeCode);
+		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.메뉴 선택             2.후기             3.뒤로가기           ");
 		System.out.println("----------------------------------------------------------------");
@@ -339,7 +339,7 @@ public class UserOrdersView {
 				break;
 			case 3:
 				//deliveryMenu();
-				//subFoodList(subFoodList[0]); //[0]의미는 뭘까.....? 초기화?????? //수정을 못하겠어요 
+				//subFoodList(subFoodList[0]); //[0]의미는 뭘까.....? 초기화?????? //수정을 못하겠어요 !!!!!
 				return;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");

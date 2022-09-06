@@ -484,8 +484,6 @@ public class StoresDAOImpl implements StoresDAO {
 				System.out.println(orders.getMonth() + orders.getTotal_sales() + orders.getTotal_sales_for_master() + orders.getTotal_sales_for_stores());
 			}
 			
-		
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
