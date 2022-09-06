@@ -48,11 +48,15 @@ public interface OrdersDAO {
 	 * */
 	public int orderStatusUpdate(int order_code, int order_status_code) throws SQLException;
 	
+	/**
+	 * User입장에서의 주문목록 조회 65p
+	 * */
+	public List<OrdersDTO> selectOrderListByUser(OrdersDTO orders) throws SQLException;
 	
 	/**
 	 * 주문내역에 입력할 총가격 값 가져오기
 	 * Select sum(m.menu_price * b.basket_quantity) as total_price from menu m , bascket b where m.menu_code = b.menu_code;
 	 * */
-	public int totalPriceSelect(String user_id) throws SQLException;
+	public int totalPriceSelect() throws SQLException;
 	
 }
