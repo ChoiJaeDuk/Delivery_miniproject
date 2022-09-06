@@ -321,7 +321,7 @@ public class StoresDAOImpl implements StoresDAO {
 		
 		if(storesDTO.getStore_regis_status().equals("승인")) {
 			sql = "update stores set store_regis_status = ?, store_approval_date = sysdate where store_code = ? and store_regis_status = '대기' and store_approval_date is null";
-		}else {
+		}else if(storesDTO.getStore_regis_status().equals("반려")){
 			sql = "update stores set store_regis_status = ? where store_code = ? and store_regis_status = '대기' and store_approval_date is null";
 		}
 		
@@ -399,6 +399,7 @@ public class StoresDAOImpl implements StoresDAO {
 		return list;
 	}
 	
+	
 	@Override
 	public List<OrdersDTO> storeSalesByMonth(int store_code) throws SQLException {
 		Connection con = null;
@@ -429,6 +430,40 @@ public class StoresDAOImpl implements StoresDAO {
 		
 		return list;
 	}
+	
+	@Override
+	public List<MenuDTO> menuSales(String users_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<MenuDTO> list = new ArrayList<MenuDTO>();
+		String sql = "SELECT menu.menu_code, menu.menu_name, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
+				+ "FROM  MENU JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE \r\n"
+				+ "join stores on menu.store_code = stores.store_code\r\n"
+				+ "GROUP BY menu.menu_code, menu.menu_name, users_id\r\n"
+				+ "HAVING users_id = ?";
+
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, users_id);
+	
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				MenuDTO menu = new MenuDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
+				list.add(menu);
+			}
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		return list;
+	}
+
+
 
 	
 	@Override
@@ -439,9 +474,9 @@ public class StoresDAOImpl implements StoresDAO {
 		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
 		String sql = "SELECT TO_CHAR(ORDERS.ORDER_DATE,'MM') as 월, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
 				+ "		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE\r\n"
-				+ "		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE\r\n"
-				+ "		GROUP BY MENU.MENU_CODE, ORDERS.STORE_CODE, to_char(orders.order_date,'MM')\r\n"
-				+ "		HAVING ORDERS.STORE_CODE = ? and menu.menu_code = ?\r\n"
+				+ "		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE join stores on stores.store_code = menu.store_code\r\n"
+				+ "		GROUP BY MENU.MENU_CODE, stores.users_id, to_char(orders.order_date,'MM')\r\n"
+				+ "		HAVING stores.users_id = ? and menu.menu_code = ?\r\n"
 				+ "		order by 월";
 		
 		try {

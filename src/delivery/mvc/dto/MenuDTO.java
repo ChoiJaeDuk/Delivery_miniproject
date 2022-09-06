@@ -16,12 +16,28 @@ public class MenuDTO {
 	private OrderLineDTO orderLine;
 	private BasketDTO basket;
 	private StoresDTO store;
-
+	
+	private int total_profit;
+	
+	/*"SELECT menu.menu_code, menu.menu_name, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
+	+ "FROM  MENU JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE \r\n"
+	+ "join stores on menu.store_code = stores.store_code\r\n"
+	+ "GROUP BY menu.menu_code, menu.menu_name, users_id\r\n"
+	+ "HAVING users_id = 'user';";*/
 	//»ý¼ºÀÚ
 	public MenuDTO() {}
 
 	public MenuDTO(int store_code) {
 		this.store_code = store_code;
+	}
+	
+	
+
+	public MenuDTO(int menu_code, String menu_name, int total_profit) {
+		super();
+		this.menu_code = menu_code;
+		this.menu_name = menu_name;
+		this.total_profit = total_profit;
 	}
 
 	public MenuDTO(int menu_code, StoresDTO store, String name, BasketDTO basket , int menu_price, int total_price) {
@@ -187,6 +203,14 @@ public class MenuDTO {
 
 	public void setBasket(BasketDTO basket) {
 		this.basket = basket;
+	}
+
+	public int getTotal_profit() {
+		return total_profit;
+	}
+
+	public void setTotal_profit(int total_profit) {
+		this.total_profit = total_profit;
 	}
 
 

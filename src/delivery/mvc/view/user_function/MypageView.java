@@ -2,10 +2,11 @@ package delivery.mvc.view.user_function;
 
 import java.util.Scanner;
 
-
 import delivery.mvc.controller.ReviewController;
+import delivery.mvc.controller.StoresController;
 import delivery.mvc.controller.UsersController;
 import delivery.mvc.dto.ReviewDTO;
+import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
@@ -334,20 +335,24 @@ public class MypageView {
 			System.out.println("(1.양식   2.중식   3.한식)");
 			int categoryCode = Integer.parseInt(sc.nextLine());
 			
+			System.out.println("* * * 가게 설명을 입력해주세요. >> ");
+			String storeDetail = sc.nextLine();
+			
 			System.out.println("* * * 배달료를 입력해주세요. >> ");
 			int delivery_fee = Integer.parseInt(sc.nextLine());
 			
+			StoresDTO store = new StoresDTO(userId, storeName, storeAddr, storePhone, storeBusinessNo, categoryCode,  storeDetail,  delivery_fee);
 			// 양식, 중식, 한식 외 입력 시 오류메세지!!  
 			//2가지 입력 시 오류 메세지!!
 			
-			storeRegister(userId);
+			storeRegister(store);
 			break;
 			
 		case 2:
 			System.out.println("----------------------------------------------------------------------------\n");
 			System.out.println("      가게 신청일            가게 신청 현황            가게 신청 승인일     ");
 			System.out.println("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-			System.out.println("판매자 신청 승인 결과 select!! \n\n\n");
+			StoresController.regisCheck(userId);;
 			System.out.println("----------------------------------------------------------------------------");
 			storeRegis(userId);
 			break;
@@ -368,7 +373,7 @@ public class MypageView {
 	 * 판매자신청
 	 * @param userId 
 	 */
-	private static void storeRegister(String userId) {		
+	private static void storeRegister(StoresDTO store) {		
 		
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.신청하기          2.취소하기");
@@ -378,16 +383,17 @@ public class MypageView {
 		int storeRegister = Integer.parseInt(sc.nextLine());
 		switch(storeRegister) {
 			case 1:
+				StoresController.storeInsert(store);;
 				System.out.println("판매자 신청이 완료되었습니다.");
-				storeRegis(userId);
+				storeRegis(store.getUser_id());
 				break;
 			case 2:
 				System.out.println("판매자 신청이 취소되었습니다.");
-				storeRegis(userId);
+				storeRegis(store.getUser_id());
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				storeRegister(userId);
+				storeRegister(store);
 				break;
 		}//switch끝
 	}
