@@ -1,5 +1,6 @@
 package delivery.mvc.view.admin_function;
 
+import java.lang.ModuleLayer.Controller;
 import java.util.Scanner;
 
 import delivery.mvc.controller.StoresController;
@@ -49,15 +50,9 @@ public class AdminControlView {
 	/**
 	 * 가게 정보
 	 */
-	public static void storeInfo() { //필요한가 ?
+	public static void storeInfo() { 
 		System.out.println("--------------------------------------------------------------------\n");
-
-		System.out.println("     가게코드           [ " + "storeName" + " 가게 정보 ]                   \n");
-		System.out.println("가게정보 불러오기!!   \n\n\n\n");
-
-		System.out.println("                [ " + "storeName" + " 가게 정보 ]                   \n");
-		System.out.println("가게정보 불러오기!!   \n\n\n\n"); //가게 코드랑 가게 이름
-		
+		StoresController.storesInfoSelectAll();
 		System.out.println("--------------------------------------------------------------------");
 		
 	}
@@ -81,8 +76,7 @@ public class AdminControlView {
 		
 				StoresController.storeRegis(new StoresDTO("승인",store_code));
 				
-				storeState(); //업데이트 된 가게 목록 불러오기!!!	
-	
+				storeState(); //업데이트 된 가게 목록 불러오기!!!
 				adminControl();
 				break;
 			case 2:
@@ -112,9 +106,7 @@ public class AdminControlView {
 		System.out.println("                          [ 가게 목록 ]                         \n");
 		System.out.println("가게 코드                 가게 이름             판매자 승인 상태");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
-	
 		StoresController.storesInfoSelectAll();
-	
 		System.out.println("----------------------------------------------------------------\n");
 		
 	}

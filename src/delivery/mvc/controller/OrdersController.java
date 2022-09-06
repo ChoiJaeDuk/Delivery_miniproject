@@ -7,6 +7,7 @@ import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.service.orders.OrdersService;
 import delivery.mvc.service.orders.OrdersServiceImpl;
+import delivery.mvc.view.SuccessView;
 
 public class OrdersController {
 	private static OrdersService orderService = new OrdersServiceImpl();
@@ -16,6 +17,7 @@ public class OrdersController {
 	public static void insertOrders(OrdersDTO orders) {
 		try {
 			orderService.orderInsert(orders);
+			SuccessView.getmessagePrint("주문되었습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,7 +41,7 @@ public class OrdersController {
 			}
 			
 		}catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	
@@ -50,8 +52,8 @@ public class OrdersController {
 	public static void approveOrder(OrdersDTO orders, int delivery_time) {
 		try {
 			orderService.approveOrder(orders, delivery_time);
+			SuccessView.getmessagePrint("업데이트 되었습니다.");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -63,12 +65,11 @@ public class OrdersController {
 	public static void selectOrderLine(int order_code) {
 		try {
 			List<MenuDTO> list = orderService.selectOrderLine(order_code);
-			
-			for (MenuDTO menu :list) {
-				System.out.println(menu.getMenu_name()+"  "+ menu.getOrderLine().getOrder_quntity() +"  "+ menu.getMenu_price()+"  "+menu.getTotal_price() );
-			}
+			SuccessView.selectOrderLine(list);
+			//for (MenuDTO menu :list) {
+			//	System.out.println(menu.getMenu_name()+"  "+ menu.getOrderLine().getOrder_quntity() +"  "+ menu.getMenu_price()+"  "+menu.getTotal_price() );
+			//}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -76,8 +77,9 @@ public class OrdersController {
 	public static void orderStatusUpdate(int order_code, int order_status_code) {
 		try {
 			orderService.orderStatusUpdate(order_code, order_status_code);
+			SuccessView.getmessagePrint(" 주문 상태가 변경 되었습니다.");
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -49,8 +49,7 @@ public class StoreView {
 	
 	public static void printMenu() {
 		System.out.println("--------------------------------------------------------------------");
-		System.out.println("	       userId님 반갑습니다.        		 	                    ");
-		System.out.println("													         		");
+		System.out.println("	          "+"usersId"+"\t님 반갑습니다.        		 	       \n\n ");
 		System.out.println("	  1. 회원모드 	       2. 판매자 모드       		            ");
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
@@ -58,7 +57,7 @@ public class StoreView {
 	}
 	
 	
-	public static void printMenuForStores() { //인수로 스트링 받는게 맞는지 확인(case4도)
+	public static void printMenuForStores() {
 	
 		while(true) {
 			//SessionSet ss = SessionSet.getInstance();

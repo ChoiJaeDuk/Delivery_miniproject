@@ -2,6 +2,8 @@ package delivery.mvc.view.admin_function;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.ReviewController;
+import delivery.mvc.controller.StoresController;
 import delivery.mvc.view.actor.AdminView;
 
 /**
@@ -14,9 +16,9 @@ public class ReviewControlView {
 	public static void storeList() {
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("                          [ 가게 목록 ]                         \n");
-		System.out.println("              가게코드           가게 이름");
+		System.out.println("              가게코드           가게 이름\n");
 		System.out.println("----------------------------------------------------------------\n");
-		System.out.println("storeCode, storeName 호출하기!!!\n\n\n\n\n\n");
+		StoresController.storesNameCodeSelectAll();
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("* * * 가게코드를 입력해주세요. >> ");
 		int storeCode = Integer.parseInt(sc.nextLine());
@@ -26,7 +28,7 @@ public class ReviewControlView {
 	}
 	
 	/**
-	 * 후기목록
+	 * 후기목록-------------------------------------------수정해야됨
 	 */
 	public static void reviewList() {
 		
@@ -34,7 +36,7 @@ public class ReviewControlView {
 			System.out.println("                          [ 후기 목록 ]                         \n");
 			System.out.println("      후기 코드         가게 이름           후기         평점   ");
 			System.out.println("----------------------------------------------------------------\n");
-			System.out.println("데이터 불러오기!!!!\n\n\n\n\n\n");
+			
 			System.out.println("----------------------------------------------------------------\n");
 			System.out.println("1.후기 삭제하기       2.뒤로가기");
 			System.out.println("----------------------------------------------------------------\n");
@@ -65,7 +67,7 @@ public class ReviewControlView {
 	 * 후기삭제
 	 */
 	
-	/*public static void reviewDelete() {
+	public static void reviewDelete() {
 		reviewList();
 		int reviewList = Integer.parseInt(sc.nextLine());
 		switch(reviewList) {
@@ -79,6 +81,6 @@ public class ReviewControlView {
 			default :
 				break;
 		}
-	}*/
+	}
 	
 }

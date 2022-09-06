@@ -66,8 +66,8 @@ public class UserOrdersView {
 
 	
 	
-	/**s
-	 * 음식 카테고리
+	/**
+	 * 음식 카테고리 ------------------------수정해야됨
 	 */
 	public static void category(int category) {
 		
@@ -78,7 +78,6 @@ public class UserOrdersView {
 				System.out.println("----------------------------------------------------------------");
 				System.out.println("4.피자          5.파스타          6.스테이크         13.뒤로가기");
 				System.out.println("----------------------------------------------------------------\n");
-				
 				System.out.println("* * * 번호를 입력해주세요. >> ");
 				category =Integer.parseInt(sc.nextLine());
 				
