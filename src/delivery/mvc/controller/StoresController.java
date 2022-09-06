@@ -15,7 +15,9 @@ public class StoresController {
 	public static void storesInfoSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesInfoSelectAll();
-			System.out.println(list);
+			for(StoresDTO stores:list) {
+			System.out.println(stores.getStore_code() + "\t" + stores.getStore_name() + "\t" + stores.getStore_regis_status());
+			}
 		}catch(SQLException e){
 			System.out.println("¿À·ù");
 		}
@@ -24,7 +26,9 @@ public class StoresController {
 	public static void storesSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesSelectAll();
-			System.out.println(list);
+			for(StoresDTO stores:list) {
+			System.out.println(stores.getStore_code() + "\t" + stores.getAvg_star_grade() + "\t" + stores.getOrder_count());
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

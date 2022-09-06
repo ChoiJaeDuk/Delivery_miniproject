@@ -2,8 +2,11 @@ package delivery.mvc.view.orders;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.StoresController;
+
 public class UserCategorySelect {
 	static Scanner sc = new Scanner(System.in);
+
 
 	/**
 	 * 가게조회 레이아웃
@@ -25,7 +28,7 @@ public class UserCategorySelect {
 		//System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
 		//System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		selectLayout();
-		System.out.println("전체가게 select!!\n\n\n\n\n\n");// controler ->service - dao
+		StoresController.storesSelectAll();
 		
 	}
 	
@@ -41,6 +44,11 @@ public class UserCategorySelect {
 		//System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
 		//System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		selectLayout();
-		System.out.println("%메뉴이름%" + "select 결과 가져오기\n\n\n\n\n");
+
+		StoresController.storesSelectByMenu(menuName);
+	}
+	
+	public static void main(String[] args) {
+		totalStoreList();
 	}
 }

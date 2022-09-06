@@ -112,8 +112,8 @@ public class AdminControlView {
 		System.out.println("                          [ 가게 목록 ]                         \n");
 		System.out.println("가게 코드                 가게 이름             판매자 승인 상태");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("가게 승인상태 데이터 불러오기!!!           대기/승인/반려 \n\n\n");
-		StoresController.storesSelectAll();
+	
+		StoresController.storesInfoSelectAll();
 	
 		System.out.println("----------------------------------------------------------------\n");
 		
