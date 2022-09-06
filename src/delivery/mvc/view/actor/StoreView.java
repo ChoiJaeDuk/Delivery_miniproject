@@ -13,6 +13,7 @@ import delivery.mvc.view.store_function.MypageForStoreView;
 
 
 public class StoreView {
+	private static final String usersId = null;
 	private static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
@@ -30,7 +31,7 @@ public class StoreView {
 			
 			switch (menu) {
 			case 1:
-				UsersView.users();//삼진님의 회원 메소드 호출//회원모드
+				UsersView.users(usersId);//삼진님의 회원 메소드 호출//회원모드
 				
 				
 			case 2:

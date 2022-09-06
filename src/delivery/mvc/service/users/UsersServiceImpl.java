@@ -6,8 +6,9 @@ import java.util.List;
 import delivery.mvc.dao.users.UsersDAO;
 import delivery.mvc.dao.users.UsersDAOImpl;
 import delivery.mvc.dto.OrderLineDTO;
-import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.UsersDTO;
+import delivery.mvc.session.Session;
+import delivery.mvc.session.SessionSet;
 
 public class UsersServiceImpl implements UsersService {
 	UsersDAO usersDAO = new UsersDAOImpl();
@@ -16,6 +17,12 @@ public class UsersServiceImpl implements UsersService {
 	public UsersDTO usersLogin(String users_id, String users_pwd) throws SQLException {
 		UsersDTO user = usersDAO.usersLogin(users_id, users_pwd);
 		if(user == null) throw new SQLException("정보가 일치 하지 않습니다.");
+		
+		Session session = new Session(users_id);
+		SessionSet sessionSet = SessionSet.getInstance();
+		
+		sessionSet.add(session);
+		
 		return user;
 	}
 

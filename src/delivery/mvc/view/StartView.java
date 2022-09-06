@@ -13,6 +13,7 @@ import delivery.mvc.service.bascket.BasketServiceImpl;
 
 public class StartView {
 
+	/*
 	public static void main(String[] args) {
 		System.out.println("ÀÌ¾ß¾ß");
 		BasketService s = new BasketServiceImpl();
@@ -55,11 +56,11 @@ public class StartView {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 	
-	/*
+	
 	public static void main(String[] args) {
 		MenuView.menu();
 	}
-*/
+
 }

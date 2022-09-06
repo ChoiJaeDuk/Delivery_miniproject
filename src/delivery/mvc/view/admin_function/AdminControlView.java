@@ -33,7 +33,7 @@ public class AdminControlView {
 				salesStatus();
 				break;
 			case 3:
-				AdminView.admin();
+				AdminView.admin(null);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
@@ -49,7 +49,7 @@ public class AdminControlView {
 	 */
 	public static void storeInfo() {
 		System.out.println("--------------------------------------------------------------------\n");
-		System.out.println("                [ " + "storeName" + " 가게 정보 ]                   \n");
+		System.out.println("     가게코드           [ " + "storeName" + " 가게 정보 ]                   \n");
 		System.out.println("가게정보 불러오기!!   \n\n\n\n");
 		System.out.println("--------------------------------------------------------------------");
 		

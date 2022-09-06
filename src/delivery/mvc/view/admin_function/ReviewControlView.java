@@ -49,7 +49,7 @@ public class ReviewControlView {
 					reviewList();//삭제된 목록 조회!!
 					break;
 				case 2:
-					AdminView.admin();
+					AdminView.admin(null);
 					break;
 				default :
 					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");

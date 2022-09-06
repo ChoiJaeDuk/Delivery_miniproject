@@ -4,6 +4,7 @@ import java.util.Scanner;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserBascketView {
+	private static final String usersId = null;
 	static Scanner sc = new Scanner(System.in);
 	
 	
@@ -43,7 +44,7 @@ public class UserBascketView {
 					bascketOrder();
 					break;
 				case 4:
-					UsersView.users(); //뒤로가기
+					UsersView.users(usersId); //뒤로가기
 					return;				
 				default:
 					   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");//그 외 번호 입력 시 오류메세지		
@@ -84,7 +85,7 @@ public class UserBascketView {
 		System.out.println("* * * 주문이 완료되었습니다. >> ");
 		System.out.println("* * * 주문 승인을 대기 중입니다. >> \n\n");
 		
-		UsersView.users();
+		UsersView.users(usersId);
 	}
 	
 	
