@@ -13,6 +13,7 @@ import delivery.mvc.view.store_function.MypageForStoreView;
 
 
 public class StoreView {
+	private static final String usersId = null;
 	private static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
@@ -30,11 +31,11 @@ public class StoreView {
 			
 			switch (menu) {
 			case 1:
-				UsersView.users();//삼진님의 회원 메소드 호출//회원모드
+				UsersView.users(usersId);//삼진님의 회원 메소드 호출//회원모드
 				
 				
 			case 2:
-				StoreView.printMenuForStores();// 판매자모드 
+				StoreView.printMenuForStores(usersId);// 판매자모드 
 				//MenuView.printMenu();
 				
 			default:
@@ -58,7 +59,7 @@ public class StoreView {
 	}
 	
 	
-	public static void printMenuForStores() { //인수로 스트링 받는게 맞는지 확인(case4도)
+	public static void printMenuForStores(String users_id) { //인수로 스트링 받는게 맞는지 확인(case4도)
 	
 		while(true) {
 			//SessionSet ss = SessionSet.getInstance();
@@ -71,22 +72,22 @@ public class StoreView {
 			int menu =Integer.parseInt( sc.nextLine());
 			switch(menu) {
 				case 1 :
-					ManageStoreView.manageStore();//가게관리
+					ManageStoreView.manageStore(users_id);//가게관리
 					return; //함수를 빠저나간다.
 					//break;
 					
 				case 2 :
-					ManageOrderView.manageOrder();//주문관리
+					ManageOrderView.manageOrder(users_id);//주문관리
 					
 					return;
 				case 3 :
-					MypageForStoreView.mypageForStore();//마이페이지
+					MypageForStoreView.mypageForStore(users_id);//마이페이지
 					return;
 				case 4 :
 					MenuView.menu();//로그아웃
 				default:
 					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-					printMenuForStores();
+					printMenuForStores(users_id);
 					break;	
 				}
 		}

@@ -11,7 +11,7 @@ public interface OrdersService {
 	/**
 	 * ¡÷πÆΩ√ insert
 	 * */
-	public void orderInsert(OrdersDTO orders) throws SQLException;
+	public void orderInsert(String user_id) throws SQLException;
 	
 	
 	/**

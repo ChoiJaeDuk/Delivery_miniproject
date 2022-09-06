@@ -14,7 +14,7 @@ public class MypageForStoreView {
 	//	}
 	
 	
-	public static void mypageForStore(){
+	public static void mypageForStore(String userid){
 		while(true) {
 			MypageForStoreView.printMenu();
 			int menu=Integer.parseInt(sc.nextLine());
@@ -26,12 +26,12 @@ public class MypageForStoreView {
 				return;
 				
 			case 2 : 
-				StoreView.printMenuForStores();//뒤로가기
+				StoreView.printMenuForStores(userid);//뒤로가기
 				return;
 				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				mypageForStore();
+				mypageForStore(userid);
 				break;	
 			}
 

@@ -20,12 +20,33 @@ public class OrdersDTO {
 	
 	private String month;
 	private int menu_sales;
+	
+	private int total_sales;
+	private int total_sales_for_stores;
+	private int total_sales_for_master;
+	
 
 	  
 	
 	public OrdersDTO() { }
 	
 	
+	
+	public OrdersDTO(String user_id, int store_code, int order_total_price) {
+		super();
+		this.user_id = user_id;
+		this.store_code = store_code;
+		this.order_total_price = order_total_price;
+	}
+
+
+
+	public OrdersDTO(String month, int total_sales, int total_sales_for_master, int total_sales_for_stores) {
+		this.month = month;
+		this.total_sales = total_sales;
+		this.total_sales_for_master =total_sales_for_master;
+		this.total_sales_for_stores = total_sales_for_stores;
+	}
 	
 	public OrdersDTO(int order_code, int delivery_code) {
 		super();
@@ -149,6 +170,29 @@ public class OrdersDTO {
 		this.menu_sales = menu_sales;
 	}
 
+	public int getTotal_sales() {
+		return total_sales;
+	}
+
+	public void setTotal_sales(int total_sales) {
+		this.total_sales = total_sales;
+	}
+
+	public int getTotal_sales_for_stores() {
+		return total_sales_for_stores;
+	}
+
+	public void setTotal_sales_for_stores(int total_sales_for_stores) {
+		this.total_sales_for_stores = total_sales_for_stores;
+	}
+
+	public int getTotal_sales_for_master() {
+		return total_sales_for_master;
+	}
+
+	public void setTotal_sales_for_master(int total_sales_for_master) {
+		this.total_sales_for_master = total_sales_for_master;
+	}
 
 	@Override
 	public String toString() {

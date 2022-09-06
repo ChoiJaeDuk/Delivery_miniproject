@@ -15,7 +15,9 @@ public class StoresController {
 	public static void storesInfoSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesInfoSelectAll();
-			System.out.println(list);
+			for(StoresDTO stores:list) {
+			System.out.println(stores.getStore_code() + "\t" + stores.getStore_name() + "\t" + stores.getStore_regis_status());
+			}
 		}catch(SQLException e){
 			System.out.println("¿À·ù");
 		}
@@ -24,7 +26,9 @@ public class StoresController {
 	public static void storesSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesSelectAll();
-			System.out.println(list);
+			for(StoresDTO stores:list) {
+			System.out.println(stores.getStore_code() + "\t" + stores.getAvg_star_grade() + "\t" + stores.getOrder_count());
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -105,9 +109,21 @@ public class StoresController {
 		}
 	}
 	
-	public static void menuSalesByMonth(int store_code, int menu_code) {
+	public static void storesSalesByMonth(int store_code) {
 		try {
-			List<OrdersDTO> list = storesService.menuSalesByMonth(store_code, menu_code);
+			List<OrdersDTO> list = storesService.storesSalesByMonth(store_code);
+			for(OrdersDTO od :list) {
+				System.out.println(od.getMonth() + od.getTotal_sales() + od.getTotal_sales_for_master() + od.getTotal_sales_for_stores());
+			}
+		
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void menuSalesByMonth(String users_id, int menu_code) {
+		try {
+			List<OrdersDTO> list = storesService.menuSalesByMonth(users_id, menu_code);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

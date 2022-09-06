@@ -5,6 +5,7 @@ import java.util.Scanner;
 import delivery.mvc.view.actor.UsersView;
 
 public class MypageView {
+	private static final String usersId = null;
 	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
@@ -37,7 +38,7 @@ public class MypageView {
 				storeRegis();
 				break;
 			case 5:
-				UsersView.users();
+				UsersView.users(usersId);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");

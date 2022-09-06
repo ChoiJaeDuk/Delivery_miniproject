@@ -13,7 +13,7 @@ private static Scanner sc= new Scanner(System.in);
 //		ManageOrderView.manageOrder();
 //	}
 	
-	public static void manageOrder() {
+	public static void manageOrder(String userid) {
 		while (true) {
 
 			ManageOrderView.printMenu();
@@ -29,7 +29,7 @@ private static Scanner sc= new Scanner(System.in);
 				break;
 			
 			case 3:	
-				StoreView.printMenuForStores();//종료 
+				StoreView.printMenuForStores(userid);//종료 
 				break;
 			}
 		}
