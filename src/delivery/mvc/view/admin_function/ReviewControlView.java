@@ -2,6 +2,7 @@ package delivery.mvc.view.admin_function;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.ReviewController;
 import delivery.mvc.view.actor.AdminView;
 
 /**
@@ -46,6 +47,7 @@ public class ReviewControlView {
 				case 1:
 					System.out.println("* * * 삭제할 후기 코드를 입력해주세요. >> ");
 					int reviewCode = Integer.parseInt(sc.nextLine());
+					ReviewController.reviewDelete(reviewCode);
 					reviewList();//삭제된 목록 조회!!
 					break;
 				case 2:

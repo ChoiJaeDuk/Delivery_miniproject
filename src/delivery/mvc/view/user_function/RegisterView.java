@@ -2,6 +2,9 @@ package delivery.mvc.view.user_function;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.UsersController;
+import delivery.mvc.dto.UsersDTO;
+
 public class RegisterView {
 	private static Scanner sc = new Scanner(System.in);
 	
@@ -40,6 +43,8 @@ public class RegisterView {
 
 		
 
-		// 컨트롤러 호출하기
+		// 컨트롤러 호출하기 //////////어차피 회원 첫 가입은 A이니까 고정으로 넣겠습니다.
+		UsersDTO user = new UsersDTO(usersId, "A", usersPwd, usersName, usersNic, usersAddr, usersPhone, usersJumin);
+		UsersController.join(user);
 	}
 }
