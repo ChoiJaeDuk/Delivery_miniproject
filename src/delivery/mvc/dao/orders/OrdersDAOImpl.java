@@ -269,39 +269,6 @@ public class OrdersDAOImpl implements OrdersDAO {
 	}
 
 
-	@Override
-	public List<OrdersDTO> selectOrderListByUser(OrdersDTO orders) throws SQLException {
-		Connection con=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
-		OrderLineDTO orderLine = null;
-		MenuDTO menuDTO = null;
-		List<OrdersDTO> listMenu = new ArrayList<OrdersDTO>();
-		
-		try {
-			con = DbUtil.getConnection();
-			ps= con.prepareStatement("SELECT M.MENU_NAME, OL.ORDER_QUANTITY, M.MENU_PRICE, OL.ORDER_QUANTITY * M.MENU_PRICE AS TOTAL\r\n"
-					+ "FROM MENU M, ORDER_LINE OL\r\n"
-					+ "WHERE M.MENU_CODE = OL.MENU_CODE AND ORDER_CODE = ?");
-			
-			ps.setInt(1, orders.getOrder_code());
-		    rs = ps.executeQuery(); 
-		    
-		    while(rs.next()) {
-		    	
-		    	orderLine = new OrderLineDTO(rs.getInt(2));
-		    	
-		    	
-		    }
-		      
-		    
-		}finally {
-			DbUtil.dbClose(con, ps, rs);
-		}
-		return listMenu;
-	}
-
 
 	@Override
 	public int totalPriceSelect() throws SQLException {

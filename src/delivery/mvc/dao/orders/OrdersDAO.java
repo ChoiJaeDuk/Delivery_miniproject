@@ -51,7 +51,6 @@ public interface OrdersDAO {
 	/**
 	 * User입장에서의 주문목록 조회 65p
 	 * */
-	public List<OrdersDTO> selectOrderListByUser(OrdersDTO orders) throws SQLException;
 	
 	/**
 	 * 주문내역에 입력할 총가격 값 가져오기
