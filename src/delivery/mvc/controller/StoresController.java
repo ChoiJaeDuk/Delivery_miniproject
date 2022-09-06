@@ -61,6 +61,8 @@ public class StoresController {
 	}
 	
 	public static void storesSelectByCategory(int category_code){
+		
+		
 		try {
 			List<StoresDTO> list = storesService.storesSelectByCategory(category_code);
 		}catch(SQLException e){

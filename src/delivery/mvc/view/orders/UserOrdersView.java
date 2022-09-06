@@ -3,7 +3,7 @@ package delivery.mvc.view.orders;
 import java.util.Scanner;
 
 import delivery.mvc.controller.StoresController;
-import delivery.mvc.dto.StoresDTO;
+import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserOrdersView {
@@ -27,6 +27,8 @@ public class UserOrdersView {
 	public static void deliveryMenu() {
 		while(true) {
 			
+			SessionSet ss = SessionSet.getInstance();
+			System.out.println(ss.getSet()); // []
 			
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("1.양식   2.중식   3.한식   4.가게 검색   5.메뉴 검색   6. 뒤로가기  ");
@@ -72,6 +74,9 @@ public class UserOrdersView {
 	 * 음식 카테고리
 	 */
 	public static void category(int category) {
+		
+		SessionSet ss = SessionSet.getInstance();
+		System.out.println(ss.getSet()); // []
 		
 		switch(category) {
 			case 1:
@@ -129,6 +134,9 @@ public class UserOrdersView {
 	 * 하위 카테고리 - 가게목록
 	 */
 	public static void subFood(int subFood) {
+		
+		SessionSet ss = SessionSet.getInstance();
+		System.out.println(ss.getSet()); // []
 		
 		//while(true) {
 			//System.out.println("* * * 번호를 입력해주세요. >> ");
@@ -221,6 +229,10 @@ public class UserOrdersView {
 	
 
 	public static int subFoodList(int subFoodList) {
+		
+		SessionSet ss = SessionSet.getInstance();
+		System.out.println(ss.getSet()); 
+		System.out.println();
 		
 
 		System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
@@ -317,6 +329,9 @@ public class UserOrdersView {
 	 * 가게
 	 */
 	public static void stores( /*int ... subFoodList*/ int storeCode) {
+		SessionSet ss = SessionSet.getInstance();
+		String userId = ss.getSet().iterator().next().getSessionId();
+		
 		//StoresDTO stores = new StoresDTO();
 		
 				
@@ -335,7 +350,7 @@ public class UserOrdersView {
 				menu(storeCode);
 				break;
 			case 2:
-				StoreReviewView.review();
+				StoreReviewView.review(0,userId);
 				break;
 			case 3:
 				//deliveryMenu();

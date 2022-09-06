@@ -16,37 +16,16 @@ import delivery.mvc.service.users.UsersServiceImpl;
 import delivery.mvc.view.FailView;
 import delivery.mvc.view.SuccessView;
 
-//문삼진 로그인 기능
-/*
-public class UsersController {
-	
-	static UsersServiceImpl usersServiceImpl = new UsersServiceImpl();*/
-	/**
-	 * 로그인
-	 */
-	/*
-	public static void login(String users_id, String users_pwd) {
-		try {
-			UsersDTO user = usersServiceImpl.usersLogin(users_id, users_pwd);
-			UsersView.users(users_id);
-			
-		}catch (Exception e) {
-			//e.printStackTrace();
-			FailView.errorMessage(e.getMessage());
-		}
-	}
-	
-}*/
 
 
 public class UsersController {
 	private static UsersService usersService = new UsersServiceImpl();
 	
-	public static void userLogin(String users_id, String users_pwd) {
+	public static void userLogin(String userId, String users_pwd) {
 		try {
-			usersService.usersLogin(users_id, users_pwd);
-//			SuccessView.getmessagePrint("로그인 성공");
-			System.out.println("로그인 성공");
+			 UsersDTO user = usersService.usersLogin(userId, users_pwd);
+//	         SuccessView.getmessagePrint("로그인 성공");
+	         System.out.println(user.getUsers_name()+"님 로그인 성공");
 		} catch (Exception e) {
 //			FailView.errorMessage(e.getMessage());
 			System.out.println("오류");

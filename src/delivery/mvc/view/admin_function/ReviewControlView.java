@@ -11,7 +11,7 @@ public class ReviewControlView {
 	
 	static Scanner sc = new Scanner(System.in);
 	
-	public static void storeList() {
+	public static void storeList(String userId) {
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("                          [ 가게 목록 ]                         \n");
 		System.out.println("              가게코드           가게 이름");
@@ -59,6 +59,8 @@ public class ReviewControlView {
 		
 		
 	}
+
+
 	
 	
 	/**

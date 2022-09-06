@@ -13,34 +13,32 @@ import delivery.mvc.view.store_function.MypageForStoreView;
 
 
 public class StoreView {
-	private static final String usersId = null;
 	private static Scanner sc = new Scanner(System.in);
 	
+	/*
 	public static void main(String[] args) {
-		 StoreView.menu();
-		 
-	}
+		 StoreView.menu(); 
+	}*/
 	
 
 	
 
-	public static void menu() {
+	public static void menu(String userId) {
 		while (true) {
-			StoreView.printMenu();
+			StoreView.printMenu(userId);
 			int menu = Integer.parseInt(sc.nextLine());
 			
 			switch (menu) {
 			case 1:
-				UsersView.users(usersId);//삼진님의 회원 메소드 호출//회원모드
-				
+				UsersView.users(userId);//삼진님의 회원 메소드 호출//회원모드
 				
 			case 2:
-				StoreView.printMenuForStores(usersId);// 판매자모드 
+				StoreView.printMenuForStores(userId);// 판매자모드 
 				//MenuView.printMenu();
 				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				menu();
+				menu(userId);
 				break;				
 			
 			}
@@ -48,7 +46,7 @@ public class StoreView {
 
 	}
 	
-	public static void printMenu() {
+	public static void printMenu(String userId) {
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("	       userId님 반갑습니다.        		 	                    ");
 		System.out.println("													         		");

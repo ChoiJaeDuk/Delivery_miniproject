@@ -2,6 +2,7 @@ package delivery.mvc.view.actor;
 
 import java.util.Scanner;
 
+import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.orders.*;
 import delivery.mvc.view.user_function.*;
 
@@ -9,10 +10,13 @@ public class UsersView {
 	private static Scanner sc = new Scanner(System.in);
 	
 	public static void usersPrintMenu(String users_id) {
+		
+		SessionSet ss = SessionSet.getInstance();
+		System.out.println("==>"+ss.getSet()); // []
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println();
-		System.out.println("                    " + "usersId" + "님 반갑습니다.                  ");
+		System.out.println("                    " + users_id + "님 반갑습니다.                  ");
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("1. 배달        2. 장바구니 조회       3. 마이페이지      4. 로그아웃");
@@ -21,7 +25,7 @@ public class UsersView {
 	}
 
 	public static void users(String usersId) {
-		usersPrintMenu(null);
+		usersPrintMenu(usersId);
 	
 		while (true) {
 			int users = Integer.parseInt(sc.nextLine());
@@ -36,7 +40,7 @@ public class UsersView {
 				break;
 				
 			case 3:
-				MypageView.mypage();// 마이페이지
+				MypageView.mypage(usersId);// 마이페이지
 				break;
 				
 			case 4:
