@@ -60,7 +60,8 @@ public class StoresDAOImpl implements StoresDAO {
 		
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);				
+			ps = con.prepareStatement(sql);
+	
 			rs = ps.executeQuery();
 				
 			while(rs.next()) {
@@ -532,10 +533,13 @@ public class StoresDAOImpl implements StoresDAO {
 			//System.out.println();
 			//System.out.println(result);
 			
-			List<OrdersDTO> list = dao.storeSalesByMonth(2);
-			for(OrdersDTO orders : list) {
-				System.out.println(orders.getMonth() + orders.getTotal_sales() + orders.getTotal_sales_for_master() + orders.getTotal_sales_for_stores());
-			}
+		//	List<OrdersDTO> list = dao.storeSalesByMonth(2);
+		//	for(OrdersDTO orders : list) {
+		//		System.out.println(orders.getMonth() + orders.getTotal_sales() + orders.getTotal_sales_for_master() + orders.getTotal_sales_for_stores());
+	//		}
+			
+		
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
