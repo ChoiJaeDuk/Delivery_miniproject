@@ -3,6 +3,7 @@ package delivery.mvc.view.store_function;
 import java.util.Scanner;
 
 import delivery.mvc.controller.StoresController;
+import delivery.mvc.controller.UsersController;
 import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.view.MenuView;
 import delivery.mvc.view.actor.StoreView;
@@ -70,7 +71,10 @@ public class MypageForStoreView {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					update(stores);//수정하기
+					int result = UsersController.pwdCheck(users_id, pwd);
+					if(result == 1) update(stores);
+					
+					//수정하기
 					printMenu(users_id);
 					break;
 				case 2:
@@ -108,8 +112,9 @@ public class MypageForStoreView {
 	
 	public static void storeDetail(String users_id) {
 		
+		
 		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                              "+users_id+"가게입니다.                                    ");
+		System.out.println("                              "+users_id+"가게입니다.                                    ");	
 		System.out.println("----------------------------------------------------------------------------------");
 		StoresController.storeSelectById(users_id);                  
 		System.out.println("----------------------------------------------------------------------------------");
