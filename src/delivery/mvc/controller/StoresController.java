@@ -95,8 +95,18 @@ public class StoresController {
 		
 		
 		try {
-			List<StoresDTO> list = storesService.storesSelectByCategory(category_code);
-			SuccessView.storesSelectByCategory(list);
+			
+			if(category_code == 4 || category_code == 5 || category_code == 6) {
+				List<StoresDTO> list = storesService.storesSelectByCategory(1);
+				SuccessView.storesSelectByCategory(list);
+			}else if (category_code == 7 || category_code == 8 || category_code == 9) {
+				List<StoresDTO> list = storesService.storesSelectByCategory(2);
+				SuccessView.storesSelectByCategory(list);
+				
+			}else if (category_code == 10 || category_code == 11 || category_code == 12) {
+				List<StoresDTO> list = storesService.storesSelectByCategory(3);
+				SuccessView.storesSelectByCategory(list);
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

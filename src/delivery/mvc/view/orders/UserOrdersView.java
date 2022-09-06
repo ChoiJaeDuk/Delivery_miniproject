@@ -2,19 +2,18 @@ package delivery.mvc.view.orders;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.BasketController;
+import delivery.mvc.controller.MenuController;
 import delivery.mvc.controller.StoresController;
+import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserOrdersView {
 	
-	private static final String usersId = null;
+	
 	
 
-	public static void main(String[] args) {
-		deliveryMenu();
-		
-	}
 	
 	static Scanner sc = new Scanner(System.in);
 	static int category = 0;
@@ -24,7 +23,7 @@ public class UserOrdersView {
 	 *  양식,중식,한식 검색
 	 *  가게, 메뉴 검색
 	 */
-	public static void deliveryMenu() {
+	public static void deliveryMenu(String user_id) {
 		while(true) {
 			
 			SessionSet ss = SessionSet.getInstance();
@@ -38,13 +37,13 @@ public class UserOrdersView {
 			
 			switch(category) {
 				case 1:
-					category(category);
+					category(category, user_id);
 					break;
 				case 2:
-					category(category);
+					category(category, user_id);
 					break;
 				case 3:
-					category(category);
+					category(category, user_id);
 					break;
 				case 4:
 					UserCategorySelect.totalStoreList(); 				
@@ -55,7 +54,7 @@ public class UserOrdersView {
 					storeSelect( 9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 6:
-					UsersView.users(usersId);
+					UsersView.users(user_id);
 					return;
 					
 				default:
@@ -73,7 +72,7 @@ public class UserOrdersView {
 	/**
 	 * 음식 카테고리 ------------------------수정해야됨
 	 */
-	public static void category(int category) {
+	public static void category(int category, String user_id) {
 		
 		SessionSet ss = SessionSet.getInstance();
 		System.out.println(ss.getSet()); // []
@@ -88,7 +87,7 @@ public class UserOrdersView {
 				System.out.println("* * * 번호를 입력해주세요. >> ");
 				category =Integer.parseInt(sc.nextLine());
 				
-				subFood(category);
+				subFood(category, user_id);
 				return;
 			
 			case 2:
@@ -101,7 +100,7 @@ public class UserOrdersView {
 				System.out.println("* * * 번호를 입력해주세요. >> ");
 				category =Integer.parseInt(sc.nextLine());
 				
-				subFood(category);
+				subFood(category, user_id);
 				return;
 			
 			case 3:
@@ -114,11 +113,11 @@ public class UserOrdersView {
 				System.out.println("* * * 번호를 입력해주세요. >> ");
 				category =Integer.parseInt(sc.nextLine());
 				
-				subFood(category);
+				subFood(category, user_id);
 				return;
 			
 			case 13:
-				deliveryMenu();
+				deliveryMenu(user_id);
 				return;
 		
 			default:
@@ -132,7 +131,7 @@ public class UserOrdersView {
 	/**
 	 * 하위 카테고리 - 가게목록
 	 */
-	public static void subFood(int subFood) {
+	public static void subFood(int subFood, String user_id) {
 		
 		SessionSet ss = SessionSet.getInstance();
 		System.out.println(ss.getSet()); // []
@@ -214,11 +213,11 @@ public class UserOrdersView {
 					return;
 				
 				case 13:
-					deliveryMenu();
+					deliveryMenu(user_id);
 					return;
 				default:
 					   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-					   category(category);
+					   category(category, user_id);
 		
 			}//switch끝
 		//}//while끝
@@ -291,6 +290,10 @@ public class UserOrdersView {
 	
 	
 	public static void storeSelect(int subFoodList , int ...index ) {//index=0이면arragne(), =1 menuarrage() 9,2
+		
+		SessionSet ss = SessionSet.getInstance();
+		   String userId = ss.getSet().iterator().next().getSessionId();
+		
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("1.가게선택                   2.정렬                   3.뒤로가기");
 		System.out.println("----------------------------------------------------------------");
@@ -302,7 +305,7 @@ public class UserOrdersView {
 			case 1:
 				System.out.println("* * * 가게 코드를 입력해주세요. >> ");
 				int storeCode =Integer.parseInt(sc.nextLine());
-				stores(storeCode);
+				stores(storeCode, userId);
 				break;
 			case 2:
 				if (index[0] == 0)
@@ -314,18 +317,18 @@ public class UserOrdersView {
 				break;
 			
 			case 3:
-				deliveryMenu();
+				deliveryMenu(userId);
 				//category(category);
 				//subFood(subFoodList); //3 , 4 , 
 				return;
 			case 4 :
-				category(category);
+				category(category, userId);
 				 //subFood(subFoodList); //3 , 4 , 
 				break;
 		
 			default:
 				   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				   subFood(storeSelect);
+				   subFood(storeSelect, userId);
 				   return;
 		}//switch끝
 	}
@@ -335,7 +338,7 @@ public class UserOrdersView {
 	 * 가게
 	 */
 
-	public static void stores(int storeCode) {
+	public static void stores(int storeCode, String user_id) {
 		SessionSet ss = SessionSet.getInstance();
 		String userId = ss.getSet().iterator().next().getSessionId();
 		
@@ -353,7 +356,7 @@ public class UserOrdersView {
 		int no = Integer.parseInt(sc.nextLine());
 		switch(no) {
 			case 1:
-				menu(storeCode);
+				menu(storeCode, user_id);
 				break;
 			case 2:
 				StoreReviewView.review(0,userId);
@@ -364,7 +367,7 @@ public class UserOrdersView {
 				return;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				stores(storeCode);
+				stores(storeCode, user_id);
 				return;
 		}//switch끝
 	}
@@ -375,7 +378,7 @@ public class UserOrdersView {
 	/**
 	 * 메뉴  //세션아이디 계속 가지고 가야하나요 ?(주석 오류)
 	 */
-	public static void menu(int store_code) {
+	public static void menu(int store_code, String user_id) {
 		System.out.println("\n\n----------------------------------------------------------------");
 		System.out.println("                            [ 메뉴 ]                            \n");
 		System.out.println("1.메뉴코드                  2.메뉴이름                   3.가격");
@@ -383,6 +386,7 @@ public class UserOrdersView {
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("메뉴목록\n\n\n\n");
 		//메뉴목록 
+		MenuController.menuSelectByAll(store_code);
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.주문하기          2.장바구니(결제)          3.뒤로가기");
 		System.out.println("----------------------------------------------------------------");
@@ -392,29 +396,31 @@ public class UserOrdersView {
 		switch(menu) {
 			case 1:			
 				System.out.println("* * * 메뉴코드를 입력해주세요. >> ");
-				menu = Integer.parseInt(sc.nextLine());
-				
-				System.out.println("* * * 수량을 입력해주세요. >> ");
-				menu = Integer.parseInt(sc.nextLine());
-				
-				menu(store_code);
+	            int menu_code = Integer.parseInt(sc.nextLine());
+	            
+	            System.out.println("* * * 수량을 입력해주세요. >> ");
+	            int num = Integer.parseInt(sc.nextLine());
+	            
+	            BasketController.basketInsert(new BasketDTO(user_id, menu_code, num));
+	            
+				menu(store_code,user_id);
 				break;
 				
 			case 2:
 
-				UserBascketView.bascket(usersId);
+				UserBascketView.bascket(user_id);
 
 				break;
 				
 			case 3:
 				
-				stores(store_code);
+				stores(store_code, user_id);
 				
 				break;
 				
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				menu(store_code);
+				menu(store_code, user_id);
 				return;
 			
 		}
