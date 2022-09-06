@@ -30,6 +30,17 @@ public class OrdersDTO {
 	
 	public OrdersDTO() { }
 	
+	
+	
+	public OrdersDTO(String user_id, int store_code, int order_total_price) {
+		super();
+		this.user_id = user_id;
+		this.store_code = store_code;
+		this.order_total_price = order_total_price;
+	}
+
+
+
 	public OrdersDTO(String month, int total_sales, int total_sales_for_master, int total_sales_for_stores) {
 		this.month = month;
 		this.total_sales = total_sales;

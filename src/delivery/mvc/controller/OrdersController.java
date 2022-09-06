@@ -13,9 +13,9 @@ public class OrdersController {
 	/**
 	 * 주문하기 주문내역과 주문 상세내역을 삽입하고 성공시 장바구니를 초기화한다.
 	 * */
-	public static void insertOrders(OrdersDTO orders) {
+	public static void insertOrders(String user_id) {
 		try {
-			orderService.orderInsert(orders);
+			orderService.orderInsert(user_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -37,7 +37,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 			con = DbUtil.getConnection();
 			con.setAutoCommit(false);
 			
-			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, SYSDATE, ?,NULL,NULL,?)");
+			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, CURRENT_DATE, ?,NULL,NULL,0)");
 			ps.setString(1,orders.getUser_id());
 			ps.setInt(2, orders.getStore_code());
 			ps.setInt(3, totalPriceSelect(orders.getUser_id()));
@@ -211,6 +211,8 @@ public class OrdersDAOImpl implements OrdersDAO {
 	}
 	
 	
+	
+	
 	/**
 	 * 회원이 주문을 환불신청한다.
 	 * UPDATE ORDERS SET DELIVERY_CODE = 3 WHERE ORDER_CODE = ?
@@ -265,6 +267,73 @@ public class OrdersDAOImpl implements OrdersDAO {
 		}
 		return bascket_totalPrice;
 	}
+
+
+	@Override
+	public List<OrdersDTO> selectOrderListByUser(OrdersDTO orders) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		OrderLineDTO orderLine = null;
+		MenuDTO menuDTO = null;
+		List<OrdersDTO> listMenu = new ArrayList<OrdersDTO>();
+		
+		try {
+			con = DbUtil.getConnection();
+			ps= con.prepareStatement("SELECT M.MENU_NAME, OL.ORDER_QUANTITY, M.MENU_PRICE, OL.ORDER_QUANTITY * M.MENU_PRICE AS TOTAL\r\n"
+					+ "FROM MENU M, ORDER_LINE OL\r\n"
+					+ "WHERE M.MENU_CODE = OL.MENU_CODE AND ORDER_CODE = ?");
+			
+			ps.setInt(1, orders.getOrder_code());
+		    rs = ps.executeQuery(); 
+		    
+		    while(rs.next()) {
+		    	
+		    	orderLine = new OrderLineDTO(rs.getInt(2));
+		    	
+		    	
+		    }
+		      
+		    
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return listMenu;
+	}
+
+
+	@Override
+	public int selectStoreCodeByMenuCode(int menuCode ,String user_id) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int store_code = 0;
+		try {
+			con = DbUtil.getConnection();
+			ps= con.prepareStatement("SELECT DISTINCT M.STORE_CODE \r\n"
+					+ "FROM MENU M, BASCKET B \r\n"
+					+ "WHERE M.MENU_CODE = B.MENU_CODE AND M.MENU_CODE = ? AND B.USER_ID = ?\r\n"
+					+ "");
+			
+			ps.setInt(1, menuCode);
+		    rs = ps.executeQuery(); 
+		    
+		    if(rs.next()) {
+		    	store_code = rs.getInt(1);
+		    }
+		      
+		    
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return store_code;
+	}
+	
+	
+	
+
+	
 	
 	
 	//테스트합니다!!!!!
