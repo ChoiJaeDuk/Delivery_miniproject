@@ -35,7 +35,7 @@ public class AdminControlView {
 				salesStatus(userId);
 				break;
 			case 3:
-				AdminView.admin(null);
+				AdminView.admin(userId);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
@@ -45,30 +45,12 @@ public class AdminControlView {
 	}
 	
 	
-	
-	/**
-	 * 가게 정보
-	 */
-	public static void storeInfo() { //필요한가 ?
-		System.out.println("--------------------------------------------------------------------\n");
 
-		System.out.println("     가게코드           [ " + "storeName" + " 가게 정보 ]                   \n");
-		System.out.println("가게정보 불러오기!!   \n\n\n\n");
-
-		System.out.println("                [ " + "storeName" + " 가게 정보 ]                   \n");
-		System.out.println("가게정보 불러오기!!   \n\n\n\n"); //가게 코드랑 가게 이름
-		
-		System.out.println("--------------------------------------------------------------------");
-		
-	}
-	
-	
 	/**
 	 * 가게관리
 	 */
 	public static void storeControl(int store_code, String userId) {
-		//System.out.println("* * * 가게 코드를 입력해주세요. >> ");
-		//int storeCode = Integer.parseInt(sc.nextLine());
+
 		
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("1.판매자 신청 승인하기     2.판매자 신청 거부하기     3.뒤로가기");
@@ -156,12 +138,7 @@ public class AdminControlView {
 	 * 세부매출내역 조회
 	 */
 	public static void salesDetail(int storeCode) {
-		System.out.println("----------------------------------------------------------------\n");
-		System.out.println("            [ " + "storeName" + "세부 매출 현황 ]               \n");
-		System.out.println("구분       총 매출             운영자 매출           판매자 매출");
-		System.out.println("----------------------------------------------------------------\n");
 		StoresController.storesSalesByMonth(storeCode);
-		System.out.println("----------------------------------------------------------------\n");
 	}
 	
 

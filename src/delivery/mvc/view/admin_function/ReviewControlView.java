@@ -5,11 +5,13 @@ import java.util.Scanner;
 import delivery.mvc.controller.ReviewController;
 import delivery.mvc.controller.StoresController;
 import delivery.mvc.view.actor.AdminView;
+import delivery.mvc.session.SessionSet;
 
 /**
  * 후기관리 - 가게목록
  */
 public class ReviewControlView {
+	
 	
 	static Scanner sc = new Scanner(System.in);
 	
@@ -23,20 +25,22 @@ public class ReviewControlView {
 		System.out.println("* * * 가게코드를 입력해주세요. >> ");
 		int storeCode = Integer.parseInt(sc.nextLine());
 		
-		reviewList();
+		reviewList(storeCode);
 		
 	}
 	
 	/**
-	 * 후기목록-------------------------------------------수정해야됨
+	 *  운영자가 악성 후기를 삭제한다.
 	 */
-	public static void reviewList() {
+	public static void reviewList(int storeCode) {
+			SessionSet ss = SessionSet.getInstance();
+			String userId = ss.getSet().iterator().next().getSessionId();
 		
 			System.out.println("----------------------------------------------------------------\n");
 			System.out.println("                          [ 후기 목록 ]                         \n");
 			System.out.println("      후기 코드         가게 이름           후기         평점   ");
 			System.out.println("----------------------------------------------------------------\n");
-			
+			ReviewController.reviewSelectAll(storeCode);
 			System.out.println("----------------------------------------------------------------\n");
 			System.out.println("1.후기 삭제하기       2.뒤로가기");
 			System.out.println("----------------------------------------------------------------\n");
@@ -49,42 +53,16 @@ public class ReviewControlView {
 					System.out.println("* * * 삭제할 후기 코드를 입력해주세요. >> ");
 					int reviewCode = Integer.parseInt(sc.nextLine());
 					ReviewController.reviewDelete(reviewCode);
-					reviewList();//삭제된 목록 조회!!
+					reviewList(storeCode);//삭제된 목록 조회!!
 					break;
 				case 2:
-					AdminView.admin(null);
+					AdminView.admin(userId);
 					break;
 				default :
 					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-					reviewList();
+					reviewList(storeCode);
 					break;
-			}
-		
-		
-	}
-
-
-	
-	
-	/**
-	 * 후기삭제
-	 * @param userId 
-	 */
-	
-	public static void reviewDelete(String userId) {
-		reviewList();
-		int reviewList = Integer.parseInt(sc.nextLine());
-		switch(reviewList) {
-			case 1:
-				System.out.println("* * * 삭제할 후기 코드를 입력해주세요. >> ");
-				int reviewCode = Integer.parseInt(sc.nextLine());
-				return;
-			case 2:
-				storeList(userId);
-				break;
-			default :
-				break;
-		}
+			}	
 	}
 	
 }

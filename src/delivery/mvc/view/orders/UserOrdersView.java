@@ -10,11 +10,7 @@ import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserOrdersView {
-	
-	
-	
 
-	
 	static Scanner sc = new Scanner(System.in);
 	static int category = 0;
 	
@@ -70,7 +66,7 @@ public class UserOrdersView {
 	
 	
 	/**
-	 * 음식 카테고리 ------------------------수정해야됨
+	 * 음식 카테고리 
 	 */
 	public static void category(int category, String user_id) {
 		
@@ -135,10 +131,7 @@ public class UserOrdersView {
 		
 		SessionSet ss = SessionSet.getInstance();
 		System.out.println(ss.getSet()); // []
-		
-		//while(true) {
-			//System.out.println("* * * 번호를 입력해주세요. >> ");
-			//int subFood =Integer.parseInt(sc.nextLine());
+
 			
 			switch(subFood) {
 				case 4:
@@ -220,7 +213,7 @@ public class UserOrdersView {
 					   category(category, user_id);
 		
 			}//switch끝
-		//}//while끝
+		
 	}//subFood메소드끝
 	
 	
@@ -292,7 +285,7 @@ public class UserOrdersView {
 	public static void storeSelect(int subFoodList , int ...index ) {//index=0이면arragne(), =1 menuarrage() 9,2
 		
 		SessionSet ss = SessionSet.getInstance();
-		   String userId = ss.getSet().iterator().next().getSessionId();
+		String userId = ss.getSet().iterator().next().getSessionId();
 		
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("1.가게선택                   2.정렬                   3.뒤로가기");
@@ -318,12 +311,11 @@ public class UserOrdersView {
 			
 			case 3:
 				deliveryMenu(userId);
-				//category(category);
-				//subFood(subFoodList); //3 , 4 , 
+				
 				return;
 			case 4 :
 				category(category, userId);
-				 //subFood(subFoodList); //3 , 4 , 
+				
 				break;
 		
 			default:
@@ -335,18 +327,16 @@ public class UserOrdersView {
 
 	
 	/**
-	 * 가게
+	 *  회원 주문하는 기능 : 가게 목록을 보고 메뉴를 선택하거나, 각 가게의 후기를 조회한다.
 	 */
 
 	public static void stores(int storeCode, String user_id) {
 		SessionSet ss = SessionSet.getInstance();
 		String userId = ss.getSet().iterator().next().getSessionId();
-		
-
-		//StoresDTO stores = new StoresDTO();
-		
+	
 				
 		System.out.println("----------------------------------------------------------------");
+		// 회원이 가게를 선택하면 해당 가게 간단한 소개 
 		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.메뉴 선택             2.후기             3.뒤로가기           ");
@@ -384,8 +374,10 @@ public class UserOrdersView {
 		System.out.println("1.메뉴코드                  2.메뉴이름                   3.가격");
 		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("메뉴목록\n\n\n\n");
+		
 		//메뉴목록 
+		MenuController.menuSelectByMenu(user_id);
+		
 		MenuController.menuSelectByAll(store_code);
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.주문하기          2.장바구니(결제)          3.뒤로가기");

@@ -2,6 +2,7 @@ package delivery.mvc.view;
 
 import java.util.List;
 
+import delivery.mvc.controller.StoresController;
 import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.CategoriesDTO;
 import delivery.mvc.dto.MenuDTO;
@@ -18,9 +19,7 @@ public class SuccessView {
 	 * 가게 전체 목록 6
 	 * */
 	public static void storePrintAllForMaster(List<StoresDTO> storesInfoSelectAll) {
-		System.out.println("--------------------------------------------------------------------");
-		System.out.println("                         [ 가게 목록 ]                              ");
-		System.out.println("--------------------------------------------------------------------");
+
 		for(StoresDTO storesDTO :storesInfoSelectAll) {
 			System.out.println(storesDTO.getStore_code()+"     "+storesDTO.getStore_name()+"     "+storesDTO.getStore_regis_status()+"     ");
 		}
@@ -41,23 +40,25 @@ public class SuccessView {
 	}
 	
 	/**
-	 * 메뉴로 가게정보 검색
+	 * 메뉴로 가게정보 검색56,57
 	 * */
-	public static void storeSelectByMenu(List<StoresDTO> storesSelectByMenu) {
+	/*public static void storeSelectByMenu(List<StoresDTO> storesSelectByMenu) {
+		//가게목록
+		
 		for(StoresDTO storesDTO:storesSelectByMenu) {
 			System.out.println(storesDTO);
 			}
-		}
+		}*/
 	
 	
 	/**
-	 * 카테고리별 가게정보 검색
+	 * 카테고리별 가게정보 검색 45
 	 * */
-	public static void storesSelectByCategory(List<StoresDTO> storesSelectByCategory) {
+	/*public static void storesSelectByCategory(List<StoresDTO> storesSelectByCategory) {
 		for(StoresDTO storesDTO:storesSelectByCategory) {
 			System.out.println(storesDTO);
 			}
-		}
+		}*/
 	
 	/**
 	 * 매출현황조회 10 
@@ -65,17 +66,25 @@ public class SuccessView {
 	 * */
 	public static void storesSales(List<StoresDTO> storesSales) {
 		for(StoresDTO storesDTO:storesSales) {
-		System.out.println(storesDTO.getStore_code()+"\t"+storesDTO.getStore_name()+storesDTO.getTotal_sales()+"\t"+storesDTO.getTotal_sales_for_stores()+"\t"+storesDTO.getTotal_sales_for_master()+"\t");
+		System.out.println(storesDTO.getStore_code()+"     "+storesDTO.getStore_name()+storesDTO.getTotal_sales()+
+				"     "+storesDTO.getTotal_sales_for_stores()+"     "+storesDTO.getTotal_sales_for_master());
 		}
 	}
 	
 	/**
-	 * 세부 매출내역 11 //안에서 STORESDTO (45)라인이거 맞는지
+	 * 세부 매출내역 11 
 	 * */
 	public static void storeSalesByMonth(List<OrdersDTO> storeSalesByMonth) {
+		System.out.println("----------------------------------------------------------------\n");
+		System.out.println("                         [ 세부 매출 내역 ]                     \n");
+		System.out.println("구분       총 매출             운영자 매출           판매자 매출");
+		System.out.println("----------------------------------------------------------------\n");
 		for(OrdersDTO ordersDTO :storeSalesByMonth) {
-			System.out.println(ordersDTO.getMonth()+"\t"+ordersDTO.getTotal_sales()+"\t"+ordersDTO.getTotal_sales_for_stores()+"\t"+ordersDTO.getTotal_sales_for_master());
+			System.out.println(ordersDTO.getMonth()+"     "+ordersDTO.getTotal_sales()+"     "
+					+ordersDTO.getTotal_sales_for_stores()+"     "+ordersDTO.getTotal_sales_for_master());
 		}
+		System.out.println("----------------------------------------------------------------\n");
+		
 	}
 	
 	/**
@@ -83,7 +92,7 @@ public class SuccessView {
 	 * */
 	public static void storeListForMaster(List<StoresDTO> storeList) {
 		for(StoresDTO storesDTO:storeList) {
-			System.out.println(storesDTO.getStore_code()+"\t\t"+storesDTO.getStore_name() );
+			System.out.println("             "+storesDTO.getStore_code()+"         "+storesDTO.getStore_name() );
 		}
 	}
 	
@@ -249,20 +258,23 @@ public class SuccessView {
 	 * */
 	public static void basketMenuSelect(List<MenuDTO> basketMenuSelect) {
 		for(MenuDTO menuDTO : basketMenuSelect) {
-			System.out.println(menuDTO.getMenu_code()+"\t"+menuDTO.getMenu_name()+"\t"+menuDTO.getMenu_price()+"\t"+menuDTO.getBasket().getBasket_quantity());
+			System.out.println(menuDTO.getMenu_code()+"     "+menuDTO.getMenu_name()+
+					"     "+menuDTO.getMenu_price()+"     "+menuDTO.getBasket().getBasket_quantity());
 			
 		}
 	}
 	/**
-	 * 가게전체검색 55 57 58
+	 * 가게전체검색 45 55 57 58
 	 * */
 	public static void selectStoreList(List<StoresDTO> storesInfoSelectAll) {
-			//System.out.println("--------- [가 게 목 록] ------------\n");
-			for(StoresDTO storesDTO :storesInfoSelectAll) {
-				System.out.println(storesDTO.getStore_code()+"\t"+storesDTO.getStore_name()+"\t"+storesDTO.getStore_delivery_fee()+"\t"+storesDTO.getReview_count()+"/"+storesDTO.getAvg_star_grade()+storesDTO.getOrder_count());
-			}
-			
+
+		for (StoresDTO storesDTO : storesInfoSelectAll) {
+			System.out.println(storesDTO.getStore_code() + "     " + storesDTO.getStore_name() + "     "
+					+ storesDTO.getStore_delivery_fee() + "     " + storesDTO.getReview_count() + "/"
+					+ storesDTO.getAvg_star_grade() + "     " + storesDTO.getOrder_count());
 		}
+
+	}
 	/**
 	 * 개인정보 6263 ---------------------어디있지..
 	 * */
