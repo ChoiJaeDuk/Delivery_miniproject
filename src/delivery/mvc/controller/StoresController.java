@@ -93,12 +93,16 @@ public class StoresController {
 	}
 	
 	public static void storeRegis(StoresDTO storesDTO){
+		
 		try {
+			String user_id = storesService.storeSelcetByCode(storesDTO.getStore_code()).getUser_id();
+			storesDTO.setUser_id(user_id);
 			storesService.storeRegis(storesDTO);
 			System.out.println("º¯°æ");
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public static void storesSales() {

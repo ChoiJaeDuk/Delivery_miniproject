@@ -8,11 +8,11 @@ import delivery.mvc.view.user_function.*;
 public class UsersView {
 	private static Scanner sc = new Scanner(System.in);
 	
-	public static void usersPrintMenu(String users_id) {
+	public static void usersPrintMenu(String usersId) {
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println();
-		System.out.println("                    " + "usersId" + "님 반갑습니다.                  ");
+		System.out.println("                    " + usersId + "님 반갑습니다.                  ");
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("1. 배달        2. 장바구니 조회       3. 마이페이지      4. 로그아웃");
