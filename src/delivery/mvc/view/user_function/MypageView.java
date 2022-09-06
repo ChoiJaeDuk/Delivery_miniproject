@@ -36,7 +36,10 @@ public class MypageView {
 			case 1:
 				System.out.println("* * * 비밀번호를 입력해주세요. >> ");
 				String usersPwd = sc.nextLine();
+				
 				//컨트롤러 호출, 비밀번호 인증하기!
+				UsersController.pwdCheck(userId, usersPwd);
+				
 				personalInfo();
 				break;
 			case 2:
@@ -61,12 +64,8 @@ public class MypageView {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * 개인정보수정 @@@@@@@@@@@@@@@ 완료?
-=======
 	 * 개인정보수정
 	 * @param usersId 
->>>>>>> MunSamJin
 	 */
 	private static void personalInfo() {
 		SessionSet ss = SessionSet.getInstance();
@@ -116,6 +115,7 @@ public class MypageView {
 					String usersPwd = sc.nextLine();
 				
 					//컨트롤러 호출, 비밀번호 인증하기!
+					UsersController.pwdCheck(userId, usersPwd);
 					
 					System.out.println("* * * 변경할 비밀번호를 입력해주세요. >> ");
 					String newUsersPwd = sc.nextLine();
@@ -225,6 +225,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                          [ 내가 작성한 후기 목록 ]                         \n");
 		System.out.println("usersId가 작성한 후기 목록 불러오기!!!\n\n\n\n");
+		//ReviewController.reviewSelectAll();
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.후기 등록           2.후기 수정           3.후기 삭제           4.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -263,6 +264,9 @@ public class MypageView {
 	 * 후기등록
 	 */
 	private static void reviewInsert() {
+		SessionSet ss = SessionSet.getInstance();
+		String userId = ss.getSet().iterator().next().getSessionId();
+		
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                           [ 최근 주문 내역 ]                               \n");
 		System.out.println("후기가 없는 주문 내역을 select!!!!\n\n\n\n");//후기가 없는거 까지 출력이 가능할까요???
@@ -279,7 +283,7 @@ public class MypageView {
 		
 		//리뷰 작성 메소드 ReviewController
 		// user_id를 세션에서 가져와야 할듯
-		ReviewDTO review = new ReviewDTO(/*user_id, order_code, store_code, reviewDetail, starGrade*/);
+		ReviewDTO review = new ReviewDTO(/*userId, order_code, store_code, reviewDetail, starGrade*/);
 		ReviewController.reviewInsert(review);
 	}
 	

@@ -12,13 +12,27 @@ public class ReviewController {
 	private static ReviewService reviewService = new ReviewServiceImpl();
 	
 	/**
-	 * 해당 가게 후기 목록조회 
-	 * ppt66
+	 * 해당 가게 후기 목록조회 (인수 : 가게코드)
 	 */
 	public static void reviewSelectAll(int stores_code) {
 		try {
 			List<ReviewDTO>/*list*/ rl = reviewService.reviewSelectAll(stores_code);
 			SuccessView.reviewList(rl);
+			
+		} catch (Exception e) {
+			FailView.errorMessage(e.getMessage());
+//			System.out.println("오류");
+		}
+		
+	}
+	
+	/**
+	 * 유저의 모든 후기 목록조회 (인수 : 유저아이디)
+	 */
+	public static void revieUserAll(String user_id) {
+		try {
+			List<ReviewDTO>/*list*/ rl = reviewService.reviewUserAll(user_id);
+			SuccessView.reviewListByUserId(rl);
 			
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
