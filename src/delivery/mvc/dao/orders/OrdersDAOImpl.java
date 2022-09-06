@@ -37,7 +37,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 			con = DbUtil.getConnection();
 			con.setAutoCommit(false);
 			
-			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, SYSDATE, ?,NULL,NULL,?)");
+			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, CURRENT_DATE, ?,NULL,NULL,0)");
 			ps.setString(1,orders.getUser_id());
 			ps.setInt(2, orders.getStore_code());
 			ps.setInt(3, totalPriceSelect(orders.getUser_id()));
@@ -304,10 +304,36 @@ public class OrdersDAOImpl implements OrdersDAO {
 
 
 	@Override
-	public int totalPriceSelect() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int selectStoreCodeByMenuCode(int menuCode ,String user_id) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		int store_code = 0;
+		try {
+			con = DbUtil.getConnection();
+			ps= con.prepareStatement("SELECT DISTINCT M.STORE_CODE \r\n"
+					+ "FROM MENU M, BASCKET B \r\n"
+					+ "WHERE M.MENU_CODE = B.MENU_CODE AND M.MENU_CODE = ? AND B.USER_ID = ?\r\n"
+					+ "");
+			
+			ps.setInt(1, menuCode);
+		    rs = ps.executeQuery(); 
+		    
+		    if(rs.next()) {
+		    	store_code = rs.getInt(1);
+		    }
+		      
+		    
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return store_code;
 	}
+	
+	
+	
+
+	
 	
 	
 	//테스트합니다!!!!!

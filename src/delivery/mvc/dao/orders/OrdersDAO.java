@@ -57,6 +57,7 @@ public interface OrdersDAO {
 	 * 주문내역에 입력할 총가격 값 가져오기
 	 * Select sum(m.menu_price * b.basket_quantity) as total_price from menu m , bascket b where m.menu_code = b.menu_code;
 	 * */
-	public int totalPriceSelect() throws SQLException;
+	public int selectStoreCodeByMenuCode(int menuCode, String user_id) throws SQLException;
+	
 	
 }
