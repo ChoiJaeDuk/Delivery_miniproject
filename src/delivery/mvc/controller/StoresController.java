@@ -121,9 +121,9 @@ public class StoresController {
 		}
 	}
 	
-	public static void menuSalesByMonth(int store_code, int menu_code) {
+	public static void menuSalesByMonth(String users_id, int menu_code) {
 		try {
-			List<OrdersDTO> list = storesService.menuSalesByMonth(store_code, menu_code);
+			List<OrdersDTO> list = storesService.menuSalesByMonth(users_id, menu_code);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

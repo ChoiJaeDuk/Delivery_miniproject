@@ -414,7 +414,7 @@ public class StoresDAOImpl implements StoresDAO {
 
 	
 	@Override
-	public List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException {
+	public List<OrdersDTO> menuSalesByMonth(String users_id, int menu_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -429,7 +429,7 @@ public class StoresDAOImpl implements StoresDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, store_code);
+			ps.setString(1, users_id);
 			ps.setInt(2, menu_code);
 			
 			rs = ps.executeQuery();
