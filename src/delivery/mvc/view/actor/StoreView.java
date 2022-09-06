@@ -8,20 +8,11 @@ import delivery.mvc.view.MenuView;
 import delivery.mvc.view.store_function.ManageOrderView;
 import delivery.mvc.view.store_function.ManageStoreView;
 import delivery.mvc.view.store_function.MypageForStoreView;
-//import delivery.mvc.view.user.LoginLogoutView;
-//import delivery.mvc.view.user.RegisterView;
-
 
 
 public class StoreView {
 	private static Scanner sc = new Scanner(System.in);
-	
-	/*
-	public static void main(String[] args) {
-		 StoreView.menu(); 
-	}*/
-	
-	
+
 
 	public static void menu(String userId) {
 		while (true) {
@@ -32,11 +23,10 @@ public class StoreView {
 			
 			switch (menu) {
 			case 1:
-				UsersView.users(userId);//삼진님의 회원 메소드 호출//회원모드
+				UsersView.users(userId); //회원모드
 				return;
 			case 2:
 				StoreView.printMenuForStores(userId);// 판매자모드 
-				//MenuView.printMenu();
 				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
@@ -63,10 +53,10 @@ public class StoreView {
 	
 	
 
-	public static void printMenuForStores(String users_id) { //인수로 스트링 받는게 맞는지 확인(case4도)
+	public static void printMenuForStores(String users_id) { 
 	
 		while(true) {
-			//SessionSet ss = SessionSet.getInstance();
+			
 			
 			System.out.println("-----------------------------------------------------------------------");
 			System.out.println("	1. 가게 관리       2. 주문관리     3. 마이페이지     4. 로그아웃   ");
