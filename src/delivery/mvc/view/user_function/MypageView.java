@@ -38,10 +38,12 @@ public class MypageView {
 				String usersPwd = sc.nextLine();
 				
 				//컨트롤러 호출, 비밀번호 인증하기!
-				UsersController.pwdCheck(userId, usersPwd);
+				int result = UsersController.pwdCheck(userId, usersPwd);
+				if(result == 1) personalInfo();
 				
-				personalInfo();
+				mypage(usersId);
 				break;
+				
 			case 2:
 				orders(userId);
 				break;

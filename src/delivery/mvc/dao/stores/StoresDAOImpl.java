@@ -381,7 +381,7 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "		(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_MASTER\r\n"
 				+ "		FROM ORDERS join stores \r\n"
 				+ "		on orders.store_code = stores.store_code\r\n"
-				+ "		GROUP BY stores.STORE_CODE, store_name ";
+				+ "		GROUP BY stores.STORE_CODE, store_name order by ?";
 		
 		try {
 			con = DbUtil.getConnection();
