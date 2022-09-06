@@ -23,10 +23,7 @@ public class LoginLogoutView {
 		 
 		 
 	}
-	
-	
 
-	
 	/**
 	 * ·Î±×¾Æ¿ô
 	 */
