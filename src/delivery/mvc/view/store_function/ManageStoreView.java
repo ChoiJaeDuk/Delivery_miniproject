@@ -11,6 +11,7 @@ import delivery.mvc.view.actor.StoreView;
 public class ManageStoreView {
 	private static Scanner sc= new Scanner(System.in);
 	private static String users_id;
+	private static final String usersId = null;
 	
 	public static void main(String[] args) {
 		ManageStoreView.manageStore("testid");
@@ -60,16 +61,17 @@ public class ManageStoreView {
 	/*
 	 * 1. open/close 상태 설정하기
 	 * */
-	public static void storeStatus(String users_id) { //세션
-		StoresDTO store = new StoresDTO();
-		String user_id =null;
-		String status = null;
-		if(store.getStore_status() == 0 ) status = "close";
-		else status = "open";
+	public static void storeStatus(String user_id) { //세션
+		//StoresDTO store = new StoresDTO();
+		//String user_id =null;
+		//String status = null;
+		//if(store.getStore_status() == 0 ) status = "close";
+		//else status = "open";
 		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [open/close 상태 ]                                 ");
-		System.out.println("-------------지금은" + status + " 상태입니다 -------------------------------");
+		//System.out.println("-------------지금은" + status + " 상태입니다 -------------------------------");
+		StoresController.storeSelectById(user_id);
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("	      	1. open              2. close               3.뒤로가기                ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -120,7 +122,7 @@ public class ManageStoreView {
 	/*
 	 * 2. 메뉴관리
 	 * */
-	public static void manageMenu(String users_id) {
+	public static void manageMenu(String user_id) {
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [ 메 뉴 관 리  ]                                   ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -131,28 +133,28 @@ public class ManageStoreView {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					insertMenu(users_id);//메뉴등록	
-					manageMenu(users_id);
+					insertMenu(user_id);//메뉴등록	
+					manageMenu(user_id);
 					return;
 				case 2:
-					updateMenu(users_id);//메뉴수정
-					manageMenu(users_id);
+					updateMenu(user_id);//메뉴수정
+					manageMenu(user_id);
 					return;
 				case 3:
-					deleteMenu(users_id);//메뉴삭제
-					manageMenu(users_id);
+					deleteMenu(user_id);//메뉴삭제
+					manageMenu(user_id);
 					return;
 				case 4:
-					showMenu(users_id);//메뉴조회
-					manageMenu(users_id);
+					showMenu(user_id);//메뉴조회
+					manageMenu(user_id);
 					return;
 				case 5:
-					manageStore(users_id); //뒤로가기
+					manageStore(user_id); //뒤로가기
 					break;
 					
 				default:
 					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-					manageMenu(users_id);
+					manageMenu(user_id);
 					break;		
 				
 			}
@@ -304,7 +306,7 @@ public class ManageStoreView {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					insertReply();//댓글작성
+					insertReply(user_id);//댓글작성
 					manageReview(user_id);
 					return;
 					
@@ -335,8 +337,9 @@ public class ManageStoreView {
 	
 	/**	 
 	  4-1 댓글작성
+	 * @param user_id 
 	*/
-	public static void insertReply() {
+	public static void insertReply(String user_id) {
 					
 			System.out.println("* * * 후기코드를 입력해주세요 >> ");
 			String reviewNo = sc.nextLine();

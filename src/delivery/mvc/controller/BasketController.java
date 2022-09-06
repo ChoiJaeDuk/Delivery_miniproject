@@ -7,6 +7,7 @@ import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.service.bascket.BasketService;
 import delivery.mvc.service.bascket.BasketServiceImpl;
+import delivery.mvc.view.SuccessView;
 
 public class BasketController {
 	private static BasketService service = new BasketServiceImpl();
@@ -19,12 +20,14 @@ public class BasketController {
 		try {
 			List<MenuDTO> list = service.basketMenuSelect(user_id);
 			System.out.println(list);
+			SuccessView.basketMenuSelect(list);
+			/*
 			for(MenuDTO menu : list) {
 				System.out.print(menu.getMenu_code()
 						+"\t"+menu.getMenu_name()
 						+"\t"+menu.getMenu_price()
 						+"\t"+menu.getBasket().getBasket_quantity());
-			}
+			}*/
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +40,7 @@ public class BasketController {
 	public static void basketInsert(BasketDTO basket) {
 		try {
 			service.bascketInsert(basket);
-			System.out.println("장바구니에 추가되었습니다");
+			SuccessView.getmessagePrint("장바구니에 추가되었습니다");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,7 +53,7 @@ public class BasketController {
 	public static void basketUpdate(BasketDTO basket, int num) {
 		try {
 			service.bascketUpdate(basket, num);
-			System.out.println("수량이 수정되었습니다");
+			SuccessView.getmessagePrint("수량 수정되었습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,9 +66,11 @@ public class BasketController {
 	public static void basketDelete(int menu_code, String user_id) {
 		try {
 			service.bascketDelete(menu_code, user_id);
-			System.out.println("삭제되었습니다");
+			SuccessView.getmessagePrint("삭제되었습니다.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }//BasketController end

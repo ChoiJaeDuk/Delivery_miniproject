@@ -3,13 +3,13 @@ package delivery.mvc.view.orders;
 import java.util.Scanner;
 
 import delivery.mvc.controller.StoresController;
-import delivery.mvc.dto.StoresDTO;
+import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserOrdersView {
 	
 	private static final String usersId = null;
-
+	
 
 	public static void main(String[] args) {
 		deliveryMenu();
@@ -27,6 +27,8 @@ public class UserOrdersView {
 	public static void deliveryMenu() {
 		while(true) {
 			
+			SessionSet ss = SessionSet.getInstance();
+			System.out.println(ss.getSet()); // []
 			
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("1.양식   2.중식   3.한식   4.가게 검색   5.메뉴 검색   6. 뒤로가기  ");
@@ -50,7 +52,7 @@ public class UserOrdersView {
 					break;
 				case 5:
 					UserCategorySelect.menuSelect();
-					storeSelect(9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
+					storeSelect( 9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 6:
 					UsersView.users(usersId);
@@ -68,10 +70,13 @@ public class UserOrdersView {
 
 	
 	
-	/**s
-	 * 음식 카테고리
+	/**
+	 * 음식 카테고리 ------------------------수정해야됨
 	 */
 	public static void category(int category) {
+		
+		SessionSet ss = SessionSet.getInstance();
+		System.out.println(ss.getSet()); // []
 		
 		switch(category) {
 			case 1:
@@ -80,7 +85,6 @@ public class UserOrdersView {
 				System.out.println("----------------------------------------------------------------");
 				System.out.println("4.피자          5.파스타          6.스테이크         13.뒤로가기");
 				System.out.println("----------------------------------------------------------------\n");
-				
 				System.out.println("* * * 번호를 입력해주세요. >> ");
 				category =Integer.parseInt(sc.nextLine());
 				
@@ -130,6 +134,9 @@ public class UserOrdersView {
 	 */
 	public static void subFood(int subFood) {
 		
+		SessionSet ss = SessionSet.getInstance();
+		System.out.println(ss.getSet()); // []
+		
 		//while(true) {
 			//System.out.println("* * * 번호를 입력해주세요. >> ");
 			//int subFood =Integer.parseInt(sc.nextLine());
@@ -139,7 +146,7 @@ public class UserOrdersView {
 					System.out.println("----------------------------------------------------------------\n");
 					System.out.println("                       [ 피자 가게 목록 ]                       \n");
 					subFoodList(4);
-					//storeSelect();
+				
 					return;
 				
 				case 5:
@@ -147,7 +154,7 @@ public class UserOrdersView {
 					System.out.println("                     [ 파스타 가게 목록 ]                       \n");
 										
 					subFoodList(5);
-					//storeSelect();
+				
 					return;
 				
 				case 6:
@@ -155,7 +162,7 @@ public class UserOrdersView {
 					System.out.println("                    [ 스테이크 가게 목록 ]                      \n");
 										
 					subFoodList(6);
-					//storeSelect();
+				
 					return;
 				
 				case 7:
@@ -163,7 +170,7 @@ public class UserOrdersView {
 					System.out.println("                       [ 면 가게 목록 ]                         \n");
 										
 					subFoodList(7);
-					//storeSelect();
+					
 					return;
 				
 				case 8:
@@ -171,7 +178,7 @@ public class UserOrdersView {
 					System.out.println("                      [ 요리 가게 목록 ]                        \n");
 										
 					subFoodList(8);
-					//storeSelect();
+				
 					return;
 				
 				case 9:
@@ -179,7 +186,7 @@ public class UserOrdersView {
 					System.out.println("                       [ 밥 가게 목록 ]                         \n");
 										
 					subFoodList(9);
-					//storeSelect();
+				
 					return;
 				
 				case 10:
@@ -187,7 +194,7 @@ public class UserOrdersView {
 					System.out.println("                      [ 찌개 가게 목록 ]                        \n");
 										
 					subFoodList(10);
-					//storeSelect();
+					
 					return;
 				
 				case 11:
@@ -195,7 +202,7 @@ public class UserOrdersView {
 					System.out.println("                      [ 볶음 가게 목록 ]                        \n");
 										
 					subFoodList(11);
-					//storeSelect();
+					
 					return;
 				
 				case 12:
@@ -203,7 +210,7 @@ public class UserOrdersView {
 					System.out.println("                      [ 찜/탕 가게 목록 ]                       \n");
 										
 					subFoodList(12);
-					//storeSelect();
+				
 					return;
 				
 				case 13:
@@ -222,6 +229,10 @@ public class UserOrdersView {
 
 	public static int subFoodList(int subFoodList) {
 		
+		SessionSet ss = SessionSet.getInstance();
+		System.out.println(ss.getSet()); 
+		System.out.println();
+		
 
 		System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
@@ -234,35 +245,42 @@ public class UserOrdersView {
 				storeSelect(9, 2); //int index
 				break;
 			case 5:
-				System.out.println("파스타 가게목록\n\n\n\n");
+				
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 6:
-				System.out.println("스테이크 가게목록\n\n\n\n");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 7:
 				System.out.println("면 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 8:
 				System.out.println("요리 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 9:
 				System.out.println("밥 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 10:
 				System.out.println("찌개 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 11:
 				System.out.println("볶음 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 12:
 				System.out.println("찜/탕 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			
@@ -316,14 +334,17 @@ public class UserOrdersView {
 	/**
 	 * 가게
 	 */
-	public static void stores( /*int ... subFoodList*/ int storeCode) {
+
+	public static void stores(int storeCode) {
+		SessionSet ss = SessionSet.getInstance();
+		String userId = ss.getSet().iterator().next().getSessionId();
+		
+
 		//StoresDTO stores = new StoresDTO();
 		
 				
 		System.out.println("----------------------------------------------------------------");
-		//System.out.println("                      [ " + stores.getStore_name() + " ]                    \n");
-		//System.out.println("가게를 소개하는 부분입니다. 가게를 소개해주세요. 안녕하세요.    \n\n\n"+ stores.getStore_detail());
-		StoresController.storeSelcetByCode(storeCode);
+		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.메뉴 선택             2.후기             3.뒤로가기           ");
 		System.out.println("----------------------------------------------------------------");
@@ -335,11 +356,11 @@ public class UserOrdersView {
 				menu(storeCode);
 				break;
 			case 2:
-				StoreReviewView.review();
+				StoreReviewView.review(0,userId);
 				break;
 			case 3:
 				//deliveryMenu();
-				//subFoodList(subFoodList[0]); //[0]의미는 뭘까.....? 초기화?????? //수정을 못하겠어요 
+				//subFoodList(subFoodList[0]); //[0]의미는 뭘까.....? 초기화?????? //수정을 못하겠어요 !!!!!
 				return;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
@@ -358,8 +379,10 @@ public class UserOrdersView {
 		System.out.println("\n\n----------------------------------------------------------------");
 		System.out.println("                            [ 메뉴 ]                            \n");
 		System.out.println("1.메뉴코드                  2.메뉴이름                   3.가격");
+		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("메뉴목록\n\n\n\n");
+		//메뉴목록 
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.주문하기          2.장바구니(결제)          3.뒤로가기");
 		System.out.println("----------------------------------------------------------------");
@@ -384,7 +407,9 @@ public class UserOrdersView {
 				break;
 				
 			case 3:
+				
 				stores(store_code);
+				
 				break;
 				
 			default :

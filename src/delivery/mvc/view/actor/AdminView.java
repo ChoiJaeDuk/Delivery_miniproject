@@ -21,10 +21,10 @@ public class AdminView {
 		int admin = Integer.parseInt(sc.nextLine());
 		switch(admin) {
 			case 1:
-				AdminControlView.adminControl();
+				AdminControlView.adminControl(userId);
 				break;
 			case 2:
-				ReviewControlView.storeList();
+				ReviewControlView.storeList(userId);
 				break;
 			case 3:
 				LoginLogoutView.logOut(userId);

@@ -23,11 +23,8 @@ public class UserCategorySelect {
 	 * 전체 가게 목록 조회
 	 */
 	public static void totalStoreList() {
-		//System.out.println("----------------------------------------------------------------\n");
-		//System.out.println("                          [ 가게 목록 ]                         \n");
-		//System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
-		//System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		selectLayout();
+		//StoresController.storesInfoSelectAll();
 		StoresController.storesSelectAll();
 		
 	}
@@ -39,11 +36,7 @@ public class UserCategorySelect {
 		System.out.println("* * * 메뉴이름을 입력해주세요. >> ");
 		String menuName =sc.nextLine();
 		
-		//System.out.println("----------------------------------------------------------------\n");
-		//System.out.println("                          [ 가게 목록 ]                         \n");
-		//System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
-		//System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
-		selectLayout();
+			selectLayout();
 
 		StoresController.storesSelectByMenu(menuName);
 	}

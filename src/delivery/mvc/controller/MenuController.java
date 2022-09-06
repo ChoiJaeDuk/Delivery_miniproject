@@ -7,6 +7,7 @@ import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.service.menu.MenuService;
 import delivery.mvc.service.menu.MenuServiceImpl;
+import delivery.mvc.view.SuccessView;
 import delivery.mvc.service.stores.StoresService;
 import delivery.mvc.service.stores.StoresServiceImpl;
 
@@ -20,6 +21,7 @@ public class MenuController {
 	 */
 	public static void menuSelectByAll(int store_id) {
 		try {
+			
 			List<MenuDTO> list = menuservice.menuSelectAll(store_id);
 			System.out.println("----------------------------------------------------------------------------------");
 			System.out.println("                     [ 메 뉴  목 록  db에서 가저옴]                               ");
@@ -34,6 +36,7 @@ public class MenuController {
 						+"\t"+menu.getSoldout_status());
 			}
 			System.out.println("----------------------------------------------------------------------------------");
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -74,10 +77,11 @@ public class MenuController {
 	 */
 	public static void menuInsert(MenuDTO menu, String user_id) {
 		try {
+
+			menuservice.menuInsert(menu);
+			SuccessView.getmessagePrint(menu.getMenu_name()+" 메뉴가 등록되었습니다");
 			int store_code = storeservice.storeSelectById(user_id).getStore_code();
 			menu.setStore_code(store_code);
-			menuservice.menuInsert(menu);
-			System.out.println(menu.getMenu_name()+" 메뉴가 등록되었습니다");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -89,8 +93,10 @@ public class MenuController {
 	 */
 	public static void menuUpdate(MenuDTO menu) {
 		try {
+
 			menuservice.menuUpdate(menu);
 			System.out.println(menu.getMenu_name()+" 메뉴로 변경되었습니다");
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

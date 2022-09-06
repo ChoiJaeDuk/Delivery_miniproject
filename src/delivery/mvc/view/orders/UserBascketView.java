@@ -28,8 +28,7 @@ public class UserBascketView {
 			System.out.println("메뉴 코드     가게이름              메뉴이름           수량     가격");
 			System.out.println("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ");
 			BasketController.basketMenuSelect(user_id);
-			System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = =");
-			//System.out.println("총 금액 : " + ???+"원");
+		
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("1.수량 수정하기      2.메뉴 삭제하기      3.주문하기      4.뒤로가기");
 			System.out.println("--------------------------------------------------------------------");

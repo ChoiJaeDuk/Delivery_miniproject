@@ -2,7 +2,7 @@ package delivery.mvc.view.actor;
 
 import java.util.Scanner;
 
-import delivery.mvc.controller.OrdersController;
+import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.MenuView;
 import delivery.mvc.view.store_function.ManageOrderView;
 import delivery.mvc.view.store_function.ManageStoreView;
@@ -13,34 +13,33 @@ import delivery.mvc.view.store_function.MypageForStoreView;
 
 
 public class StoreView {
-	private static final String usersId = null;
 	private static Scanner sc = new Scanner(System.in);
 	
+	/*
 	public static void main(String[] args) {
-		 StoreView.menu();
-		 
-	}
+		 StoreView.menu(); 
+	}*/
+	
 	
 
-	
-
-	public static void menu() {
+	public static void menu(String userId) {
 		while (true) {
-			StoreView.printMenu();
+
+			StoreView.printMenu(userId);
+
 			int menu = Integer.parseInt(sc.nextLine());
 			
 			switch (menu) {
 			case 1:
-				UsersView.users(usersId);//삼진님의 회원 메소드 호출//회원모드
-				
+				UsersView.users(userId);//삼진님의 회원 메소드 호출//회원모드
 				
 			case 2:
-				StoreView.printMenuForStores(usersId);// 판매자모드 
+				StoreView.printMenuForStores(userId);// 판매자모드 
 				//MenuView.printMenu();
 				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				menu();
+				menu(userId);
 				break;				
 			
 			}
@@ -48,17 +47,21 @@ public class StoreView {
 
 	}
 	
-	public static void printMenu() {
+
+	public static void printMenu(String userId) {
+		   
 		System.out.println("--------------------------------------------------------------------");
-		System.out.println("	       userId님 반갑습니다.        		 	                    ");
+		System.out.println("	       " + userId + "님 반갑습니다.        		 	                    ");
 		System.out.println("													         		");
 		System.out.println("	  1. 회원모드 	       2. 판매자 모드       		            ");
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
 		
+		
 	}
 	
 	
+
 	public static void printMenuForStores(String users_id) { //인수로 스트링 받는게 맞는지 확인(case4도)
 	
 		while(true) {

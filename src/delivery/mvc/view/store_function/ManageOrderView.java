@@ -16,16 +16,16 @@ private static Scanner sc= new Scanner(System.in);
 	public static void manageOrder(String userid) {
 		while (true) {
 
-			ManageOrderView.printMenu();
+			ManageOrderView.printMenu(userid);
 			int menu = Integer.parseInt(sc.nextLine());
 			
 			switch (menu) {
 			case 1:
-				ManageOrderView.orderDetail();//주문상세보기
+				ManageOrderView.orderDetail(userid);//주문상세보기
 				break;
 				
 			case 2:
-				ManageOrderView.manageDelivery();//배달관리
+				ManageOrderView.manageDelivery(userid);//배달관리
 				break;
 			
 			case 3:	
@@ -35,7 +35,7 @@ private static Scanner sc= new Scanner(System.in);
 		}
 	}
 	
-	public static void printMenu() {
+	public static void printMenu(String userid) {
 		orderList();
 		System.out.println("         	1. 주문상세보기         2. 배달관리          3. 뒤로가기              ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -45,7 +45,7 @@ private static Scanner sc= new Scanner(System.in);
 	/*
 	 * 1. 주문상세보기
 	 * */
-	public static void orderDetail() {
+	public static void orderDetail(String userid) {
 		System.out.print("* * * 주문코드를 입력해주세요. >>");
 		String orderCode = sc.nextLine();
 		System.out.println("----------------------------------------------------------------------------------");
@@ -74,12 +74,12 @@ private static Scanner sc= new Scanner(System.in);
 				return;		
 				
 			case 3:
-				printMenu();//뒤로가기
+				printMenu(userid);//뒤로가기
 				break;
 				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				orderDetail();
+				orderDetail(userid);
 				break;	
 			} 
 		}
@@ -108,7 +108,7 @@ private static Scanner sc= new Scanner(System.in);
 	/*
 	 * 2. 배달관리
 	 * */
-	public static void manageDelivery() {
+	public static void manageDelivery(String userid) {
 		System.out.print("* * * 주문코드를 입력해주세요. >>");
 		String orderCode = sc.nextLine();
 		orderList();
@@ -130,12 +130,12 @@ private static Scanner sc= new Scanner(System.in);
 					return;
 					
 				case 3:
-					printMenu(); //뒤로가기
+					printMenu(userid); //뒤로가기
 					return;
 					
 				default:
 					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-					manageDelivery();
+					manageDelivery(userid);
 					break;	
 				
 			}

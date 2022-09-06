@@ -2,17 +2,27 @@ package delivery.mvc.view.user_function;
 
 import java.util.Scanner;
 
+
+import delivery.mvc.controller.ReviewController;
+import delivery.mvc.controller.UsersController;
+import delivery.mvc.dto.ReviewDTO;
+import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
 public class MypageView {
-	private static final String usersId = null;
+	//private static final String usersId = null;
 	static Scanner sc = new Scanner(System.in);
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		mypage();
-	}
+	}*/
 	
-	public static void mypage(){
+	
+	public static void mypage(String usersId){
+		
+		SessionSet ss = SessionSet.getInstance();
+		String userId = ss.getSet().iterator().next().getSessionId();
+		
 		System.out.println("---------------------------------------------------------------------");
 		System.out.println("                          [ 마이페이지 ]                             ");
 		System.out.println("---------------------------------------------------------------------");
@@ -29,20 +39,20 @@ public class MypageView {
 				personalInfo();
 				break;
 			case 2:
-				orders();
+				orders(userId);
 				break;
 			case 3:
-				review();
+				review(userId);
 				break;
 			case 4:
-				storeRegis();
+				storeRegis(userId);
 				break;
 			case 5:
 				UsersView.users(usersId);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				mypage();
+				mypage(usersId);
 				break;
 				
 		}
@@ -50,13 +60,21 @@ public class MypageView {
 	}
 	
 	/**
+<<<<<<< HEAD
+	 * 개인정보수정 @@@@@@@@@@@@@@@ 완료?
+=======
 	 * 개인정보수정
+	 * @param usersId 
+>>>>>>> MunSamJin
 	 */
 	private static void personalInfo() {
-
+		SessionSet ss = SessionSet.getInstance();
+		String userId = ss.getSet().iterator().next().getSessionId();
+        //System.out.println("personalInfo의 userId = " + userId );
+        
 		while(true) {
 			System.out.println("----------------------------------------------------------------------------");
-			System.out.println("                          [ " + "usersId" + "님 개인정보 ]                  \n\n\n\n");
+			System.out.println("                          [ " + userId + "님 개인정보 ]                  \n\n\n\n");
 			System.out.println("----------------------------------------------------------------------------");
 			System.out.println("1.닉네임 변경   2.주소 변경   3.전화번호 변경   4.비밀번호 변경   5.뒤로가기");
 			System.out.println("----------------------------------------------------------------------------");
@@ -68,7 +86,9 @@ public class MypageView {
 					System.out.println("* * * 현재 닉네임을 입력해주세요. >> ");
 					String usersNick = sc.nextLine();					
 					System.out.println("* * * 변경할 닉네임을 입력해주세요. >> ");
-					String newUsersNick = sc.nextLine();					
+					String newUsersNick = sc.nextLine();
+					//닉네임변경 메소드(controller)
+					UsersController.nickUpdate(usersNick, newUsersNick);
 					personalInfo();
 					break;
 					
@@ -77,6 +97,7 @@ public class MypageView {
 					String usersAddr = sc.nextLine();
 					System.out.println("* * * 변경할 주소를 입력해주세요. >> ");
 					String newUsersAddr = sc.nextLine();
+					UsersController.addrUpdate(usersAddr, newUsersAddr);
 					personalInfo();
 					break;
 					
@@ -85,6 +106,7 @@ public class MypageView {
 					String usersPhone = sc.nextLine();
 					System.out.println("* * * 변경할 전화번호를 입력해주세요. >> ");
 					String newUsersPhone = sc.nextLine();
+					UsersController.phoneUpdate(usersPhone, newUsersPhone);
 					personalInfo();
 					break;
 					
@@ -96,11 +118,12 @@ public class MypageView {
 					
 					System.out.println("* * * 변경할 비밀번호를 입력해주세요. >> ");
 					String newUsersPwd = sc.nextLine();
+					UsersController.pwdUpdate(usersPwd, newUsersPwd);					
 					personalInfo();
 					break;
 					
 				case 5:
-					mypage();
+					mypage(userId);
 					break;
 					
 				default :
@@ -116,14 +139,17 @@ public class MypageView {
 	
 	/**
 	 * 주문내역
+	 * @param userId 
 	 */
-	private static void orders() {
+	private static void orders(String userId ) {
+		
+		
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                               [ 주문내역 ]                                 \n");
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문코드      2.주문날짜      3.총 가격      4.배송상태     5.예상배송시간");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("주문내역 불러오기!! \n\n\n\n");
+		System.out.println("주문내역 불러오기!! \n\n\n\n");//UsersController.selectOrderList(String user_id);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문 상세보기       2.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -132,14 +158,16 @@ public class MypageView {
 		int orders = Integer.parseInt(sc.nextLine());
 		switch(orders) {
 			case 1:
-				orderLine();
+				System.out.println("* * * 주문코드를 입력해주세요. >> ");
+				int order_code = Integer.parseInt(sc.nextLine());
+				orderLine(order_code);
 				break;
 			case 2:
-				mypage();
+				mypage(userId);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				orders();
+				orders(userId);
 				break;
 			
 		}//switch끝	
@@ -148,13 +176,19 @@ public class MypageView {
 	/**
 	 * 주문상세보기
 	 */
-	private static void orderLine() {
+
+	private static void orderLine(int order_code) {
+
+		SessionSet ss = SessionSet.getInstance();
+		String userId = ss.getSet().iterator().next().getSessionId();
+		
+
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                             [ 주문상세보기 ]                               \n");
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문내역_상세코드    2.가게이름        3.메뉴이름        4.수량     5.단가");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("주문상세보기 불러오기!!!! \n\n\n");
+		System.out.println("주문상세보기 불러오기!!!! \n\n\n");//UsersController.selectDelivery_time(int order_code);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.환불(취소)하기     2.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -162,18 +196,20 @@ public class MypageView {
 		
 		int orderLine = Integer.parseInt(sc.nextLine());
 		switch(orderLine) {
-			case 1:
-				System.out.println("* * * 주문내역_상세코드를 입력해주세요. >> ");
-				int orderLineCode = Integer.parseInt(sc.nextLine());
+			case 1:		
+				
+				//주문취소 메소드(UsersController //난 order_code사용했는데..,?)
+				UsersController.cancelOrder(order_code);
+				
 				System.out.println("환불(취소)되었습니다.");
-				orders();//주문내역 --> 배송상태 업데이트 하기!!!
+				orders(userId);//주문내역 --> 배송상태 업데이트 하기!!!
 				break;
 			case 2:
-				orders();
+				orders(userId);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				orderLine();
+				orderLine(order_code);
 				break;
 		}
 	}
@@ -181,8 +217,10 @@ public class MypageView {
 	
 	/**
 	 * 후기조회
+	 * @param userId 
 	 */
-	private static void review() {
+	private static void review(String userId) {
+
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                          [ 내가 작성한 후기 목록 ]                         \n");
 		System.out.println("usersId가 작성한 후기 목록 불러오기!!!\n\n\n\n");
@@ -195,23 +233,27 @@ public class MypageView {
 		switch(review) {
 		case 1:
 			reviewInsert();
-			review();
+			review(userId);
 			break;
 		case 2:
 			reviewUpdate();
-			review();
+			review(userId);
 			break;
 		case 3:
 			System.out.println("* * * 삭제할 후기코드를 입력해주세요. >> ");
 			int reviewCode = Integer.parseInt(sc.nextLine());
-			review();
+
+			//리뷰 삭제 메소드
+			ReviewController.reviewDelete(reviewCode);
+			review(userId);
+
 			break;
 		case 4:
-			mypage();
+			mypage(userId);
 			break;
 		default :
 			System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-			review();
+			review(userId);
 			break;
 		}
 	}
@@ -222,7 +264,7 @@ public class MypageView {
 	private static void reviewInsert() {
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                           [ 최근 주문 내역 ]                               \n");
-		System.out.println("후기가 없는 주문 내역을 select!!!!\n\n\n\n");
+		System.out.println("후기가 없는 주문 내역을 select!!!!\n\n\n\n");//후기가 없는거 까지 출력이 가능할까요???
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("* * * 주문코드 입력해주세요. >> ");
 		int orderCode = Integer.parseInt(sc.nextLine());
@@ -233,6 +275,11 @@ public class MypageView {
 		int starGrade = Integer.parseInt(sc.nextLine());
 		System.out.println("* * * 후기를 입력해주세요.(최대 30자)  >> ");
 		String reviewDetail = sc.nextLine();
+		
+		//리뷰 작성 메소드 ReviewController
+		// user_id를 세션에서 가져와야 할듯
+		ReviewDTO review = new ReviewDTO(/*user_id, order_code, store_code, reviewDetail, starGrade*/);
+		ReviewController.reviewInsert(review);
 	}
 	
 	
@@ -246,14 +293,21 @@ public class MypageView {
 		int starGrade = Integer.parseInt(sc.nextLine());
 		System.out.println("* * * 후기를 입력해주세요.(최대 30자)  >> ");
 		String reviewDetail = sc.nextLine();
+		
+		//리뷰 수정 메소드 ReviewController
+		ReviewDTO review = new ReviewDTO(starGrade, reviewDetail, newReviewCode);
+		ReviewController.reviewUpdate(review);
 	}
 	
 
 	
 	/**
 	 * 판매자 신청서
+	 * @param userId 
 	 */
-	private static void storeRegis() {
+	private static void storeRegis(String userId) {
+
+		
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                             [ 판매자 신청서 ]                              \n");
 		System.out.println("----------------------------------------------------------------------------");
@@ -280,10 +334,11 @@ public class MypageView {
 			System.out.println("(1.양식   2.중식   3.한식)");
 			int categoryCode = Integer.parseInt(sc.nextLine());
 			
+			
 			// 양식, 중식, 한식 외 입력 시 오류메세지!!  
 			//2가지 입력 시 오류 메세지!!
 			
-			storeRegister();
+			storeRegister(userId);
 			break;
 			
 		case 2:
@@ -292,16 +347,16 @@ public class MypageView {
 			System.out.println("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
 			System.out.println("판매자 신청 승인 결과 select!! \n\n\n");
 			System.out.println("----------------------------------------------------------------------------");
-			storeRegis();
+			storeRegis(userId);
 			break;
 			
 		case 3:
-			mypage();
+			mypage(userId);
 			break;
 			
 		default :
 			System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-			storeRegis();
+			storeRegis(userId);
 			break;
 		}
 		 
@@ -309,8 +364,9 @@ public class MypageView {
 	
 	/**
 	 * 판매자신청
+	 * @param userId 
 	 */
-	private static void storeRegister() {		
+	private static void storeRegister(String userId) {		
 		
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.신청하기          2.취소하기");
@@ -321,15 +377,15 @@ public class MypageView {
 		switch(storeRegister) {
 			case 1:
 				System.out.println("판매자 신청이 완료되었습니다.");
-				storeRegis();
+				storeRegis(userId);
 				break;
 			case 2:
 				System.out.println("판매자 신청이 취소되었습니다.");
-				storeRegis();
+				storeRegis(userId);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				storeRegister();
+				storeRegister(userId);
 				break;
 		}//switch끝
 	}

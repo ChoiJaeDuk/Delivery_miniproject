@@ -13,7 +13,7 @@ public class AdminControlView {
 	
 	static Scanner sc = new Scanner(System.in);
 
-	public static void adminControl() {
+	public static void adminControl(String userId) {
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("1.가게 관리                2.매출 현황 조회               3.뒤로가기");
 		System.out.println("--------------------------------------------------------------------");
@@ -26,20 +26,20 @@ public class AdminControlView {
 				
 				System.out.println("* * * 가게 코드를 입력해주세요. >> ");
 				int storeCode = Integer.parseInt(sc.nextLine());
-				storeControl(storeCode);//가게관리
+				storeControl(storeCode, userId);//가게관리
 				storeState();//가게 정보 업데이트 후 다시 조회!
 								
 				break;
 				
 			case 2:
-				salesStatus();
+				salesStatus(userId);
 				break;
 			case 3:
 				AdminView.admin(null);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				adminControl();
+				adminControl(userId);
 				break;
 		}//switch끝
 	}
@@ -66,7 +66,7 @@ public class AdminControlView {
 	/**
 	 * 가게관리
 	 */
-	public static void storeControl(int store_code) {
+	public static void storeControl(int store_code, String userId) {
 		//System.out.println("* * * 가게 코드를 입력해주세요. >> ");
 		//int storeCode = Integer.parseInt(sc.nextLine());
 		
@@ -83,17 +83,17 @@ public class AdminControlView {
 				
 				storeState(); //업데이트 된 가게 목록 불러오기!!!	
 	
-				adminControl();
+				adminControl(userId);
 				break;
 			case 2:
 				
 				StoresController.storeRegis(new StoresDTO("반려",store_code));
 			
 				storeState(); //업데이트 된 가게 목록 불러오기!!!				
-				adminControl();
+				adminControl(userId);
 				break;
 			case 3:
-				adminControl();
+				adminControl(userId);
 			
 				break;
 			default :
@@ -122,7 +122,7 @@ public class AdminControlView {
 	/**
 	 * 매출현황조회
 	 */
-	public static void salesStatus( ) {
+	public static void salesStatus(String userId) {
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("                       [ 매출 현황 목록 ]                       \n");
 		System.out.println("가게 코드   가게 이름     총 매출     가게 매출     운영자 매출");
@@ -139,15 +139,15 @@ public class AdminControlView {
 				System.out.println("* * * 가게코드를 입력해주세요. >> ");
 				int storeCode = Integer.parseInt(sc.nextLine());
 				salesDetail(storeCode); 
-				salesStatus();
+				salesStatus(userId);
 				break;
 				
 			case 2:
-				adminControl();
+				adminControl(userId);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				salesStatus();
+				salesStatus(userId);
 				break;
 		}//switch끝
 	}
@@ -164,8 +164,6 @@ public class AdminControlView {
 		System.out.println("----------------------------------------------------------------\n");
 	}
 	
-	public static void main(String[] args) {
-		adminControl();
-	}
+
 
 }
