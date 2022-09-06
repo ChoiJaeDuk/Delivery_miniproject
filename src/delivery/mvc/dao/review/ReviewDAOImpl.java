@@ -99,8 +99,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 			DbUtil.dbClose(con, ps);
 		}
 		
-		
-		
 		return result;
 	}
 
@@ -182,6 +180,31 @@ public class ReviewDAOImpl implements ReviewDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public int storeCodeSelectByOrderCode(int order_code) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs= null;
+		int store_code = 0;
+		String sql = "SELECT STORE_CODE FROM ORDERS WHERE ORDER_CODE = ?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);		
+//			ps.setString(1, get);
+			ps.setInt(1, order_code);
+			rs = ps.executeQuery();
+			if(rs.next()){
+				
+				store_code = rs.getInt(1);
+				
+			}
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+
+		
+		return store_code;
 	}
 
 

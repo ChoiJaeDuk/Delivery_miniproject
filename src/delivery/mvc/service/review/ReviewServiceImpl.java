@@ -25,12 +25,23 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void reviewInsert(ReviewDTO reviewDTO) throws SQLException {
+	public void reviewInsert(String userId, int order_code, String reviewDetail, int starGrade) throws SQLException {
+		int storeCode = reviewDAO.storeCodeSelectByOrderCode(order_code);
+		System.out.println(storeCode);
+		ReviewDTO reviewDTO = new ReviewDTO(userId, order_code, storeCode, reviewDetail, starGrade);
 		int result = reviewDAO.reviewInsert(reviewDTO);
 		if(result == 0) throw new SQLException("후기 등록을 실패했습니다.");
-
 	}
-
+	
+	public static void main(String[] args) {
+		try {
+			new ReviewServiceImpl().reviewInsert("userte", 2, "존맛탱" , 5);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void reviewUpdate(ReviewDTO reviewDTO) throws SQLException {
 		int result = reviewDAO.reviewUpdate(reviewDTO);
