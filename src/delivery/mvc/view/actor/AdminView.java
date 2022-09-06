@@ -2,6 +2,7 @@ package delivery.mvc.view.actor;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.UsersController;
 import delivery.mvc.view.admin_function.AdminControlView;
 import delivery.mvc.view.admin_function.ReviewControlView;
 import delivery.mvc.view.user_function.LoginLogoutView;
@@ -27,7 +28,8 @@ public class AdminView {
 				ReviewControlView.storeList(userId);
 				break;
 			case 3:
-				LoginLogoutView.logOut(userId);
+				UsersController.usersLogout(userId);
+				//LoginLogoutView.logOut(userId);
 				return;
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");

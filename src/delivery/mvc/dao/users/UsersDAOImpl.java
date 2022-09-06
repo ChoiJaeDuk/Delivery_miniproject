@@ -26,7 +26,7 @@ public class UsersDAOImpl implements UsersDAO {
 		ResultSet rs = null;
 		UsersDTO usersDTO = null;
 		
-		String sql = "SELECT USER_NAME FROM USERS WHERE USER_ID = ? AND USER_PWD = ?"; 
+		String sql = "SELECT USER_NAME, JOB_CODE FROM USERS WHERE USER_ID = ? AND USER_PWD = ?"; 
 		
 		try {
 			con = DbUtil.getConnection();
@@ -38,7 +38,7 @@ public class UsersDAOImpl implements UsersDAO {
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				usersDTO = new UsersDTO(rs.getString(1));
+				usersDTO = new UsersDTO(rs.getString(1), rs.getString(2), user_id, user_pwd);
 			
 			}
 			

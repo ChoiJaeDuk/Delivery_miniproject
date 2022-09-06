@@ -49,8 +49,11 @@ public class UsersDTO {
 	}
 
 
-	public UsersDTO(String user_name) {
+	public UsersDTO(String user_name, String job_code,  String user_id, String user_pwd) {
 		this.user_name = user_name;
+		this.job_code = job_code;
+		this.user_id = user_id;
+		this.user_pwd = user_pwd;
 	}
 
 

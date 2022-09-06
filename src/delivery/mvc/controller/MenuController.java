@@ -77,11 +77,10 @@ public class MenuController {
 	 */
 	public static void menuInsert(MenuDTO menu, String user_id) {
 		try {
-
-			menuservice.menuInsert(menu);
-			SuccessView.getmessagePrint(menu.getMenu_name()+" 메뉴가 등록되었습니다");
 			int store_code = storeservice.storeSelectById(user_id).getStore_code();
 			menu.setStore_code(store_code);
+			menuservice.menuInsert(menu);
+			SuccessView.getmessagePrint(menu.getMenu_name()+" 메뉴가 등록되었습니다");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

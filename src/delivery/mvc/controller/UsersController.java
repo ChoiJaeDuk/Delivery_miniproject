@@ -4,8 +4,12 @@ package delivery.mvc.controller;
 import delivery.mvc.dto.UsersDTO;
 import delivery.mvc.service.users.UsersServiceImpl;
 import delivery.mvc.view.FailView;
+import delivery.mvc.view.actor.AdminView;
+import delivery.mvc.view.actor.StoreView;
 import delivery.mvc.view.actor.UsersView;
+import delivery.mvc.view.user_function.LoginLogoutView;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import delivery.mvc.dto.OrderLineDTO;
@@ -30,15 +34,19 @@ public class UsersController {
 			//SuccessView.getmessagePrint("로그인 성공");
 	        System.out.println(user.getUsers_name()+"님 로그인 성공");
 
+	        if(user.getJob_code().equals("A")) UsersView.users(userId);
+	        else if(user.getJob_code().equals("B")) StoreView.menu(userId);
+	        else if(user.getJob_code().equals("C")) AdminView.admin(userId);
+	        else throw new SQLException("존재하지 않는 등급입니다");
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
 			//System.out.println("오류");
 		}
 	}
 	
-	public static void usersLogout() {
+	public static void usersLogout(String userId) {
 		try {
-			usersService.usersLogout();
+			LoginLogoutView.logOut(userId);
 			SuccessView.getmessagePrint("로그아웃 성공");
 			//System.out.println("로그아웃 성공");
 		} catch (Exception e) {

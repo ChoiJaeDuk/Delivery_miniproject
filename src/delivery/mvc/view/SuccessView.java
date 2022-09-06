@@ -97,7 +97,8 @@ public class SuccessView {
 	 * 가게 관리 open.close관리 15
 	 * */
 	public static void storeStatus(StoresDTO storeDTO) {
-		System.out.println("지금은  "+storeDTO.getStore_status()+" 상태입니다.");
+		if(storeDTO.getStore_status()==1) System.out.println("지금은  open 상태입니다.");
+		else if(storeDTO.getStore_status()==0) System.out.println("지금은 closed 상태입니다. ");
 	}
 	
 	/**

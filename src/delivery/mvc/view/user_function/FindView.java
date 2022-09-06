@@ -20,20 +20,16 @@ public class FindView {
 			switch (menu) {
 			case 1:
 				FindView.findId(); //아이디 찾기
-				FindView.idPw();
-				return;
+				break;
 				
 			case 2:
 				FindView.findPw();// 비밀번호찾기
-				FindView.idPw();
 				return;
 				
 			case 3:
 				MenuView.printMenu();// 뒤로가기
 				
 			}
-			break;
-			
 		}//while끝
 		
 	}
