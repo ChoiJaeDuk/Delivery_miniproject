@@ -27,7 +27,7 @@ public class AdminControlView {
 				System.out.println("* * * 가게 코드를 입력해주세요. >> ");
 				int storeCode = Integer.parseInt(sc.nextLine());
 				storeControl(storeCode);//가게관리
-				storeInfo();//가게 정보 업데이트 후 다시 조회!
+				storeState();//가게 정보 업데이트 후 다시 조회!
 								
 				break;
 				
@@ -49,7 +49,7 @@ public class AdminControlView {
 	/**
 	 * 가게 정보
 	 */
-	public static void storeInfo() {
+	public static void storeInfo() { //필요한가 ?
 		System.out.println("--------------------------------------------------------------------\n");
 
 		System.out.println("     가게코드           [ " + "storeName" + " 가게 정보 ]                   \n");
@@ -127,7 +127,6 @@ public class AdminControlView {
 		System.out.println("                       [ 매출 현황 목록 ]                       \n");
 		System.out.println("가게 코드   가게 이름     총 매출     가게 매출     운영자 매출");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("데이터 불러오기!!\n\n\n\n");
 		StoresController.storesSales();
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("1. 세부 매출 내역 조회     2.뒤로가기");
@@ -139,7 +138,7 @@ public class AdminControlView {
 			case 1:
 				System.out.println("* * * 가게코드를 입력해주세요. >> ");
 				int storeCode = Integer.parseInt(sc.nextLine());
-				salesDetail(); // 여기를 안했다.
+				salesDetail(storeCode); 
 				salesStatus();
 				break;
 				
@@ -156,12 +155,12 @@ public class AdminControlView {
 	/**
 	 * 세부매출내역 조회
 	 */
-	public static void salesDetail() {
+	public static void salesDetail(int storeCode) {
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("            [ " + "storeName" + "세부 매출 현황 ]               \n");
 		System.out.println("구분       총 매출             운영자 매출           판매자 매출");
 		System.out.println("----------------------------------------------------------------\n");
-		System.out.println("가게별 월 매출 select!!!!!\n\n\n");
+		StoresController.storesSalesByMonth(storeCode);
 		System.out.println("----------------------------------------------------------------\n");
 	}
 	

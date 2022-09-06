@@ -94,6 +94,17 @@ public interface StoresDAO {
 	List<StoresDTO> storesSales() throws SQLException;
 	
 	/**
+	 * 가게 매출 세부 조회
+	 * SELECT to_char(order_date, 'MM')||'월' as 구분, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,(SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES,SUM(ORDER_TOTAL_PRICE)*0.03 AS TOTAL_SALES_FOR_MASTER
+		FROM ORDERS 
+		GROUP BY store_code, to_char(order_date,'MM')
+		Having store_code = 2
+		order by 구분;
+	 * */
+	List<OrdersDTO> storeSalesByMonth(int store_code) throws SQLException;
+	
+	
+	/**
 	 * 가게별 메뉴당 월별 매출조회
 	 * SELECT TO_CHAR(ORDERS.ORDER_DATE,'MM') as 월, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT
 		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE
