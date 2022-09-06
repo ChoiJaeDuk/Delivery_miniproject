@@ -306,7 +306,7 @@ public class ManageStoreView {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					insertReply();//댓글작성
+					insertReply(user_id);//댓글작성
 					manageReview(user_id);
 					return;
 					
@@ -337,8 +337,9 @@ public class ManageStoreView {
 	
 	/**	 
 	  4-1 댓글작성
+	 * @param user_id 
 	*/
-	public static void insertReply() {
+	public static void insertReply(String user_id) {
 					
 			System.out.println("* * * 후기코드를 입력해주세요 >> ");
 			String reviewNo = sc.nextLine();

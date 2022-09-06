@@ -13,7 +13,7 @@ public class ReviewControlView {
 	
 	static Scanner sc = new Scanner(System.in);
 	
-	public static void storeList() {
+	public static void storeList(String userId) {
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("                          [ 가게 목록 ]                         \n");
 		System.out.println("              가게코드           가게 이름\n");
@@ -62,13 +62,16 @@ public class ReviewControlView {
 		
 		
 	}
+
+
 	
 	
 	/**
 	 * 후기삭제
+	 * @param userId 
 	 */
 	
-	public static void reviewDelete() {
+	public static void reviewDelete(String userId) {
 		reviewList();
 		int reviewList = Integer.parseInt(sc.nextLine());
 		switch(reviewList) {
@@ -77,7 +80,7 @@ public class ReviewControlView {
 				int reviewCode = Integer.parseInt(sc.nextLine());
 				return;
 			case 2:
-				storeList();
+				storeList(userId);
 				break;
 			default :
 				break;
