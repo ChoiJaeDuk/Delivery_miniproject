@@ -7,3 +7,5 @@ public class StartView {
 	}
 
 }
+/*아이디 닉네임 주민
+*/

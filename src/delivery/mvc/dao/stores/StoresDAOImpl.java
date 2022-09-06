@@ -209,11 +209,12 @@ public class StoresDAOImpl implements StoresDAO {
 	
 		StoresDTO stores = null;
  		
-		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, "
+				+ "COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
 				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, CATEGORY_CODE\r\n"
-				+ "HAVING CATEGORY_CODE = ?";
+				+ "HAVING CATEGORY_CODE = ? "; //and category_mgr = ?
 		
 		try {
 			con = DbUtil.getConnection();
@@ -235,6 +236,8 @@ public class StoresDAOImpl implements StoresDAO {
 		
 		return list;
 	}
+	
+//	public void categoryCode()
 
 	@Override
 	public int storeInsert(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storeDTO)

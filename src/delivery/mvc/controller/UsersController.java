@@ -105,7 +105,7 @@ public class UsersController {
 	public static void addrUpdate(String oldAddr, String newAddr) {
 		try {
 			usersService.addrUpdate(oldAddr,newAddr);
-			SuccessView.getmessagePrint("닉네임 수정 성공");
+			SuccessView.getmessagePrint("주소 수정 성공");
 			//System.out.println("주업 성공");
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
@@ -116,7 +116,7 @@ public class UsersController {
 	public static void phoneUpdate(String oldPhone, String newPhone) {
 		try {
 			usersService.phoneUpdate(oldPhone,newPhone);
-			SuccessView.getmessagePrint("닉네임 수정 성공");
+			SuccessView.getmessagePrint("폰번 수정 성공");
 			//System.out.println("폰업 성공");
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
@@ -127,7 +127,7 @@ public class UsersController {
 	public static void pwdUpdate(String oldPwd, String newPwd) {
 		try {
 			usersService.pwdUpdate(oldPwd,newPwd);
-			SuccessView.getmessagePrint("닉네임 수정 성공");
+			SuccessView.getmessagePrint("비번 수정 성공");
 			//System.out.println("비업 성공");
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());

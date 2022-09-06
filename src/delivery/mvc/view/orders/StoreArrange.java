@@ -2,6 +2,8 @@ package delivery.mvc.view.orders;
 
 import java.util.Scanner;
 
+import delivery.mvc.session.SessionSet;
+
 
 public class StoreArrange {
 
@@ -100,7 +102,10 @@ public class StoreArrange {
 	 */
 	
 	public static void categoryArrange() {
+		SessionSet ss = SessionSet.getInstance();
+		   String userId = ss.getSet().iterator().next().getSessionId();
 		arrangeLayout();
+		
 
 		int categoryArrange = Integer.parseInt(sc.nextLine());
 		switch(categoryArrange) {
@@ -116,7 +121,7 @@ public class StoreArrange {
 				System.out.println("배달팁 낮은 순서로 하위카테고리가 포함된 가게 목록 불러오기\n\n\n\n");
 				break;
 			case 4:
-				UserOrdersView.category(category);
+				UserOrdersView.category(category, userId);
 				//UserOrdersView.subFood(subFoodList);
 				break;
 			default :

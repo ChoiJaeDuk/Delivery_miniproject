@@ -33,7 +33,7 @@ public class UsersView {
 
 			switch (users) {
 			case 1:
-				UserOrdersView.deliveryMenu();// 배달
+				UserOrdersView.deliveryMenu(usersId);// 배달
 				break;
 				
 			case 2:

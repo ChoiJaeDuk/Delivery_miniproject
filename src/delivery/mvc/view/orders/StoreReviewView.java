@@ -13,10 +13,12 @@ public class StoreReviewView {
 		
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("회원아이디     주문코드     별점           후기               등록일");
+		System.out.println("----------------------------------------------------------------");
+		ReviewController.reviewSelectAll(storeCode);
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
-		//ReviewController.reviewSelectAll(stores_code);
 		
-		UserOrdersView.stores(storeCode);
+		
+		UserOrdersView.stores(storeCode, userId);
 
 	}
 	
