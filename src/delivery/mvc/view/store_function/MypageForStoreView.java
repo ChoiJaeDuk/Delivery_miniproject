@@ -109,7 +109,7 @@ public class MypageForStoreView {
 	public static void storeDetail(String users_id) {
 		
 		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                              xxxx가게입니다.                                    ");
+		System.out.println("                              "+users_id+"가게입니다.                                    ");
 		System.out.println("----------------------------------------------------------------------------------");
 		StoresController.storeSelectById(users_id);                  
 		System.out.println("----------------------------------------------------------------------------------");
