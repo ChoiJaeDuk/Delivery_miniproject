@@ -285,7 +285,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 			
 			ps.setInt(1, menuCode);
 		    rs = ps.executeQuery(); 
-		    
+	    
 		    if(rs.next()) {
 		    	store_code = rs.getInt(1);
 		    }

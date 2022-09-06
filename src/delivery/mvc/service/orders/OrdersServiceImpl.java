@@ -18,12 +18,13 @@ public class OrdersServiceImpl implements OrdersService {
 		int menuCode = 0;
 		int basket_total_price = 0;
 		List<BasketDTO> basketList = basketDao.basketSelectAll(user_id);
+		
 		for(BasketDTO basket :basketList) {
 			menuCode = basket.getMenu_code();
-			basket_total_price = basket.getSum_price();
+			basket_total_price += basket.getSum_price();
 		}
-		
 		int storeCode = ordersDao.selectStoreCodeByMenuCode(menuCode, user_id);
+		
 		OrdersDTO orders = new OrdersDTO(user_id, storeCode, basket_total_price);		
 		int result = ordersDao.orderInsert(orders);
 		if(result == 0 ) throw new SQLException("주문하기 실패");

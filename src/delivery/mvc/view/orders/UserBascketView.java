@@ -89,6 +89,6 @@ public class UserBascketView {
 		System.out.println("* * * 주문이 완료되었습니다. >> ");
 		System.out.println("* * * 주문 승인을 대기 중입니다. >> \n\n");
 		
-		//OrdersController.insertOrders();
+		OrdersController.insertOrders(user_id);
 	}
 }
