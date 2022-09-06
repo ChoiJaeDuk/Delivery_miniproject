@@ -43,6 +43,35 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return list;
 	}
 	
+	@Override
+	public List<ReviewDTO> reviewUserAll(String user_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps =null;
+		ResultSet rs= null;
+		
+		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+		String sql = "select user_id, order_code, star_grade, review_detail, post_date "
+				+ "from review where user_id = ?";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setString(1, user_id);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				ReviewDTO review = new ReviewDTO(rs.getString(1), rs.getInt(2), rs.getInt(3), 
+						rs.getString(4), rs.getString(5));
+				list.add(review);
+			}
+			
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}		
+		
+		return list;
+	}
+	
 
 	@Override
 	public int reviewInsert(ReviewDTO reviewDTO) throws SQLException {
@@ -154,5 +183,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			e.printStackTrace();
 		}
 	}
+
+
+
 
 }

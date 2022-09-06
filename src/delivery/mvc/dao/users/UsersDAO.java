@@ -90,7 +90,10 @@ public interface UsersDAO {
 	int cancelOrder(int order_code) throws SQLException;
 
 
-
+	/**
+	 * 비밀번호 확인
+	 */
+	String pwdCheck(String user_id, String user_pwd) throws SQLException;
 
 
 

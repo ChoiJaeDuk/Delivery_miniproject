@@ -35,7 +35,10 @@ public class MypageView {
 			case 1:
 				System.out.println("* * * 비밀번호를 입력해주세요. >> ");
 				String usersPwd = sc.nextLine();
+				
 				//컨트롤러 호출, 비밀번호 인증하기!
+				UsersController.pwdCheck(userId, usersPwd);
+				
 				personalInfo();
 				break;
 			case 2:
@@ -115,6 +118,7 @@ public class MypageView {
 					String usersPwd = sc.nextLine();
 				
 					//컨트롤러 호출, 비밀번호 인증하기!
+					UsersController.pwdCheck(userId, usersPwd);
 					
 					System.out.println("* * * 변경할 비밀번호를 입력해주세요. >> ");
 					String newUsersPwd = sc.nextLine();
@@ -149,7 +153,8 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문코드      2.주문날짜      3.총 가격      4.배송상태     5.예상배송시간");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("주문내역 불러오기!! \n\n\n\n");//UsersController.selectOrderList(String user_id);
+//		System.out.println("주문내역 불러오기!! \n\n\n\n");
+		UsersController.selectOrderList(userId);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문 상세보기       2.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -188,7 +193,8 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문내역_상세코드    2.가게이름        3.메뉴이름        4.수량     5.단가");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("주문상세보기 불러오기!!!! \n\n\n");//UsersController.selectDelivery_time(int order_code);
+//		System.out.println("주문상세보기 불러오기!!!! \n\n\n");
+		UsersController.selectDelivery_time(order_code);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.환불(취소)하기     2.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -224,6 +230,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                          [ 내가 작성한 후기 목록 ]                         \n");
 		System.out.println("usersId가 작성한 후기 목록 불러오기!!!\n\n\n\n");
+		//ReviewController.reviewSelectAll();
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.후기 등록           2.후기 수정           3.후기 삭제           4.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -262,6 +269,9 @@ public class MypageView {
 	 * 후기등록
 	 */
 	private static void reviewInsert() {
+		SessionSet ss = SessionSet.getInstance();
+		String userId = ss.getSet().iterator().next().getSessionId();
+		
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                           [ 최근 주문 내역 ]                               \n");
 		System.out.println("후기가 없는 주문 내역을 select!!!!\n\n\n\n");//후기가 없는거 까지 출력이 가능할까요???
@@ -278,7 +288,7 @@ public class MypageView {
 		
 		//리뷰 작성 메소드 ReviewController
 		// user_id를 세션에서 가져와야 할듯
-		ReviewDTO review = new ReviewDTO(/*user_id, order_code, store_code, reviewDetail, starGrade*/);
+		ReviewDTO review = new ReviewDTO(/*userId, order_code, store_code, reviewDetail, starGrade*/);
 		ReviewController.reviewInsert(review);
 	}
 	

@@ -350,6 +350,33 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	
+	@Override
+	public String pwdCheck(String user_id, String input_pwd) throws SQLException {
+		String sql = "select USER_PWD FROM USERS WHERE USER_ID = ? AND user_pwd = ?";
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String result = null;
+			
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, user_id);
+			ps.setString(2, input_pwd);
+			
+			rs =ps.executeQuery();
+			if(rs.next()) {
+				result = rs.getString(1);							
+			}			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}		
+		
+		return result;
+	}
 	
 	
 	
@@ -393,6 +420,8 @@ public class UsersDAOImpl implements UsersDAO {
 			e.printStackTrace();
 		}
 	}
+
+
 
 
 
