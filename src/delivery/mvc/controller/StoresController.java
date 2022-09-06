@@ -119,12 +119,16 @@ public class StoresController {
 	}
 	
 	public static void storeRegis(StoresDTO storesDTO){
+		
 		try {
+			String user_id = storesService.storeSelcetByCode(storesDTO.getStore_code()).getUser_id();
+			storesDTO.setUser_id(user_id);
 			storesService.storeRegis(storesDTO);
 			SuccessView.getmessagePrint("가게 등록 신청 업데이트를 했습니다.");
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public static void storesSales() {

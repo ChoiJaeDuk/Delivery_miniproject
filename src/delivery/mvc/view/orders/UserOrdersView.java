@@ -146,7 +146,7 @@ public class UserOrdersView {
 					System.out.println("----------------------------------------------------------------\n");
 					System.out.println("                       [ 피자 가게 목록 ]                       \n");
 					subFoodList(4);
-					//storeSelect();
+				
 					return;
 				
 				case 5:
@@ -154,7 +154,7 @@ public class UserOrdersView {
 					System.out.println("                     [ 파스타 가게 목록 ]                       \n");
 										
 					subFoodList(5);
-					//storeSelect();
+				
 					return;
 				
 				case 6:
@@ -162,7 +162,7 @@ public class UserOrdersView {
 					System.out.println("                    [ 스테이크 가게 목록 ]                      \n");
 										
 					subFoodList(6);
-					//storeSelect();
+				
 					return;
 				
 				case 7:
@@ -170,7 +170,7 @@ public class UserOrdersView {
 					System.out.println("                       [ 면 가게 목록 ]                         \n");
 										
 					subFoodList(7);
-					//storeSelect();
+					
 					return;
 				
 				case 8:
@@ -178,7 +178,7 @@ public class UserOrdersView {
 					System.out.println("                      [ 요리 가게 목록 ]                        \n");
 										
 					subFoodList(8);
-					//storeSelect();
+				
 					return;
 				
 				case 9:
@@ -186,7 +186,7 @@ public class UserOrdersView {
 					System.out.println("                       [ 밥 가게 목록 ]                         \n");
 										
 					subFoodList(9);
-					//storeSelect();
+				
 					return;
 				
 				case 10:
@@ -194,7 +194,7 @@ public class UserOrdersView {
 					System.out.println("                      [ 찌개 가게 목록 ]                        \n");
 										
 					subFoodList(10);
-					//storeSelect();
+					
 					return;
 				
 				case 11:
@@ -202,7 +202,7 @@ public class UserOrdersView {
 					System.out.println("                      [ 볶음 가게 목록 ]                        \n");
 										
 					subFoodList(11);
-					//storeSelect();
+					
 					return;
 				
 				case 12:
@@ -210,7 +210,7 @@ public class UserOrdersView {
 					System.out.println("                      [ 찜/탕 가게 목록 ]                       \n");
 										
 					subFoodList(12);
-					//storeSelect();
+				
 					return;
 				
 				case 13:
@@ -245,35 +245,42 @@ public class UserOrdersView {
 				storeSelect(9, 2); //int index
 				break;
 			case 5:
-				System.out.println("파스타 가게목록\n\n\n\n");
+				
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 6:
-				System.out.println("스테이크 가게목록\n\n\n\n");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 7:
 				System.out.println("면 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 8:
 				System.out.println("요리 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 9:
 				System.out.println("밥 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 10:
 				System.out.println("찌개 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 11:
 				System.out.println("볶음 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			case 12:
 				System.out.println("찜/탕 가게목록");
+				StoresController.storesSelectByCategory(subFoodList);
 				storeSelect(9, 2);
 				break;
 			
@@ -337,8 +344,6 @@ public class UserOrdersView {
 		
 				
 		System.out.println("----------------------------------------------------------------");
-	
-		StoresController.storeSelcetByCode(storeCode);
 		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.메뉴 선택             2.후기             3.뒤로가기           ");
@@ -374,8 +379,10 @@ public class UserOrdersView {
 		System.out.println("\n\n----------------------------------------------------------------");
 		System.out.println("                            [ 메뉴 ]                            \n");
 		System.out.println("1.메뉴코드                  2.메뉴이름                   3.가격");
+		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("메뉴목록\n\n\n\n");
+		//메뉴목록 
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.주문하기          2.장바구니(결제)          3.뒤로가기");
 		System.out.println("----------------------------------------------------------------");
@@ -400,7 +407,9 @@ public class UserOrdersView {
 				break;
 				
 			case 3:
+				
 				stores(store_code);
+				
 				break;
 				
 			default :

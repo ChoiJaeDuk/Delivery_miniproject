@@ -338,6 +338,13 @@ public class StoresDAOImpl implements StoresDAO {
 			
 				ps.setString(1, storesDTO.getStore_regis_status());
 				ps.setInt(2, storesDTO.getStore_code());
+				
+				System.out.println(storesDTO.getStore_regis_status());
+				
+				if(storesDTO.getStore_regis_status().equals("승인")) {
+					int result2 = jobUpdate(con, storesDTO.getUser_id());
+					System.out.println(result2);
+				}
 					
 				result = ps.executeUpdate();
 				
@@ -347,6 +354,24 @@ public class StoresDAOImpl implements StoresDAO {
 			
 		return result;
 	}
+	
+	private int jobUpdate(Connection con, String user_id) throws SQLException{
+	
+		PreparedStatement ps = null;
+		String sql = "update users set job_code = 'B' where user_id = ?";
+		int result = 0;
+		try {
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, user_id);
+			
+			result = ps.executeUpdate();
+		}finally {
+			DbUtil.dbClose(null, ps);
+		}
+		
+		return result;
+}
 	
 	/**
 	 * 가게별 매출 현황 조회 

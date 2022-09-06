@@ -2,7 +2,7 @@ package delivery.mvc.view.actor;
 
 import java.util.Scanner;
 
-import delivery.mvc.controller.OrdersController;
+import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.MenuView;
 import delivery.mvc.view.store_function.ManageOrderView;
 import delivery.mvc.view.store_function.ManageStoreView;
@@ -24,7 +24,9 @@ public class StoreView {
 
 	public static void menu(String userId) {
 		while (true) {
+
 			StoreView.printMenu(userId);
+
 			int menu = Integer.parseInt(sc.nextLine());
 			
 			switch (menu) {
@@ -45,12 +47,16 @@ public class StoreView {
 
 	}
 	
+
 	public static void printMenu(String userId) {
+		   
 		System.out.println("--------------------------------------------------------------------");
-		System.out.println("	          "+"usersId"+"\t님 반갑습니다.        		 	       \n\n ");
+		System.out.println("	       " + userId + "님 반갑습니다.        		 	                    ");
+		System.out.println("													         		");
 		System.out.println("	  1. 회원모드 	       2. 판매자 모드       		            ");
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
+		
 		
 	}
 	
