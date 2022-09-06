@@ -62,17 +62,18 @@ public class MenuDAOImpl implements MenuDAO {
 	}
 
 	@Override
-	public int menuUpdate(int menu_code, int price, int status) throws SQLException {
+	public int menuUpdate(MenuDTO menu) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
-		String sql = "update menu set menu_price=?, soldout_status=? where menu_code=?";
+		String sql = "update menu set menu_price=?, soldout_status=?, menu_name =? where menu_code=?";
 		int result = 0;
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, price);
-			ps.setInt(2, status);
-			ps.setInt(3, menu_code);
+			ps.setInt(1, menu.getMenu_price());
+			ps.setInt(2, menu.getSoldout_status());
+			ps.setInt(4, menu.getMenu_code());
+			ps.setString(3, menu.getMenu_name());
 			result = ps.executeUpdate();
 		} finally {
 			DbUtil.dbClose(con, ps);

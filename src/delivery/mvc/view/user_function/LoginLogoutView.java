@@ -24,7 +24,7 @@ public class LoginLogoutView {
 		 String usersPwd = sc.nextLine();
 		 
 		 //컨트롤러 호출하기 
-		 UsersController.login(usersId, usersPwd);
+		 UsersController.userLogin(usersId, usersPwd);
 		 UsersView.users(usersId);
 		 
 		 

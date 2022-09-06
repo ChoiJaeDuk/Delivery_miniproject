@@ -24,6 +24,58 @@ public class ReviewDTO {
 		this.star_grade = star_grade;
 		this.reply = reply;
 	}
+	
+	
+
+	public ReviewDTO(int review_code, int order_code, String user_id, int store_code, String review_detail,
+			String post_date, int star_grade) {
+		super();
+		this.review_code = review_code;
+		this.order_code = order_code;
+		this.user_id = user_id;
+		this.store_code = store_code;
+		this.review_detail = review_detail;
+		this.post_date = post_date;
+		this.star_grade = star_grade;
+	}
+	
+	
+
+	public ReviewDTO(String user_id, int order_code,  int star_grade, String review_detail, 
+			String post_date) {
+		super();
+		this.order_code = order_code;
+		this.user_id = user_id;
+		this.review_detail = review_detail;
+		this.post_date = post_date;
+		this.star_grade = star_grade;
+	}
+	
+
+	public ReviewDTO(String user_id, int order_code, int store_code, String review_detail, int star_grade) {
+		super();
+		this.order_code = order_code;
+		this.user_id = user_id;
+		this.store_code = store_code;
+		this.review_detail = review_detail;
+		this.star_grade = star_grade;
+	}
+	
+	
+
+	public ReviewDTO(int star_grade, String review_detail, int review_code) {
+		super();
+		this.review_code = review_code;
+		this.review_detail = review_detail;
+		this.star_grade = star_grade;
+	}
+	
+	
+
+	public ReviewDTO(int review_code) {
+		super();
+		this.review_code = review_code;
+	}
 
 	public int getReview_code() {
 		return review_code;

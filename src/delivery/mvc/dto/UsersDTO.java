@@ -13,10 +13,8 @@ public class UsersDTO {
 	
 	
 	public UsersDTO() { }
-	public UsersDTO(String user_name) {
-		this.user_name = user_name;
-	}
 	
+
 	
 	
 
@@ -28,13 +26,8 @@ public class UsersDTO {
 		this.user_phone = users_phone;
 	}
 
-
-
-
-
-
 	public UsersDTO(String users_id, String job_code, String users_pwd, String users_name, String users_nick,
-			String users_addr, String users_phone, String users_jumin, String users_regist_date) {
+			String users_addr, String users_phone, String users_jumin) {
 		super();
 		this.user_id = users_id;
 		this.job_code = job_code;
@@ -44,8 +37,25 @@ public class UsersDTO {
 		this.user_addr = users_addr;
 		this.user_phone = users_phone;
 		this.user_jumin = users_jumin;
+	}
+
+
+
+
+	public UsersDTO(String users_id, String job_code, String users_pwd, String users_name, String users_nick,
+			String users_addr, String users_phone, String users_jumin, String users_regist_date) {
+		this(users_id,job_code,users_pwd,users_name,users_nick,users_addr,users_phone,users_jumin);
 		this.user_regist_date = users_regist_date;
 	}
+
+
+	public UsersDTO(String user_name) {
+		this.user_name = user_name;
+	}
+
+
+
+
 
 
 	public String getUsers_id() {
