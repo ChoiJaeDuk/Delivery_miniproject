@@ -20,7 +20,6 @@ public class StoreView {
 		 
 	}
 	
-
 	
 
 	public static void menu() {
