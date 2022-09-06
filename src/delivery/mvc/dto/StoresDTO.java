@@ -27,8 +27,23 @@ public class StoresDTO {
 	
 	public StoresDTO() { }
 	
+ 
+	
 
 	
+	public StoresDTO(String user_id, String store_name, String store_addr, String store_phone, String store_detail) {
+		super();
+		this.user_id = user_id;
+		this.store_name = store_name;
+		this.store_addr = store_addr;
+		this.store_phone = store_phone;
+		this.store_detail = store_detail;
+	}
+
+
+
+
+
 	public StoresDTO(int store_code, String store_name, int total_sales, int total_sales_for_stores, int total_sales_for_master ) {
 		this.store_code = store_code;
 		this.store_name = store_name;

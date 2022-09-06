@@ -81,7 +81,7 @@ public class StoreView {
 					
 					return;
 				case 3 :
-					MypageForStoreView.mypageForStore();//마이페이지
+					MypageForStoreView.mypageForStore(users_id);//마이페이지
 					return;
 				case 4 :
 					MenuView.menu();//로그아웃
