@@ -2,12 +2,14 @@ package delivery.mvc.view.orders;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.StoresController;
+import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserOrdersView {
 	
 	private static final String usersId = null;
-
+	
 
 	public static void main(String[] args) {
 		deliveryMenu();
@@ -48,7 +50,7 @@ public class UserOrdersView {
 					break;
 				case 5:
 					UserCategorySelect.menuSelect();
-					storeSelect(9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
+					storeSelect( 9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 6:
 					UsersView.users(usersId);
@@ -135,7 +137,6 @@ public class UserOrdersView {
 				case 4:
 					System.out.println("----------------------------------------------------------------\n");
 					System.out.println("                       [ 피자 가게 목록 ]                       \n");
-										
 					subFoodList(4);
 					//storeSelect();
 					return;
@@ -226,8 +227,10 @@ public class UserOrdersView {
 		
 		switch(subFoodList ) {//subFoodList에 가게목록을 담아서 리턴해준다.
 			case 4:
-				System.out.println("피자 가게목록\n\n\n\n");
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory(subFoodList);
+				
+				
+				storeSelect(9, 2); //int index
 				break;
 			case 5:
 				System.out.println("파스타 가게목록\n\n\n\n");
@@ -268,7 +271,7 @@ public class UserOrdersView {
 	}
 	
 	
-	public static void storeSelect(int subFoodList , int ...index ) {//index=0이면arragne(), =1 menuarrage() 
+	public static void storeSelect(int subFoodList , int ...index ) {//index=0이면arragne(), =1 menuarrage() 9,2
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("1.가게선택                   2.정렬                   3.뒤로가기");
 		System.out.println("----------------------------------------------------------------");
@@ -280,15 +283,14 @@ public class UserOrdersView {
 			case 1:
 				System.out.println("* * * 가게 코드를 입력해주세요. >> ");
 				int storeCode =Integer.parseInt(sc.nextLine());
-				stores(subFoodList);
+				stores(storeCode);
 				break;
 			case 2:
 				if (index[0] == 0)
-					// 하위카테고리(예:피자)만 파는 가게목록을 띄워줘야함. ???? 사용자 입력값에 따라 가게목록 호출해야하는데.....어렵다...
 					StoreArrange.arrange(); // 전체가게조회 --> 전체 가게목록을 정렬해서 출력해야함.
 				else if (index[0] == 1)
 					StoreArrange.menuarrange(); // %메뉴%를 파는 가게 목록 정렬하기...
-				else if(index[0] == 2)
+				else if(index[0] == 2) // 하위카테고리(예:피자)만 파는 가게목록을 띄워줘야함. ???? 사용자 입력값에 따라 가게목록 호출해야하는데.....어렵다...
 					StoreArrange.categoryArrange();
 				break;
 			
@@ -313,31 +315,34 @@ public class UserOrdersView {
 	/**
 	 * 가게
 	 */
-	public static void stores( int ... subFoodList) {
+	public static void stores(int storeCode) {
+		//StoresDTO stores = new StoresDTO();
+		
 				
 		System.out.println("----------------------------------------------------------------");
-		System.out.println("                      [ " + "가게이름" + " ]                    \n");
-		System.out.println("가게를 소개하는 부분입니다. 가게를 소개해주세요. 안녕하세요.    \n\n\n");
+	
+		StoresController.storeSelcetByCode(storeCode);
+		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.메뉴 선택             2.후기             3.뒤로가기           ");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
 		
-		int stores = Integer.parseInt(sc.nextLine());
-		switch(stores) {
+		int no = Integer.parseInt(sc.nextLine());
+		switch(no) {
 			case 1:
-				menu();
+				menu(storeCode);
 				break;
 			case 2:
 				StoreReviewView.review();
 				break;
 			case 3:
 				//deliveryMenu();
-				subFoodList(subFoodList[0]); //[0]의미는 뭘까.....? 초기화??????
+				//subFoodList(subFoodList[0]); //[0]의미는 뭘까.....? 초기화?????? //수정을 못하겠어요 !!!!!
 				return;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				stores();
+				stores(storeCode);
 				return;
 		}//switch끝
 	}
@@ -346,9 +351,9 @@ public class UserOrdersView {
 	
 	
 	/**
-	 * 메뉴
+	 * 메뉴  //세션아이디 계속 가지고 가야하나요 ?(주석 오류)
 	 */
-	public static void menu() {
+	public static void menu(int store_code) {
 		System.out.println("\n\n----------------------------------------------------------------");
 		System.out.println("                            [ 메뉴 ]                            \n");
 		System.out.println("1.메뉴코드                  2.메뉴이름                   3.가격");
@@ -368,20 +373,22 @@ public class UserOrdersView {
 				System.out.println("* * * 수량을 입력해주세요. >> ");
 				menu = Integer.parseInt(sc.nextLine());
 				
-				menu();
+				menu(store_code);
 				break;
 				
 			case 2:
-				UserBascketView.bascket();
+
+				UserBascketView.bascket(usersId);
+
 				break;
 				
 			case 3:
-				stores();
+				stores(store_code);
 				break;
 				
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				menu();
+				menu(store_code);
 				return;
 			
 		}

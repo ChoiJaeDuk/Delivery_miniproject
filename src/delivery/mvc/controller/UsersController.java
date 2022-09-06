@@ -25,7 +25,7 @@ public class UsersController {
 		try {
 			usersService.usersLogin(users_id, users_pwd);
 			SuccessView.getmessagePrint("로그인 성공");
-			//System.out.println("로그인 성공");
+			
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
 			//System.out.println("오류");

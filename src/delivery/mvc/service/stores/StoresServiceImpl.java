@@ -120,8 +120,8 @@ public class StoresServiceImpl implements StoresService {
 
 
 	@Override
-	public List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException {
-		List<OrdersDTO> list = menuSalesByMonth(store_code, menu_code);
+	public List<OrdersDTO> menuSalesByMonth(String users_id, int menu_code) throws SQLException {
+		List<OrdersDTO> list = storesDAO.menuSalesByMonth(users_id, menu_code);
 				
 		if(list.size() == 0)
 			throw new SQLException(menu_code + "에 해당하는 매출정보가 없습니다.");

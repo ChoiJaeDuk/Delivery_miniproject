@@ -114,7 +114,7 @@ public interface StoresDAO {
 		order by ¿ù;
 	*/
 	
-	List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException;
+	List<OrdersDTO> menuSalesByMonth(String users_id, int menu_code) throws SQLException;
 
 }
 	

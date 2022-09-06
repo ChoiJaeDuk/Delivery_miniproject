@@ -2,6 +2,7 @@ package delivery.mvc.view.user_function;
 
 import java.util.Scanner;
 
+import delivery.mvc.controller.UsersController;
 import delivery.mvc.view.MenuView;
 
 
@@ -62,12 +63,15 @@ public class FindView {
 		
 		System.out.print("* * * 주민등록번호를 입력해주세요. >> ");
 		String usersJumin = sc.nextLine();
+		
+		//아이디찾기 UsersController 
+		UsersController.searchId(usersName, usersJumin);
 	}
 	
 	
 	
 	/**
-	 * 비밀번호
+	 * 비밀번호 /////// 새로받을 
 	 */
 	
 	public static void findPw() {
@@ -79,5 +83,13 @@ public class FindView {
 		
 		System.out.print("* * * 주민등록번호를 입력해주세요. >> ");
 		String usersJumin = sc.nextLine();
+
+//////////////////////////////////////////////////////////////////////// 
+		System.out.print("* * * 새로운 비밀번호를 입력해주세요. >> ");
+		String newpwd = sc.nextLine();
+		
+////////////////////////////////////////////////////////////////////////
+		//비밀번호 찾기/재설정 UsersController 
+				UsersController.searchPwd(usersId, usersName, usersJumin, newpwd);
 	}
 }

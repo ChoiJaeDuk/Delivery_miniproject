@@ -264,10 +264,9 @@ public class UsersDAOImpl implements UsersDAO {
 		Delivery_StatusDTO status = null;
 		OrdersDTO order = null;
 		
-		String sql = "SELECT ORDER_CODE, ORDER_DATE, ORDER_TOTAL_PRICE, DELIVERY_STATUS,ORDER_DELIVERY_TIME "
-				+ "FROM ORDERS O JOIN DELIVERY_STATUS D "
-				+ "ON O.DELIVERY_CODE = D.DELIVERY_CODE "
-				+ "WHERE O.USER_ID = ?";		
+		String sql = "SELECT DISTINCT OL.ORDER_CODE, ORDER_DATE, ORDER_TOTAL_PRICE, DELIVERY_STATUS, TO_CHAR(ORDER_DELIVERY_TIME , 'YY-MM-DD HH:MI')\r\n"
+				+ "FROM ORDERS O JOIN DELIVERY_STATUS D ON O.DELIVERY_CODE = D.DELIVERY_CODE JOIN ORDER_LINE OL ON O.ORDER_CODE = OL.ORDER_CODE\r\n"
+				+ "WHERE o.user_id = ?";		
 		
 		try {
 			con = DbUtil.getConnection();
@@ -368,12 +367,12 @@ public class UsersDAOImpl implements UsersDAO {
 				System.out.println(list.getOrder_line_code()+ "  " +  list.getStore().getStore_name() + "  " + list.getMenu().getMenu_name() + "  " + list.getOrder_quntity() + "  " + list.getMenu().getMenu_price() );
 			}
 */			
-/*			
+			
 			List<OrdersDTO> order = user.selectOrderList("testid");
 			for(OrdersDTO list : order) {
 				System.out.println(list.getOrder_code()+ "  " +  list.getOrder_date() + "  " + list.getOrder_total_price()+ "  " + list.getDelivery_code() + "  " + list.getOrder_delivery_time() );
 			}
-*/	
+	
 /*			
 			int result = user.join(new UsersDTO("jj", "A", "asd123", "김이박최", "김나박이", "서울경기인천", "010-4554-8822", "111111-2222222","2022-09-05"));
 			if(result == 1) System.out.println("로그인");
@@ -383,11 +382,11 @@ public class UsersDAOImpl implements UsersDAO {
 			int result = user.searchPwd("jj", "김이박최", "111111-2222222", "asd111");
 			if(result == 1) System.out.println("변경");
 			else System.out.println("실패");
-*/
+*//*
 			int result = user.addrUpdate("서울경기인천", "서울대구대전부산");
 			if(result == 1) System.out.println("주소변경");
 			else System.out.println("실패");
-			
+*/			
 			System.out.println("끝");
 		} catch (SQLException e) {
 			

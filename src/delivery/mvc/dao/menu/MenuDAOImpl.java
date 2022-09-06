@@ -12,6 +12,10 @@ import util.DbUtil;
 
 public class MenuDAOImpl implements MenuDAO {
 
+	/**
+	 * 작성자 : 박해원
+	 * 설명 : 회원이 가게정보를 검색하는 메소드
+	 */
 	@Override
 	public List<MenuDTO> menuSelectAll(int store_code) throws SQLException {
 		Connection con = null;
