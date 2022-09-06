@@ -32,7 +32,7 @@ public class UsersView {
 				break;
 				
 			case 2:
-				UserBascketView.bascket();// 장바구니 조회
+				UserBascketView.bascket(usersId);// 장바구니 조회
 				break;
 				
 			case 3:
