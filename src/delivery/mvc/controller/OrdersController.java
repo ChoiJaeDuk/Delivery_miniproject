@@ -61,7 +61,7 @@ public class OrdersController {
 	
 	
 	/**
-	 * user_id를 받아 주문상세를 조회한다.
+	 * order_code를 받아 주문상세를 조회한다.
 	 * */
 	public static void selectOrderLine(int order_code) {
 		try {

@@ -2,10 +2,11 @@ package delivery.mvc.view.user_function;
 
 import java.util.Scanner;
 
-
 import delivery.mvc.controller.ReviewController;
+import delivery.mvc.controller.StoresController;
 import delivery.mvc.controller.UsersController;
 import delivery.mvc.dto.ReviewDTO;
+import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
@@ -35,7 +36,10 @@ public class MypageView {
 			case 1:
 				System.out.println("* * * 비밀번호를 입력해주세요. >> ");
 				String usersPwd = sc.nextLine();
+				
 				//컨트롤러 호출, 비밀번호 인증하기!
+				UsersController.pwdCheck(userId, usersPwd);
+				
 				personalInfo();
 				break;
 			case 2:
@@ -60,12 +64,8 @@ public class MypageView {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * 개인정보수정 @@@@@@@@@@@@@@@ 완료?
-=======
 	 * 개인정보수정
 	 * @param usersId 
->>>>>>> MunSamJin
 	 */
 	private static void personalInfo() {
 		SessionSet ss = SessionSet.getInstance();
@@ -115,6 +115,7 @@ public class MypageView {
 					String usersPwd = sc.nextLine();
 				
 					//컨트롤러 호출, 비밀번호 인증하기!
+					UsersController.pwdCheck(userId, usersPwd);
 					
 					System.out.println("* * * 변경할 비밀번호를 입력해주세요. >> ");
 					String newUsersPwd = sc.nextLine();
@@ -149,7 +150,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문코드      2.주문날짜      3.총 가격      4.배송상태     5.예상배송시간");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("주문내역 불러오기!! \n\n\n\n");//UsersController.selectOrderList(String user_id);
+		UsersController.selectOrderList(userId);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문 상세보기       2.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -188,7 +189,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문내역_상세코드    2.가게이름        3.메뉴이름        4.수량     5.단가");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("주문상세보기 불러오기!!!! \n\n\n");//UsersController.selectDelivery_time(int order_code);
+		UsersController.selectDelivery_time(order_code);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.환불(취소)하기     2.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -224,6 +225,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                          [ 내가 작성한 후기 목록 ]                         \n");
 		System.out.println("usersId가 작성한 후기 목록 불러오기!!!\n\n\n\n");
+		//ReviewController.reviewSelectAll();
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.후기 등록           2.후기 수정           3.후기 삭제           4.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -262,6 +264,9 @@ public class MypageView {
 	 * 후기등록
 	 */
 	private static void reviewInsert() {
+		SessionSet ss = SessionSet.getInstance();
+		String userId = ss.getSet().iterator().next().getSessionId();
+		
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                           [ 최근 주문 내역 ]                               \n");
 		System.out.println("후기가 없는 주문 내역을 select!!!!\n\n\n\n");//후기가 없는거 까지 출력이 가능할까요???
@@ -278,7 +283,7 @@ public class MypageView {
 		
 		//리뷰 작성 메소드 ReviewController
 		// user_id를 세션에서 가져와야 할듯
-		ReviewDTO review = new ReviewDTO(/*user_id, order_code, store_code, reviewDetail, starGrade*/);
+		ReviewDTO review = new ReviewDTO(/*userId, order_code, store_code, reviewDetail, starGrade*/);
 		ReviewController.reviewInsert(review);
 	}
 	
@@ -334,20 +339,24 @@ public class MypageView {
 			System.out.println("(1.양식   2.중식   3.한식)");
 			int categoryCode = Integer.parseInt(sc.nextLine());
 			
+			System.out.println("* * * 가게 설명을 입력해주세요. >> ");
+			String storeDetail = sc.nextLine();
+			
 			System.out.println("* * * 배달료를 입력해주세요. >> ");
 			int delivery_fee = Integer.parseInt(sc.nextLine());
 			
+			StoresDTO store = new StoresDTO(userId, storeName, storeAddr, storePhone, storeBusinessNo, categoryCode,  storeDetail,  delivery_fee);
 			// 양식, 중식, 한식 외 입력 시 오류메세지!!  
 			//2가지 입력 시 오류 메세지!!
 			
-			storeRegister(userId);
+			storeRegister(store);
 			break;
 			
 		case 2:
 			System.out.println("----------------------------------------------------------------------------\n");
 			System.out.println("      가게 신청일            가게 신청 현황            가게 신청 승인일     ");
 			System.out.println("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-			System.out.println("판매자 신청 승인 결과 select!! \n\n\n");
+			StoresController.regisCheck(userId);;
 			System.out.println("----------------------------------------------------------------------------");
 			storeRegis(userId);
 			break;
@@ -368,7 +377,7 @@ public class MypageView {
 	 * 판매자신청
 	 * @param userId 
 	 */
-	private static void storeRegister(String userId) {		
+	private static void storeRegister(StoresDTO store) {		
 		
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.신청하기          2.취소하기");
@@ -378,16 +387,17 @@ public class MypageView {
 		int storeRegister = Integer.parseInt(sc.nextLine());
 		switch(storeRegister) {
 			case 1:
+				StoresController.storeInsert(store);;
 				System.out.println("판매자 신청이 완료되었습니다.");
-				storeRegis(userId);
+				storeRegis(store.getUser_id());
 				break;
 			case 2:
 				System.out.println("판매자 신청이 취소되었습니다.");
-				storeRegis(userId);
+				storeRegis(store.getUser_id());
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				storeRegister(userId);
+				storeRegister(store);
 				break;
 		}//switch끝
 	}

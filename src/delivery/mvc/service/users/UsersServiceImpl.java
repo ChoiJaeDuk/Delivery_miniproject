@@ -103,6 +103,13 @@ public class UsersServiceImpl implements UsersService {
 		if(result ==0) throw new SQLException(order_code + "의 주문취소를 실패했습니다.");
 	}
 
+	@Override
+	public String pwdCheck(String user_id, String input_pwd) throws SQLException {
+		String result = usersDAO.pwdCheck(user_id, input_pwd);
+		if(!result.equals(input_pwd)) throw new SQLException("서비스 : 비밀번호가 일치하지 않습니다.");
+		return result;
+	}
+
 
 
 }

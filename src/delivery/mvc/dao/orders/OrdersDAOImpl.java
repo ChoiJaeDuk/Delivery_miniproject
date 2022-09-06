@@ -40,8 +40,8 @@ public class OrdersDAOImpl implements OrdersDAO {
 			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, CURRENT_DATE, ?,NULL,NULL,0)");
 			ps.setString(1,orders.getUser_id());
 			ps.setInt(2, orders.getStore_code());
-			ps.setInt(3, totalPriceSelect(orders.getUser_id()));
-			ps.setInt(4, orders.getDelivery_code());
+			ps.setInt(3, orders.getOrder_total_price());
+	
 			
 			
 			result = ps.executeUpdate(); 
@@ -269,39 +269,6 @@ public class OrdersDAOImpl implements OrdersDAO {
 	}
 
 
-	@Override
-	public List<OrdersDTO> selectOrderListByUser(OrdersDTO orders) throws SQLException {
-		Connection con=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		
-		OrderLineDTO orderLine = null;
-		MenuDTO menuDTO = null;
-		List<OrdersDTO> listMenu = new ArrayList<OrdersDTO>();
-		
-		try {
-			con = DbUtil.getConnection();
-			ps= con.prepareStatement("SELECT M.MENU_NAME, OL.ORDER_QUANTITY, M.MENU_PRICE, OL.ORDER_QUANTITY * M.MENU_PRICE AS TOTAL\r\n"
-					+ "FROM MENU M, ORDER_LINE OL\r\n"
-					+ "WHERE M.MENU_CODE = OL.MENU_CODE AND ORDER_CODE = ?");
-			
-			ps.setInt(1, orders.getOrder_code());
-		    rs = ps.executeQuery(); 
-		    
-		    while(rs.next()) {
-		    	
-		    	orderLine = new OrderLineDTO(rs.getInt(2));
-		    	
-		    	
-		    }
-		      
-		    
-		}finally {
-			DbUtil.dbClose(con, ps, rs);
-		}
-		return listMenu;
-	}
-
 
 	@Override
 	public int selectStoreCodeByMenuCode(int menuCode ,String user_id) throws SQLException {
@@ -317,8 +284,9 @@ public class OrdersDAOImpl implements OrdersDAO {
 					+ "");
 			
 			ps.setInt(1, menuCode);
+			ps.setString(2,user_id);
 		    rs = ps.executeQuery(); 
-		    
+	    
 		    if(rs.next()) {
 		    	store_code = rs.getInt(1);
 		    }

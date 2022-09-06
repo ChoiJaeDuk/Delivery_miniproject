@@ -3,6 +3,7 @@ package delivery.mvc.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.service.stores.StoresService;
@@ -21,7 +22,8 @@ public class StoresController {
 			//SuccessView.getmessagePrint("가게목록 출력\n" + list);
 			SuccessView.storePrintAllForMaster(list);
 		}catch(SQLException e){
-			System.out.println("오류");
+			//System.out.println("오류");
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -31,7 +33,8 @@ public class StoresController {
 			//SuccessView.getmessagePrint("가게목록 출력\n" + list);
 			SuccessView.storeListForMaster(list);
 		}catch(SQLException e){
-			System.out.println("오류");
+			//System.out.println("오류");
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -44,7 +47,8 @@ public class StoresController {
 
 			
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 		
 	}
@@ -55,7 +59,8 @@ public class StoresController {
 			StoresDTO stores = storesService.storeSelcetByCode(store_code);
 			SuccessView.storeSelcetByCode(stores);
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -66,7 +71,8 @@ public class StoresController {
 			StoresDTO stores = storesService.storeSelectById(user_id);
 			SuccessView.storeSelectById(stores);
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -77,7 +83,8 @@ public class StoresController {
 			StoresDTO aa = storesService.storeSelcetByCode(stores.getStore_code());
 			SuccessView.storeStatus(aa);
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -87,7 +94,8 @@ public class StoresController {
 			List<StoresDTO> list = storesService.storesSelectByMenu(menu_name);
 			SuccessView.storeSelectByMenu(list);
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -108,7 +116,8 @@ public class StoresController {
 				SuccessView.storesSelectByCategory(list);
 			}
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -117,7 +126,8 @@ public class StoresController {
 			storesService.storeInsert(storesDTO);
 			SuccessView.getmessagePrint("가게등록 성공하였습니다");
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -126,7 +136,8 @@ public class StoresController {
 			storesService.storeUpdate(storesDTO);
 			SuccessView.getmessagePrint("가게 정보를 수정하였습니다.");
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -135,7 +146,8 @@ public class StoresController {
 			storesService.storeStatusUpdate(store_status,user_id);
 			SuccessView.getmessagePrint("가게 정보를 업데이트 하였습니다.");
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -148,8 +160,19 @@ public class StoresController {
 			SuccessView.getmessagePrint("가게 등록 신청 업데이트를 했습니다.");
 		}catch(SQLException e){
 			e.printStackTrace();
+			//FailView.errorMessage(e.getMessage());
+			FailView.errorMessage(e.getMessage());
 		}
 		
+	}
+	
+	public static void regisCheck(String userid) {
+		try {
+			StoresDTO store = storesService.storeSelectById(userid);
+			SuccessView.regisCheck(store);
+		}catch(SQLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
 	}
 	
 	public static void storesSales() {
@@ -157,7 +180,8 @@ public class StoresController {
 			List<StoresDTO> list = storesService.storesSales();
 			SuccessView.storesSales(list);
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	
@@ -167,16 +191,30 @@ public class StoresController {
 			SuccessView.storeSalesByMonth(list);
 		
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
+	
+	public static void menuSales(String users_id) {
+		try {
+			List<MenuDTO> list = storesService.menuSales(users_id);
+			SuccessView.menuSales(list);
+		}catch(SQLException e){
+			FailView.errorMessage(e.getMessage());
+			
+		}
+	}
+	
+	
 	
 	public static void menuSalesByMonth(String users_id, int menu_code) {
 		try {
 			List<OrdersDTO> list = storesService.menuSalesByMonth(users_id, menu_code);
 			SuccessView.menuSalesByMonth(list);
 		}catch(SQLException e){
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	

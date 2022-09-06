@@ -103,6 +103,10 @@ public interface StoresDAO {
 	 * */
 	List<OrdersDTO> storeSalesByMonth(int store_code) throws SQLException;
 	
+	/**
+	 * 가게에 메뉴 매출 조회
+	 * */
+	List<MenuDTO> menuSales(String users_id) throws SQLException;
 	
 	/**
 	 * 가게별 메뉴당 월별 매출조회
