@@ -105,6 +105,18 @@ public class StoresController {
 		}
 	}
 	
+	public static void storesSalesByMonth(int store_code) {
+		try {
+			List<OrdersDTO> list = storesService.storesSalesByMonth(store_code);
+			for(OrdersDTO od :list) {
+				System.out.println(od.getMonth() + od.getTotal_sales() + od.getTotal_sales_for_master() + od.getTotal_sales_for_stores());
+			}
+		
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public static void menuSalesByMonth(int store_code, int menu_code) {
 		try {
 			List<OrdersDTO> list = storesService.menuSalesByMonth(store_code, menu_code);

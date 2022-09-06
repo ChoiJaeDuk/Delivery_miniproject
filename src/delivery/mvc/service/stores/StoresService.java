@@ -29,6 +29,8 @@ public interface StoresService {
 	 
 	 List<StoresDTO> storesSales() throws SQLException;
 	 
+	 List<OrdersDTO> storesSalesByMonth(int store_code) throws SQLException;
+	 
 	 List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException;
 	 
 }
