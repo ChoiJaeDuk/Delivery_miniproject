@@ -15,14 +15,16 @@ public class StoresController {
 	public static void storesInfoSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesInfoSelectAll();
+			System.out.println(list);
 		}catch(SQLException e){
-			
+			System.out.println("오류");
 		}
 	}
 	
 	public static void storesSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesSelectAll();
+			System.out.println(list);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -78,9 +80,9 @@ public class StoresController {
 		}
 	}
 	
-	public static void storeStatusUpdate(StoresDTO storesDTO){
+	public static void storeStatusUpdate(int store_status, String user_id){
 		try {
-			storesService.storeStatusUpdate(storesDTO);
+			storesService.storeStatusUpdate(store_status,user_id);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -89,6 +91,7 @@ public class StoresController {
 	public static void storeRegis(StoresDTO storesDTO){
 		try {
 			storesService.storeRegis(storesDTO);
+			System.out.println("변경");
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

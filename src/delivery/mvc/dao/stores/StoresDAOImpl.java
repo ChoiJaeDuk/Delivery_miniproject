@@ -20,7 +20,7 @@ public class StoresDAOImpl implements StoresDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
-		String sql = "select * from stores";
+		String sql = "select * from stores order by store_regis_status";
 		
 		try {
 			con = DbUtil.getConnection();
@@ -43,7 +43,6 @@ public class StoresDAOImpl implements StoresDAO {
 		
 	}
 	
-
 	@Override
 	public List<StoresDTO> storesSelectAll() throws SQLException {
 		
@@ -58,7 +57,6 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
 				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE";
-
 		
 		try {
 			con = DbUtil.getConnection();
@@ -80,8 +78,6 @@ public class StoresDAOImpl implements StoresDAO {
 		
 	}
 
-	
-	
 
 	@Override
 	public StoresDTO storeSelcetByCode(int store_code) throws SQLException {
@@ -153,7 +149,7 @@ public class StoresDAOImpl implements StoresDAO {
 		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
 		StoresDTO stores = null;
  		String store_name = null;
-		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_CODE), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
 				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE\r\n"
@@ -162,7 +158,7 @@ public class StoresDAOImpl implements StoresDAO {
 		try {
 			con = DbUtil.getConnection();
 			menuList = this.storeCodeSelectByMenu(con, menu_name);
-			System.out.println(menuList);
+		
 			for(MenuDTO m: menuList) {
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, m.getStore_code());
@@ -234,7 +230,6 @@ public class StoresDAOImpl implements StoresDAO {
 				
 				while(rs.next()) {
 					
-					
 					stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
 					list.add(stores);
 				}
@@ -247,9 +242,10 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override
-	public int storeInsert(StoresDTO storesDTO) throws SQLException {
+	public int storeInsert(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storeDTO)
 		Connection con = null;
 		PreparedStatement ps = null;
+
 		String sql = "insert into stores values(store_code_seq.nextval,?,?,?,?,?,?,?,?,default,sysdate,default,null)";
 		int result = 0;
 		
@@ -267,8 +263,7 @@ public class StoresDAOImpl implements StoresDAO {
 			ps.setInt(8, storesDTO.getStore_delivery_fee());
 			
 			result = ps.executeUpdate();
-			
-			
+				
 		}finally {
 			DbUtil.dbClose(con, ps);
 		}
@@ -277,7 +272,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override
-	public int storeUpdate(StoresDTO storesDTO) throws SQLException {
+	public int storeUpdate(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storesDTO)
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "update stores set (stores_name = ?, store_addr = ?, store_phone = ?, store_detail = ?) \r\n"
@@ -303,18 +298,18 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 
 	@Override //db¿¡´Â close = 0, open = 1 ·¹ÀÌ¾Æ¿ô open = 1, close = 2
-	public int storeStatusUpdate(StoresDTO storesDTO) throws SQLException {
+	public int storeStatusUpdate(int store_status, String user_id) throws SQLException {//(String user_id, store_status)
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "update stores set store_status = ? where user_id = ?";
+		String sql = "update stores set store_status = ? where users_id = ?";
 		int result = 0;
 		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1,storesDTO.getStore_status());
-			ps.setString(2, storesDTO.getUser_id());
+			ps.setInt(1,store_status);//ps.setString(1, store_status)
+			ps.setString(2, user_id);//ps.setInt(2, user_id)
 			
 			result = ps.executeUpdate();
 				
@@ -425,19 +420,33 @@ public class StoresDAOImpl implements StoresDAO {
 		StoresDAOImpl dao = new StoresDAOImpl();
 	
 		try{
-			
-			List<OrdersDTO> ordersList = dao.menuSalesByMonth(2,3);
-			for(OrdersDTO or : ordersList) {
-				System.out.println(or.getMonth() + "   " + or.getMenu_sales());
-			
+		
+		
+		/*	List<StoresDTO> list = dao.storesInfoSelectAll();
+			for(StoresDTO s : list) {
+				System.out.println(s);
 			}
+			
+			List<StoresDTO> list2 = dao.storesSelectAll();
+			for(StoresDTO s : list2) {
+				System.out.println(s);
+			}*/
+			
+			//List<StoresDTO> list2 = dao.storesSelectByCategory(2);
+			//for(StoresDTO s : list2) {
+			//	System.out.println(s.getStore_code() );
+			//}
 			
 			
 			//int result = dao.storeRegis(1,4);
 			//System.out.println(result);
-			//int result = dao.storeStatus(1, "testid3");
+			
+			StoresDTO sdf = new StoresDTO("½ÂÀÎ", 5);
+			System.out.println(sdf);
+			//int result = dao.storeRegis(new StoresDTO("½ÂÀÎ", 5));
+			//System.out.println();
 			//System.out.println(result);
-
+		
 			
 		}catch(Exception e) {
 			e.printStackTrace();
