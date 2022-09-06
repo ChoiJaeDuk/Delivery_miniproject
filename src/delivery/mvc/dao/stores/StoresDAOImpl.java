@@ -20,7 +20,7 @@ public class StoresDAOImpl implements StoresDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
-		String sql = "select * from stores";
+		String sql = "select * from stores order by store_regis_status";
 		
 		try {
 			con = DbUtil.getConnection();
@@ -245,6 +245,7 @@ public class StoresDAOImpl implements StoresDAO {
 	public int storeInsert(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storeDTO)
 		Connection con = null;
 		PreparedStatement ps = null;
+
 		String sql = "insert into stores values(store_code_seq.nextval,?,?,?,?,?,?,?,?,default,sysdate,default,null)";
 		int result = 0;
 		
@@ -381,6 +382,38 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 	
 	@Override
+	public List<OrdersDTO> storeSalesByMonth(int store_code) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		//OrdersDTO orders = null;
+		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
+
+		String sql = "SELECT to_char(order_date, 'MM')||'¿ù' as ±¸ºÐ, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,SUM(ORDER_TOTAL_PRICE)*0.03 AS TOTAL_SALES_FOR_MASTER, (SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES\r\n"
+				+ "		FROM ORDERS \r\n"
+				+ "		GROUP BY store_code, to_char(order_date,'MM')\r\n"
+				+ "		HAVING STORE_CODE = ?\r\n"
+				+ "		order by ±¸ºÐ";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, store_code);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				OrdersDTO orders = new OrdersDTO(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getInt(4));
+				list.add(orders);
+			}
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		return list;
+	}
+
+	
+	@Override
 	public List<OrdersDTO> menuSalesByMonth(int store_code, int menu_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -440,11 +473,17 @@ public class StoresDAOImpl implements StoresDAO {
 			//int result = dao.storeRegis(1,4);
 			//System.out.println(result);
 			
-			StoresDTO sdf = new StoresDTO("½ÂÀÎ", 5);
-			System.out.println(sdf);
+			//StoresDTO sdf = new StoresDTO("½ÂÀÎ", 5);
+			//System.out.println(sdf);
 			//int result = dao.storeRegis(new StoresDTO("½ÂÀÎ", 5));
 			//System.out.println();
 			//System.out.println(result);
+			
+			List<OrdersDTO> list = dao.storeSalesByMonth(2);
+			for(OrdersDTO orders : list) {
+				System.out.println(orders.getMonth() + orders.getTotal_sales() + orders.getTotal_sales_for_master() + orders.getTotal_sales_for_stores());
+			}
+			
 		
 			
 		}catch(Exception e) {
@@ -452,6 +491,7 @@ public class StoresDAOImpl implements StoresDAO {
 		}
 			
 	}
+
 
 
 

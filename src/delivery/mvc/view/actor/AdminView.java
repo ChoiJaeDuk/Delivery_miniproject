@@ -10,11 +10,7 @@ public class AdminView {
 	
 	static Scanner sc = new Scanner(System.in);
 	
-	public static void main(String[] args) {
-		admin();
-	}
-
-	public static void admin() {
+	public static void admin(String userId) {
 		System.out.println("--------------------------------------------------------------------\n");
 		System.out.println("                      [ 운영자 모드 입니다. ]                       \n");
 		System.out.println("--------------------------------------------------------------------");
@@ -31,11 +27,11 @@ public class AdminView {
 				ReviewControlView.storeList();
 				break;
 			case 3:
-				LoginLogoutView.logOut();
-				break;
+				LoginLogoutView.logOut(userId);
+				return;
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				admin();
+				admin(userId);
 				break;
 		}//switch끝
 	}

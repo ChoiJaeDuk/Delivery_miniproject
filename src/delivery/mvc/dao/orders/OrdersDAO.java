@@ -46,7 +46,7 @@ public interface OrdersDAO {
 	 * 회원이 주문을 환불신청한다.
 	 * ppt 65p
 	 * */
-	public int cancelOrder(int order_code) throws SQLException;
+	public int orderStatusUpdate(int order_code, int order_status_code) throws SQLException;
 	
 	
 	/**

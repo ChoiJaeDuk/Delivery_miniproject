@@ -6,6 +6,9 @@ import delivery.mvc.view.actor.UsersView;
 
 public class UserOrdersView {
 	
+	private static final String usersId = null;
+
+
 	public static void main(String[] args) {
 		deliveryMenu();
 		
@@ -48,7 +51,7 @@ public class UserOrdersView {
 					storeSelect(9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 6:
-					UsersView.users();
+					UsersView.users(usersId);
 					return;
 					
 				default:

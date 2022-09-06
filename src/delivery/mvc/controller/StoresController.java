@@ -15,7 +15,9 @@ public class StoresController {
 	public static void storesInfoSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesInfoSelectAll();
-			System.out.println(list);
+			for(StoresDTO stores:list) {
+			System.out.println(stores.getStore_code() + "\t" + stores.getStore_name() + "\t" + stores.getStore_regis_status());
+			}
 		}catch(SQLException e){
 			System.out.println("오류");
 		}
@@ -24,6 +26,9 @@ public class StoresController {
 	public static void storesSelectAll() {
 		try {
 			List<StoresDTO> list = storesService.storesSelectAll();
+			for(StoresDTO stores:list) {
+			System.out.println(stores.getStore_code() + "\t" + stores.getAvg_star_grade() + "\t" + stores.getOrder_count());
+			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -90,6 +95,7 @@ public class StoresController {
 	public static void storeRegis(StoresDTO storesDTO){
 		try {
 			storesService.storeRegis(storesDTO);
+			System.out.println("변경");
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
@@ -98,6 +104,18 @@ public class StoresController {
 	public static void storesSales() {
 		try {
 			List<StoresDTO> list = storesService.storesSales();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void storesSalesByMonth(int store_code) {
+		try {
+			List<OrdersDTO> list = storesService.storesSalesByMonth(store_code);
+			for(OrdersDTO od :list) {
+				System.out.println(od.getMonth() + od.getTotal_sales() + od.getTotal_sales_for_master() + od.getTotal_sales_for_stores());
+			}
+		
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

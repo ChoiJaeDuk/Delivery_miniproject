@@ -91,7 +91,7 @@ private static Scanner sc= new Scanner(System.in);
 	public static void acceptOrder(String orderCode) {
 		System.out.print("예상 배달시간을 입력해주세요 : ");
 		String expectedTime = sc.nextLine();
-		OrdersController.approveOrder(new OrdersDTO(Integer.parseInt(orderCode),1),Integer.parseInt(expectedTime));
+		OrdersController.approveOrder(new OrdersDTO(Integer.parseInt(orderCode),2),Integer.parseInt(expectedTime));
 		System.out.println("db쿼리문 배달상태 업데이트 ");
 	}
 	
@@ -99,7 +99,7 @@ private static Scanner sc= new Scanner(System.in);
 	 * 1-2 주문취소하기
 	 * */
 	public static void refuseOrder(String orderCode) {
-		OrdersController.cancelOrder(Integer.parseInt(orderCode));
+		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode),3);
 		System.out.println("db쿼리문 주문취소");
 	}
 	
@@ -115,6 +115,7 @@ private static Scanner sc= new Scanner(System.in);
 		System.out.println("       	1. 배달시작하기         2. 배달완료하기          3. 뒤로가기              ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
+		
 
 		
 		
@@ -122,10 +123,10 @@ private static Scanner sc= new Scanner(System.in);
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					startDelivery();//배달시작
+					startDelivery(orderCode);//배달시작
 					return;
 				case 2:
-					finishDelivery();//배달완료
+					finishDelivery(orderCode);//배달완료
 					return;
 					
 				case 3:
@@ -144,17 +145,19 @@ private static Scanner sc= new Scanner(System.in);
 	}
 	
 	/**
-	 * 2-1 배달시작
+	 * 2-1 배달시작 : DB수정해야함 배달 상태 4개로 분류
 	 * */
-	public static void startDelivery() {
+	public static void startDelivery(String orderCode) {
 		System.out.println("db쿼리문 배달상태변경");
+		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode), 2);
 	}
 	
 	/**
 	 * 2-2 배달완료
 	 * */
-	public static void finishDelivery() {
+	public static void finishDelivery(String orderCode) {
 		System.out.println("db쿼리문 배달상태변경");
+		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode), 1);
 	}
 	
 	

@@ -5,14 +5,18 @@ import java.util.Scanner;
 import delivery.mvc.view.user_function.FindView;
 import delivery.mvc.view.user_function.LoginLogoutView;
 import delivery.mvc.view.user_function.RegisterView;
+import delivery.mvc.session.SessionSet;
 
 
 public class MenuView {
 	private static Scanner sc = new Scanner(System.in);
 
 	public static void menu() {
+		
 		while (true) {
 			
+			SessionSet ss = SessionSet.getInstance();
+			System.out.println(ss.getSet()); // []
 
 			MenuView.printMenu();
 			int menu = Integer.parseInt(sc.nextLine());

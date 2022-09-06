@@ -73,9 +73,9 @@ public class OrdersController {
 		}
 	}
 	
-	public static void cancelOrder(int order_code) {
+	public static void orderStatusUpdate(int order_code, int order_status_code) {
 		try {
-			orderService.cancelOrder(order_code);
+			orderService.orderStatusUpdate(order_code, order_status_code);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -39,8 +39,8 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 	@Override
-	public void cancelOrder(int order_code) throws SQLException {
-		int result = ordersDao.cancelOrder(order_code);
+	public void orderStatusUpdate(int order_code, int order_status_code) throws SQLException {
+		int result = ordersDao.orderStatusUpdate(order_code, order_status_code);
 		if(result == 0 ) throw new SQLException("주문하기 실패");
 	}
 

@@ -1,5 +1,11 @@
 package delivery.mvc.controller;
 
+
+import delivery.mvc.dto.UsersDTO;
+import delivery.mvc.service.users.UsersServiceImpl;
+import delivery.mvc.view.FailView;
+import delivery.mvc.view.actor.UsersView;
+
 import java.util.List;
 
 import delivery.mvc.dto.OrderLineDTO;
@@ -9,6 +15,29 @@ import delivery.mvc.service.users.UsersService;
 import delivery.mvc.service.users.UsersServiceImpl;
 import delivery.mvc.view.FailView;
 import delivery.mvc.view.SuccessView;
+
+//문삼진 로그인 기능
+/*
+public class UsersController {
+	
+	static UsersServiceImpl usersServiceImpl = new UsersServiceImpl();*/
+	/**
+	 * 로그인
+	 */
+	/*
+	public static void login(String users_id, String users_pwd) {
+		try {
+			UsersDTO user = usersServiceImpl.usersLogin(users_id, users_pwd);
+			UsersView.users(users_id);
+			
+		}catch (Exception e) {
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
+		}
+	}
+	
+}*/
+
 
 public class UsersController {
 	private static UsersService usersService = new UsersServiceImpl();
@@ -154,4 +183,5 @@ public class UsersController {
 			System.out.println("오류");
 		}
 	}
+
 }
