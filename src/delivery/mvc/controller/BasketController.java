@@ -21,13 +21,6 @@ public class BasketController {
 			List<MenuDTO> list = service.basketMenuSelect(user_id);
 			System.out.println(list);
 			SuccessView.basketMenuSelect(list);
-			/*
-			for(MenuDTO menu : list) {
-				System.out.print(menu.getMenu_code()
-						+"\t"+menu.getMenu_name()
-						+"\t"+menu.getMenu_price()
-						+"\t"+menu.getBasket().getBasket_quantity());
-			}*/
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

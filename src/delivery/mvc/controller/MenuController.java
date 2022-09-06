@@ -21,22 +21,8 @@ public class MenuController {
 	 */
 	public static void menuSelectByAll(int store_id) {
 		try {
-			
 			List<MenuDTO> list = menuservice.menuSelectAll(store_id);
-			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                     [ 메 뉴  목 록  db에서 가저옴]                               ");
-			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("        메뉴코드      카테고리       메뉴이름        가격       품절여부           ");
-			System.out.println("----------------------------------------------------------------------------------");
-			for(MenuDTO menu : list) {
-				System.out.println(menu.getMenu_code()
-						+"\t"+menu.getCategory_code()
-						+"\t"+menu.getMenu_name()
-						+"\t"+menu.getMenu_price()
-						+"\t"+menu.getSoldout_status());
-			}
-			System.out.println("----------------------------------------------------------------------------------");
-
+			SuccessView.menuList(list);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
