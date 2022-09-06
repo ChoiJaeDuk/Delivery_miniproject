@@ -334,6 +334,8 @@ public class MypageView {
 			System.out.println("(1.양식   2.중식   3.한식)");
 			int categoryCode = Integer.parseInt(sc.nextLine());
 			
+			System.out.println("* * * 배달료를 입력해주세요. >> ");
+			int delivery_fee = Integer.parseInt(sc.nextLine());
 			
 			// 양식, 중식, 한식 외 입력 시 오류메세지!!  
 			//2가지 입력 시 오류 메세지!!

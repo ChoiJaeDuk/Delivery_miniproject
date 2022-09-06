@@ -122,20 +122,15 @@ public class StoresDAOImpl implements StoresDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, user_id);
-			
 			rs = ps.executeQuery();
-			
 			if(rs.next()) {
-				
 				stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), 
 						rs.getString(11), rs.getString(12), rs.getString(13));
-			
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
-		
 		return stores;
 	}
 	
@@ -275,8 +270,7 @@ public class StoresDAOImpl implements StoresDAO {
 	public int storeUpdate(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storesDTO)
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "update stores set (stores_name = ?, store_addr = ?, store_phone = ?, store_detail = ?) \r\n"
-				+ "	 * where user_id = ?";
+		String sql = "update stores set store_name = ?, store_addr = ?, store_phone = ?, store_detail = ? where users_id = ?";
 		int result = 0;
 		
 		try {
@@ -303,16 +297,12 @@ public class StoresDAOImpl implements StoresDAO {
 		PreparedStatement ps = null;
 		String sql = "update stores set store_status = ? where users_id = ?";
 		int result = 0;
-		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			
 			ps.setInt(1,store_status);//ps.setString(1, store_status)
 			ps.setString(2, user_id);//ps.setInt(2, user_id)
-			
 			result = ps.executeUpdate();
-				
 		}finally {
 			DbUtil.dbClose(con, ps);
 		}

@@ -13,10 +13,6 @@ public class ManageStoreView {
 	private static String users_id;
 	private static final String usersId = null;
 	
-	public static void main(String[] args) {
-		ManageStoreView.manageStore("testid");
-	}
-	
 	public static void manageStore(String users_id) {
 		while (true) {
 			ManageStoreView.printMenu();
@@ -71,7 +67,7 @@ public class ManageStoreView {
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [open/close 상태 ]                                 ");
 		//System.out.println("-------------지금은" + status + " 상태입니다 -------------------------------");
-		StoresController.storeSelectById(user_id);
+		StoresController.storeSelectStatus(user_id);
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("	      	1. open              2. close               3.뒤로가기                ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -81,7 +77,7 @@ public class ManageStoreView {
 			
 			switch (menu) {
 			case 1:
-				openStore(0,user_id);
+				openStore(1, user_id);
 				storeStatus(users_id);
 				return; 
 				

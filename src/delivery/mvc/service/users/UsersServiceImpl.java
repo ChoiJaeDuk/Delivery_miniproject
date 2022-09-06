@@ -27,7 +27,7 @@ public class UsersServiceImpl implements UsersService {
 		return user;
 	}
 
-	@Override //!?!?!!?!?!??@?!@?!@?!?@?!@?!@?!?@?!@?!@?!?@?!@?!@?
+	@Override
 	public void usersLogout() throws SQLException {
 		// TODO Auto-generated method stub
 

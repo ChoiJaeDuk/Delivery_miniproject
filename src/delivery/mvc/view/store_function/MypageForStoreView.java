@@ -6,6 +6,7 @@ import delivery.mvc.controller.StoresController;
 import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.view.MenuView;
 import delivery.mvc.view.actor.StoreView;
+import delivery.mvc.view.user_function.MypageView;
 
 public class MypageForStoreView {
 	private static Scanner sc = new Scanner(System.in);
@@ -73,7 +74,7 @@ public class MypageForStoreView {
 					printMenu(users_id);
 					break;
 				case 2:
-					printMenu(users_id); //뒤로가기
+					StoreView.printMenuForStores(users_id); //뒤로가기
 					break;
 					
 				default:

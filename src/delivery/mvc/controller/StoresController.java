@@ -70,6 +70,17 @@ public class StoresController {
 		}
 	}
 	
+	//설명 : 가게 오픈 정보 출력
+	public static void storeSelectStatus(String user_id) {
+		try {
+			StoresDTO stores = storesService.storeSelectById(user_id);
+			StoresDTO aa = storesService.storeSelcetByCode(stores.getStore_code());
+			SuccessView.storeStatus(aa);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static void storesSelectByMenu(String menu_name){
 		try {
