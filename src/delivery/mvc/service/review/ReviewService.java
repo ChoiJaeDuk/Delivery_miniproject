@@ -15,7 +15,7 @@ public interface ReviewService {
 	/**
 	 * 고객 후기 작성
 	 */
-	void reviewInsert(ReviewDTO reviewDTO) throws SQLException;
+	void reviewInsert(String userId, int order_code, String reviewDetail, int starGrade) throws SQLException;
 	
 		
 	/**

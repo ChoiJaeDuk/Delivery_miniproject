@@ -35,5 +35,5 @@ public interface ReviewDAO {
 	 */
 	int reviewDelete(int review_code) throws SQLException;
 	
-	
+	public int storeCodeSelectByOrderCode(int order_code) throws SQLException;
 }

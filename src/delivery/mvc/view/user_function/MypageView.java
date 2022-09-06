@@ -232,7 +232,7 @@ public class MypageView {
 		int review = Integer.parseInt(sc.nextLine());
 		switch(review) {
 		case 1:
-			reviewInsert();
+			reviewInsert(userId);
 			review(userId);
 			break;
 		case 2:
@@ -261,7 +261,7 @@ public class MypageView {
 	/**
 	 * 후기등록
 	 */
-	private static void reviewInsert() {
+	private static void reviewInsert(String userId) {
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                           [ 최근 주문 내역 ]                               \n");
 		System.out.println("후기가 없는 주문 내역을 select!!!!\n\n\n\n");//후기가 없는거 까지 출력이 가능할까요???
@@ -278,8 +278,8 @@ public class MypageView {
 		
 		//리뷰 작성 메소드 ReviewController
 		// user_id를 세션에서 가져와야 할듯
-		ReviewDTO review = new ReviewDTO(/*user_id, order_code, store_code, reviewDetail, starGrade*/);
-		ReviewController.reviewInsert(review);
+		
+		ReviewController.reviewInsert(userId, orderCode, reviewDetail, starGrade);
 	}
 	
 	

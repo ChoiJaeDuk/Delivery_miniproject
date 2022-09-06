@@ -28,9 +28,9 @@ public class ReviewController {
 	}
 	
 	
-	public static void reviewInsert(ReviewDTO reviewDTO) {
+	public static void reviewInsert(String userId, int order_code, String reviewDetail, int starGrade ) {
 		try {
-			reviewService.reviewInsert(reviewDTO);
+			reviewService.reviewInsert(userId, order_code, reviewDetail, starGrade);
 			SuccessView.getmessagePrint("등록되었습니다.");
 			//System.out.println("등록되었습니다.");
 		} catch (Exception e) {
