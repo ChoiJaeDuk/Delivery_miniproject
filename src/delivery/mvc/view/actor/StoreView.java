@@ -77,11 +77,11 @@ public class StoreView {
 					//break;
 					
 				case 2 :
-					ManageOrderView.manageOrder();//주문관리
+					ManageOrderView.manageOrder(users_id);//주문관리
 					
 					return;
 				case 3 :
-					MypageForStoreView.mypageForStore();//마이페이지
+					MypageForStoreView.mypageForStore(users_id);//마이페이지
 					return;
 				case 4 :
 					MenuView.menu();//로그아웃
