@@ -8,14 +8,9 @@ import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserBascketView {
-	//private static final String usersId = null;
+
 	static Scanner sc = new Scanner(System.in);
-	
-	
-	public static void main(String[] args) {
-		bascket("testid3");
-	}
-	
+
 	/**
 	 * 장바구니 조회
 	 */
