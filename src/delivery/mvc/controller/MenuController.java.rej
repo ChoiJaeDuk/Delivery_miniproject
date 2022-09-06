@@ -1,0 +1,15 @@
+diff a/src/delivery/mvc/controller/MenuController.java b/src/delivery/mvc/controller/MenuController.java	(rejected hunks)
+@@ -77,11 +77,10 @@
+ 	 */
+ 	public static void menuInsert(MenuDTO menu, String user_id) {
+ 		try {
+-
+-			menuservice.menuInsert(menu);
+-			SuccessView.getmessagePrint(menu.getMenu_name()+" �޴��� ��ϵǾ����ϴ�");
+ 			int store_code = storeservice.storeSelectById(user_id).getStore_code();
+ 			menu.setStore_code(store_code);
++			menuservice.menuInsert(menu);
++			SuccessView.getmessagePrint(menu.getMenu_name()+" �޴��� ��ϵǾ����ϴ�");
+ 		} catch (Exception e) {
+ 			System.out.println(e.getMessage());
+ 		}

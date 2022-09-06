@@ -40,8 +40,8 @@ public class OrdersDAOImpl implements OrdersDAO {
 			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, CURRENT_DATE, ?,NULL,NULL,0)");
 			ps.setString(1,orders.getUser_id());
 			ps.setInt(2, orders.getStore_code());
-			ps.setInt(3, totalPriceSelect(orders.getUser_id()));
-			ps.setInt(4, orders.getDelivery_code());
+			ps.setInt(3, orders.getOrder_total_price());
+	
 			
 			
 			result = ps.executeUpdate(); 
@@ -284,6 +284,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 					+ "");
 			
 			ps.setInt(1, menuCode);
+			ps.setString(2,user_id);
 		    rs = ps.executeQuery(); 
 	    
 		    if(rs.next()) {

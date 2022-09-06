@@ -149,7 +149,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문코드      2.주문날짜      3.총 가격      4.배송상태     5.예상배송시간");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("주문내역 불러오기!! \n\n\n\n");//UsersController.selectOrderList(String user_id);
+		UsersController.selectOrderList(userId);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문 상세보기       2.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -188,7 +188,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.주문내역_상세코드    2.가게이름        3.메뉴이름        4.수량     5.단가");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("주문상세보기 불러오기!!!! \n\n\n");//UsersController.selectDelivery_time(int order_code);
+		UsersController.selectDelivery_time(order_code);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.환불(취소)하기     2.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
