@@ -17,24 +17,26 @@ public class ReviewDAOImpl implements ReviewDAO {
 	private Properties proFile = DbUtil.getProFile();
 	
 	@Override
-	public List<ReviewDTO> reviewSelectAll(int stores_code) throws SQLException {
+	public List<ReviewDTO> reviewSelectAll(String stores_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		ResultSet rs= null;
 		
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		String sql = "select user_id, order_code, star_grade, review_detail, post_date "
-				+ "from review where store_code = ?";
+		String sql = "select review_code, r.user_id, order_code, star_grade, review_detail, post_date\r\n"
+				+ "from review r join stores s\r\n"
+				+ "on r.store_code = s.store_code\r\n"
+				+ "where s.users_id = ?";
 		
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
-			ps.setInt(1, stores_code);
+			ps.setString(1, stores_code);
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				ReviewDTO review = new ReviewDTO(rs.getString(1), rs.getInt(2), rs.getInt(3), 
-						rs.getString(4), rs.getString(5));
+				ReviewDTO review = new ReviewDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), 
+						rs.getString(5), rs.getString(6));
 				list.add(review);
 			}
 			
@@ -103,6 +105,30 @@ public class ReviewDAOImpl implements ReviewDAO {
 		
 		return result;
 	}
+	
+	@Override
+	public int replyUpdate(String reply, int review_code) throws SQLException {
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "UPDATE REVIEW SET reply = ? WHERE REVIEW_CODE= ?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, reply);
+			ps.setInt(2, review_code);
+			
+			result = ps.executeUpdate();
+			
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		
+		return result;
+	}
 
 	@Override
 	public int reviewUpdate(ReviewDTO reviewDTO) throws SQLException {
@@ -153,7 +179,30 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return result;
 	}
 	
-	public List<OrdersDTO> yetReview() throws SQLException {
+
+	@Override
+	public int replyDelete(int review_code) throws SQLException {
+		int result = 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = "UPDATE REVIEW SET reply = null WHERE REVIEW_CODE= ?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, review_code);
+			
+			result = ps.executeUpdate();
+			
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		return result;
+	}
+	
+	
+	public List<OrdersDTO> yetReview(String userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		ResultSet rs= null;
@@ -166,11 +215,12 @@ public class ReviewDAOImpl implements ReviewDAO {
 				+ "left outer join review \r\n"
 				+ "on review.order_code = orders.order_code join stores\r\n"
 				+ "on stores.store_code = orders.store_code \r\n"
-				+ "where review.order_code is null";
+				+ "where review.order_code is null and orders.user_id = ?";
 		
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
+			ps.setString(1, userId);
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -198,7 +248,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 				
 		
 		try {
-			List<ReviewDTO> rl = review.reviewSelectAll(2);
+			List<ReviewDTO> rl = review.reviewSelectAll("2");
 			for(ReviewDTO list : rl) {
 				System.out.println(list.getUser_id() + "  " + list.getOrder_code() + "  " + list.getStar_grade() + "  " + list.getReview_detail() + "  " +list.getPost_date() );
 			}

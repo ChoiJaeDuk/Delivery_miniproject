@@ -43,15 +43,15 @@ public class StoresServiceImpl implements StoresService {
 	}
 
 	@Override
-	public List<StoresDTO> storesSelectByMenu(String menu_name) throws SQLException {
-		List<StoresDTO> list = storesDAO.storesSelectByMenu(menu_name);
+	public List<StoresDTO> storesSelectByMenu(String arrange, String menu_name) throws SQLException {
+		List<StoresDTO> list = storesDAO.storesSelectByMenu(arrange, menu_name);
 		if(list.size() == 0) throw new SQLException(menu_name + "에 해당하는 가게 정보가 없습니다.");
 		return list;
 	}
 
 	@Override
-	public List<StoresDTO> storesSelectByCategory(int category_code) throws SQLException {
-		List<StoresDTO> list = storesDAO.storesSelectByCategory(category_code);
+	public List<StoresDTO> storesSelectByCategory(String arrange, int category_code) throws SQLException {
+		List<StoresDTO> list = storesDAO.storesSelectByCategory(arrange, category_code);
 		if(list.size() == 0) throw new SQLException(category_code + "에 해당하는 가게 정보가 없습니다.");
 		return list;
 	}

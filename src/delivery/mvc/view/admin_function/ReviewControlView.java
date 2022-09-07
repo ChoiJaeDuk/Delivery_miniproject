@@ -40,7 +40,7 @@ public class ReviewControlView {
 			System.out.println("                          [ 후기 목록 ]                         \n");
 			System.out.println("      후기 코드         가게 이름           후기         평점   ");
 			System.out.println("----------------------------------------------------------------\n");
-			ReviewController.reviewSelectAll(storeCode);
+			ReviewController.reviewSelectAll(userId);
 			System.out.println("----------------------------------------------------------------\n");
 			System.out.println("1.후기 삭제하기       2.뒤로가기");
 			System.out.println("----------------------------------------------------------------\n");

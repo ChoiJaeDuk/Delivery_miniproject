@@ -3,15 +3,22 @@ package delivery.mvc.view.store_function;
 import java.util.Scanner;
 
 import delivery.mvc.controller.MenuController;
+import delivery.mvc.controller.ReviewController;
 import delivery.mvc.controller.StoresController;
+import delivery.mvc.dao.stores.StoresDAO;
+import delivery.mvc.dao.stores.StoresDAOImpl;
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.dto.ReviewDTO;
 import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.view.actor.StoreView;
 
 public class ManageStoreView {
 	private static Scanner sc= new Scanner(System.in);
+
+
 	private static String users_id;
-	private static final String usersId = null;
+
+
 	
 	public static void manageStore(String users_id) {
 		while (true) {
@@ -45,11 +52,11 @@ public class ManageStoreView {
 	}
 	
 	public static void printMenu() {
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                               [가 게 관 리]                                      ");
+		System.out.println("-------------------------------------------------------------------------------------");
+		System.out.println("                               [가 게 관 리]                                         ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("1. open/close 상태 설정    2. 메뉴 관리     3. 판매통계    4. 후기관리    5. 뒤로가기");
-		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
 		
 	}
@@ -64,9 +71,14 @@ public class ManageStoreView {
 		//if(store.getStore_status() == 0 ) status = "close";
 		//else status = "open";
 		
+	//	SessionSet ss = SessionSet.getInstance();
+	//	String userId = ss.getSet().iterator().next().getSessionId();
+		//System.out.println(userId);
+		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [open/close 상태 ]                                 ");
 		//System.out.println("-------------지금은" + status + " 상태입니다 -------------------------------");
+	
 		StoresController.storeSelectStatus(user_id);
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("	      	1. open              2. close               3.뒤로가기                ");
@@ -78,12 +90,12 @@ public class ManageStoreView {
 			switch (menu) {
 			case 1:
 				openStore(1, user_id);
-				storeStatus(users_id);
+				storeStatus(user_id);
 				return; 
 				
 			case 2:
 				closeStore(0, user_id);
-				storeStatus(users_id);
+				storeStatus(user_id);
 				break;		
 			case 3:
 				manageStore(user_id);//뒤로가기
@@ -91,7 +103,7 @@ public class ManageStoreView {
 				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				storeStatus(users_id);
+				storeStatus(user_id);
 				break;	
 
 			}
@@ -119,6 +131,7 @@ public class ManageStoreView {
 	 * 2. 메뉴관리
 	 * */
 	public static void manageMenu(String user_id) {
+		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [ 메 뉴 관 리  ]                                   ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -164,28 +177,7 @@ public class ManageStoreView {
 	 * */
 	public static void insertMenu(String user_id) {
 		
-			System.out.println("----------------------------------------------------------------------------------");
-			//System.out.println("                      ["+ getCategoryCode + " 카테고리 목록 ]                   ");
-			System.out.println("\n");
-			/*
-			if(getCategoryCode ==1) {
-				System.out.println("                 4. 피자          5.파스타            6.스테이크            ");
-				System.out.println("----------------------------------------------------------------------------------");
-			}else if(getCategoryCode==2) {
-				System.out.println("7.면             8.요리             9.밥             13.뒤로가기");
-				System.out.println("----------------------------------------------------------------\n");
-			}else if(getCategoryCode ==3) {
-				System.out.println("10.찌개           11.볶음          12.찜/탕          13.뒤로가기");
-				System.out.println("----------------------------------------------------------------\n");
-			}
-			*/
 			MenuController.menuSelectByStore(user_id);
-			System.out.println("                     [ 양식 카테고리 목록 ]//판매자 신청때 입력한 값받아오기       ");
-			System.out.println("\n");
-			System.out.println("    4. 피자          5.파스타      6.스테이크          //위 값따라 설정            ");
-			System.out.println("----------------------------------------------------------------------------------");
-
-			
 			
 			System.out.println("* * *"+"getCategoryCode"+"  카테고리 번호를 입력해주세요 >> ");
 			int categoryNo = Integer.parseInt(sc.nextLine());
@@ -241,6 +233,7 @@ public class ManageStoreView {
 	 * */
 	
 	public static void salesStatistics(String users_id) {
+
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [ 매 출 현 황 조 회  ]                             ");
 		System.out.println("               메뉴코드            메뉴이름             총 매출                   ");
@@ -278,23 +271,30 @@ public class ManageStoreView {
 	/**
 	 * 3-1 세부매출조회
 	 * */
+
 	public static void salesDetail(String users_id, int menuCode) {//가게에 
+		//StoresController.storesSelectByCategory(users_id, menuCode);
+
 		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                              [   ㅇㅇㅇ 월별 매출 현황 조회  ]                                 ");
-		System.out.println("       월        메뉴코드            메뉴이름             총 매출                   ");		
+		System.out.println("                              [ 월별 매출 현황 조회  ]                                 ");
+		System.out.println("       월                     총 매출                   ");		
 		System.out.println("----------------------------------------------------------------------------------");
 		StoresController.menuSalesByMonth(users_id, menuCode);
-		
-		System.out.println("----------------------------------------------------------------------------------");
-	
-		
+			
 	}
+	
+	
+	
 	/*
 	 * 4. 후기관리 
 	 * */
 	
 	public static void manageReview	(String user_id) {
-		reviewList();
+//		StoresDAO storesDAO = new StoresDAOImpl();
+//		 StoresDTO storecode = storesDAO.storeSelectById(user_id);
+		
+		
+		reviewList(user_id);
 		System.out.println("        1. 댓글작성      2. 댓글수정       3. 댓글삭제       4. 뒤로가기          ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요 >> ");
@@ -317,7 +317,7 @@ public class ManageStoreView {
 					return;
 					
 				case 4:
-					//뒤로가기
+					manageStore(user_id);
 					return;
 					
 				default:
@@ -343,8 +343,8 @@ public class ManageStoreView {
 			String content = sc.nextLine();
 		
 			
-			//ReviewDTO(??) reply =  new ReviewDTO();
-	    	//컨트롤러.insert(reply);
+			ReviewController.replyUpdate(content, Integer.parseInt(reviewNo));
+			
 		}
 		
 	
@@ -360,8 +360,9 @@ public class ManageStoreView {
 		String newContent = sc.nextLine();
 
 		
-		//ReviewDTO(??) reply =  new ReviewDTO(no,newContent);
-    	//컨트롤러.update(reply);
+		ReviewController.replyUpdate(newContent, Integer.parseInt(no));
+		
+		
 	}
 	/**
 	 *4-3 댓글삭제
@@ -371,7 +372,8 @@ public class ManageStoreView {
 		System.out.println("* * * 삭제할 후기 코드를 입력해주세요 >> ");
 		String no = sc.nextLine();
 		
-		//컨트롤러.delete(no);
+		ReviewController.replyDelete(Integer.parseInt(no));
+		
 	}
 	
 	
@@ -383,16 +385,19 @@ public class ManageStoreView {
 	public static void  menuList(String user_id) {
 		MenuController.menuSelectByMenu(user_id);
 	}
-	
+
+
 	/**
 	 * 댓글리스트/후기리스트
 	 * */
-	public static void  reviewList() {
+	public static void  reviewList(String user_id) {
 	System.out.println("----------------------------------------------------------------------------------");
 	System.out.println("                                [   후   기   ]                                   ");
-	System.out.println("         후기코드      usderid       별점        후기          등록일              ");
+	System.out.println("         후기코드      usderid       평점        후기          등록일              ");
 	System.out.println("----------------------------------------------------------------------------------");
-	System.out.println("          1111      ??usderid?           4          맛있어유~       2022-09-01        ");
+
+	ReviewController.reviewSelectAll(user_id);
+
 	System.out.println("----------------------------------------------------------------------------------");
 		
 	}

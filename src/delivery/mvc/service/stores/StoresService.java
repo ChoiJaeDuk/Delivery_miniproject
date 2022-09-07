@@ -16,9 +16,9 @@ public interface StoresService {
 	 
 	 StoresDTO storeSelectById(String user_id) throws SQLException;
 	 
-	 List<StoresDTO> storesSelectByMenu(String menu_name) throws SQLException;
+	 List<StoresDTO> storesSelectByMenu(String arrange, String menu_name) throws SQLException;
 	 
-	 List<StoresDTO> storesSelectByCategory(int category_code) throws SQLException;
+	 List<StoresDTO> storesSelectByCategory(String arrange, int category_code) throws SQLException;
 	 
 	 void storeInsert(StoresDTO storesDTO) throws SQLException;
 	 

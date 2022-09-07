@@ -9,6 +9,7 @@ import delivery.mvc.service.menu.MenuService;
 import delivery.mvc.service.menu.MenuServiceImpl;
 import delivery.mvc.service.stores.StoresService;
 import delivery.mvc.service.stores.StoresServiceImpl;
+import delivery.mvc.view.FailView;
 import delivery.mvc.view.SuccessView;
 
 public class MenuController {
@@ -17,12 +18,27 @@ public class MenuController {
 
 	/**
 	 * 작성자 : 박해원
-	 * 설명 : 해당 가게의 메뉴를 출력함
+	 * 설명 : 해당 가게의 메뉴를 출력함 - 판매자 시점
 	 */
 	public static void menuSelectByAll(int store_id) {
 		try {
 			List<MenuDTO> list = menuservice.menuSelectAll(store_id);
 			SuccessView.menuList(list);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}//menuSelectByAll() end
+	
+	/**
+	 * 작성자 : 박해원
+	 * 설명 : 해당 가게의 메뉴를 출력함 - 회원 시점
+	 */
+	public static void menuSelectByAllByUser(int store_id) {
+		try {
+			
+			List<MenuDTO> list = menuservice.menuSelectAll(store_id);
+			SuccessView.menuPrintAll(list);
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -77,10 +93,10 @@ public class MenuController {
 		try {
 
 			menuservice.menuUpdate(menu);
-			System.out.println(menu.getMenu_name()+" 메뉴로 변경되었습니다");
+			SuccessView.getmessagePrint("메뉴가 변경되었습니다");
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			FailView.errorMessage(e.getMessage());
 		}
 	}//menuUpdate end
 
@@ -91,9 +107,10 @@ public class MenuController {
 	public static void menuDelete(int menu_code) {
 		try {
 			menuservice.menuDelete(menu_code);
-			System.out.println("메뉴가 삭제되었습니다");
+			SuccessView.getmessagePrint("메뉴가 삭제되었습니다.");
+			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 }//class end
