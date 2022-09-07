@@ -8,6 +8,12 @@ import delivery.mvc.dto.ReviewDTO;
 
 public interface ReviewService {
 	/**
+	 * 운영자 후기 조회
+	 */
+	public List<ReviewDTO> reviewAdmintAll(int store_code) throws SQLException;
+	
+	
+	/**
 	 * 후기 목록조회(해당 가게의 리뷰)
 	 */
 	List<ReviewDTO> reviewSelectAll(String user_id) throws SQLException;

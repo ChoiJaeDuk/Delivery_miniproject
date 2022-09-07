@@ -36,17 +36,17 @@ public interface UsersService {
 	/**
 	 * 개인정보 수정(닉네임)
 	 */
-	void nickUpdate(String oldNick, String newNick) throws SQLException;
+	void nickUpdate(String newNick, String user_id) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(주소)
 	 */
-	void addrUpdate(String oldAddr, String newAddr) throws SQLException;
+	void addrUpdate(String newAddr, String user_id) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(폰번호)
 	 */
-	void phoneUpdate(String oldPhone, String newPhone) throws SQLException;
+	void phoneUpdate(String newPhone, String user_id) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(비번)

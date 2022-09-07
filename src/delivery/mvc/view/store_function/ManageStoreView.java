@@ -395,7 +395,7 @@ public class ManageStoreView {
 	public static void  reviewList(String user_id) {
 	System.out.println("----------------------------------------------------------------------------------");
 	System.out.println("                                [   후   기   ]                                   ");
-	System.out.println("         후기코드      usderid       평점        후기          등록일              ");
+	System.out.println("	후기 코드		회원ID		평점		후기		댓글		등록일		   ");
 	System.out.println("----------------------------------------------------------------------------------");
 
 	ReviewController.reviewSelectAll(user_id);

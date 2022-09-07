@@ -157,19 +157,19 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	@Override
-	public int nickUpdate(String oldNick, String newNick) throws SQLException {
+	public int nickUpdate(String newNick, String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "update users set user_nick=? where user_nick=?";
+		String sql = "update users set user_nick=? where user_id = ?";
 		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, newNick);
-			ps.setString(2, oldNick);
+			ps.setString(2, user_id);
 			
 			result = ps.executeUpdate();
 			
@@ -181,19 +181,19 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 	
 	@Override
-	public int addrUpdate(String oldAddr, String newAddr) throws SQLException {
+	public int addrUpdate(String newAddr, String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "update users set user_addr=? where user_addr=?";
+		String sql = "update users set user_addr=? where user_id = ?";
 		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, newAddr);
-			ps.setString(2, oldAddr);
+			ps.setString(2, user_id);
 			
 			result = ps.executeUpdate();
 			
@@ -205,19 +205,19 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 
 	@Override
-	public int phoneUpdate(String oldPhone, String newPhone) throws SQLException {
+	public int phoneUpdate(String newPhone, String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "update users set user_phone=? where user_phone=?";
+		String sql = "update users set user_phone=? where user_id = ?";
 		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, newPhone);
-			ps.setString(2, oldPhone);
+			ps.setString(2, user_id);
 			
 			result = ps.executeUpdate();
 			

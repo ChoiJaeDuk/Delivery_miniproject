@@ -47,19 +47,19 @@ public interface UsersDAO {
 	 * 개인정보 수정(닉네임)
 	 * ppt 62~63
 	 */
-	int nickUpdate(String oldNick, String newNick) throws SQLException;
+	int nickUpdate(String newNick, String user_id) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(주소)
 	 * ppt 62~63
 	 */
-	int addrUpdate(String oldAddr, String newAddr) throws SQLException;
+	int addrUpdate(String newAddr, String user_id) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(폰번호)
 	 * ppt 62~63
 	 */
-	int phoneUpdate(String oldPhone, String newPhone) throws SQLException;
+	int phoneUpdate(String newPhone, String user_id) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(비번)

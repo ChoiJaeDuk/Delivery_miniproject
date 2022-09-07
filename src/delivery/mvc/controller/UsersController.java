@@ -85,9 +85,9 @@ public class UsersController {
 		}
 	}
 	
-	public static void nickUpdate(String oldNick, String newNick) {
+	public static void nickUpdate(String newNick, String user_id) {
 		try {
-			usersService.nickUpdate(oldNick,newNick);
+			usersService.nickUpdate(newNick, user_id);
 			SuccessView.getmessagePrint("닉네임 수정 성공하였습니다.");
 			
 			System.out.println(newNick+"으로 변경되었습니다.");
@@ -98,9 +98,9 @@ public class UsersController {
 	}
 	
 	
-	public static void addrUpdate(String oldAddr, String newAddr) {
+	public static void addrUpdate(String newAddr, String user_id) {
 		try {
-			usersService.addrUpdate(oldAddr,newAddr);
+			usersService.addrUpdate(newAddr, user_id);
 			SuccessView.getmessagePrint("주소 수정 성공하였습니다.");
 			
 		} catch (Exception e) {
@@ -109,9 +109,9 @@ public class UsersController {
 		}
 	}
 	
-	public static void phoneUpdate(String oldPhone, String newPhone) {
+	public static void phoneUpdate(String newPhone, String user_id) {
 		try {
-			usersService.phoneUpdate(oldPhone,newPhone);
+			usersService.phoneUpdate(newPhone, user_id);
 			SuccessView.getmessagePrint("전화번호 수정 성공하였습니다.");
 		
 		} catch (Exception e) {
@@ -122,7 +122,7 @@ public class UsersController {
 	
 	public static void pwdUpdate(String oldPwd, String newPwd) {
 		try {
-			usersService.pwdUpdate(oldPwd,newPwd);
+			usersService.pwdUpdate(oldPwd,newPwd );
 			SuccessView.getmessagePrint("비밀번호 수정 성공하였습니다.");
 			
 		} catch (Exception e) {

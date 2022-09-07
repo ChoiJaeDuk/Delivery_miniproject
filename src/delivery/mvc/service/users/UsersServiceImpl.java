@@ -55,22 +55,22 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public void nickUpdate(String oldNick, String newNick) throws SQLException {
-		int result = usersDAO.nickUpdate(oldNick, newNick);
+	public void nickUpdate(String newNick, String user_id) throws SQLException {
+		int result = usersDAO.nickUpdate(newNick,user_id);
 		if(result ==0) throw new SQLException("닉네임 수정에 실패했습니다.");
 
 	}
 
 	@Override
-	public void addrUpdate(String oldAddr, String newAddr) throws SQLException {
-		int result = usersDAO.addrUpdate(oldAddr, newAddr);
+	public void addrUpdate(String newAddr, String user_id) throws SQLException {
+		int result = usersDAO.addrUpdate(newAddr,user_id);
 		if(result ==0) throw new SQLException("주소 수정에 실패했습니다.");
 
 	}
 
 	@Override
-	public void phoneUpdate(String oldPhone, String newPhone) throws SQLException {
-		int result = usersDAO.phoneUpdate(oldPhone, newPhone);
+	public void phoneUpdate(String newPhone, String user_id) throws SQLException {
+		int result = usersDAO.phoneUpdate(newPhone,user_id);
 		if(result ==0) throw new SQLException("전화번호 수정에 실패했습니다.");
 
 	}
