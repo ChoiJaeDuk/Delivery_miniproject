@@ -380,12 +380,12 @@ public class StoresDAOImpl implements StoresDAO {
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
 		String sql = "SELECT stores.STORE_CODE, STORE_NAME, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,\r\n"
-				+ "		(SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES,\r\n"
-				+ "		(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_MASTER\r\n"
-				+ "		FROM ORDERS join stores \r\n"
-				+ "		on orders.store_code = stores.store_code\r\n"
-				+ "		GROUP BY stores.STORE_CODE, store_name order by ?";
-		
+				+ "(SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES,\r\n"
+				+ "(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_MASTER\r\n"
+				+ "FROM ORDERS join stores\r\n"
+				+ "on orders.store_code = stores.store_code\r\n"
+				+ "GROUP BY stores.STORE_CODE, store_name\r\n"
+				+ "order by stores.STORE_CODE";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);

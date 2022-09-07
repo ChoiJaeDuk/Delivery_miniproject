@@ -44,6 +44,7 @@ public class StoresController {
 		try {
 
 			List<StoresDTO> list = storesService.storesSelectAll(arrange);
+			
 			SuccessView.selectStoreList(list);
 			
 			
@@ -54,11 +55,15 @@ public class StoresController {
 		
 	}
 	
+
+		
+	
+	
 	//가게코드로 가게 정보 받기 
 	public static void storeSelcetByCode(int store_code) {
 		try {
 			StoresDTO stores = storesService.storeSelcetByCode(store_code);
-			SuccessView.storeSelcetByCode(stores);
+			SuccessView.userSelectStore(stores);
 		}catch(SQLException e){
 			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());
@@ -70,7 +75,7 @@ public class StoresController {
 	public static void storeSelectById(String user_id) {
 		try {
 			StoresDTO stores = storesService.storeSelectById(user_id);
-			SuccessView.storeSelectById(stores);
+			SuccessView.reviewDetailView(stores);
 		}catch(SQLException e){
 			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());

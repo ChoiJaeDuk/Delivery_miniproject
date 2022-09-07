@@ -45,14 +45,17 @@ public class StoreArrange {
 				//UserCategorySelect.totalStoreList(); 
 			
 				StoresController.storesSelectAll("ORDER BY ORDER_COUNT DESC");
+				UserOrdersView.storeSelect(9,0);
 				break;
 			case 2:
 				//UserCategorySelect.totalStoreList(); 
 				
 				StoresController.storesSelectAll("ORDER BY STAR_AVG DESC");
+				UserOrdersView.storeSelect(9,0);
 				break;
 			case 3:
 				StoresController.storesSelectAll("ORDER BY STORE_DELIVERY_FEE");
+				UserOrdersView.storeSelect(9,0);
 				break;
 			case 4:
 				UserOrdersView.storeSelect(0);
@@ -82,14 +85,17 @@ public class StoreArrange {
 			case 1:
 			
 				StoresController.storesSelectByMenu("ORDER BY ORDER_COUNT DESC", menuName);
+				UserOrdersView.storeSelect(9,0);
 				break;
 			case 2:
 			
 				StoresController.storesSelectByMenu("ORDER BY STAR_AVG DESC", menuName);
+				UserOrdersView.storeSelect(9,0);
 				break;
 			case 3:
 			
 				StoresController.storesSelectByMenu("ORDER BY STORE_DELIVERY_FEE", menuName);
+				UserOrdersView.storeSelect(9,0);
 				break;
 			case 4:
 				UserOrdersView.storeSelect(1);
@@ -116,15 +122,18 @@ public class StoreArrange {
 			case 1:
 				 
 				StoresController.storesSelectByCategory("ORDER BY ORDER_COUNT DESC", categoryCode);
+				UserOrdersView.storeSelect(9,0);
 				
 				break;
 			case 2:
 	
 				StoresController.storesSelectByCategory("ORDER BY STAR_AVG DESC", categoryCode);
+				UserOrdersView.storeSelect(9,0);
 				break;
 			case 3:
 				
 				StoresController.storesSelectByCategory("ORDER BY STORE_DELIVERY_FEE", categoryCode);
+				UserOrdersView.storeSelect(9,0);
 				break;
 			case 4:
 				UserOrdersView.category(category, userId);

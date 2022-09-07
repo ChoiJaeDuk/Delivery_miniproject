@@ -22,7 +22,10 @@ public class SuccessView {
 	public static void storePrintAllForMaster(List<StoresDTO> storesInfoSelectAll) {
 
 		for(StoresDTO storesDTO :storesInfoSelectAll) {
-			System.out.println(storesDTO.getStore_code()+"     "+storesDTO.getStore_name()+"     "+storesDTO.getStore_regis_status()+"     ");
+			System.out.println(
+					"  "+storesDTO.getStore_code()+
+					"			  "+storesDTO.getStore_name()+
+					"		   "+storesDTO.getStore_regis_status());
 		}
 		
 	}
@@ -32,6 +35,17 @@ public class SuccessView {
 	public static void storeSelcetByCode(StoresDTO storesDTO) {
 		System.out.println(storesDTO+"\n");
 	}
+	
+	/**
+	 * 회원이 가게코드로 검색했을 때 가게 소개가 출려되어야합니다.
+	 */
+	public static void userSelectStore(StoresDTO storeDTO) {
+		System.out.println("--------------------------------------------------------------------\n");
+		System.out.println("                "+storeDTO.getStore_name()+"                        \n");
+		System.out.println(storeDTO.getStore_detail());
+		System.out.println("--------------------------------------------------------------------\n");
+	}
+	
 	
 	/**
 	 * 아이디로 가게 정보 
@@ -67,8 +81,12 @@ public class SuccessView {
 	 * */
 	public static void storesSales(List<StoresDTO> storesSales) {
 		for(StoresDTO storesDTO:storesSales) {
-		System.out.println(storesDTO.getStore_code()+"     "+storesDTO.getStore_name()+storesDTO.getTotal_sales()+
-				"     "+storesDTO.getTotal_sales_for_stores()+"     "+storesDTO.getTotal_sales_for_master());
+		System.out.println(
+				"  "+storesDTO.getStore_code()+
+				"		"+storesDTO.getStore_name()+
+				"	  "+storesDTO.getTotal_sales()+
+				"	  "+storesDTO.getTotal_sales_for_stores()+
+				"	"+storesDTO.getTotal_sales_for_master());
 		}
 	}
 	
@@ -120,10 +138,11 @@ public class SuccessView {
 	
 	public static void reviewListStore(List<ReviewDTO> reviewSelectAll) {
 		for (ReviewDTO reviewDTO: reviewSelectAll) {
-			System.out.println("  "+ reviewDTO.getReview_code()+
-					"\t	    "+reviewDTO.getUser_id()+
-					"		"+reviewDTO.getStar_grade()+"/"+reviewDTO.getReview_detail()+
-					"\t	"+reviewDTO.getPost_date());
+			System.out.println(
+					"   "+ reviewDTO.getReview_code()+
+					"          "+reviewDTO.getUser_id()+
+					"       "+reviewDTO.getStar_grade()+"/"+reviewDTO.getReview_detail()+
+					"          "+reviewDTO.getPost_date());
 		}
 	}
 	
@@ -203,8 +222,11 @@ public class SuccessView {
 	 * */
 	public static void selectOrderList( List<OrdersDTO> selectOrderList) {
 		for(OrdersDTO orderDTO:selectOrderList) {
-			System.out.println(orderDTO.getOrder_code()+"   "+orderDTO.getUser_id()+"   "+orderDTO.getUser_phone()+"   "+
-					orderDTO.getDelivery_addr()+"   "+orderDTO.getDelivery_status().getDelivery_status());
+			System.out.println("  "+orderDTO.getOrder_code()+
+					"		"+orderDTO.getUser_id()+
+					"		"+orderDTO.getUser_phone()+
+					"		"+orderDTO.getDelivery_addr()+
+					" 		"+orderDTO.getDelivery_status().getDelivery_status());
 			}
 	}
 	
@@ -237,7 +259,7 @@ public class SuccessView {
 	
 	//4647 회원-가게소개
 	/**
-	 * 후기 -회원이 조회하는 가게전체후기 목록 조회
+	 * 후기를 위한 가게선택하면 해당 가게의 이름+가게소개 layout
 	 */
 	
 	public static void reviewDetailView(StoresDTO storeDTO) {
@@ -294,7 +316,7 @@ public class SuccessView {
 	 * 가게전체검색 45 55 57 58
 	 * */
 	public static void selectStoreList(List<StoresDTO> storesInfoSelectAll) {
-
+		System.out.println("--------------------------------------------------------------------");
 		for (StoresDTO storesDTO : storesInfoSelectAll) {
 			System.out.println("  " + storesDTO.getStore_code() + "\t     " + storesDTO.getStore_name() + "\t     "
 					+ storesDTO.getStore_delivery_fee() + "\t     " + storesDTO.getReview_count() + "/"
