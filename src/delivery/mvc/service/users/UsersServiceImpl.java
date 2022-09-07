@@ -106,7 +106,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public String pwdCheck(String user_id, String input_pwd) throws SQLException {
 		String result = usersDAO.pwdCheck(user_id, input_pwd);
-		if(!result.equals(input_pwd)) throw new SQLException("서비스 : 비밀번호가 일치하지 않습니다.");
+		if(result == null) throw new SQLException("서비스 : 비밀번호가 일치하지 않습니다.");
 		return result;
 	}
 

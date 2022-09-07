@@ -117,12 +117,16 @@ public class MypageView {
 					String usersPwd = sc.nextLine();
 				
 					//컨트롤러 호출, 비밀번호 인증하기!
-					UsersController.pwdCheck(userId, usersPwd);
-					
-					System.out.println("* * * 변경할 비밀번호를 입력해주세요. >> ");
-					String newUsersPwd = sc.nextLine();
-					UsersController.pwdUpdate(usersPwd, newUsersPwd);					
-					personalInfo();
+					//컨트롤러 호출, 비밀번호 인증하기!
+					int result = UsersController.pwdCheck(userId, usersPwd);
+					if(result == 1) {
+//						UsersController.pwdCheck(userId, usersPwd);
+
+						System.out.println("* * * 변경할 비밀번호를 입력해주세요. >> ");
+						String newUsersPwd = sc.nextLine();
+						UsersController.pwdUpdate(usersPwd, newUsersPwd);					
+						personalInfo();
+					}
 					break;
 					
 				case 5:
