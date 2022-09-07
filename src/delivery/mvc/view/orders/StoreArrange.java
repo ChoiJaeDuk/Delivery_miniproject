@@ -117,7 +117,6 @@ public class StoreArrange {
 				 
 				StoresController.storesSelectByCategory("ORDER BY ORDER_COUNT DESC", categoryCode);
 				
-				//System.out.println("주문 많은 순서로 하위카테고리 포함된 가게 목록 불러오기\n\n\n\n");
 				break;
 			case 2:
 	
@@ -129,7 +128,7 @@ public class StoreArrange {
 				break;
 			case 4:
 				UserOrdersView.category(category, userId);
-				//UserOrdersView.subFood(subFoodList);
+				
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
