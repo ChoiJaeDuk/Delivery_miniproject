@@ -5,6 +5,7 @@ import java.util.List;
 
 import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.exception.NotFoundException;
 import delivery.mvc.service.bascket.BasketService;
 import delivery.mvc.service.bascket.BasketServiceImpl;
 import delivery.mvc.view.FailView;
@@ -23,8 +24,7 @@ public class BasketController {
 			
 			SuccessView.basketMenuSelect(list);
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			FailView.errorMessage(e.getMessage());
+			FailView.errorMessage("장바구니가 비어있습니다.");
 		}
 	}//basketMenuSelect() end
 	
@@ -37,7 +37,7 @@ public class BasketController {
 			service.bascketInsert(basket);
 			SuccessView.getmessagePrint("장바구니에 추가되었습니다");
 		} catch (Exception e) {
-			e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	

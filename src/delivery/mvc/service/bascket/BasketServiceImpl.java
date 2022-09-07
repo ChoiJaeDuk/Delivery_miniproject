@@ -26,10 +26,28 @@ public class BasketServiceImpl implements BasketService {
 	};
 
 	@Override
-	public void bascketInsert(BasketDTO bascket) throws SQLException {
-		int result = bascketDAO.basketInsert(bascket);
-		if(result==0) throw new SQLException("등록이 실패되었습니다");
-
+	public void bascketInsert(BasketDTO basket) throws SQLException {
+		BasketDTO basketDTO = bascketDAO.basketSelectScoreCode(basket.getUser_id());
+		int store_code = 0;
+		int result = 0;
+		if (basketDTO == null) {
+			result = bascketDAO.basketInsert(basket);
+			if(result==0) throw new SQLException("변경이 실패되었습니다");
+			store_code = basketDTO.getStore_code();
+		}else if(store_code == basketDTO.getStore_code()) {
+			result = bascketDAO.basketInsert(basket);
+			if(result==0) throw new SQLException("변경이 실패되었습니다");
+		}else if(store_code != basketDTO.getStore_code()) throw new SQLException("동일한 가게에서만 주문할 수 있습니다.");
+	
+		
+	}
+	
+	public static void main(String[] args) {
+		try {
+			new BasketServiceImpl().bascketInsert(new BasketDTO("user", 3, 1));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
