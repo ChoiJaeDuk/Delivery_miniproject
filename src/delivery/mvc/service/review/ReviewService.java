@@ -10,7 +10,7 @@ public interface ReviewService {
 	/**
 	 * 후기 목록조회(해당 가게의 리뷰)
 	 */
-	List<ReviewDTO> reviewSelectAll(int stores_code) throws SQLException;
+	List<ReviewDTO> reviewSelectAll(String user_id) throws SQLException;
 	
 	/**
 	 * 후기 목록조회(유저의 모든 리뷰)
@@ -38,6 +38,9 @@ public interface ReviewService {
 	/**
 	 * 후기가 없는 주문건 출력
 	 */
-	List<OrdersDTO> yetReview() throws SQLException;
+	List<OrdersDTO> yetReview(String userId) throws SQLException;
+
+	void replyUpdate(String reply, int review_code) throws SQLException;
+	void replyDelete(int review_code) throws SQLException;
 	
 }

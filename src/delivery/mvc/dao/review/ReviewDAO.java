@@ -19,7 +19,7 @@ public interface ReviewDAO {
 	/**
 	 * 후기 목록조회 (해당 가게의 리뷰)
 	 */
-	List<ReviewDTO> reviewSelectAll(int stores_code) throws SQLException;
+	List<ReviewDTO> reviewSelectAll(String user_id) throws SQLException;
 	
 	/**
 	 * 후기 목록조회(유저의 모든 리뷰)
@@ -44,7 +44,12 @@ public interface ReviewDAO {
 	 * 후기작성이 안된 주문건 출력
 	 * ppt67
 	 */
-	List<OrdersDTO> yetReview() throws SQLException;
+	List<OrdersDTO> yetReview(String userId) throws SQLException;
 	
 	public int storeCodeSelectByOrderCode(int order_code) throws SQLException;
+
+
+	int replyUpdate(String reply, int review_code) throws SQLException;
+	
+	int replyDelete(int review_code) throws SQLException;
 }

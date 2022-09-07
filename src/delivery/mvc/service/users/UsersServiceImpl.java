@@ -57,28 +57,28 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public void nickUpdate(String oldNick, String newNick) throws SQLException {
 		int result = usersDAO.nickUpdate(oldNick, newNick);
-		if(result ==0) throw new SQLException("닉네임 재설정에 실패했습니다.");
+		if(result ==0) throw new SQLException("닉네임 수정에 실패했습니다.");
 
 	}
 
 	@Override
 	public void addrUpdate(String oldAddr, String newAddr) throws SQLException {
 		int result = usersDAO.addrUpdate(oldAddr, newAddr);
-		if(result ==0) throw new SQLException("주소 재설정에 실패했습니다.");
+		if(result ==0) throw new SQLException("주소 수정에 실패했습니다.");
 
 	}
 
 	@Override
 	public void phoneUpdate(String oldPhone, String newPhone) throws SQLException {
 		int result = usersDAO.phoneUpdate(oldPhone, newPhone);
-		if(result ==0) throw new SQLException("핸드폰번호 재설정에 실패했습니다.");
+		if(result ==0) throw new SQLException("전화번호 수정에 실패했습니다.");
 
 	}
 
 	@Override
 	public void pwdUpdate(String oldPwd, String newPwd) throws SQLException {
 		int result = usersDAO.pwdUpdate(oldPwd, newPwd);
-		if(result ==0) throw new SQLException("비밀번호 재설정에 실패했습니다.");
+		if(result ==0) throw new SQLException("비밀번호 수정에 실패했습니다.");
 
 	}
 
@@ -106,7 +106,7 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public String pwdCheck(String user_id, String input_pwd) throws SQLException {
 		String result = usersDAO.pwdCheck(user_id, input_pwd);
-		if(!result.equals(input_pwd)) throw new SQLException("서비스 : 비밀번호가 일치하지 않습니다.");
+		if(!result.equals(input_pwd)) throw new SQLException("비밀번호가 일치하지 않습니다.");
 		return result;
 	}
 

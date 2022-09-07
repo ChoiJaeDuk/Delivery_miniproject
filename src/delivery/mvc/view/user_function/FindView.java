@@ -80,11 +80,11 @@ public class FindView {
 		System.out.print("* * * 주민등록번호를 입력해주세요. >> ");
 		String usersJumin = sc.nextLine();
 
-//////////////////////////////////////////////////////////////////////// 
+
 		System.out.print("* * * 새로운 비밀번호를 입력해주세요. >> ");
 		String newpwd = sc.nextLine();
 		
-////////////////////////////////////////////////////////////////////////
+
 		//비밀번호 찾기/재설정 UsersController 
 				UsersController.searchPwd(usersId, usersName, usersJumin, newpwd);
 	}

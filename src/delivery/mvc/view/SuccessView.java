@@ -106,8 +106,10 @@ public class SuccessView {
 	 * 47 : 회원이 조회하는 가게별 전체 후기 = 한 가게의 모든 후기
 	 * */
 	public static void reviewList(List<ReviewDTO> reviewSelectAll) {
-		for (ReviewDTO reviewDTO: reviewSelectAll) {
-			System.out.println(reviewDTO.getUser_id()+"\t"+reviewDTO.getOrder_code()+"\t"+reviewDTO.getStar_grade()+"\t"+reviewDTO.getReview_detail()+"\t"+reviewDTO.getPost_date());
+		for (ReviewDTO reviewDTO : reviewSelectAll) {
+			System.out.println(
+					reviewDTO.getOrder_code() + "     " + reviewDTO.getUser_id() + "     " + reviewDTO.getStar_grade()
+							+ "     " + reviewDTO.getReview_detail() + "     " + reviewDTO.getPost_date());
 		}
 	}
 	
@@ -289,16 +291,20 @@ public class SuccessView {
 	 * 주문내역 64
 	 * */
 	public static void printOrderList(List<OrdersDTO> selectOrderList) {
-		for (OrdersDTO orderDTO:selectOrderList) {
-			System.out.println(orderDTO.getOrder_code()+"\t"+orderDTO.getOrder_date()+"\t"+orderDTO.getOrder_total_price()+"\t"+orderDTO.getDelivery_status()+"\t"+orderDTO.getOrder_delivery_time());
+		for (OrdersDTO orderDTO : selectOrderList) {
+			System.out.println(orderDTO.getOrder_code() + "   " + orderDTO.getOrder_date() + "   "
+					+ orderDTO.getOrder_total_price() + "   " + orderDTO.getDelivery_status() + "   "
+					+ orderDTO.getOrder_delivery_time());
 		}
 	}
 	/**
 	 * 주문상세내역 65
 	 * */
 	public static void printOrderLine(List<OrderLineDTO> oll) {
-		for (OrderLineDTO orderLineDTO:oll) {
-			System.out.println(orderLineDTO.getOrder_line_code()+"\t"+orderLineDTO.getStore().getStore_name()+"\t"+orderLineDTO.getMenu().getMenu_name()+"\t"+orderLineDTO.getOrder_quntity()+"\t"+orderLineDTO.getMenu().getMenu_price());
+		for (OrderLineDTO orderLineDTO : oll) {
+			System.out.println(orderLineDTO.getOrder_line_code() + "    " + orderLineDTO.getStore().getStore_name()
+					+ "   " + orderLineDTO.getMenu().getMenu_name() + "   " + orderLineDTO.getOrder_quntity() + "   "
+					+ orderLineDTO.getMenu().getMenu_price());
 		}
 	}
 	
@@ -315,7 +321,7 @@ public class SuccessView {
 	 * */
 	public static void recentOrderLine(List<OrdersDTO> recentOrderLine) {
 		for (OrdersDTO orderDTO:recentOrderLine) {
-			System.out.println(orderDTO.getOrder_code()+"\t"+orderDTO.getOrder_date()+"\t"+orderDTO.getOrder_total_price()+"\t"+orderDTO.getDelivery_status()+"\t"+orderDTO.getOrder_delivery_time());
+			System.out.println(orderDTO.getOrder_code()+"\t"+orderDTO.getStoresDTO().getStore_name()+"\t"+orderDTO.getOrder_date()+"\t"+orderDTO.getOrder_total_price());
 		}		
 	}
 	
@@ -323,11 +329,12 @@ public class SuccessView {
 	 * 판매자 승인 신청 조회72
 	 * */
 	public static void regisCheck(StoresDTO storeDTO) {
-		
-			System.out.println(storeDTO.getStore_regis_date()+"\t"+storeDTO.getStore_regis_status()+"\t"+storeDTO.getStore_approval_date());
-		
+		System.out.println(storeDTO.getStore_regis_date() + "     " + storeDTO.getStore_regis_status() + "     "
+				+ storeDTO.getStore_approval_date());
 	}
 		
+	
+	
 	/**
 	 * 메세지 INSERT, UP, DE
 	 * */
@@ -338,15 +345,15 @@ public class SuccessView {
 	 * 메뉴별 월별 조회
 	 * */
 	public static void menuSalesByMonth(List<OrdersDTO> menuSalesByMonth) {
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                              [월별 매출  조회  ]                                 ");
-		System.out.println("       월                                총 매출                   ");		
-		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("-----------------------------------");
+		System.out.println("        [월별 매출  조회  ]        \n");
+		System.out.println("     월                  총 매출   ");		
+		System.out.println("-----------------------------------");
 		
 		for(OrdersDTO ordersDTO:menuSalesByMonth) {
-			System.out.println(ordersDTO.getMonth()+"\t"+ordersDTO.getMenu_sales());
+			System.out.println("   "+ordersDTO.getMonth()+"             "+ordersDTO.getMenu_sales());
 		}
-		System.out.println("--------------------------------------------------------------------");
+		System.out.println("-----------------------------------");
 	}
 	
 	/**
@@ -354,7 +361,7 @@ public class SuccessView {
 	 * */
 	public static void menuSales(List<MenuDTO> menuSalesList) {
 		for(MenuDTO menuDTO : menuSalesList) {
-			System.out.println(menuDTO.getMenu_code() + "\t" + menuDTO.getMenu_name() + "\t" + menuDTO.getTotal_profit());
+			System.out.println(menuDTO.getMenu_code() + "     " + menuDTO.getMenu_name() + "     " + menuDTO.getTotal_profit());
 		}
 	}
 	
