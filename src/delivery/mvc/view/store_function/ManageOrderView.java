@@ -9,10 +9,7 @@ import delivery.mvc.view.actor.StoreView;
 public class ManageOrderView {
 private static Scanner sc= new Scanner(System.in);
 	
-//	public static void main(String[] args) {
-//		ManageOrderView.manageOrder();
-//	}
-	
+
 	public static void manageOrder(String userid) {
 		while (true) {
 
@@ -48,17 +45,12 @@ private static Scanner sc= new Scanner(System.in);
 	public static void orderDetail(String userid) {
 		System.out.print("* * * 주문코드를 입력해주세요. >>");
 		String orderCode = sc.nextLine();
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("            ["+orderCode+"에 따른 ㅇㅇㅇ(db불러옴)회원 주문 상세 ]                            ");
-		System.out.println("                 메뉴         수량         금액          총금액                   ");
+
 		OrdersController.selectOrderLine(Integer.parseInt(orderCode));                                             
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("       	1. 주문승인하기         2. 주문취소하기          3. 뒤로가기              ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
-		
-		
-		//System.out.println("* * * 예상 배달시간을 입력해주세요. >> ");
 		
 		while (true) {
 			int menu = Integer.parseInt(sc.nextLine());
@@ -66,7 +58,6 @@ private static Scanner sc= new Scanner(System.in);
 			switch (menu) {
 			case 1:
 				acceptOrder(orderCode);//주문승인하기
-				
 				return;
 				
 			case 2:

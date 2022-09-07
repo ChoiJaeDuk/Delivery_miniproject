@@ -32,6 +32,7 @@ public class OrdersController {
 		try {
 			List<OrdersDTO> list = orderService.selectOrderList(store_code);
 			//view·Î Ãâ·Â
+			
 			for (OrdersDTO orders: list) {
 				System.out.print("\t  "+ orders.getOrder_code()+"\t  ");
 				System.out.print(orders.getUser_id()+"\t  ");
@@ -39,6 +40,7 @@ public class OrdersController {
 				System.out.print(orders.getUsers().getUsers_addr()+"\t");
 				System.out.print(orders.getDelivery_status().getDelivery_status()+"\t");
 				System.out.println();
+			
 			}
 			
 		}catch (Exception e) {
@@ -65,11 +67,9 @@ public class OrdersController {
 	 * */
 	public static void selectOrderLine(int order_code) {
 		try {
-			List<MenuDTO> list = orderService.selectOrderLine(order_code);
-			SuccessView.selectOrderLine(list);
-			//for (MenuDTO menu :list) {
-			//	System.out.println(menu.getMenu_name()+"  "+ menu.getOrderLine().getOrder_quntity() +"  "+ menu.getMenu_price()+"  "+menu.getTotal_price() );
-			//}
+			List<MenuDTO> list = orderService.selectOrderLine(order_code); 
+			SuccessView.selectOrderLine(list, order_code);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

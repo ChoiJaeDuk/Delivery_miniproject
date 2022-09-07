@@ -89,7 +89,7 @@ public class StoresController {
 	}
 	
 	
-	public static void storesSelectByMenu(String menu_name){
+	public static void storesSelectByMenu(String arrage,String menu_name){
 		try {
 			List<StoresDTO> list = storesService.storesSelectByMenu(menu_name);
 			SuccessView.selectStoreList(list);
