@@ -48,11 +48,11 @@ public class ManageStoreView {
 	}
 	
 	public static void printMenu() {
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                               [가 게 관 리]                                      ");
+		System.out.println("-------------------------------------------------------------------------------------");
+		System.out.println("                               [가 게 관 리]                                         ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("1. open/close 상태 설정    2. 메뉴 관리     3. 판매통계    4. 후기관리    5. 뒤로가기");
-		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
 		
 	}
@@ -369,6 +369,9 @@ public class ManageStoreView {
 		
 		MenuController.menuSelectByMenu(user_id);
 	}
+	
+	
+	
 	/**
 	 * 댓글리스트/후기리스트
 	 * */
@@ -377,7 +380,7 @@ public class ManageStoreView {
 	System.out.println("                                [   후   기   ]                                   ");
 	System.out.println("         후기코드      usderid       별점        후기          등록일              ");
 	System.out.println("----------------------------------------------------------------------------------");
-	System.out.println("          1111      ??usderid?           4          맛있어유~       2022-09-01        ");
+	//컨트롤러 호출하기 - 석세스 뷰....
 	System.out.println("----------------------------------------------------------------------------------");
 		
 	}

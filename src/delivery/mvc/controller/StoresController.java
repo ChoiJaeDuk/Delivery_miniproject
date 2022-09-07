@@ -114,12 +114,16 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 판매자 신청 성공
+	 * @param storesDTO
+	 */
 	public static void storeInsert(StoresDTO storesDTO){
 		try {
 			storesService.storeInsert(storesDTO);
 			SuccessView.getmessagePrint("가게등록 성공하였습니다");
 		}catch(SQLException e){
-			//e.printStackTrace();
+			
 			FailView.errorMessage(e.getMessage());
 		}
 	}

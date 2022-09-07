@@ -11,14 +11,9 @@ import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
 public class MypageView {
-	//private static final String usersId = null;
+	
 	static Scanner sc = new Scanner(System.in);
-	
-	/*public static void main(String[] args) {
-		mypage();
-	}*/
-	
-	
+
 	public static void mypage(String usersId){
 		
 		SessionSet ss = SessionSet.getInstance();
@@ -37,8 +32,8 @@ public class MypageView {
 				System.out.println("* * * 비밀번호를 입력해주세요. >> ");
 				String usersPwd = sc.nextLine();
 				
-				//컨트롤러 호출, 비밀번호 인증하기!
-				int result = UsersController.pwdCheck(userId, usersPwd);
+				
+				int result = UsersController.pwdCheck(userId, usersPwd);//컨트롤러 호출, 비밀번호 인증하기!
 				if(result == 1) personalInfo();
 				
 				mypage(usersId);
@@ -72,7 +67,7 @@ public class MypageView {
 	private static void personalInfo() {
 		SessionSet ss = SessionSet.getInstance();
 		String userId = ss.getSet().iterator().next().getSessionId();
-        //System.out.println("personalInfo의 userId = " + userId );
+     
         
 		while(true) {
 			System.out.println("----------------------------------------------------------------------------");
@@ -89,8 +84,8 @@ public class MypageView {
 					String usersNick = sc.nextLine();					
 					System.out.println("* * * 변경할 닉네임을 입력해주세요. >> ");
 					String newUsersNick = sc.nextLine();
-					//닉네임변경 메소드(controller)
-					UsersController.nickUpdate(usersNick, newUsersNick);
+					
+					UsersController.nickUpdate(usersNick, newUsersNick);//닉네임변경 메소드(controller)
 					personalInfo();
 					break;
 					
@@ -116,8 +111,8 @@ public class MypageView {
 					System.out.println("* * * 현재 비밀번호를 입력해주세요. >> ");
 					String usersPwd = sc.nextLine();
 				
-					//컨트롤러 호출, 비밀번호 인증하기!
-					UsersController.pwdCheck(userId, usersPwd);
+					
+					UsersController.pwdCheck(userId, usersPwd); //컨트롤러 호출, 비밀번호 인증하기!
 					
 					System.out.println("* * * 변경할 비밀번호를 입력해주세요. >> ");
 					String newUsersPwd = sc.nextLine();
@@ -201,10 +196,8 @@ public class MypageView {
 		switch(orderLine) {
 			case 1:		
 				
-				//주문취소 메소드(UsersController //난 order_code사용했는데..,?)
-				UsersController.cancelOrder(order_code);
 				
-				System.out.println("환불(취소)되었습니다.");
+				UsersController.cancelOrder(order_code);
 				orders(userId);//주문내역 --> 배송상태 업데이트 하기!!!
 				break;
 			case 2:
@@ -316,7 +309,7 @@ public class MypageView {
 	 * @param userId 
 	 */
 	private static void storeRegis(String userId) {
-
+		int categoryCode =0;
 		
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                             [ 판매자 신청서 ]                              \n");
@@ -328,10 +321,10 @@ public class MypageView {
 		int storeRegis = Integer.parseInt(sc.nextLine());
 		switch(storeRegis) {
 		case 1:
-			System.out.println("* * * 가게 이름을 입력해주세요. >> ");
+			System.out.println("* * * 가게 이름을 입력해주세요. >> "); //테이블에서 자릿수 늘려주세요.
 			String storeName = sc.nextLine();
 			
-			System.out.println("* * * 가게 주소를 입력해주세요. >> ");
+			System.out.println("* * * 가게 주소를 입력해주세요. >> ");//테이블에서 자릿수 늘려주세요.
 			String storeAddr = sc.nextLine();
 			
 			System.out.println("* * * 가게 전화번호를 입력해주세요. >> ");
@@ -340,20 +333,37 @@ public class MypageView {
 			System.out.println("* * * 사업자등록번호를 입력해주세요. >> ");
 			String storeBusinessNo = sc.nextLine();
 			
+			boolean run = true;
+			while(run) {
 			System.out.println("* * * 음식 카테고리 중 1가지를 입력해주세요. >> ");
 			System.out.println("(1.양식   2.중식   3.한식)");
-			int categoryCode = Integer.parseInt(sc.nextLine());
+				categoryCode = Integer.parseInt(sc.nextLine());
+				switch(categoryCode) {
+					case 1:
+						run = false;
+						break;
+					case 2:
+						run = false;
+						break;
+					case 3 : 
+						run = false;
+						break;
+					default : 
+						System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+						break;
+						
+				}
+			}
 			
-			System.out.println("* * * 가게 설명을 입력해주세요. >> ");
+			
+			System.out.println("* * * 가게 설명을 입력해주세요. >> ");//테이블에서 자릿수 제한 풀어주세요.
 			String storeDetail = sc.nextLine();
 			
 			System.out.println("* * * 배달료를 입력해주세요. >> ");
 			int delivery_fee = Integer.parseInt(sc.nextLine());
 			
 			StoresDTO store = new StoresDTO(userId, storeName, storeAddr, storePhone, storeBusinessNo, categoryCode,  storeDetail,  delivery_fee);
-			// 양식, 중식, 한식 외 입력 시 오류메세지!!  
-			//2가지 입력 시 오류 메세지!!
-			
+
 			storeRegister(store);
 			break;
 			
@@ -379,7 +389,7 @@ public class MypageView {
 	}
 	
 	/**
-	 * 판매자신청
+	 * 판매자신청서 제출 최종확인 질문!!!
 	 * @param userId 
 	 */
 	private static void storeRegister(StoresDTO store) {		
@@ -392,11 +402,10 @@ public class MypageView {
 		int storeRegister = Integer.parseInt(sc.nextLine());
 		switch(storeRegister) {
 			case 1:
-				StoresController.storeInsert(store);;
-				System.out.println("판매자 신청이 완료되었습니다.");
+				StoresController.storeInsert(store);
 				storeRegis(store.getUser_id());
 				break;
-			case 2:
+			case 2:				
 				System.out.println("판매자 신청이 취소되었습니다.");
 				storeRegis(store.getUser_id());
 				break;
