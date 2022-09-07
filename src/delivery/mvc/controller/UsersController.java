@@ -187,5 +187,19 @@ public class UsersController {
 		return value;
 	}
 
+	/**
+	 * 회원정보 출력
+	 * @param userDTO 
+	 */
+	public static void userInfoPrint(String user_id) {
+		try {
+			UsersDTO usersDTO = usersService.selectUserInfoAllPrint(user_id);
+			SuccessView.printUserInfo(usersDTO);
+		}catch(Exception e) {
+			FailView.errorMessage(e.getMessage());
+		}
+	}
+	
+	
 	
 }

@@ -449,6 +449,37 @@ public class UsersDAOImpl implements UsersDAO {
 		return users;
 	
 	}
-
+	
+	
+	public UsersDTO selectUserInfoAllPrint(String user_id) throws SQLException{
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		UsersDTO users = null;
+		
+		try{
+			con = DbUtil.getConnection();
+			ps= con.prepareStatement("SELECT *FROM USERS WHERE USER_ID = ?");
+			ps.setString(1, user_id);
+			
+		    rs = ps.executeQuery(); 
+	    
+		    if(rs.next()) {
+		    	 users = new UsersDTO(rs.getString(1), 
+		    			 rs.getString(2),
+		    			 rs.getString(3),
+		    			 rs.getString(4),
+		    			 rs.getString(5),
+		    			 rs.getString(6),
+		    			 rs.getString(7),
+		    			 rs.getString(8),
+		    			 rs.getString(9)
+		    	);
+		    }
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return users;
+	}
 
 }

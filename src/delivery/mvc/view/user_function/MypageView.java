@@ -71,7 +71,8 @@ public class MypageView {
         
 		while(true) {
 			System.out.println("----------------------------------------------------------------------------");
-			System.out.println("                          [ " + userId + "님 개인정보 ]                  \n\n\n\n");
+			System.out.println("                          [ " + userId + "님 개인정보 ]                  \n");
+			UsersController.userInfoPrint(userId);
 			System.out.println("----------------------------------------------------------------------------");
 			System.out.println("1.닉네임 변경   2.주소 변경   3.전화번호 변경   4.비밀번호 변경   5.뒤로가기");
 			System.out.println("----------------------------------------------------------------------------");
@@ -224,6 +225,7 @@ public class MypageView {
 
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                          [ 내가 작성한 후기 목록 ]                         \n");
+		System.out.println("후기 코드       가게 이름       평점       후기       댓글        등록일   ");
 		ReviewController.reviewUserAll(userId);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.후기 등록           2.후기 수정           3.후기 삭제           4.뒤로가기");

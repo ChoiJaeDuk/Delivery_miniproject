@@ -101,6 +101,12 @@ public interface UsersDAO {
 	 * 주문시 주문내역에 들어갈 주문자의 주소와 전화번호를 가져오기 위한 메소드
 	 * */
 	public UsersDTO selectUserInfoByID(String user_id) throws SQLException;
+	
+	/**
+	 * 회원정보 
+	 */
+	
+	public UsersDTO selectUserInfoAllPrint(String user_id) throws SQLException;
 
 
 }
