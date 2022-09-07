@@ -37,7 +37,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 			con = DbUtil.getConnection();
 			con.setAutoCommit(false);
 			
-			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, CURRENT_DATE, ?,NULL,NULL,0)");
+			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, CURRENT_DATE, ?,NULL,NULL,0,?,?)");
 			ps.setString(1,orders.getUser_id());
 			ps.setInt(2, orders.getStore_code());
 			ps.setInt(3, orders.getOrder_total_price());

@@ -12,7 +12,8 @@ public class OrdersDTO {
 	private String order_approval_time;
 	private String order_delivery_time;
 	private int delivery_code;
-	
+	private String delivery_addr;
+	private String user_phone;
 	
 	private UsersDTO users;
 	private Delivery_StatusDTO delivery_status;
@@ -32,11 +33,13 @@ public class OrdersDTO {
 	
 	
 	
-	public OrdersDTO(String user_id, int store_code, int order_total_price) {
+	public OrdersDTO(String user_id, int store_code, int order_total_price, String delivery_addr, String user_phone) {
 		super();
 		this.user_id = user_id;
 		this.store_code = store_code;
 		this.order_total_price = order_total_price;
+		this.delivery_addr = delivery_addr;
+		this.user_phone = user_phone;
 	}
 
 
@@ -143,6 +146,33 @@ public class OrdersDTO {
 		this.delivery_code = delivery_code;
 	}
 	
+	
+	
+	
+	public String getDelivery_addr() {
+		return delivery_addr;
+	}
+
+
+
+	public void setDelivery_addr(String delivery_addr) {
+		this.delivery_addr = delivery_addr;
+	}
+
+
+
+	public String getUser_phone() {
+		return user_phone;
+	}
+
+
+
+	public void setUser_phone(String user_phone) {
+		this.user_phone = user_phone;
+	}
+
+
+
 	public int getStore_code() {
 		return store_code;
 	}

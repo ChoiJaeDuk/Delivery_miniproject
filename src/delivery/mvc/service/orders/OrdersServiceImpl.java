@@ -27,6 +27,8 @@ public class OrdersServiceImpl implements OrdersService {
 		int storeCode = ordersDao.selectStoreCodeByMenuCode(menuCode, user_id);
 		
 		OrdersDTO orders = new OrdersDTO(user_id, storeCode, basket_total_price);		
+		
+		
 		int result = ordersDao.orderInsert(orders);
 		if(result == 0 ) throw new SQLException("주문하기 실패");
 	
