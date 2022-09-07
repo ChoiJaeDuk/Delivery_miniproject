@@ -24,6 +24,7 @@ public class BasketDAOImpl implements BasketDAO {
 		ResultSet rs = null;
 		List<BasketDTO> list = new ArrayList<BasketDTO>();
 		String sql_bascket = "Select * from bascket where user_id=?";
+	
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql_bascket);
@@ -41,6 +42,7 @@ public class BasketDAOImpl implements BasketDAO {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		return list;
+		
 	}
 
 	/**
@@ -151,5 +153,26 @@ public class BasketDAOImpl implements BasketDAO {
 			DbUtil.dbClose(null, ps);
 		}
 		return result;
+	}
+	
+	
+	public BasketDTO basketSelectScoreCode(String user_id) throws SQLException{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		BasketDTO basket = null;
+		String sql = "SELECT DISTINCT STORE_CODE FROM BASCKET B JOIN MENU M ON B.MENU_CODE = M.MENU_CODE WHERE B.USER_ID = ?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, user_id);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				basket = new BasketDTO(rs.getInt(1),user_id);			
+			}
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return basket;
 	}
 }

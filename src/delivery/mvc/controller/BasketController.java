@@ -35,14 +35,10 @@ public class BasketController {
 	 */
 	public static void basketInsert(BasketDTO basket) {
 		try {
-			List<BasketDTO> basketList = service.bascketSelectAll(basket.getUser_id());
-			for (BasketDTO basketDto : basketList) {
-				if (basket.getStore_code() != basketDto.getStore_code()) throw new SQLException("같은 가게의 메뉴만 주문 가능합니다!");
-			}
 			service.bascketInsert(basket);
 			SuccessView.getmessagePrint("장바구니에 추가되었습니다");
 		} catch (Exception e) {
-			
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 	

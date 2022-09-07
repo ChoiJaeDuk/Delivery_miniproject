@@ -41,4 +41,9 @@ public interface BasketDAO {
 	 * 장바구니 결제하기
 	 */
 	int basketDelete(Connection con, OrdersDTO orders) throws SQLException;
+
+	/**
+	 * 장바구니의 메뉴코드를 통해 메뉴의 store_code를 리턴하는 메소드
+	 * */
+	public BasketDTO basketSelectScoreCode(String user_id) throws SQLException;
 }

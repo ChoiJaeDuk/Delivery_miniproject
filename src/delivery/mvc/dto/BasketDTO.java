@@ -21,6 +21,14 @@ public class BasketDTO {
 		this.basket_quantity = basket_quantity;
 	}
 	
+	
+	
+	public BasketDTO(int store_code, String user_id ) {
+		
+		this.user_id = user_id;
+		this.store_code = store_code;
+	}
+
 	public BasketDTO(String user_id, int menu_code) {
 		this.user_id = user_id;
 		this.menu_code = menu_code;
