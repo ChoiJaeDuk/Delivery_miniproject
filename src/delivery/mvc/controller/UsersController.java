@@ -171,6 +171,25 @@ public class UsersController {
 			//System.out.println("오류");
 		}
 	}
+	
+	
+	public static int pwdCheck(String user_id, String input_pwd) {
+		int value =0;
+		try {
+			String result = usersService.pwdCheck(user_id,input_pwd);
+			if(result.equals(input_pwd)) {
+				System.out.println("컨트롤 : 비밀번호가 일치합니다.");
+				value = 1;
+				
+			}
+			
+		} catch (Exception e) {
+			FailView.errorMessage(e.getMessage());
+			System.out.println("컨트롤 : 비밀번호 불일치");
+		}
+		
+		return value;
+	}
 
 	
 }

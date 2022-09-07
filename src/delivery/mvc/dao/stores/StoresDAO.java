@@ -19,7 +19,7 @@ public interface StoresDAO {
 	/**
 	 * 가게목록(별점,후기,주문건) 전체검색
 	 * */
-	List<StoresDTO> storesSelectAll() throws SQLException;
+	List<StoresDTO> storesSelectAll(String arrange) throws SQLException;
 	
 	/**
 	 * 가게코드로 가게 검색
@@ -103,6 +103,10 @@ public interface StoresDAO {
 	 * */
 	List<OrdersDTO> storeSalesByMonth(int store_code) throws SQLException;
 	
+	/**
+	 * 가게에 메뉴 매출 조회
+	 * */
+	List<MenuDTO> menuSales(String users_id) throws SQLException;
 	
 	/**
 	 * 가게별 메뉴당 월별 매출조회

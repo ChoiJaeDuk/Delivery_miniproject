@@ -3,13 +3,14 @@ package delivery.mvc.service.stores;
 import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 
 public interface StoresService {
 	 List<StoresDTO> storesInfoSelectAll() throws SQLException;
 	 
-	 List<StoresDTO> storesSelectAll() throws SQLException;
+	 List<StoresDTO> storesSelectAll(String arrange) throws SQLException;
 	 
 	 StoresDTO storeSelcetByCode(int store_code) throws SQLException;
 	 
@@ -30,6 +31,8 @@ public interface StoresService {
 	 List<StoresDTO> storesSales() throws SQLException;
 	 
 	 List<OrdersDTO> storesSalesByMonth(int store_code) throws SQLException;
+	 
+	 List<MenuDTO> menuSales(String users_id) throws SQLException;
 	 
 	 List<OrdersDTO> menuSalesByMonth(String users_id, int menu_code) throws SQLException;
 	 

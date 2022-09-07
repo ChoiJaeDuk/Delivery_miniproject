@@ -246,7 +246,7 @@ public class ManageStoreView {
 		System.out.println("               메뉴코드            메뉴이름             총 매출                   ");
 		System.out.println("----------------------------------------------------------------------------------");
 		
-		StoresController.storesSales();
+		StoresController.menuSales(users_id);
 		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("               	1. 세부 매출 조회              2. 뒤로가기                        ");

@@ -16,14 +16,32 @@ public class ReviewServiceImpl implements ReviewService {
 		if(list.size() == 0 || list.isEmpty()) throw new SQLException(stores_code + "의 후기가 없습니다.");
 		return list;
 	}
-
+	
 	@Override
-	public void reviewInsert(ReviewDTO reviewDTO) throws SQLException {
-		int result = reviewDAO.reviewInsert(reviewDTO);
-		if(result == 0) throw new SQLException("후기 등록을 실패했습니다.");
-
+	public List<ReviewDTO> reviewUserAll(String user_id) throws SQLException {
+		List<ReviewDTO> list = reviewDAO.reviewUserAll(user_id);
+		if(list.size() == 0 || list.isEmpty()) throw new SQLException(user_id + "의 후기가 없습니다.");
+		return list;
 	}
 
+	@Override
+	public void reviewInsert(String userId, int order_code, String reviewDetail, int starGrade) throws SQLException {
+		int storeCode = reviewDAO.storeCodeSelectByOrderCode(order_code);
+		System.out.println(storeCode);
+		ReviewDTO reviewDTO = new ReviewDTO(userId, order_code, storeCode, reviewDetail, starGrade);
+		int result = reviewDAO.reviewInsert(reviewDTO);
+		if(result == 0) throw new SQLException("후기 등록을 실패했습니다.");
+	}
+	
+	public static void main(String[] args) {
+		try {
+			new ReviewServiceImpl().reviewInsert("userte", 2, "존맛탱" , 5);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void reviewUpdate(ReviewDTO reviewDTO) throws SQLException {
 		int result = reviewDAO.reviewUpdate(reviewDTO);
@@ -37,5 +55,6 @@ public class ReviewServiceImpl implements ReviewService {
 		if(result == 0) throw new SQLException("후기 삭제를 실패했습니다.");
 
 	}
+
 
 }

@@ -8,14 +8,9 @@ import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserBascketView {
-	//private static final String usersId = null;
+
 	static Scanner sc = new Scanner(System.in);
-	
-	
-	public static void main(String[] args) {
-		bascket("testid3");
-	}
-	
+
 	/**
 	 * 장바구니 조회
 	 */
@@ -87,7 +82,6 @@ public class UserBascketView {
 	public static void bascketOrder(String user_id) {
 		System.out.println("* * * 주문이 완료되었습니다. >> ");
 		System.out.println("* * * 주문 승인을 대기 중입니다. >> \n\n");
-		
-		//OrdersController.insertOrders();
+		OrdersController.insertOrders(user_id);
 	}
 }

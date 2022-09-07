@@ -7,9 +7,9 @@ import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.service.menu.MenuService;
 import delivery.mvc.service.menu.MenuServiceImpl;
-import delivery.mvc.view.SuccessView;
 import delivery.mvc.service.stores.StoresService;
 import delivery.mvc.service.stores.StoresServiceImpl;
+import delivery.mvc.view.SuccessView;
 
 public class MenuController {
 	private static MenuService menuservice = new MenuServiceImpl();
@@ -35,10 +35,7 @@ public class MenuController {
 	public static void menuSelectByStore(String user_id) {
 		try {
 			StoresDTO store = storeservice.storeSelectById(user_id);
-			if(store.getCategory_code()==1) System.out.println("4.파스타 5.피자 6. 스테이크");
-			else if (store.getCategory_code()==2) System.out.println("7.고구마 8.피자 9. 스테이크");
-			else if (store.getCategory_code()==1) System.out.println("4.감자 5.피자 6. 스테이크");
-			else throw new SQLException("상위 카테고리가 잘못되었습니다");
+			SuccessView.insertMenu(store);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

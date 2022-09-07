@@ -69,4 +69,9 @@ public interface UsersService {
 	 * 환불&주문 취소
 	 */
 	void cancelOrder(int order_code) throws SQLException;
+	
+	/**
+	 * 비밀번호 체크
+	 */
+	String pwdCheck(String user_id, String input_pwd) throws SQLException;
 }

@@ -25,7 +25,7 @@ public class UserCategorySelect {
 	public static void totalStoreList() {
 		selectLayout();
 		//StoresController.storesInfoSelectAll();
-		StoresController.storesSelectAll();
+		StoresController.storesSelectAll("");
 		
 	}
 	
@@ -40,8 +40,5 @@ public class UserCategorySelect {
 
 		StoresController.storesSelectByMenu(menuName);
 	}
-	
-	public static void main(String[] args) {
-		totalStoreList();
-	}
+
 }
