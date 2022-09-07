@@ -13,7 +13,7 @@ import delivery.mvc.dto.StoresDTO;
 
 
 public class SuccessView {
-	
+
 	
 	/**
 	 * 가게 전체 목록 6
