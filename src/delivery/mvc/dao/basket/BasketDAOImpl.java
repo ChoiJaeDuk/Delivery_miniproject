@@ -90,13 +90,42 @@ public class BasketDAOImpl implements BasketDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, basket.getUser_id());
-			ps.setInt(2, basket.getMenu_code());
-			ps.setInt(3, basket.getBasket_quantity());
-			result = ps.executeUpdate();
+			
+			if(storeCheck(con, basket.getUser_id(), basket.getMenu_code())==0) {
+				ps.setInt(2, basket.getMenu_code());
+				ps.setInt(3, basket.getBasket_quantity());
+				result = ps.executeUpdate();
+			}
+			
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
 		return result;
+	}
+	
+	private int storeCheck(Connection con, String user_id, int menu_code) throws SQLException{
+		PreparedStatement ps = null;
+		String sql = "select NVL(nullif((select distinct store_code from bascket join menu on bascket.menu_code = menu.menu_code where user_id = ?),(select store_code from menu where menu_code =?)),0) result from dual";
+		int result = 0;
+		ResultSet rs = null;
+		
+		try {
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, user_id);
+			ps.setInt(2, menu_code);
+			
+			rs = ps.executeQuery();
+			if(rs.next()) result = rs.getInt(1);
+			
+			
+		}finally {
+			DbUtil.dbClose(null, ps);
+		}
+		
+		
+		return result;
+		
 	}
 
 	@Override

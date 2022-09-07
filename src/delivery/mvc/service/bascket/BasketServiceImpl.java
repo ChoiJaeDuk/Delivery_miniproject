@@ -27,7 +27,7 @@ public class BasketServiceImpl implements BasketService {
 
 	@Override
 	public void bascketInsert(BasketDTO basket) throws SQLException {
-		BasketDTO basketDTO = bascketDAO.basketSelectScoreCode(basket.getUser_id());
+		/*BasketDTO basketDTO = bascketDAO.basketSelectScoreCode(basket.getUser_id());
 		int store_code = 0;
 		int result = 0;
 		if (basketDTO == null) {
@@ -38,7 +38,9 @@ public class BasketServiceImpl implements BasketService {
 			result = bascketDAO.basketInsert(basket);
 			if(result==0) throw new SQLException("변경이 실패되었습니다");
 		}else if(store_code != basketDTO.getStore_code()) throw new SQLException("동일한 가게에서만 주문할 수 있습니다.");
-	
+	*/
+		int result = bascketDAO.basketInsert(basket); 
+        if(result==0) throw new SQLException("동일한 가게만 주문할 수 있습니다.");
 		
 	}
 	
