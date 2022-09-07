@@ -111,6 +111,19 @@ public class UsersServiceImpl implements UsersService {
 		return result;
 	}
 
+	/**
+	 * 회원정보
+	 */
+	@Override
+	public UsersDTO selectUserInfoAllPrint(String user_id) throws SQLException {
+		UsersDTO user = usersDAO.selectUserInfoAllPrint(user_id);
+		if(user == null) throw new SQLException("정보를 찾을 수 없습니다.");
+		return user;
+	}
+	
+
+	
+	
 
 
 }

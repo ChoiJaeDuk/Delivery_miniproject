@@ -10,6 +10,7 @@ import delivery.mvc.dto.OrderLineDTO;
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.ReviewDTO;
 import delivery.mvc.dto.StoresDTO;
+import delivery.mvc.dto.UsersDTO;
 
 
 public class SuccessView {
@@ -178,9 +179,10 @@ public class SuccessView {
 	 * 판매통계 24
 	 * */
 	public static void salesStatus(List<MenuDTO> storeCodeSelectByMenu) {
-		for(MenuDTO menuDTO:storeCodeSelectByMenu) {
-			System.out.println(menuDTO.getMenu_code()+"\t"+menuDTO.getMenu_name()+"\t"+menuDTO.getTotal_price());
-		}
+		for (MenuDTO menuDTO : storeCodeSelectByMenu) {
+			System.out.println(menuDTO.getMenu_code() + "\t " + menuDTO.getMenu_name() + "\t "
+					+ menuDTO.getTotal_price());
+		} 
 	}
 	/**
 	 *세부매출 내역 조회 25
@@ -249,7 +251,7 @@ public class SuccessView {
 	public static void menuPrintAll(List<MenuDTO> menuSelectAll) {
 	
 		for(MenuDTO menuDTO : menuSelectAll) {
-			System.out.println(menuDTO.getMenu_code()+"             "+menuDTO.getMenu_name()+"             "+menuDTO.getMenu_price());
+			System.out.println("  "+menuDTO.getMenu_code()+"\t\t\t    "+menuDTO.getMenu_name()+"\t\t\t   "+menuDTO.getMenu_price());
 			
 		}	
 	}
@@ -261,7 +263,8 @@ public class SuccessView {
 		int total_price=0;
 		
 		for(BasketDTO basketDTO : basketSelectAll) {
-			System.out.println(basketDTO.getMenu_code()+"\t"+basketDTO.getStore_name()+"\t"+basketDTO.getMenu_name()+"\t"+basketDTO.getBasket_quantity()+"\t"+basketDTO.getSum_price());
+			System.out.println("  "+basketDTO.getMenu_code()+"\t"+basketDTO.getStore_name()+"\t\t"+basketDTO.getMenu_name()+"\t"+basketDTO.getBasket_quantity()+"\t"+basketDTO.getSum_price());
+			
 			total_price += basketDTO.getSum_price();
 		}
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = =");
@@ -272,11 +275,16 @@ public class SuccessView {
 	 * 해당 회원의 장바구니에 저장되어있는 메뉴들을 가져오는 메소드
 	 * */
 	public static void basketMenuSelect(List<MenuDTO> basketMenuSelect) {
-		for(MenuDTO menuDTO : basketMenuSelect) {
-			System.out.println(menuDTO.getMenu_code()+"     "+menuDTO.getMenu_name()+
-					"     "+menuDTO.getMenu_price()+"     "+menuDTO.getBasket().getBasket_quantity());
-			
+		int total_price=0;
+		for (MenuDTO menuDTO : basketMenuSelect) {
+			System.out.println(
+					"  "+menuDTO.getMenu_code() + "\t\t" + menuDTO.getStore().getStore_name() + "\t\t  " + menuDTO.getMenu_name()
+							+ "\t\t" + menuDTO.getBasket().getBasket_quantity() + "\t" + menuDTO.getMenu_price());
+			total_price += menuDTO.getMenu_price()*menuDTO.getBasket().getBasket_quantity();
+
 		}
+		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = =");
+		System.out.println("총 주문 금액 >> "+total_price);
 	}
 	/**
 	 * 가게전체검색 45 55 57 58
@@ -284,26 +292,30 @@ public class SuccessView {
 	public static void selectStoreList(List<StoresDTO> storesInfoSelectAll) {
 
 		for (StoresDTO storesDTO : storesInfoSelectAll) {
-			System.out.println(storesDTO.getStore_code() + "     " + storesDTO.getStore_name() + "     "
-					+ storesDTO.getStore_delivery_fee() + "     " + storesDTO.getReview_count() + "/"
-					+ storesDTO.getAvg_star_grade() + "     " + storesDTO.getOrder_count());
+			System.out.println("  " + storesDTO.getStore_code() + "\t     " + storesDTO.getStore_name() + "\t     "
+					+ storesDTO.getStore_delivery_fee() + "\t     " + storesDTO.getReview_count() + "/"
+					+ storesDTO.getAvg_star_grade() + "\t     " + storesDTO.getOrder_count());
 		}
 
 	}
 	/**
-	 * 개인정보 6263 ---------------------어디있지..
+	 * 개인정보 6263
 	 * */
-	public static void printUserInfo() {
-		
-	}
+	 public static void printUserInfo(UsersDTO userDTO) {
+	      System.out.println("\t\t\t"+"이   름  :  "+userDTO.getUsers_name()+
+	    		  "\n\t\t\t"+"닉 네 임 :  "+userDTO.getUsers_nick()+
+	    		  "\n\t\t\t"+"주   소  : "+userDTO.getUsers_addr()+
+	    		  "\n\t\t\t"+"전화번호 :  "+userDTO.getUsers_phone());
+	      
+	   }
 	
 	/**
 	 * 주문내역 64
 	 * */
 	public static void printOrderList(List<OrdersDTO> selectOrderList) {
 		for (OrdersDTO orderDTO : selectOrderList) {
-			System.out.println(orderDTO.getOrder_code() + "   " + orderDTO.getOrder_date() + "   "
-					+ orderDTO.getOrder_total_price() + "   " + orderDTO.getDelivery_status() + "   "
+			System.out.println("  "+orderDTO.getOrder_code() + "\t\t" + orderDTO.getOrder_date() + "\t"
+					+ orderDTO.getOrder_total_price() + "\t\t" + orderDTO.getDelivery_status().getDelivery_status() + "\t\t"
 					+ orderDTO.getOrder_delivery_time());
 		}
 	}
@@ -312,8 +324,8 @@ public class SuccessView {
 	 * */
 	public static void printOrderLine(List<OrderLineDTO> oll) {
 		for (OrderLineDTO orderLineDTO : oll) {
-			System.out.println(orderLineDTO.getOrder_line_code() + "    " + orderLineDTO.getStore().getStore_name()
-					+ "   " + orderLineDTO.getMenu().getMenu_name() + "   " + orderLineDTO.getOrder_quntity() + "   "
+			System.out.println("\t"+orderLineDTO.getOrder_line_code() + "\t\t" + orderLineDTO.getStore().getStore_name()
+					+ "\t\t" + orderLineDTO.getMenu().getMenu_name() + "\t\t" + orderLineDTO.getOrder_quntity() + "\t"
 					+ orderLineDTO.getMenu().getMenu_price());
 		}
 	}
@@ -321,11 +333,11 @@ public class SuccessView {
 	/**
 	 * 내가 작성한 후기 목록 66, 6869
 	 * */
-	public static void reviewListByUserId(List<ReviewDTO> reviewListByUserId) {
-		for (ReviewDTO reviewDTO:reviewListByUserId) {
-			System.out.println(reviewDTO.getUser_id()+"\t"+reviewDTO.getOrder_code()+"\t"+reviewDTO.getStar_grade()+"\t"+reviewDTO.getReview_detail()+"\t"+reviewDTO.getPost_date());
-			}
-	}
+	   public static void reviewListByUserId(List<ReviewDTO> reviewListByUserId) {
+		      for (ReviewDTO reviewDTO:reviewListByUserId) {
+		         System.out.println("\t"+reviewDTO.getOrder_code()+"\t"+reviewDTO.getStar_grade()+"\t"+reviewDTO.getReview_detail()+"\t"+reviewDTO.getPost_date());
+		         }
+		   }
 	/**
 	 * 최근주문 내역 67--------------?
 	 * */
@@ -339,7 +351,7 @@ public class SuccessView {
 	 * 판매자 승인 신청 조회72
 	 * */
 	public static void regisCheck(StoresDTO storeDTO) {
-		System.out.println(storeDTO.getStore_regis_date() + "     " + storeDTO.getStore_regis_status() + "     "
+		System.out.println("  "+storeDTO.getStore_regis_date() + "\t\t" + storeDTO.getStore_regis_status() + "\t\t\t"
 				+ storeDTO.getStore_approval_date());
 	}
 		

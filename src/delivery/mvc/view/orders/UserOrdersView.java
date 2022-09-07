@@ -375,7 +375,8 @@ public class UserOrdersView {
 	public static void menu(int store_code, String user_id) {
 		System.out.println("\n\n----------------------------------------------------------------");
 		System.out.println("                            [ 메뉴 ]                            \n");
-		System.out.println("1.메뉴코드                  2.메뉴이름                   3.가격");
+		System.out.println("메뉴코드                      메뉴이름                      가격");
+		System.out.println("----------------------------------------------------------------");
 		MenuController.menuSelectByAllByUser(store_code);
 		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");

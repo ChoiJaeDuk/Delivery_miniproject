@@ -74,4 +74,9 @@ public interface UsersService {
 	 * 비밀번호 체크
 	 */
 	String pwdCheck(String user_id, String input_pwd) throws SQLException;
+	
+	/**
+	 * 회원정보
+	 */
+	UsersDTO selectUserInfoAllPrint(String user_id) throws SQLException;
 }
