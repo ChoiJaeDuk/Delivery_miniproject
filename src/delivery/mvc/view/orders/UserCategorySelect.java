@@ -32,13 +32,15 @@ public class UserCategorySelect {
 	/**
 	 * %메뉴% 검색 -가게 목록 조회
 	 */
-	public static void menuSelect() {
+	public static String menuSelect() {
 		System.out.println("* * * 메뉴이름을 입력해주세요. >> ");
 		String menuName =sc.nextLine();
 		
 			selectLayout();
 
-		StoresController.storesSelectByMenu(menuName);
+		StoresController.storesSelectByMenu("", menuName);
+		
+		return menuName;
 	}
 
 }

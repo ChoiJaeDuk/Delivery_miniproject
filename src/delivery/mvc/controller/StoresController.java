@@ -90,9 +90,9 @@ public class StoresController {
 	}
 	
 	
-	public static void storesSelectByMenu(String menu_name){
+	public static void storesSelectByMenu(String arrange, String menu_name){
 		try {
-			List<StoresDTO> list = storesService.storesSelectByMenu(menu_name);
+			List<StoresDTO> list = storesService.storesSelectByMenu(arrange, menu_name);
 			SuccessView.selectStoreList(list);
 		}catch(SQLException e){
 			//e.printStackTrace();
@@ -100,22 +100,14 @@ public class StoresController {
 		}
 	}
 	
-	public static void storesSelectByCategory(int category_code){
+	public static void storesSelectByCategory(String arrange, int category_code){
 		
 		
 		try {
 			
-			if(category_code == 4 || category_code == 5 || category_code == 6) {
-				List<StoresDTO> list = storesService.storesSelectByCategory(1);
+				List<StoresDTO> list = storesService.storesSelectByCategory(arrange, category_code);
 				SuccessView.selectStoreList(list);
-			}else if (category_code == 7 || category_code == 8 || category_code == 9) {
-				List<StoresDTO> list = storesService.storesSelectByCategory(2);
-				SuccessView.selectStoreList(list);
-				
-			}else if (category_code == 10 || category_code == 11 || category_code == 12) {
-				List<StoresDTO> list = storesService.storesSelectByCategory(3);
-				SuccessView.selectStoreList(list);
-			}
+			
 		}catch(SQLException e){
 			//e.printStackTrace();
 			FailView.errorMessage(e.getMessage());

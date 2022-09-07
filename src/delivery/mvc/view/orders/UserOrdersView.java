@@ -13,6 +13,7 @@ public class UserOrdersView {
 
 	static Scanner sc = new Scanner(System.in);
 	static int category = 0;
+	static String menuName = null;
 	
 	
 	/**
@@ -20,6 +21,8 @@ public class UserOrdersView {
 	 *  가게, 메뉴 검색
 	 */
 	public static void deliveryMenu(String user_id) {
+		
+		
 		while(true) {
 			
 			SessionSet ss = SessionSet.getInstance();
@@ -46,8 +49,8 @@ public class UserOrdersView {
 					storeSelect(9, 0); //두번째 인수 index는 0이면 전체 가게 목록 select, 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 5:
-					UserCategorySelect.menuSelect();
-					storeSelect( 9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
+					menuName = UserCategorySelect.menuSelect();
+					storeSelect(9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 6:
 					UsersView.users(user_id);
@@ -137,7 +140,7 @@ public class UserOrdersView {
 				case 4:
 					System.out.println("----------------------------------------------------------------\n");
 					System.out.println("                       [ 피자 가게 목록 ]                       \n");
-					subFoodList(4);
+					subFoodList(subFood);
 				
 					return;
 				
@@ -229,51 +232,51 @@ public class UserOrdersView {
 		System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		
-		switch(subFoodList ) {//subFoodList에 가게목록을 담아서 리턴해준다.
+		switch(subFoodList) {//subFoodList에 가게목록을 담아서 리턴해준다.
 			case 4:
-				StoresController.storesSelectByCategory(subFoodList);
+				StoresController.storesSelectByCategory("",subFoodList);
 				
 				
-				storeSelect(9, 2); //int index
+				storeSelect(subFoodList, 2); //int index
 				break;
 			case 5:
 				
-				StoresController.storesSelectByCategory(subFoodList);
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory("",subFoodList);
+				storeSelect(subFoodList, 2);
 				break;
 			case 6:
-				StoresController.storesSelectByCategory(subFoodList);
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory("",subFoodList);
+				storeSelect(subFoodList, 2);
 				break;
 			case 7:
 				System.out.println("면 가게목록");
-				StoresController.storesSelectByCategory(subFoodList);
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory("",subFoodList);
+				storeSelect(subFoodList, 2);
 				break;
 			case 8:
 				System.out.println("요리 가게목록");
-				StoresController.storesSelectByCategory(subFoodList);
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory("",subFoodList);
+				storeSelect(subFoodList, 2);
 				break;
 			case 9:
 				System.out.println("밥 가게목록");
-				StoresController.storesSelectByCategory(subFoodList);
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory("",subFoodList);
+				storeSelect(subFoodList, 2);
 				break;
 			case 10:
 				System.out.println("찌개 가게목록");
-				StoresController.storesSelectByCategory(subFoodList);
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory("",subFoodList);
+				storeSelect(subFoodList, 2);
 				break;
 			case 11:
 				System.out.println("볶음 가게목록");
-				StoresController.storesSelectByCategory(subFoodList);
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory("",subFoodList);
+				storeSelect(subFoodList, 2);
 				break;
 			case 12:
 				System.out.println("찜/탕 가게목록");
-				StoresController.storesSelectByCategory(subFoodList);
-				storeSelect(9, 2);
+				StoresController.storesSelectByCategory("",subFoodList);
+				storeSelect(subFoodList, 2);
 				break;
 			
 		}//switch끝
@@ -282,7 +285,7 @@ public class UserOrdersView {
 	}
 	
 	
-	public static void storeSelect(int subFoodList , int ...index ) {//index=0이면arragne(), =1 menuarrage() 9,2
+	public static void storeSelect(int subFoodList, int ...index ) {//index=0이면arragne(), =1 menuarrage() 9,2
 		
 		SessionSet ss = SessionSet.getInstance();
 		String userId = ss.getSet().iterator().next().getSessionId();
@@ -304,9 +307,9 @@ public class UserOrdersView {
 				if (index[0] == 0)
 					StoreArrange.arrange(); // 전체가게조회 --> 전체 가게목록을 정렬해서 출력해야함.
 				else if (index[0] == 1)
-					StoreArrange.menuarrange(); // %메뉴%를 파는 가게 목록 정렬하기...
+					StoreArrange.menuarrange(menuName); // %메뉴%를 파는 가게 목록 정렬하기...
 				else if(index[0] == 2) // 하위카테고리(예:피자)만 파는 가게목록을 띄워줘야함. ???? 사용자 입력값에 따라 가게목록 호출해야하는데.....어렵다...
-					StoreArrange.categoryArrange();
+					StoreArrange.categoryArrange(subFoodList);
 				break;
 			
 			case 3:

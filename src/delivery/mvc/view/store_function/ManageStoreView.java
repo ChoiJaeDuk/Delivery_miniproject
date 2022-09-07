@@ -10,8 +10,8 @@ import delivery.mvc.view.actor.StoreView;
 
 public class ManageStoreView {
 	private static Scanner sc= new Scanner(System.in);
-	private static String users_id;
-	private static final String usersId = null;
+	//private static String users_id;
+	//private static final String usersId = null;
 	
 	public static void manageStore(String users_id) {
 		while (true) {
@@ -64,9 +64,14 @@ public class ManageStoreView {
 		//if(store.getStore_status() == 0 ) status = "close";
 		//else status = "open";
 		
+	//	SessionSet ss = SessionSet.getInstance();
+	//	String userId = ss.getSet().iterator().next().getSessionId();
+		//System.out.println(userId);
+		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [open/close 상태 ]                                 ");
 		//System.out.println("-------------지금은" + status + " 상태입니다 -------------------------------");
+	
 		StoresController.storeSelectStatus(user_id);
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("	      	1. open              2. close               3.뒤로가기                ");
@@ -78,12 +83,12 @@ public class ManageStoreView {
 			switch (menu) {
 			case 1:
 				openStore(1, user_id);
-				storeStatus(users_id);
+				storeStatus(user_id);
 				return; 
 				
 			case 2:
 				closeStore(0, user_id);
-				storeStatus(users_id);
+				storeStatus(user_id);
 				break;		
 			case 3:
 				manageStore(user_id);//뒤로가기
@@ -91,7 +96,7 @@ public class ManageStoreView {
 				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				storeStatus(users_id);
+				storeStatus(user_id);
 				break;	
 
 			}
@@ -119,6 +124,7 @@ public class ManageStoreView {
 	 * 2. 메뉴관리
 	 * */
 	public static void manageMenu(String user_id) {
+		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [ 메 뉴 관 리  ]                                   ");
 		System.out.println("----------------------------------------------------------------------------------");
@@ -241,6 +247,7 @@ public class ManageStoreView {
 	 * */
 	
 	public static void salesStatistics(String users_id) {
+
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [ 매 출 현 황 조 회  ]                             ");
 		System.out.println("               메뉴코드            메뉴이름             총 매출                   ");
@@ -279,13 +286,15 @@ public class ManageStoreView {
 	 * 3-1 세부매출조회
 	 * */
 	public static void salesDetail(String users_id, int menuCode) {//가게에 
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                              [   ㅇㅇㅇ 월별 매출 현황 조회  ]                                 ");
-		System.out.println("       월        메뉴코드            메뉴이름             총 매출                   ");		
-		System.out.println("----------------------------------------------------------------------------------");
+		//StoresController.storesSelectByCategory(users_id, menuCode);
+
+		//System.out.println("----------------------------------------------------------------------------------");
+		//System.out.println("                              [   ㅇㅇㅇ 월별 매출 현황 조회  ]                                 ");
+		//System.out.println("       월                     총 매출                   ");		
+		//System.out.println("----------------------------------------------------------------------------------");
 		StoresController.menuSalesByMonth(users_id, menuCode);
 		
-		System.out.println("----------------------------------------------------------------------------------");
+		//System.out.println("----------------------------------------------------------------------------------");
 	
 		
 	}
