@@ -293,7 +293,6 @@ public class OrdersDAOImpl implements OrdersDAO {
 		    	store_code = rs.getInt(1);
 		    }
 		      
-		    
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
 		}

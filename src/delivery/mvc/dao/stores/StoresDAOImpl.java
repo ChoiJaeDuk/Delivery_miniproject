@@ -57,12 +57,11 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "COUNT(DISTINCT R.REVIEW_DETAIL) AS REVIEW_COUNT, NVL(AVG(R.STAR_GRADE),0) AS STAR_AVG , COUNT(O.ORDER_CODE) AS ORDER_COUNT\r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE where s.store_regis_status = '½ÂÀÎ' and s.store_status = 1  \r\n"
-				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE" + arrange;
+				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE " + arrange;
 		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);				
-		
 
 			rs = ps.executeQuery();
 				
