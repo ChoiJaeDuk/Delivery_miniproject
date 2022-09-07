@@ -148,7 +148,7 @@ public class StoresDAOImpl implements StoresDAO {
 		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
 		StoresDTO stores = null;
  		String store_name = null;
-		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_CODE), NVL(AVG(R.STAR_GRADE),0) , COUNT(DISTINCT O.ORDER_CODE)\r\n"
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_CODE) AS REVIEW_COUNT , NVL(AVG(R.STAR_GRADE),0) AS STAR_AVG , COUNT(DISTINCT O.ORDER_CODE) AS ORDER_COUNT \r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE where s.store_regis_status = '½ÂÀÎ' and s.store_status = 1 \r\n"
 				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE\r\n" 
@@ -213,7 +213,7 @@ public class StoresDAOImpl implements StoresDAO {
 	
 		StoresDTO stores = null;
  		
-		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), NVL(AVG(R.STAR_GRADE),0) , COUNT(DISTINCT O.ORDER_CODE)\r\n"
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_CODE) AS REVIEW_COUNT , NVL(AVG(R.STAR_GRADE),0) AS STAR_AVG , COUNT(DISTINCT O.ORDER_CODE) AS ORDER_COUNT \r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
 				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE join menu m\r\n"
 				+ "on m.store_code = s.store_code\r\n where s.store_regis_status = '½ÂÀÎ' and s.store_status = 1"
