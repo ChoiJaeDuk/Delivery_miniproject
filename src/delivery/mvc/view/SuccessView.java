@@ -100,15 +100,15 @@ public class SuccessView {
 	
 	
 	/**
-	 * 후기조회 -
+	 * 후기조회 - 회원 마이페이지
 	 * 13 : 운영자가 조회하는 한 가게의 모든 후기
 	 * 47 : 회원이 조회하는 가게별 전체 후기 = 한 가게의 모든 후기
 	 * */
 	public static void reviewList(List<ReviewDTO> reviewSelectAll) {
 		for (ReviewDTO reviewDTO : reviewSelectAll) {
 			System.out.println(
-					reviewDTO.getOrder_code() + "     " + reviewDTO.getUser_id() + "     " + reviewDTO.getStar_grade()
-							+ "     " + reviewDTO.getReview_detail() + "     " + reviewDTO.getPost_date());
+					reviewDTO.getReview_code() + "     " + reviewDTO.getStoresDTO().getStore_name() + "     " + reviewDTO.getStar_grade()
+							+ "     " + reviewDTO.getReview_detail() + "     " + reviewDTO.getReply() + "     " + reviewDTO.getPost_date());
 		}
 	}
 	
@@ -119,7 +119,7 @@ public class SuccessView {
 	
 	public static void reviewListStore(List<ReviewDTO> reviewSelectAll) {
 		for (ReviewDTO reviewDTO: reviewSelectAll) {
-			System.out.println(reviewDTO.getReview_code()+"\t"+reviewDTO.getUser_id()+"\t"+reviewDTO.getStar_grade()+"\t"+reviewDTO.getReview_detail()+"\t"+reviewDTO.getPost_date());
+			System.out.println(reviewDTO.getReview_code()+"\t"+reviewDTO.getUser_id()+"\t"+reviewDTO.getStar_grade()+"\t"+reviewDTO.getReview_detail()+"\t"+reviewDTO.getReply()+"\t"+reviewDTO.getPost_date());
 		}
 	}
 	

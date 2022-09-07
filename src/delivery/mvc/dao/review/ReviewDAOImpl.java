@@ -15,28 +15,27 @@ import util.DbUtil;
 
 public class ReviewDAOImpl implements ReviewDAO {
 	private Properties proFile = DbUtil.getProFile();
-	
 	@Override
-	public List<ReviewDTO> reviewSelectAll(String stores_code) throws SQLException {
+	public List<ReviewDTO> reviewAdmintAll(int store_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		ResultSet rs= null;
 		
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		String sql = "select review_code, r.user_id,  star_grade, review_detail, post_date\r\n"
+		String sql = "select review_code, r.user_id,  star_grade, review_detail, post_date, reply\r\n"
 				+ "from review r join stores s\r\n"
 				+ "on r.store_code = s.store_code\r\n"
-				+ "where s.users_id = ?";
+				+ "where s.store_code = ?";
 		
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
-			ps.setString(1, stores_code);
+			ps.setInt(1, store_code);
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				ReviewDTO review = new ReviewDTO(rs.getInt(1), 0, rs.getString(2), 0, 
-						rs.getString(4), rs.getString(5), rs.getInt(3));
+				ReviewDTO review = new ReviewDTO(rs.getInt(1), 0, rs.getString(2), store_code, 
+						rs.getString(4), rs.getString(5), rs.getInt(3), rs.getString(6));
 				list.add(review);
 			}
 			
@@ -47,15 +46,21 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return list;
 	}
 	
+	
+	/**
+	 * 가게코드를 받고 가게코드의 회원아이디
+	 */
 	@Override
-	public List<ReviewDTO> reviewUserAll(String user_id) throws SQLException {
+	public List<ReviewDTO> reviewSelectAll(String user_id) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		ResultSet rs= null;
 		
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		String sql = "select user_id, order_code, star_grade, review_detail, post_date "
-				+ "from review where user_id = ?";
+		String sql = "select review_code, r.user_id,  star_grade, review_detail, post_date, reply\r\n"
+				+ "from review r join stores s\r\n"
+				+ "on r.store_code = s.store_code\r\n"
+				+ "where s.users_id = ?";
 		
 		try {
 			con = DbUtil.getConnection();
@@ -64,8 +69,44 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				ReviewDTO review = new ReviewDTO(rs.getString(1), rs.getInt(2), rs.getInt(3), 
-						rs.getString(4), rs.getString(5));
+				ReviewDTO review = new ReviewDTO(rs.getInt(1), 0, rs.getString(2), 0, 
+						rs.getString(4), rs.getString(5), rs.getInt(3), rs.getString(6));
+				list.add(review);
+			}
+			
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}		
+		
+		return list;
+	}
+	
+	
+	/**
+	 * 본인이 작성한 후기 조회
+	 */
+	@Override
+	public List<ReviewDTO> reviewUserAll(String user_id) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps =null;
+		ResultSet rs= null;
+		
+		StoresDTO store = null;
+		ReviewDTO review = null;
+		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+		String sql = "select review_code, s.store_name, star_grade, review_detail, reply, post_date\r\n"
+				+ "from review r join stores s on r.store_code = s.store_code where r.user_id = ?";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setString(1, user_id);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				store = new StoresDTO(rs.getString(2));
+				review = new ReviewDTO(rs.getInt(1), 0, user_id, 0, 
+						rs.getString(4), rs.getString(6), rs.getInt(3), rs.getString(5), store);
 				list.add(review);
 			}
 			
@@ -83,7 +124,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "INSERT INTO REVIEW VALUES(REVIEW_CODE_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, ?, NULL)";
+		String sql = "INSERT INTO REVIEW VALUES(REVIEW_CODE_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, ?, ' ')";
 		
 		try {
 			con = DbUtil.getConnection();

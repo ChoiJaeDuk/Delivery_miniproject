@@ -13,6 +13,22 @@ import delivery.mvc.view.SuccessView;
 public class ReviewController {
 	private static ReviewService reviewService = new ReviewServiceImpl();
 	
+	
+	/**
+	 * 운영자 악성 후기조회
+	 */
+	public static void reviewAdmintAll(int store_code) {
+		try {
+			List<ReviewDTO>/*list*/ rl = reviewService.reviewAdmintAll(store_code);
+			SuccessView.reviewListStore(rl);
+			
+		} catch (Exception e) {
+			FailView.errorMessage(e.getMessage()); 
+		}
+		
+	}
+	
+	
 	/**
 	 * 해당 가게 후기 목록조회 (인수 : 가게코드)
 	 */
@@ -28,12 +44,12 @@ public class ReviewController {
 	}
 	
 	/**
-	 * 유저의 모든 후기 목록조회 (인수 : 유저아이디)
+	 * 유저가 작성한 모든 후기 목록조회 (인수 : 유저아이디)
 	 */
 	public static void reviewUserAll(String user_id) {
 		try {
 			List<ReviewDTO>/*list*/ rl = reviewService.reviewUserAll(user_id);
-			SuccessView.reviewListByUserId(rl);
+			SuccessView.reviewList(rl);
 			
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage()); 

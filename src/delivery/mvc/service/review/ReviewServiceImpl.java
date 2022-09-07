@@ -11,6 +11,15 @@ import delivery.mvc.dto.ReviewDTO;
 public class ReviewServiceImpl implements ReviewService {
 	ReviewDAO reviewDAO = new ReviewDAOImpl();
 
+
+	@Override
+	public List<ReviewDTO> reviewAdmintAll(int store_code) throws SQLException {
+		List<ReviewDTO> list = reviewDAO.reviewAdmintAll(store_code);
+		if(list.size() == 0 || list.isEmpty()) throw new SQLException(store_code + "의 후기가 없습니다.");
+		return list;
+	}
+	
+	
 	@Override
 	public List<ReviewDTO> reviewSelectAll(String user_id) throws SQLException {
 		List<ReviewDTO> list = reviewDAO.reviewSelectAll(user_id);

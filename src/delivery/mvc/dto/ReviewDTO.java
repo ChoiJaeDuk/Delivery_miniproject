@@ -10,6 +10,10 @@ public class ReviewDTO {
 	private int star_grade;//
 	private String reply;
 	
+	private StoresDTO storesDTO;
+	
+	
+
 	public ReviewDTO() { }
 
 	public ReviewDTO(int review_code, int order_code, String user_id, int store_code, String review_detail,
@@ -23,6 +27,20 @@ public class ReviewDTO {
 		this.post_date = post_date;
 		this.star_grade = star_grade;
 		this.reply = reply;
+	}
+	
+	public ReviewDTO(int review_code, int order_code, String user_id, int store_code, String review_detail,
+			String post_date, int star_grade, String reply, StoresDTO storesDTO) {
+		super();
+		this.review_code = review_code;
+		this.order_code = order_code;
+		this.user_id = user_id;
+		this.store_code = store_code;
+		this.review_detail = review_detail;
+		this.post_date = post_date;
+		this.star_grade = star_grade;
+		this.reply = reply;
+		this.storesDTO = storesDTO;
 	}
 	
 	
@@ -139,6 +157,16 @@ public class ReviewDTO {
 
 	public void setReply(String reply) {
 		this.reply = reply;
+	}
+	
+
+	
+	public StoresDTO getStoresDTO() {
+		return storesDTO;
+	}
+
+	public void setStoresDTO(StoresDTO storesDTO) {
+		this.storesDTO = storesDTO;
 	}
 
 	@Override

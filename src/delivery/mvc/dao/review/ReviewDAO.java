@@ -7,6 +7,10 @@ import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.ReviewDTO;
 
 public interface ReviewDAO {
+	
+	
+	public List<ReviewDTO> reviewAdmintAll(int store_code) throws SQLException;
+	
 	/**
 	 * 고객 후기 작성
 	 *  ? : 사장님은 reply?

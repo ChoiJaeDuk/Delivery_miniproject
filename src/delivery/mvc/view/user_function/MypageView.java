@@ -79,31 +79,25 @@ public class MypageView {
 			
 			int personalInfo = Integer.parseInt(sc.nextLine());
 			switch(personalInfo) {
-				case 1:
-					System.out.println("* * * 현재 닉네임을 입력해주세요. >> ");
-					String usersNick = sc.nextLine();					
+				case 1:					
 					System.out.println("* * * 변경할 닉네임을 입력해주세요. >> ");
 					String newUsersNick = sc.nextLine();
 					
-					UsersController.nickUpdate(usersNick, newUsersNick);//닉네임변경 메소드(controller)
+					UsersController.nickUpdate(newUsersNick, userId);//닉네임변경 메소드(controller)
 					personalInfo();
 					break;
 					
 				case 2:
-					System.out.println("* * * 현재 주소를 입력해주세요. >> ");
-					String usersAddr = sc.nextLine();
 					System.out.println("* * * 변경할 주소를 입력해주세요. >> ");
 					String newUsersAddr = sc.nextLine();
-					UsersController.addrUpdate(usersAddr, newUsersAddr);
+					UsersController.addrUpdate(newUsersAddr, userId);
 					personalInfo();
 					break;
 					
 				case 3:
-					System.out.println("* * * 현재 전화번호를 입력해주세요. >> ");
-					String usersPhone = sc.nextLine();
 					System.out.println("* * * 변경할 전화번호를 입력해주세요. >> ");
 					String newUsersPhone = sc.nextLine();
-					UsersController.phoneUpdate(usersPhone, newUsersPhone);
+					UsersController.phoneUpdate(newUsersPhone, userId);
 					personalInfo();
 					break;
 					
@@ -224,6 +218,7 @@ public class MypageView {
 
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                          [ 내가 작성한 후기 목록 ]                         \n");
+		System.out.println("	후기 코드		가게 이름		평점		후기		댓글		등록일   ");
 		ReviewController.reviewUserAll(userId);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.후기 등록           2.후기 수정           3.후기 삭제           4.뒤로가기");

@@ -38,9 +38,9 @@ public class ReviewControlView {
 		
 			System.out.println("----------------------------------------------------------------\n");
 			System.out.println("                          [ 후기 목록 ]                         \n");
-			System.out.println("      후기 코드         가게 이름           후기         평점   ");
+			System.out.println("		후기 코드		회원ID		평점		후기		댓글		등록일		   ");
 			System.out.println("----------------------------------------------------------------\n");
-			ReviewController.reviewSelectAll(userId);
+			ReviewController.reviewAdmintAll(storeCode);
 			System.out.println("----------------------------------------------------------------\n");
 			System.out.println("1.후기 삭제하기       2.뒤로가기");
 			System.out.println("----------------------------------------------------------------\n");
