@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.ReviewDTO;
+import delivery.mvc.dto.StoresDTO;
 import util.DbUtil;
 
 public class ReviewDAOImpl implements ReviewDAO {
@@ -158,6 +159,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ResultSet rs= null;
 		
 		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
+		StoresDTO store = null;
+		OrdersDTO yetReview = null;
+		
 		String sql = "select orders.order_code, stores.store_name, order_date, order_total_price from orders \r\n"
 				+ "left outer join review \r\n"
 				+ "on review.order_code = orders.order_code join stores\r\n"
@@ -170,8 +174,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				OrdersDTO yetReview = new OrdersDTO(rs.getString(1), rs.getInt(2), rs.getInt(3), 
-						rs.getString(4), rs.getString(5));
+				store = new StoresDTO(rs.getString(2));
+				yetReview = new OrdersDTO(rs.getInt(1), store, rs.getString(3), 
+						rs.getInt(4));
 				list.add(yetReview);
 			}
 			
