@@ -181,7 +181,7 @@ public class SuccessView {
 	
 	
 	/**
-	 * 주문관리 33-------------------------------------
+	 * 주문관리 33,36-------------------------------------
 	 * */
 	public static void selectOrderList( List<OrdersDTO> selectOrderList) {
 		for(OrdersDTO orderDTO:selectOrderList) {
@@ -190,14 +190,19 @@ public class SuccessView {
 	}
 	
 	/**
-	 * 주문코드보고 주문상세 34,35,36 
+	 * 주문코드보고 주문상세 34,35
 	 * */
-	public static void selectOrderLine( List<MenuDTO> selectOrderLine) {
+	public static void selectOrderLine( List<MenuDTO> selectOrderLine, int store_code) {
+		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("            ["+ store_code +"  주문 상세 ]                            ");
+		System.out.println("                 메뉴         수량         금액          총금액                   ");
 		for(MenuDTO menuDTO:selectOrderLine) {
 			System.out.println(menuDTO.getMenu_name()+menuDTO.getOrderLine().getOrder_quntity()+menuDTO.getMenu_price()+"\t"+menuDTO.getTotal_price());
 			}
+	
 	}
 	
+
 	/**
 	 * 마이페이지 383940 --전화번소랑 주소만 조회하면 됨
 	 * */

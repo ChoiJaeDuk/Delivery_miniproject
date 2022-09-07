@@ -10,6 +10,7 @@ import delivery.mvc.session.SessionSet;
 import delivery.mvc.view.actor.UsersView;
 
 public class UserOrdersView {
+	static String menuName = null;
 
 	static Scanner sc = new Scanner(System.in);
 	static int category = 0;
@@ -46,7 +47,7 @@ public class UserOrdersView {
 					storeSelect(9, 0); //두번째 인수 index는 0이면 전체 가게 목록 select, 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 5:
-					UserCategorySelect.menuSelect();
+					menuName = UserCategorySelect.menuSelect();
 					storeSelect( 9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 6:
@@ -405,7 +406,6 @@ public class UserOrdersView {
 				break;
 				
 			case 3:
-				
 				stores(store_code, user_id);
 				
 				break;
