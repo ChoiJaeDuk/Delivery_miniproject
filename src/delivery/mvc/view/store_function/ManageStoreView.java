@@ -3,8 +3,12 @@ package delivery.mvc.view.store_function;
 import java.util.Scanner;
 
 import delivery.mvc.controller.MenuController;
+import delivery.mvc.controller.ReviewController;
 import delivery.mvc.controller.StoresController;
+import delivery.mvc.dao.stores.StoresDAO;
+import delivery.mvc.dao.stores.StoresDAOImpl;
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.dto.ReviewDTO;
 import delivery.mvc.dto.StoresDTO;
 import delivery.mvc.view.actor.StoreView;
 
@@ -294,7 +298,11 @@ public class ManageStoreView {
 	 * */
 	
 	public static void manageReview	(String user_id) {
-		reviewList();
+//		StoresDAO storesDAO = new StoresDAOImpl();
+//		 StoresDTO storecode = storesDAO.storeSelectById(user_id);
+		
+		
+		reviewList(user_id);
 		System.out.println("        1. 댓글작성      2. 댓글수정       3. 댓글삭제       4. 뒤로가기          ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요 >> ");
@@ -343,8 +351,8 @@ public class ManageStoreView {
 			String content = sc.nextLine();
 		
 			
-			//ReviewDTO(??) reply =  new ReviewDTO();
-	    	//컨트롤러.insert(reply);
+			ReviewController.replyUpdate(content, Integer.parseInt(reviewNo));
+			
 		}
 		
 	
@@ -360,8 +368,9 @@ public class ManageStoreView {
 		String newContent = sc.nextLine();
 
 		
-		//ReviewDTO(??) reply =  new ReviewDTO(no,newContent);
-    	//컨트롤러.update(reply);
+		ReviewController.replyUpdate(newContent, Integer.parseInt(no));
+		
+		
 	}
 	/**
 	 *4-3 댓글삭제
@@ -371,7 +380,8 @@ public class ManageStoreView {
 		System.out.println("* * * 삭제할 후기 코드를 입력해주세요 >> ");
 		String no = sc.nextLine();
 		
-		//컨트롤러.delete(no);
+		ReviewController.replyDelete(Integer.parseInt(no));
+		
 	}
 	
 	
@@ -395,12 +405,13 @@ public class ManageStoreView {
 	/**
 	 * 댓글리스트/후기리스트
 	 * */
-	public static void  reviewList() {
+	public static void  reviewList(String user_id) {
 	System.out.println("----------------------------------------------------------------------------------");
 	System.out.println("                                [   후   기   ]                                   ");
 	System.out.println("         후기코드      usderid       별점        후기          등록일              ");
 	System.out.println("----------------------------------------------------------------------------------");
-	System.out.println("          1111      ??usderid?           4          맛있어유~       2022-09-01        ");
+//	System.out.println("          1111      ??usderid?           4          맛있어유~       2022-09-01        ");
+	ReviewController.reviewSelectAll(user_id);
 	System.out.println("----------------------------------------------------------------------------------");
 		
 	}

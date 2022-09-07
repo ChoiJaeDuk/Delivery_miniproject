@@ -1,7 +1,9 @@
 package delivery.mvc.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.ReviewDTO;
 import delivery.mvc.service.review.ReviewService;
 import delivery.mvc.service.review.ReviewServiceImpl;
@@ -14,14 +16,13 @@ public class ReviewController {
 	/**
 	 * 해당 가게 후기 목록조회 (인수 : 가게코드)
 	 */
-	public static void reviewSelectAll(int stores_code) {
+	public static void reviewSelectAll(String user_id) {
 		try {
-			List<ReviewDTO>/*list*/ rl = reviewService.reviewSelectAll(stores_code);
+			List<ReviewDTO>/*list*/ rl = reviewService.reviewSelectAll(user_id);
 			SuccessView.reviewList(rl);
 			
 		} catch (Exception e) {
-			FailView.errorMessage(e.getMessage());
-//			System.out.println("오류");
+			FailView.errorMessage(e.getMessage()); 
 		}
 		
 	}
@@ -29,14 +30,13 @@ public class ReviewController {
 	/**
 	 * 유저의 모든 후기 목록조회 (인수 : 유저아이디)
 	 */
-	public static void revieUserAll(String user_id) {
+	public static void reviewUserAll(String user_id) {
 		try {
 			List<ReviewDTO>/*list*/ rl = reviewService.reviewUserAll(user_id);
 			SuccessView.reviewListByUserId(rl);
 			
 		} catch (Exception e) {
-			FailView.errorMessage(e.getMessage());
-//			System.out.println("오류");
+			FailView.errorMessage(e.getMessage()); 
 		}
 		
 	}
@@ -45,22 +45,28 @@ public class ReviewController {
 	public static void reviewInsert(String userId, int order_code, String reviewDetail, int starGrade ) {
 		try {
 			reviewService.reviewInsert(userId, order_code, reviewDetail, starGrade);
-			SuccessView.getmessagePrint("등록되었습니다.");
-			//System.out.println("등록되었습니다.");
+			SuccessView.getmessagePrint("등록되었습니다."); 
+		} catch (Exception e) {
+			FailView.errorMessage( e.getMessage() ); 
+		}
+	}
+	
+	
+	public static void replyUpdate(String reply, int review_code) {
+		try {
+			reviewService.replyUpdate(reply, review_code);
+			SuccessView.getmessagePrint("등록되었습니다."); 
 		} catch (Exception e) {
 			FailView.errorMessage( e.getMessage() );
-			//System.out.println("오류");
 		}
 	}
 	
 	public static void reviewUpdate(ReviewDTO reviewDTO) {
 		try {
 			reviewService.reviewUpdate(reviewDTO);
-			SuccessView.getmessagePrint("수정되었습니다.");
-			//System.out.println("수정되었습니다.");
+			SuccessView.getmessagePrint("수정되었습니다."); 
 		} catch (Exception e) {
 			FailView.errorMessage( e.getMessage() );
-		//System.out.println("오류");
 		}
 	}
 	
@@ -68,10 +74,29 @@ public class ReviewController {
 		try {
 			reviewService.reviewDelete(review_code);
 			SuccessView.getmessagePrint("삭제되었습니다.");
-//			System.out.println("삭제되었습니다.");
 		} catch (Exception e) {
 			FailView.errorMessage( e.getMessage() );
-//			System.out.println("오류");
+
+		}
+	}
+	
+	public static void replyDelete(int review_code) {
+		try {
+			reviewService.replyDelete(review_code);
+			SuccessView.getmessagePrint("삭제되었습니다.");
+		} catch (Exception e) {
+			FailView.errorMessage( e.getMessage() );
+
+		}
+	}
+	
+	public static void yetReview(String userId) {
+		try {
+			List<OrdersDTO> list = reviewService.yetReview(userId);
+			SuccessView.recentOrderLine(list);
+			
+		}catch (Exception e) {
+			FailView.errorMessage( e.getMessage() );
 		}
 	}
 }
