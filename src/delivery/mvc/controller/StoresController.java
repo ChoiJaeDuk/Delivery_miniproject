@@ -106,6 +106,7 @@ public class StoresController {
 		try {
 			
 				List<StoresDTO> list = storesService.storesSelectByCategory(arrange, category_code);
+				System.out.println(list);
 				SuccessView.selectStoreList(list);
 			
 		}catch(SQLException e){
