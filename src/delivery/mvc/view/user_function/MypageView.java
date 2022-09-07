@@ -226,8 +226,7 @@ public class MypageView {
 
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                          [ 내가 작성한 후기 목록 ]                         \n");
-		System.out.println("usersId가 작성한 후기 목록 불러오기!!!\n\n\n\n");
-		//ReviewController.reviewSelectAll();
+		ReviewController.reviewUserAll(userId);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("1.후기 등록           2.후기 수정           3.후기 삭제           4.뒤로가기");
 		System.out.println("----------------------------------------------------------------------------");
@@ -272,7 +271,7 @@ public class MypageView {
 
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                           [ 최근 주문 내역 ]                               \n");
-		System.out.println("후기가 없는 주문 내역을 select!!!!\n\n\n\n");//후기가 없는거 까지 출력이 가능할까요???
+		ReviewController.yetReview(userId);
 		System.out.println("----------------------------------------------------------------------------");
 		System.out.println("* * * 주문코드 입력해주세요. >> ");
 		int orderCode = Integer.parseInt(sc.nextLine());
