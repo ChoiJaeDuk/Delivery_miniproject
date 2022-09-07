@@ -52,11 +52,11 @@ public class ManageStoreView {
 	}
 	
 	public static void printMenu() {
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                               [가 게 관 리]                                      ");
+		System.out.println("-------------------------------------------------------------------------------------");
+		System.out.println("                               [가 게 관 리]                                         ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("1. open/close 상태 설정    2. 메뉴 관리     3. 판매통계    4. 후기관리    5. 뒤로가기");
-		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
 		
 	}
@@ -317,7 +317,7 @@ public class ManageStoreView {
 					return;
 					
 				case 4:
-					//뒤로가기
+					manageStore(user_id);
 					return;
 					
 				default:
@@ -386,16 +386,20 @@ public class ManageStoreView {
 		
 		MenuController.menuSelectByMenu(user_id);
 	}
+	
+	
+	
 	/**
 	 * 댓글리스트/후기리스트
 	 * */
 	public static void  reviewList(String user_id) {
 	System.out.println("----------------------------------------------------------------------------------");
 	System.out.println("                                [   후   기   ]                                   ");
-	System.out.println("         후기코드      usderid       별점        후기          등록일              ");
+	System.out.println("         후기코드      usderid       평점        후기          등록일              ");
 	System.out.println("----------------------------------------------------------------------------------");
-//	System.out.println("          1111      ??usderid?           4          맛있어유~       2022-09-01        ");
+
 	ReviewController.reviewSelectAll(user_id);
+
 	System.out.println("----------------------------------------------------------------------------------");
 		
 	}

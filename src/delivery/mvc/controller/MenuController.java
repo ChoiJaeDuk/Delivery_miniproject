@@ -9,6 +9,7 @@ import delivery.mvc.service.menu.MenuService;
 import delivery.mvc.service.menu.MenuServiceImpl;
 import delivery.mvc.service.stores.StoresService;
 import delivery.mvc.service.stores.StoresServiceImpl;
+import delivery.mvc.view.FailView;
 import delivery.mvc.view.SuccessView;
 
 public class MenuController {
@@ -106,10 +107,10 @@ public class MenuController {
 		try {
 
 			menuservice.menuUpdate(menu);
-			System.out.println(menu.getMenu_name()+" 메뉴로 변경되었습니다");
+			SuccessView.getmessagePrint("메뉴가 변경되었습니다");
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			FailView.errorMessage(e.getMessage());
 		}
 	}//menuUpdate end
 
@@ -120,9 +121,10 @@ public class MenuController {
 	public static void menuDelete(int menu_code) {
 		try {
 			menuservice.menuDelete(menu_code);
-			System.out.println("메뉴가 삭제되었습니다");
+			SuccessView.getmessagePrint("메뉴가 삭제되었습니다.");
+			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			FailView.errorMessage(e.getMessage());
 		}
 	}
 }//class end

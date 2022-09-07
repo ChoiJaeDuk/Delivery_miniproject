@@ -38,6 +38,7 @@ public class RegisterView {
 
 		System.out.print("* * * 주민등록번호를 입력해주세요. >> ");
 		String usersJumin = sc.nextLine();
+		//중복확인
 
 
 		UsersDTO user = new UsersDTO(usersId, "A", usersPwd, usersName, usersNic, usersAddr, usersPhone, usersJumin);
