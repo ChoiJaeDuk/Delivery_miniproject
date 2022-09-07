@@ -252,7 +252,7 @@ public class UsersDAOImpl implements UsersDAO {
 		return result;
 	}
 	
-
+	
 	@Override
 	public List<OrdersDTO> selectOrderList(String user_id) throws SQLException {
 		Connection con = null;
@@ -384,7 +384,7 @@ public class UsersDAOImpl implements UsersDAO {
 		UsersDAO user = new UsersDAOImpl();
 		try {
 
-/*
+/*	
 			String id = user.searchId("테스트", "000000-0000000");
 			System.out.println(id);
 */			
@@ -413,16 +413,42 @@ public class UsersDAOImpl implements UsersDAO {
 			int result = user.addrUpdate("서울경기인천", "서울대구대전부산");
 			if(result == 1) System.out.println("주소변경");
 			else System.out.println("실패");
-*/			
-			System.out.println("끝");
+//*/			
+//			List<OrdersDTO> orders = new UsersDAOImpl().selectOrderList("duk");
+//			for(OrdersDTO o : orders) {
+//				System.out.println(o.getOrder_code());
+//			}
+			
+		
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}
 	}
-
-
-
+		
+	public UsersDTO selectUserInfoByID(String user_id) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		UsersDTO users = null;
+		try {
+			con = DbUtil.getConnection();
+			ps= con.prepareStatement("SELECT USER_ADDR, USER_PHONE FROM USERS WHERE USER_ID = ?");
+			ps.setString(1, user_id);
+		
+		    rs = ps.executeQuery(); 
+	    
+		    if(rs.next()) {
+		    	 users = new UsersDTO(rs.getString(1), rs.getString(2));
+		    }
+		      
+		    
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return users;
+	
+	}
 
 
 }

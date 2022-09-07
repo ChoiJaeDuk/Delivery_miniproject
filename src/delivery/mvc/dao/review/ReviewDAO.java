@@ -3,6 +3,7 @@ package delivery.mvc.dao.review;
 import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.ReviewDTO;
 
 public interface ReviewDAO {
@@ -38,6 +39,12 @@ public interface ReviewDAO {
 	 * ppt69
 	 */
 	int reviewDelete(int review_code) throws SQLException;
+	
+	/**
+	 * 후기작성이 안된 주문건 출력
+	 * ppt67
+	 */
+	List<OrdersDTO> yetReview() throws SQLException;
 	
 	public int storeCodeSelectByOrderCode(int order_code) throws SQLException;
 }

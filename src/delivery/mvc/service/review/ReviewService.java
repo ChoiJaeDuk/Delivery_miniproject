@@ -3,6 +3,7 @@ package delivery.mvc.service.review;
 import java.sql.SQLException;
 import java.util.List;
 
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.ReviewDTO;
 
 public interface ReviewService {
@@ -33,5 +34,10 @@ public interface ReviewService {
 	 * 후기 삭제
 	 */
 	void reviewDelete(int review_code) throws SQLException;
+	
+	/**
+	 * 후기가 없는 주문건 출력
+	 */
+	List<OrdersDTO> yetReview() throws SQLException;
 	
 }

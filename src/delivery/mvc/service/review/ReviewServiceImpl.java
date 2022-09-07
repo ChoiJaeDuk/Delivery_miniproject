@@ -5,6 +5,7 @@ import java.util.List;
 
 import delivery.mvc.dao.review.ReviewDAO;
 import delivery.mvc.dao.review.ReviewDAOImpl;
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.ReviewDTO;
 
 public class ReviewServiceImpl implements ReviewService {
@@ -47,6 +48,13 @@ public class ReviewServiceImpl implements ReviewService {
 		int result = reviewDAO.reviewUpdate(reviewDTO);
 		if(result == 0) throw new SQLException("후기 수정을 실패했습니다.");
 
+	}
+
+	@Override
+	public List<OrdersDTO> yetReview() throws SQLException {
+		List<OrdersDTO> list = reviewDAO.yetReview();
+		if(list.size() == 0 || list.isEmpty()) throw new SQLException("미작성 후기가 없습니다.");
+		return list;
 	}
 
 	@Override

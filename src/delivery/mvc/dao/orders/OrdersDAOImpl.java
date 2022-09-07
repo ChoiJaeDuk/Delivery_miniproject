@@ -37,10 +37,12 @@ public class OrdersDAOImpl implements OrdersDAO {
 			con = DbUtil.getConnection();
 			con.setAutoCommit(false);
 			
-			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, CURRENT_DATE, ?,NULL,NULL,0)");
+			ps= con.prepareStatement("INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, CURRENT_DATE, ?,NULL,NULL,0, ?, ?)");
 			ps.setString(1,orders.getUser_id());
 			ps.setInt(2, orders.getStore_code());
 			ps.setInt(3, orders.getOrder_total_price());
+			ps.setString(4, orders.getDelivery_addr());
+			ps.setString(5, orders.getUser_phone());
 	
 			
 			
@@ -119,18 +121,18 @@ public class OrdersDAOImpl implements OrdersDAO {
 		
 		try {
 			con = DbUtil.getConnection();
-			ps= con.prepareStatement("SELECT O.ORDER_CODE, O.USER_ID, U.USER_PHONE, U.USER_ADDR, D.DELIVERY_STATUS\r\n"
-					+ "FROM USERS U , ORDERS O ,DELIVERY_STATUS D \r\n"
-					+ "WHERE U.USER_ID = O.USER_ID AND O.DELIVERY_CODE = D.DELIVERY_CODE AND O.STORE_CODE = ?");
+			ps= con.prepareStatement("SELECT O.ORDER_CODE, O.USER_ID, O.USER_PHONE, O.DELIVERY_ADDR, D.DELIVERY_STATUS\r\n"
+					+ "FROM  ORDERS O ,DELIVERY_STATUS D \r\n"
+					+ "WHERE O.DELIVERY_CODE = D.DELIVERY_CODE AND O.STORE_CODE = ?");
 			
 			ps.setInt(1, store_code);
 		    rs = ps.executeQuery(); 
 		    
 		    while(rs.next()) {
+		 
 		    	
-		    	users = new UsersDTO(rs.getString(3), rs.getString(4));
 		    	delivery_status = new Delivery_StatusDTO(rs.getString(5));
-		    	orders = new OrdersDTO(rs.getInt(1), rs.getString(2), users, delivery_status);
+		    	orders = new OrdersDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), delivery_status);
 		    	listOrders.add(orders);
 		    }
 		      
@@ -297,6 +299,9 @@ public class OrdersDAOImpl implements OrdersDAO {
 		}
 		return store_code;
 	}
+
+
+
 	
 	
 	

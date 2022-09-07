@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.ReviewDTO;
+import delivery.mvc.dto.StoresDTO;
 import util.DbUtil;
 
 public class ReviewDAOImpl implements ReviewDAO {
@@ -150,6 +152,46 @@ public class ReviewDAOImpl implements ReviewDAO {
 		
 		return result;
 	}
+	
+	public List<OrdersDTO> yetReview() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps =null;
+		ResultSet rs= null;
+		
+		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
+		StoresDTO store = null;
+		OrdersDTO yetReview = null;
+		
+		String sql = "select orders.order_code, stores.store_name, order_date, order_total_price from orders \r\n"
+				+ "left outer join review \r\n"
+				+ "on review.order_code = orders.order_code join stores\r\n"
+				+ "on stores.store_code = orders.store_code \r\n"
+				+ "where review.order_code is null";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				store = new StoresDTO(rs.getString(2));
+				yetReview = new OrdersDTO(rs.getInt(1), store, rs.getString(3), 
+						rs.getInt(4));
+				list.add(yetReview);
+			}
+			
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		return list;
+		
+	}
+	
+	
+	
+	
+	
 	
 	public static void main(String[] args) {
 		ReviewDAO review = new ReviewDAOImpl();

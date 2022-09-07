@@ -12,7 +12,8 @@ public class OrdersDTO {
 	private String order_approval_time;
 	private String order_delivery_time;
 	private int delivery_code;
-	
+	private String delivery_addr;
+	private String user_phone;
 	
 	private UsersDTO users;
 	private Delivery_StatusDTO delivery_status;
@@ -25,6 +26,8 @@ public class OrdersDTO {
 	private int total_sales_for_stores;
 	private int total_sales_for_master;
 	
+	private StoresDTO storesDTO;
+	
 
 	  
 	
@@ -32,11 +35,13 @@ public class OrdersDTO {
 	
 	
 	
-	public OrdersDTO(String user_id, int store_code, int order_total_price) {
+	public OrdersDTO(String user_id, int store_code, int order_total_price, String delivery_addr, String user_phone) {
 		super();
 		this.user_id = user_id;
 		this.store_code = store_code;
 		this.order_total_price = order_total_price;
+		this.delivery_addr = delivery_addr;
+		this.user_phone = user_phone;
 	}
 
 
@@ -76,15 +81,19 @@ public class OrdersDTO {
 		this.order_delivery_time = order_delivery_time;
 		this.delivery_status = delivery_status;
 	}
+	
+	//ReviewDAOImpl.yetReview()를 위한 생성(이종민)
+	public OrdersDTO(int order_code, StoresDTO storesDTO, String order_date, int order_total_price) {
+		this.order_code = order_code;
+		this.storesDTO = storesDTO;
+		this.order_date = order_date;
+		this.order_total_price = order_total_price;
+	}
 /////////////////////////////////////////////////////
 
-	public OrdersDTO(int order_code, String user_id, UsersDTO users, Delivery_StatusDTO delivery_status) {
-		super();
-		this.order_code = order_code;
-		this.user_id = user_id;
-		this.users = users;
-		this.delivery_status = delivery_status;
-	}
+
+
+	
 
 
 
@@ -100,6 +109,21 @@ public class OrdersDTO {
 		this.order_delivery_time = order_delivery_time;
 		this.delivery_code = delivery_code;
 	}
+	public OrdersDTO(int order_code, String user_id, String user_phone, String delivery_addr,
+		Delivery_StatusDTO delivery_status) {
+	super();
+	this.order_code = order_code;
+	this.user_id = user_id;
+	this.delivery_addr = delivery_addr;
+	this.user_phone = user_phone;
+	this.delivery_status = delivery_status;
+}
+
+
+
+
+
+
 	public int getOrder_code() {
 		return order_code;
 	}
@@ -143,6 +167,33 @@ public class OrdersDTO {
 		this.delivery_code = delivery_code;
 	}
 	
+	
+	
+	
+	public String getDelivery_addr() {
+		return delivery_addr;
+	}
+
+
+
+	public void setDelivery_addr(String delivery_addr) {
+		this.delivery_addr = delivery_addr;
+	}
+
+
+
+	public String getUser_phone() {
+		return user_phone;
+	}
+
+
+
+	public void setUser_phone(String user_phone) {
+		this.user_phone = user_phone;
+	}
+
+
+
 	public int getStore_code() {
 		return store_code;
 	}
@@ -192,6 +243,15 @@ public class OrdersDTO {
 
 	public void setTotal_sales_for_master(int total_sales_for_master) {
 		this.total_sales_for_master = total_sales_for_master;
+	}
+	
+
+	public StoresDTO getStoresDTO() {
+		return storesDTO;
+	}
+
+	public void setStoresDTO(StoresDTO storesDTO) {
+		this.storesDTO = storesDTO;
 	}
 
 	@Override
