@@ -5,8 +5,10 @@ import java.util.List;
 
 import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.MenuDTO;
+import delivery.mvc.exception.NotFoundException;
 import delivery.mvc.service.bascket.BasketService;
 import delivery.mvc.service.bascket.BasketServiceImpl;
+import delivery.mvc.view.FailView;
 import delivery.mvc.view.SuccessView;
 
 public class BasketController {
@@ -23,7 +25,7 @@ public class BasketController {
 			SuccessView.basketMenuSelect(list);
 		
 		} catch (SQLException e) {
-			e.printStackTrace();
+			FailView.errorMessage("장바구니가 비어있습니다.");
 		}
 	}//basketMenuSelect() end
 	
@@ -33,10 +35,14 @@ public class BasketController {
 	 */
 	public static void basketInsert(BasketDTO basket) {
 		try {
+			List<BasketDTO> basketList = service.bascketSelectAll(basket.getUser_id());
+			for (BasketDTO basketDto : basketList) {
+				if (basket.getStore_code() != basketDto.getStore_code()) throw new SQLException("같은 가게의 메뉴만 주문 가능합니다!");
+			}
 			service.bascketInsert(basket);
 			SuccessView.getmessagePrint("장바구니에 추가되었습니다");
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 	}
 	
