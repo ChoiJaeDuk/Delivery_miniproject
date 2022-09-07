@@ -7,6 +7,7 @@ import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.service.bascket.BasketService;
 import delivery.mvc.service.bascket.BasketServiceImpl;
+import delivery.mvc.view.FailView;
 import delivery.mvc.view.SuccessView;
 
 public class BasketController {
@@ -19,11 +20,12 @@ public class BasketController {
 	public static void basketMenuSelect(String user_id) {
 		try {
 			List<MenuDTO> list = service.basketMenuSelect(user_id);
-			System.out.println(list);
+			
 			SuccessView.basketMenuSelect(list);
 		
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			FailView.errorMessage(e.getMessage());
 		}
 	}//basketMenuSelect() end
 	

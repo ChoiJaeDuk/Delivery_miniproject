@@ -17,14 +17,14 @@ public class MenuController {
 
 	/**
 	 * 작성자 : 박해원
-	 * 설명 : 해당 가게의 메뉴를 출력함
+	 * 설명 : 해당 가게의 메뉴를 출력함 - 판매자 시점
 	 */
 	public static void menuSelectByAll(int store_id) {
 		try {
 			
 			List<MenuDTO> list = menuservice.menuSelectAll(store_id);
 			System.out.println("----------------------------------------------------------------------------------");
-			System.out.println("                     [ 메 뉴  목 록  db에서 가저옴]                               ");
+			System.out.println("                                   [ 메 뉴  목 록 ]                               ");
 			System.out.println("----------------------------------------------------------------------------------");
 			System.out.println("        메뉴코드      카테고리       메뉴이름        가격       품절여부           ");
 			System.out.println("----------------------------------------------------------------------------------");
@@ -36,6 +36,21 @@ public class MenuController {
 						+"\t"+menu.getSoldout_status());
 			}
 			System.out.println("----------------------------------------------------------------------------------");
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}//menuSelectByAll() end
+	
+	/**
+	 * 작성자 : 박해원
+	 * 설명 : 해당 가게의 메뉴를 출력함 - 회원 시점
+	 */
+	public static void menuSelectByAllByUser(int store_id) {
+		try {
+			
+			List<MenuDTO> list = menuservice.menuSelectAll(store_id);
+			SuccessView.menuPrintAll(list);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -340,8 +340,8 @@ public class UserOrdersView {
 	
 				
 		System.out.println("----------------------------------------------------------------");
-		// 회원이 가게를 선택하면 해당 가게 간단한 소개 
 		
+		StoresController.storeSelectById(user_id);  // 회원이 가게를 선택하면 해당 가게 간단한 소개 
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.메뉴 선택             2.후기             3.뒤로가기           ");
 		System.out.println("----------------------------------------------------------------");
@@ -376,13 +376,8 @@ public class UserOrdersView {
 		System.out.println("\n\n----------------------------------------------------------------");
 		System.out.println("                            [ 메뉴 ]                            \n");
 		System.out.println("1.메뉴코드                  2.메뉴이름                   3.가격");
+		MenuController.menuSelectByAllByUser(store_code);
 		
-		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
-		
-		//메뉴목록 
-		MenuController.menuSelectByMenu(user_id);
-		
-		MenuController.menuSelectByAll(store_code);
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.주문하기          2.장바구니(결제)          3.뒤로가기");
 		System.out.println("----------------------------------------------------------------");

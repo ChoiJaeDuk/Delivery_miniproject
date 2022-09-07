@@ -178,14 +178,14 @@ public class UsersController {
 		try {
 			String result = usersService.pwdCheck(user_id,input_pwd);
 			if(result.equals(input_pwd)) {
-				System.out.println("컨트롤 : 비밀번호가 일치합니다.");
+				SuccessView.getmessagePrint("비밀번호가 일치합니다.");
 				value = 1;
 				
 			}
 			
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
-			System.out.println("컨트롤 : 비밀번호 불일치");
+			SuccessView.getmessagePrint("비밀번호가 일치하지않습니다.");
 		}
 		
 		return value;
