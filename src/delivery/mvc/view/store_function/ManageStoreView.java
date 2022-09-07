@@ -267,7 +267,14 @@ public class ManageStoreView {
 	/**
 	 * 3-1 세부매출조회
 	 * */
-	public static void salesDetail(String users_id, int menuCode) {
+
+	public static void salesDetail(String users_id, int menuCode) {//가게에 
+		//StoresController.storesSelectByCategory(users_id, menuCode);
+
+		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("                              [ 월별 매출 현황 조회  ]                                 ");
+		System.out.println("       월                     총 매출                   ");		
+		System.out.println("----------------------------------------------------------------------------------");
 		StoresController.menuSalesByMonth(users_id, menuCode);
 			
 	}
