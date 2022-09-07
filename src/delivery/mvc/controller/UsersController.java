@@ -170,7 +170,7 @@ public class UsersController {
 	
 	
 	public static int pwdCheck(String user_id, String input_pwd) {
-		int value =0;
+		int value =9999;
 		try {
 			String result = usersService.pwdCheck(user_id,input_pwd);
 			if(result.equals(input_pwd)) {
@@ -181,7 +181,7 @@ public class UsersController {
 			
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage());
-			
+
 		}
 		
 		return value;

@@ -23,7 +23,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ResultSet rs= null;
 		
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		String sql = "select review_code, r.user_id, order_code, star_grade, review_detail, post_date\r\n"
+		String sql = "select review_code, r.user_id,  star_grade, review_detail, post_date\r\n"
 				+ "from review r join stores s\r\n"
 				+ "on r.store_code = s.store_code\r\n"
 				+ "where s.users_id = ?";
@@ -35,8 +35,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				ReviewDTO review = new ReviewDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), 
-						rs.getString(5), rs.getString(6));
+				ReviewDTO review = new ReviewDTO(rs.getInt(1), 0, rs.getString(2), 0, 
+						rs.getString(4), rs.getString(5), rs.getInt(3));
 				list.add(review);
 			}
 			

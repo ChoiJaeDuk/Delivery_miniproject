@@ -102,7 +102,6 @@ public class SuccessView {
 	/**
 	 * 후기조회 -
 	 * 13 : 운영자가 조회하는 한 가게의 모든 후기
-	 * 28,29,30,31 : 판매자가 조회하는 본인 가게의 전체 후기 = 한 가게의 모든 후기
 	 * 47 : 회원이 조회하는 가게별 전체 후기 = 한 가게의 모든 후기
 	 * */
 	public static void reviewList(List<ReviewDTO> reviewSelectAll) {
@@ -110,6 +109,17 @@ public class SuccessView {
 			System.out.println(
 					reviewDTO.getOrder_code() + "     " + reviewDTO.getUser_id() + "     " + reviewDTO.getStar_grade()
 							+ "     " + reviewDTO.getReview_detail() + "     " + reviewDTO.getPost_date());
+		}
+	}
+	
+	/**
+	 * 후기조회 -
+	 * 28,29,30,31 : 판매자가 조회하는 본인 가게의 전체 후기 = 한 가게의 모든 후기
+	 */
+	
+	public static void reviewListStore(List<ReviewDTO> reviewSelectAll) {
+		for (ReviewDTO reviewDTO: reviewSelectAll) {
+			System.out.println(reviewDTO.getReview_code()+"\t"+reviewDTO.getUser_id()+"\t"+reviewDTO.getStar_grade()+"\t"+reviewDTO.getReview_detail()+"\t"+reviewDTO.getPost_date());
 		}
 	}
 	
