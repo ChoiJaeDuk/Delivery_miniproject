@@ -11,7 +11,7 @@ import delivery.mvc.view.actor.StoreView;
 public class ManageStoreView {
 	private static Scanner sc= new Scanner(System.in);
 	private static String users_id;
-	private static final String usersId = null;
+
 	
 	public static void manageStore(String users_id) {
 		while (true) {
@@ -164,28 +164,7 @@ public class ManageStoreView {
 	 * */
 	public static void insertMenu(String user_id) {
 		
-			System.out.println("----------------------------------------------------------------------------------");
-			//System.out.println("                      ["+ getCategoryCode + " 카테고리 목록 ]                   ");
-			System.out.println("\n");
-			/*
-			if(getCategoryCode ==1) {
-				System.out.println("                 4. 피자          5.파스타            6.스테이크            ");
-				System.out.println("----------------------------------------------------------------------------------");
-			}else if(getCategoryCode==2) {
-				System.out.println("7.면             8.요리             9.밥             13.뒤로가기");
-				System.out.println("----------------------------------------------------------------\n");
-			}else if(getCategoryCode ==3) {
-				System.out.println("10.찌개           11.볶음          12.찜/탕          13.뒤로가기");
-				System.out.println("----------------------------------------------------------------\n");
-			}
-			*/
 			MenuController.menuSelectByStore(user_id);
-			System.out.println("                     [ 양식 카테고리 목록 ]//판매자 신청때 입력한 값받아오기       ");
-			System.out.println("\n");
-			System.out.println("    4. 피자          5.파스타      6.스테이크          //위 값따라 설정            ");
-			System.out.println("----------------------------------------------------------------------------------");
-
-			
 			
 			System.out.println("* * *"+"getCategoryCode"+"  카테고리 번호를 입력해주세요 >> ");
 			int categoryNo = Integer.parseInt(sc.nextLine());
@@ -278,17 +257,13 @@ public class ManageStoreView {
 	/**
 	 * 3-1 세부매출조회
 	 * */
-	public static void salesDetail(String users_id, int menuCode) {//가게에 
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                              [   ㅇㅇㅇ 월별 매출 현황 조회  ]                                 ");
-		System.out.println("       월        메뉴코드            메뉴이름             총 매출                   ");		
-		System.out.println("----------------------------------------------------------------------------------");
+	public static void salesDetail(String users_id, int menuCode) {
 		StoresController.menuSalesByMonth(users_id, menuCode);
-		
-		System.out.println("----------------------------------------------------------------------------------");
-	
-		
+			
 	}
+	
+	
+	
 	/*
 	 * 4. 후기관리 
 	 * */
@@ -381,15 +356,7 @@ public class ManageStoreView {
 	 * 메뉴리스트
 	 * */
 	public static void  menuList(String user_id) {
-		/*
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                     [ 메 뉴  목 록  db에서 가저옴]                               ");
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("        메뉴코드      카테고리       메뉴이름        가격       품절여부           ");
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("          ㅇㅇ          323         010-        ㅁㅇ        대기/줍비/중/완료/취  ");
-		System.out.println("----------------------------------------------------------------------------------");
-		*/
+		
 		MenuController.menuSelectByMenu(user_id);
 	}
 	/**

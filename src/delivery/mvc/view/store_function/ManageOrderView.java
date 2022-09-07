@@ -65,7 +65,7 @@ private static Scanner sc= new Scanner(System.in);
 				return;		
 				
 			case 3:
-				printMenu(userid);//뒤로가기
+				manageOrder(userid);//뒤로가기
 				break;
 				
 			default:
@@ -83,7 +83,7 @@ private static Scanner sc= new Scanner(System.in);
 		System.out.print("예상 배달시간을 입력해주세요 : ");
 		String expectedTime = sc.nextLine();
 		OrdersController.approveOrder(new OrdersDTO(Integer.parseInt(orderCode),2),Integer.parseInt(expectedTime));
-		System.out.println("db쿼리문 배달상태 업데이트 ");
+		
 	}
 	
 	/**
@@ -91,7 +91,7 @@ private static Scanner sc= new Scanner(System.in);
 	 * */
 	public static void refuseOrder(String orderCode) {
 		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode),3);
-		System.out.println("db쿼리문 주문취소");
+		
 	}
 	
 	
@@ -139,7 +139,6 @@ private static Scanner sc= new Scanner(System.in);
 	 * 2-1 배달시작 : DB수정해야함 배달 상태 4개로 분류
 	 * */
 	public static void startDelivery(String orderCode) {
-		System.out.println("db쿼리문 배달상태변경");
 		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode), 2);
 	}
 	
@@ -147,7 +146,6 @@ private static Scanner sc= new Scanner(System.in);
 	 * 2-2 배달완료
 	 * */
 	public static void finishDelivery(String orderCode) {
-		System.out.println("db쿼리문 배달상태변경");
 		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode), 1);
 	}
 	

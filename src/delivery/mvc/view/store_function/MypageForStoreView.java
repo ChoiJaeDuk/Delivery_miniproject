@@ -11,13 +11,6 @@ import delivery.mvc.view.user_function.MypageView;
 
 public class MypageForStoreView {
 	private static Scanner sc = new Scanner(System.in);
-	
-	
-	//public static void main(String[] args) {
-	//	MypageForStoreView.mypageForStore();
-	//	}
-	
-	
 
 	public static void mypageForStore(String users_id){
 

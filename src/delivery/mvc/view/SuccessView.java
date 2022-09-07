@@ -185,7 +185,8 @@ public class SuccessView {
 	 * */
 	public static void selectOrderList( List<OrdersDTO> selectOrderList) {
 		for(OrdersDTO orderDTO:selectOrderList) {
-			//System.out.println(orderDTO.getOrder_code()+"\t"+orderDTO.getUser_id()+"\t"+orderDTO.+"\t"+orderDTO.주소+"\t"+orderDTO.getDelivery_status());
+			System.out.println(orderDTO.getOrder_code()+"   "+orderDTO.getUser_id()+"   "+orderDTO.getUser_phone()+"   "+
+					orderDTO.getDelivery_addr()+"   "+orderDTO.getDelivery_status());
 			}
 	}
 	
@@ -231,16 +232,13 @@ public class SuccessView {
 	
 	
 	/**
-	 * 메뉴 전체조회 49
+	 * 메뉴 전체조회 49 - 회원 시점
 	 * */
 	public static void menuPrintAll(List<MenuDTO> menuSelectAll) {
-		System.out.println("--------------------------------------------------------------------\n");
-		System.out.println("                              [ 메뉴 ]                              \n");
-		System.out.println("메뉴 코드                      메뉴명                           가격");
-		System.out.println("--------------------------------------------------------------------");
+	
 		for(MenuDTO menuDTO : menuSelectAll) {
 			System.out.println(menuDTO.getMenu_code()+"             "+menuDTO.getMenu_name()+"             "+menuDTO.getMenu_price());
-			System.out.println("--------------------------------------------------------------------");
+			
 		}	
 	}
 	
@@ -340,9 +338,15 @@ public class SuccessView {
 	 * 메뉴별 월별 조회
 	 * */
 	public static void menuSalesByMonth(List<OrdersDTO> menuSalesByMonth) {
+		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("                              [월별 매출  조회  ]                                 ");
+		System.out.println("       월                                총 매출                   ");		
+		System.out.println("----------------------------------------------------------------------------------");
+		
 		for(OrdersDTO ordersDTO:menuSalesByMonth) {
 			System.out.println(ordersDTO.getMonth()+"\t"+ordersDTO.getMenu_sales());
 		}
+		System.out.println("--------------------------------------------------------------------");
 	}
 	
 	/**
