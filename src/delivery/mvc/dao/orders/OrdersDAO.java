@@ -8,6 +8,7 @@ import java.util.List;
 import delivery.mvc.dto.BasketDTO;
 import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
+import delivery.mvc.dto.UsersDTO;
 
 public interface OrdersDAO {
 	List<BasketDTO> bascketDTO = new ArrayList<BasketDTO>(); 
@@ -57,6 +58,7 @@ public interface OrdersDAO {
 	 * Select sum(m.menu_price * b.basket_quantity) as total_price from menu m , bascket b where m.menu_code = b.menu_code;
 	 * */
 	public int selectStoreCodeByMenuCode(int menuCode, String user_id) throws SQLException;
+	
 	
 	
 }

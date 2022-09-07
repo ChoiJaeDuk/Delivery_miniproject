@@ -6,13 +6,16 @@ import delivery.mvc.dao.basket.BasketDAO;
 import delivery.mvc.dao.basket.BasketDAOImpl;
 import delivery.mvc.dao.orders.OrdersDAO;
 import delivery.mvc.dao.orders.OrdersDAOImpl;
-import delivery.mvc.dto.BasketDTO;
+import delivery.mvc.dao.users.UsersDAO;
+import delivery.mvc.dao.users.UsersDAOImpl;
 import delivery.mvc.dto.MenuDTO;
 import delivery.mvc.dto.OrdersDTO;
+import delivery.mvc.dto.UsersDTO;
 
 public class OrdersServiceImpl implements OrdersService {
 	OrdersDAO ordersDao = new OrdersDAOImpl();
 	BasketDAO basketDao = new BasketDAOImpl();
+	UsersDAO usersDao = new UsersDAOImpl();
 	@Override
 	public void orderInsert(String user_id) throws SQLException {
 		int menuCode = 0;
@@ -26,7 +29,9 @@ public class OrdersServiceImpl implements OrdersService {
 
 		int storeCode = ordersDao.selectStoreCodeByMenuCode(menuCode, user_id);
 		
-		OrdersDTO orders = new OrdersDTO(user_id, storeCode, basket_total_price);		
+		UsersDTO users = usersDao.selectUserInfoByID(user_id);
+		
+		OrdersDTO orders = new OrdersDTO(user_id, storeCode, basket_total_price, users.getUsers_addr(),users.getUsers_phone());		
 		
 		
 		int result = ordersDao.orderInsert(orders);

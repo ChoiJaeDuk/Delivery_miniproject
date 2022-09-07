@@ -420,9 +420,30 @@ public class UsersDAOImpl implements UsersDAO {
 			e.printStackTrace();
 		}
 	}
-
-
-
+		
+	public UsersDTO selectUserInfoByID(String user_id) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		UsersDTO users = null;
+		try {
+			con = DbUtil.getConnection();
+			ps= con.prepareStatement("SELECT USER_ADDR, USER_PHONE FROM USERS WHERE USER_ID = ?");
+			ps.setString(1, user_id);
+		
+		    rs = ps.executeQuery(); 
+	    
+		    if(rs.next()) {
+		    	 users = new UsersDTO(rs.getString(1), rs.getString(2));
+		    }
+		      
+		    
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return users;
+	
+	}
 
 
 }
