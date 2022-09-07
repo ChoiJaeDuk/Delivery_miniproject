@@ -56,8 +56,8 @@ public class StoresDAOImpl implements StoresDAO {
 		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, "
 				+ "COUNT(DISTINCT R.REVIEW_DETAIL) AS REVIEW_COUNT, NVL(AVG(R.STAR_GRADE),0) AS STAR_AVG , COUNT(O.ORDER_CODE) AS ORDER_COUNT\r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
-				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
-				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE " + arrange;
+				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE where s.store_regis_status = '승인'  \r\n"
+				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE" + arrange;
 		
 		try {
 			con = DbUtil.getConnection();
@@ -139,7 +139,7 @@ public class StoresDAOImpl implements StoresDAO {
 	}
 	
 	@Override // 조인해결필요 메뉴 이름 후기/별점, 주문건 컬럼 조인필요
-	public List<StoresDTO> storesSelectByMenu(String menu_name) throws SQLException{
+	public List<StoresDTO> storesSelectByMenu(String arrange, String menu_name) throws SQLException{
 	
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -150,9 +150,9 @@ public class StoresDAOImpl implements StoresDAO {
  		String store_name = null;
 		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_CODE), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
-				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
-				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE\r\n"
-				+ "HAVING S.STORE_CODE = ?";
+				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE where s.store_regis_status = '승인' \r\n"
+				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE\r\n" 
+				+ "HAVING S.STORE_CODE = ?" + arrange;
 		
 		try {
 			con = DbUtil.getConnection();
@@ -204,7 +204,7 @@ public class StoresDAOImpl implements StoresDAO {
 	
 
 	@Override //조인 
-	public List<StoresDTO> storesSelectByCategory(int category_code) throws SQLException {//후기/별점, 주문건 컬럼 조인필요
+	public List<StoresDTO> storesSelectByCategory(String arrange, int category_code) throws SQLException {//후기/별점, 주문건 컬럼 조인필요
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -213,12 +213,12 @@ public class StoresDAOImpl implements StoresDAO {
 	
 		StoresDTO stores = null;
  		
-		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, "
-				+ "COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
+		String sql = "SELECT S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, COUNT(DISTINCT R.REVIEW_DETAIL), AVG(R.STAR_GRADE) , COUNT(O.ORDER_CODE)\r\n"
 				+ "FROM STORES S LEFT OUTER JOIN REVIEW R ON S.STORE_CODE = R.STORE_CODE \r\n"
-				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE \r\n"
-				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, CATEGORY_CODE\r\n"
-				+ "HAVING CATEGORY_CODE = ? "; //and category_mgr = ?
+				+ "LEFT OUTER JOIN ORDERS O ON S.STORE_CODE = O.STORE_CODE join menu m\r\n"
+				+ "on m.store_code = s.store_code\r\n where s.store_regis_status = '승인'"
+				+ "GROUP BY S.STORE_CODE, S.STORE_NAME, S.STORE_DELIVERY_FEE, m.CATEGORY_CODE\r\n"
+				+ "HAVING m.CATEGORY_CODE = ?" + arrange;
 		
 		try {
 			con = DbUtil.getConnection();

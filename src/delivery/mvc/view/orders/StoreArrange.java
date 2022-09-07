@@ -68,7 +68,7 @@ public class StoreArrange {
 	/**
 	 * %메뉴% 가게 정렬
 	 */
-	public static void menuarrange() {
+	public static void menuarrange(String menuName) {
 		//System.out.println("\n\n-------------------------------------------------------------------");
 		//System.out.println("1.주문 많은 순    2.평점 높은 순    3.배달팁 낮은 순     4.뒤로가기");
 		//System.out.println("-------------------------------------------------------------------");
@@ -80,22 +80,23 @@ public class StoreArrange {
 
 		switch(menuarrange) {
 			case 1:
-				UserCategorySelect.menuSelect(); 
-				System.out.println("주문 많은 순서로 %메뉴%가 포함된 가게 목록 불러오기\n\n\n\n");
+			
+				StoresController.storesSelectByMenu("ORDER BY ORDER_COUNT DESC", menuName);
 				break;
 			case 2:
-				UserCategorySelect.totalStoreList(); 
-				System.out.println("평점 높은 순서로 %메뉴%가 포함된 가게 목록 불러오기\n\n\n\n");
+			
+				StoresController.storesSelectByMenu("ORDER BY STAR_AVG DESC", menuName);
 				break;
 			case 3:
-				System.out.println("배달팁 낮은 순서로 %메뉴%가 포함된 가게 목록 불러오기\n\n\n\n");
+			
+				StoresController.storesSelectByMenu("ORDER BY STORE_DELIVERY_FEE", menuName);
 				break;
 			case 4:
 				UserOrdersView.storeSelect(1);
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				menuarrange();
+				menuarrange(menuName);
 				break;
 		}//switch끝
 	}
@@ -104,7 +105,7 @@ public class StoreArrange {
 	 * 하위 카테고리 정렬(피자, 찌개, ...)
 	 */
 	
-	public static void categoryArrange() {
+	public static void categoryArrange(int categoryCode) {
 		SessionSet ss = SessionSet.getInstance();
 		   String userId = ss.getSet().iterator().next().getSessionId();
 		arrangeLayout();
@@ -113,15 +114,18 @@ public class StoreArrange {
 		int categoryArrange = Integer.parseInt(sc.nextLine());
 		switch(categoryArrange) {
 			case 1:
-				UserCategorySelect.menuSelect(); 
-				System.out.println("주문 많은 순서로 하위카테고리 포함된 가게 목록 불러오기\n\n\n\n");
+				 
+				StoresController.storesSelectByCategory("ORDER BY ORDER_COUNT DESC", categoryCode);
+				
+				//System.out.println("주문 많은 순서로 하위카테고리 포함된 가게 목록 불러오기\n\n\n\n");
 				break;
 			case 2:
-				UserCategorySelect.totalStoreList(); 
-				System.out.println("평점 높은 순서로 하위카테고리가 포함된 가게 목록 불러오기\n\n\n\n");
+	
+				StoresController.storesSelectByCategory("ORDER BY STAR_AVG DESC", categoryCode);
 				break;
 			case 3:
-				System.out.println("배달팁 낮은 순서로 하위카테고리가 포함된 가게 목록 불러오기\n\n\n\n");
+				
+				StoresController.storesSelectByCategory("ORDER BY STORE_DELIVERY_FEE", categoryCode);
 				break;
 			case 4:
 				UserOrdersView.category(category, userId);
@@ -129,7 +133,7 @@ public class StoreArrange {
 				break;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				menuarrange();
+				categoryArrange(categoryCode);
 				break;
 		}//switch끝) 
 	}	

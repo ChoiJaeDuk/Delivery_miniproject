@@ -36,7 +36,7 @@ public interface StoresDAO {
 	 * 리턴받은 store_code로 메뉴 조회
 	 * select * from stores where menu_name = %?%;
 	 * */
-	List<StoresDTO> storesSelectByMenu(String menu_name) throws SQLException;
+	List<StoresDTO> storesSelectByMenu(String arrange, String menu_name) throws SQLException;
 
 	
 	/**
@@ -49,7 +49,7 @@ public interface StoresDAO {
 	 * 카테고리에 해당하는 가게 검색
 	 * select * from 
 	 * */
-	List<StoresDTO> storesSelectByCategory(int category_code) throws SQLException;
+	List<StoresDTO> storesSelectByCategory(String arrange, int category_code) throws SQLException;
 	
 	/**
 	 * 가게 등록하기
