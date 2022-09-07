@@ -49,7 +49,8 @@ public class ReviewController {
 	public static void reviewUserAll(String user_id) {
 		try {
 			List<ReviewDTO>/*list*/ rl = reviewService.reviewUserAll(user_id);
-			SuccessView.reviewList(rl);
+			//SuccessView.reviewList(rl);
+			SuccessView.reviewListByUserId(rl);
 			
 		} catch (Exception e) {
 			FailView.errorMessage(e.getMessage()); 

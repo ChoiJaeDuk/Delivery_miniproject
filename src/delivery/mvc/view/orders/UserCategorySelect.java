@@ -3,6 +3,7 @@ package delivery.mvc.view.orders;
 import java.util.Scanner;
 
 import delivery.mvc.controller.StoresController;
+import delivery.mvc.dto.StoresDTO;
 
 public class UserCategorySelect {
 	static Scanner sc = new Scanner(System.in);
@@ -21,11 +22,14 @@ public class UserCategorySelect {
 	
 	/**
 	 * 전체 가게 목록 조회
+	 * @param storeDTO 
 	 */
 	public static void totalStoreList() {
 		selectLayout();
 		//StoresController.storesInfoSelectAll();
-		StoresController.storesSelectAll("");
+		//StoresController.storesSelectAll("");
+		StoresController.storesSelectAll("");// 가게이름!! 연결해줘야해
+		//UserOrdersView.storeSelect(9,0);
 		
 	}
 	

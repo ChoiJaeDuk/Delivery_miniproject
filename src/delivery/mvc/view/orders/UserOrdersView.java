@@ -25,8 +25,7 @@ public class UserOrdersView {
 		
 		while(true) {
 			
-			SessionSet ss = SessionSet.getInstance();
-			System.out.println(ss.getSet()); // []
+		
 			
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("1.양식   2.중식   3.한식   4.가게 검색   5.메뉴 검색   6. 뒤로가기  ");
@@ -74,8 +73,7 @@ public class UserOrdersView {
 	 */
 	public static void category(int category, String user_id) {
 		
-		SessionSet ss = SessionSet.getInstance();
-		System.out.println(ss.getSet()); // []
+	
 		
 		switch(category) {
 			case 1:
@@ -133,8 +131,7 @@ public class UserOrdersView {
 	 */
 	public static void subFood(int subFood, String user_id) {
 		
-		SessionSet ss = SessionSet.getInstance();
-		System.out.println(ss.getSet()); // []
+	
 
 			
 			switch(subFood) {
@@ -341,7 +338,7 @@ public class UserOrdersView {
 				
 		System.out.println("----------------------------------------------------------------");
 		
-		StoresController.storeSelectById(user_id);  // 회원이 가게를 선택하면 해당 가게 간단한 소개 
+		StoresController.storeSelcetByCode(storeCode);  // 회원이 가게를 선택하면 해당 가게 간단한 소개 
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.메뉴 선택             2.후기             3.뒤로가기           ");
 		System.out.println("----------------------------------------------------------------");

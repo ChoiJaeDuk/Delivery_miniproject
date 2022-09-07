@@ -11,9 +11,7 @@ public class UsersView {
 	
 
 	public static void usersPrintMenu(String users_id) {
-		
-		SessionSet ss = SessionSet.getInstance();
-		System.out.println("==>"+ss.getSet()); // []
+	
 		System.out.println();
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println();

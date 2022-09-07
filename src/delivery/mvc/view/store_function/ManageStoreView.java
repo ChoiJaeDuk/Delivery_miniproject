@@ -54,7 +54,7 @@ public class ManageStoreView {
 	public static void printMenu() {
 		System.out.println("-------------------------------------------------------------------------------------");
 		System.out.println("                               [가 게 관 리]                                         ");
-		System.out.println("----------------------------------------------------------------------------------");
+		System.out.println("-------------------------------------------------------------------------------------");
 		System.out.println("1. open/close 상태 설정    2. 메뉴 관리     3. 판매통계    4. 후기관리    5. 뒤로가기");
 		System.out.println("-------------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
@@ -234,8 +234,8 @@ public class ManageStoreView {
 	
 	public static void salesStatistics(String users_id) {
 
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                               [ 매 출 현 황 조 회  ]                             ");
+		System.out.println("----------------------------------------------------------------------------------\n");
+		System.out.println("                               [ 매 출 현 황 조 회  ]                             \n");
 		System.out.println("               메뉴코드            메뉴이름             총 매출                   ");
 		System.out.println("----------------------------------------------------------------------------------");
 		
@@ -275,10 +275,6 @@ public class ManageStoreView {
 	public static void salesDetail(String users_id, int menuCode) {//가게에 
 		//StoresController.storesSelectByCategory(users_id, menuCode);
 
-		System.out.println("----------------------------------------------------------------------------------");
-		System.out.println("                              [ 월별 매출 현황 조회  ]                                 ");
-		System.out.println("       월                     총 매출                   ");		
-		System.out.println("----------------------------------------------------------------------------------");
 		StoresController.menuSalesByMonth(users_id, menuCode);
 			
 	}
@@ -391,9 +387,9 @@ public class ManageStoreView {
 	 * 댓글리스트/후기리스트
 	 * */
 	public static void  reviewList(String user_id) {
-	System.out.println("----------------------------------------------------------------------------------");
-	System.out.println("                                [   후   기   ]                                   ");
-	System.out.println("	후기 코드		회원ID		평점		후기		댓글		등록일		   ");
+	System.out.println("----------------------------------------------------------------------------------\n");
+	System.out.println("                                [   후   기   ]                                   \n");
+	System.out.println("후기 코드          회원ID            평점/후기           댓글               등록일");
 	System.out.println("----------------------------------------------------------------------------------");
 
 	ReviewController.reviewSelectAll(user_id);

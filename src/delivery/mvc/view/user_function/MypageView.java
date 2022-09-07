@@ -220,7 +220,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                          [ 내가 작성한 후기 목록 ]                         \n");
 
-		System.out.println("	후기 코드		가게 이름		평점		후기		댓글		등록일   ");
+		System.out.println("후기 코드     가게 이름       평점/후기             댓글           등록일   ");
 
 		ReviewController.reviewUserAll(userId);
 		System.out.println("----------------------------------------------------------------------------");
