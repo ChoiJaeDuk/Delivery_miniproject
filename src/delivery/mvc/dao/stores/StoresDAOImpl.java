@@ -62,8 +62,7 @@ public class StoresDAOImpl implements StoresDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);				
-			
-			//ps.setString(1, "S.STORE_DELIVERY_FEE DESC");
+		
 
 			rs = ps.executeQuery();
 				
@@ -123,6 +122,7 @@ public class StoresDAOImpl implements StoresDAO {
 		String sql = "select * from stores where users_id = ?";
 		
 		try {
+			
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, user_id);
@@ -131,6 +131,7 @@ public class StoresDAOImpl implements StoresDAO {
 				stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getInt(9), rs.getInt(10), 
 						rs.getString(11), rs.getString(12), rs.getString(13));
+				
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
