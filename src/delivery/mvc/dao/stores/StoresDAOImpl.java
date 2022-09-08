@@ -13,14 +13,18 @@ import delivery.mvc.dto.StoresDTO;
 import util.DbUtil;
 
 public class StoresDAOImpl implements StoresDAO {
-
-	@Override //후기/별점, 주문건 컬럼 조인필요->필요없을듯
-	public List<StoresDTO> storesInfoSelectAll() throws SQLException {
+	
+	
+	/**
+	 * 전체 가게 전체 정보 조회
+	 * */
+	@Override 
+	public List<StoresDTO> storesInfoSelectAll(String arrange) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
-		String sql = "select * from stores order by store_regis_status";
+		String sql = "select * from stores " + arrange;
 		
 		try {
 			con = DbUtil.getConnection();
@@ -42,6 +46,10 @@ public class StoresDAOImpl implements StoresDAO {
 		return list;
 		
 	}
+	
+	/**
+	 * 전체 가게 후기, 주문건 수 조회
+	 * */
 	
 	@Override
 	public List<StoresDTO> storesSelectAll(String arrange) throws SQLException {
@@ -80,7 +88,10 @@ public class StoresDAOImpl implements StoresDAO {
 		
 	}
 
-
+	/**
+	 * 가게코드에 해당하는 가게 전체 정보 조회
+	 * */
+	
 	@Override
 	public StoresDTO storeSelcetByCode(int store_code) throws SQLException {
 		Connection con = null;
@@ -111,8 +122,13 @@ public class StoresDAOImpl implements StoresDAO {
 		return store;
 	
 	}
-
-	@Override //-16 한사람이 가게를 두개 생성하니깐 가게 선택하는 것이 있어야하지 않을까 ? -> 한사람은 가게 한개 생성 
+	
+	
+	/**
+	 * 회원아이디에 해당하는 가게 전체 정보 조회
+	 * */
+	
+	@Override 
 	public StoresDTO storeSelectById(String user_id) throws SQLException {//RETURN STORESDTO 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -133,12 +149,18 @@ public class StoresDAOImpl implements StoresDAO {
 				
 			}
 		}finally {
+			
 			DbUtil.dbClose(con, ps, rs);
 		}
+		
 		return stores;
 	}
 	
-	@Override // 조인해결필요 메뉴 이름 후기/별점, 주문건 컬럼 조인필요
+	/**
+	 * 메뉴이름에 해당하는 가게 정보, 후기, 주문건 수 조회(정렬포함)
+	 * */
+	
+	@Override
 	public List<StoresDTO> storesSelectByMenu(String arrange, String menu_name) throws SQLException{
 	
 		Connection con = null;
@@ -155,10 +177,12 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "HAVING S.STORE_CODE = ?" + arrange;
 		
 		try {
+			
 			con = DbUtil.getConnection();
 			menuList = this.storeCodeSelectByMenu(con, menu_name);
 		
 			for(MenuDTO m: menuList) {
+				
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, m.getStore_code());
 				
@@ -166,12 +190,13 @@ public class StoresDAOImpl implements StoresDAO {
 				
 				while(rs.next()) {
 					
-					
 					stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
 					list.add(stores);
 				}
+				
 			}
 		}finally {
+			
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
@@ -184,7 +209,9 @@ public class StoresDAOImpl implements StoresDAO {
 		ResultSet rs = null;
 		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
 		String sql = "SELECT DISTINCT STORE_CODE FROM MENU WHERE MENU_NAME LIKE ?";
+		
 		try {
+			
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, "%"+menu_name+"%");
@@ -192,19 +219,25 @@ public class StoresDAOImpl implements StoresDAO {
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
+				
 				MenuDTO menu = new MenuDTO(rs.getInt(1));
 				menuList.add(menu);
 			
 			}
+			
 		}finally {
 			DbUtil.dbClose(null, ps, rs);
 		}
+		
 		return menuList;
 	}
 	
+	/**
+	 * 카테고리코드에 해당하는 가게 정보, 후기, 주문건 수 조회(정렬포함)
+	 * */
 
 	@Override //조인 
-	public List<StoresDTO> storesSelectByCategory(String arrange, int category_code) throws SQLException {//후기/별점, 주문건 컬럼 조인필요
+	public List<StoresDTO> storesSelectByCategory(String arrange, int category_code) throws SQLException {
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -221,28 +254,34 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "HAVING m.CATEGORY_CODE = ?" + arrange;
 		
 		try {
+			
 			con = DbUtil.getConnection();
 	
-				ps = con.prepareStatement(sql);
-				ps.setInt(1, category_code);
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, category_code);
 				
-				rs = ps.executeQuery();
+			rs = ps.executeQuery();
 				
-				while(rs.next()) {
+			while(rs.next()) {
 					
-					stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
-					list.add(stores);
-				}
+				stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
+				list.add(stores);
+				
+			}
 			
 		}finally {
+			
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		return list;
 	}
 	
-//	public void categoryCode()
 
+	/**
+	 * 가게 등록 신청 
+	 * */
+	
 	@Override
 	public int storeInsert(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storeDTO)
 		Connection con = null;
@@ -267,20 +306,27 @@ public class StoresDAOImpl implements StoresDAO {
 			result = ps.executeUpdate();
 				
 		}finally {
+			
 			DbUtil.dbClose(con, ps);
 		}
 		
 		return result;
 	}
-
+	
+	/**
+	 * 가게 정보 수정 
+	 * */
+	
 	@Override
-	public int storeUpdate(StoresDTO storesDTO) throws SQLException {//(String user_id, StoresDTO storesDTO)
+	public int storeUpdate(StoresDTO storesDTO) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "update stores set store_name = ?, store_addr = ?, store_phone = ?, store_detail = ? where users_id = ?";
 		int result = 0;
 		
 		try {
+			
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
@@ -293,31 +339,49 @@ public class StoresDAOImpl implements StoresDAO {
 			result = ps.executeUpdate();
 				
 		}finally {
+			
 			DbUtil.dbClose(con, ps);
 		}
+		
 		return result;
 	}
-
-	@Override //db에는 close = 0, open = 1 레이아웃 open = 1, close = 2
-	public int storeStatusUpdate(int store_status, String user_id) throws SQLException {//(String user_id, store_status)
+	
+	/**
+	 * 판매자의 가게 오픈 설정 변경
+	 * */
+	
+	@Override 
+	public int storeStatusUpdate(int store_status, String user_id) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "update stores set store_status = ? where users_id = ?";
 		int result = 0;
+		
 		try {
+			
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1,store_status);//ps.setString(1, store_status)
-			ps.setString(2, user_id);//ps.setInt(2, user_id)
+			
+			ps.setInt(1,store_status);
+			ps.setString(2, user_id);
+			
 			result = ps.executeUpdate();
+			
 		}finally {
+			
 			DbUtil.dbClose(con, ps);
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 운영자의 가게 신청 승인, 반려
+	 * */
+	
 	@Override
-	public int storeRegis(StoresDTO storesDTO) throws SQLException { //DB 생성시 (-)승인날짜 (+)결과날짜
+	public int storeRegis(StoresDTO storesDTO) throws SQLException { 
+		
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
@@ -393,23 +457,29 @@ public class StoresDAOImpl implements StoresDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
+				
 				StoresDTO stores = new StoresDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5));
 				list.add(stores);
+				
 			}
+			
 		}finally {
+			
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		return list;
 	}
 	
+	/**
+	 * 가게코드에 해당하는 가게의 월별 세부매출 조회
+	 * */
 	
 	@Override
 	public List<OrdersDTO> storeSalesByMonth(int store_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		//OrdersDTO orders = null;
 		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
 
 		String sql = "SELECT to_char(order_date, 'MM')||'월' as 구분, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,SUM(ORDER_TOTAL_PRICE)*0.03 AS TOTAL_SALES_FOR_MASTER, (SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES\r\n"
@@ -417,7 +487,9 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "		GROUP BY store_code, to_char(order_date,'MM')\r\n"
 				+ "		HAVING STORE_CODE = ?\r\n"
 				+ "		order by 구분";
+		
 		try {
+			
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, store_code);
@@ -425,15 +497,23 @@ public class StoresDAOImpl implements StoresDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
+				
 				OrdersDTO orders = new OrdersDTO(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getInt(4));
 				list.add(orders);
+				
 			}
+			
 		}finally {
+			
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		return list;
 	}
+	
+	/**
+	 * 회원아이디에 해당하는 가게의 메뉴당 매출 조회
+	 * */
 	
 	@Override
 	public List<MenuDTO> menuSales(String users_id) throws SQLException {
@@ -446,29 +526,33 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "join stores on menu.store_code = stores.store_code\r\n"
 				+ "GROUP BY menu.menu_code, menu.menu_name, users_id\r\n"
 				+ "HAVING users_id = ?";
-
 		
 		try {
+			
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, users_id);
 	
-			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
+				
 				MenuDTO menu = new MenuDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
 				list.add(menu);
+				
 			}
+			
 		}finally {
+			
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		return list;
 	}
-
-
-
+	
+	/**
+	 * 회원아이디와 메뉴코드에 해당하는 메뉴의 월별 세부 매출 조회
+	 * */
 	
 	@Override
 	public List<OrdersDTO> menuSalesByMonth(String users_id, int menu_code) throws SQLException {
@@ -484,74 +568,28 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "		order by 월";
 		
 		try {
+			
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
+			
 			ps.setString(1, users_id);
 			ps.setInt(2, menu_code);
 			
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
+				
 				OrdersDTO orders = new OrdersDTO(rs.getString(1), rs.getInt(2));
 				list.add(orders);
+				
 			}
+			
 		}finally {
+			
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		return list;
 	}
-
-
 	
-	
-	public static void main(String[] args)  {
-		StoresDAOImpl dao = new StoresDAOImpl();
-	
-		try{
-		
-		
-		/*	List<StoresDTO> list = dao.storesInfoSelectAll();
-			for(StoresDTO s : list) {
-				System.out.println(s);
-			}
-			
-			List<StoresDTO> list2 = dao.storesSelectAll();
-			for(StoresDTO s : list2) {
-				System.out.println(s);
-			}*/
-			
-			//List<StoresDTO> list2 = dao.storesSelectByCategory(2);
-			//for(StoresDTO s : list2) {
-			//	System.out.println(s.getStore_code() );
-			//}
-			
-			
-			//int result = dao.storeRegis(1,4);
-			//System.out.println(result);
-			
-			//StoresDTO sdf = new StoresDTO("승인", 5);
-			//System.out.println(sdf);
-			//int result = dao.storeRegis(new StoresDTO("승인", 5));
-			//System.out.println();
-			//System.out.println(result);
-			
-		//	List<OrdersDTO> list = dao.storeSalesByMonth(2);
-		//	for(OrdersDTO orders : list) {
-		//		System.out.println(orders.getMonth() + orders.getTotal_sales() + orders.getTotal_sales_for_master() + orders.getTotal_sales_for_stores());
-	//		}
-			
-		
-			
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-			
-	}
-
-
-
-
-
 }

@@ -16,9 +16,9 @@ public class StoresController {
 	
 	
 	//운영자가 보는 가게 목록 6p -가게이름과 코드만
-	public static void storesInfoSelectAll() {
+	public static void storesInfoSelectAll(String arrange) {
 		try {
-			List<StoresDTO> list = storesService.storesInfoSelectAll();
+			List<StoresDTO> list = storesService.storesInfoSelectAll(arrange);
 			//SuccessView.getmessagePrint("가게목록 출력\n" + list);
 			SuccessView.storePrintAllForMaster(list);
 		}catch(SQLException e){
@@ -27,9 +27,9 @@ public class StoresController {
 		}
 	}
 	
-	public static void storesNameCodeSelectAll() {
+	public static void storesNameCodeSelectAll(String arrange) {
 		try {
-			List<StoresDTO> list = storesService.storesInfoSelectAll();
+			List<StoresDTO> list = storesService.storesInfoSelectAll(arrange);
 			//SuccessView.getmessagePrint("가게목록 출력\n" + list);
 			SuccessView.storeListForMaster(list);
 		}catch(SQLException e){
@@ -54,10 +54,7 @@ public class StoresController {
 		}
 		
 	}
-	
 
-		
-	
 	
 	//가게코드로 가게 정보 받기 
 	public static void storeSelcetByCode(int store_code) {
@@ -69,7 +66,6 @@ public class StoresController {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
-	
 	
 	//아이디로 가게 정보
 	public static void storeSelectById(String user_id) {
@@ -210,7 +206,6 @@ public class StoresController {
 			
 		}
 	}
-	
 	
 	
 	public static void menuSalesByMonth(String users_id, int menu_code) {

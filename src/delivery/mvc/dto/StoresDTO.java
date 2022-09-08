@@ -276,38 +276,7 @@ public class StoresDTO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		/*
-		builder.append(store_code);
-		
-		builder.append(user_id);
-		
-		builder.append(store_name);
-		
-		builder.append(store_addr);
-		
-		builder.append(store_phone);
-		
-		builder.append(store_business_no);
-		
-		builder.append(category_code);
 	
-		builder.append(store_detail);
-	
-		builder.append(store_delivery_fee);
-
-		builder.append(store_status);
-	
-		builder.append(store_regis_date);
-	
-		builder.append(store_regis_status);
-
-		builder.append(store_approval_date);
-		builder.append("]");
-			
-
-		
-		builder.append("\t" + "store_code" + "\t\t" + "store_delivery_fee" + "\t\t" + "review_count" + "/"
-				+ "avg_star_grade" + "\t\t" + "order_count");*/
 		return builder.toString();
 	}
 

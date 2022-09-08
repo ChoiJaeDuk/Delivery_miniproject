@@ -95,7 +95,7 @@ public class AdminControlView {
 		System.out.println("가게 코드                 가게 이름             판매자 승인 상태");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 	
-		StoresController.storesInfoSelectAll();
+		StoresController.storesInfoSelectAll("order by store_regis_status");
 	
 		System.out.println("----------------------------------------------------------------\n");
 		

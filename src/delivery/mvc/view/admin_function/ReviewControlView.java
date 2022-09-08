@@ -20,7 +20,7 @@ public class ReviewControlView {
 		System.out.println("                          [ 가게 목록 ]                         \n");
 		System.out.println("              가게코드           가게 이름\n");
 		System.out.println("----------------------------------------------------------------\n");
-		StoresController.storesNameCodeSelectAll();
+		StoresController.storesNameCodeSelectAll("order by store_code");
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("* * * 가게코드를 입력해주세요. >> ");
 		int storeCode = Integer.parseInt(sc.nextLine());
