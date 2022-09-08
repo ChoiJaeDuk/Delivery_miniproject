@@ -8,7 +8,7 @@ import delivery.mvc.dto.OrdersDTO;
 import delivery.mvc.dto.StoresDTO;
 
 public interface StoresService {
-	 List<StoresDTO> storesInfoSelectAll() throws SQLException;
+	 List<StoresDTO> storesInfoSelectAll(String arrange) throws SQLException;
 	 
 	 List<StoresDTO> storesSelectAll(String arrange) throws SQLException;
 	 
