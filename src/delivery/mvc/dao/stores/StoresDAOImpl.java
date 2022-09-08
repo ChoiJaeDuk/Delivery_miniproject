@@ -443,13 +443,12 @@ public class StoresDAOImpl implements StoresDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<StoresDTO> list = new ArrayList<StoresDTO>();
-		String sql = "SELECT stores.STORE_CODE, STORE_NAME, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,\r\n"
-				+ "(SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES,\r\n"
+		String sql = "SELECT stores.STORE_CODE, STORE_NAME, NVL(SUM(ORDER_TOTAL_PRICE),0) AS TOTAL_SALES,\r\n"
+				+ "NVL((SUM(ORDER_TOTAL_PRICE)),0)-NVL((SUM(ORDER_TOTAL_PRICE)*0.03),0) AS TOTAL_SALES_FOR_STORES,\r\n"
 				+ "(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_MASTER\r\n"
-				+ "FROM ORDERS join stores\r\n"
+				+ "FROM  (SELECT * FROM ORDERS WHERE DELIVERY_CODE = 1) ORDERS right join stores\r\n"
 				+ "on orders.store_code = stores.store_code\r\n"
 				+ "GROUP BY stores.STORE_CODE, store_name\r\n"
-				+ "having orders.delivery_code = 1"
 				+ "order by stores.STORE_CODE";
 		try {
 			con = DbUtil.getConnection();
@@ -483,9 +482,9 @@ public class StoresDAOImpl implements StoresDAO {
 		ResultSet rs = null;
 		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
 
-		String sql = "SELECT to_char(order_date, 'MM')||'월' as 구분, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,SUM(ORDER_TOTAL_PRICE)*0.03 AS TOTAL_SALES_FOR_MASTER, (SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES\r\n"
+		String sql = "SELECT to_char(order_date, 'MM')||'월' as 구분, NVL(SUM(ORDER_TOTAL_PRICE),0) AS TOTAL_SALES,SUM(ORDER_TOTAL_PRICE)*0.03 AS TOTAL_SALES_FOR_MASTER, (SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES\r\n"
 				+ "		FROM ORDERS \r\n"
-				+ "		GROUP BY store_code, to_char(order_date,'MM'), DELIVERY_CODE\r\n"
+				+ "		GROUP BY store_code, to_char(order_date,'MM'),  DELIVERY_CODE\n"
 				+ "		HAVING STORE_CODE = ? AND DELIVERY_CODE = 1\r\n"
 				+ "		order by 구분";
 		
@@ -525,8 +524,8 @@ public class StoresDAOImpl implements StoresDAO {
 		String sql = "SELECT menu.menu_code, menu.menu_name, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
 				+ "FROM  MENU left JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE \r\n"
 				+ "join stores on menu.store_code = stores.store_code\r\n"
-				+ "GROUP BY menu.menu_code, menu.menu_name, users_id\r\n"
-				+ "HAVING users_id = ?";
+				+ "GROUP BY menu.menu_code, menu.menu_name, users_id, delivery_code\r\n"
+				+ "HAVING users_id = ? AND DELIVERY_CODE = 1";
 		
 		try {
 			
@@ -564,8 +563,8 @@ public class StoresDAOImpl implements StoresDAO {
 		String sql = "SELECT TO_CHAR(ORDERS.ORDER_DATE,'MM') as 월, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
 				+ "		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE\r\n"
 				+ "		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE join stores on stores.store_code = menu.store_code\r\n"
-				+ "		GROUP BY MENU.MENU_CODE, stores.users_id, to_char(orders.order_date,'MM')\r\n"
-				+ "		HAVING stores.users_id = ? and menu.menu_code = ?\r\n"
+				+ "		GROUP BY MENU.MENU_CODE, stores.users_id, to_char(orders.order_date,'MM'), orders.delivery_code\r\n"
+				+ "		HAVING stores.users_id = ? and menu.menu_code = ? AND DELIVERY_CODE = 1\r\n"
 				+ "		order by 월";
 		
 		try {
