@@ -90,7 +90,7 @@ private static Scanner sc= new Scanner(System.in);
 	 * 1-2 주문취소하기
 	 * */
 	public static void refuseOrder(String orderCode) {
-		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode),3);
+		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode),4);
 		
 	}
 	
@@ -139,7 +139,7 @@ private static Scanner sc= new Scanner(System.in);
 	 * 2-1 배달시작 : DB수정해야함 배달 상태 4개로 분류
 	 * */
 	public static void startDelivery(String orderCode) {
-		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode), 2);
+		OrdersController.orderStatusUpdate(Integer.parseInt(orderCode), 3);
 	}
 	
 	/**

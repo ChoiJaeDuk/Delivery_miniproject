@@ -385,6 +385,7 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "FROM ORDERS join stores\r\n"
 				+ "on orders.store_code = stores.store_code\r\n"
 				+ "GROUP BY stores.STORE_CODE, store_name\r\n"
+				+ "having orders.delivery_code = 1"
 				+ "order by stores.STORE_CODE";
 		try {
 			con = DbUtil.getConnection();
@@ -414,8 +415,8 @@ public class StoresDAOImpl implements StoresDAO {
 
 		String sql = "SELECT to_char(order_date, 'MM')||'월' as 구분, SUM(ORDER_TOTAL_PRICE) AS TOTAL_SALES,SUM(ORDER_TOTAL_PRICE)*0.03 AS TOTAL_SALES_FOR_MASTER, (SUM(ORDER_TOTAL_PRICE))-(SUM(ORDER_TOTAL_PRICE)*0.03) AS TOTAL_SALES_FOR_STORES\r\n"
 				+ "		FROM ORDERS \r\n"
-				+ "		GROUP BY store_code, to_char(order_date,'MM')\r\n"
-				+ "		HAVING STORE_CODE = ?\r\n"
+				+ "		GROUP BY store_code, to_char(order_date,'MM'), DELIVERY_CODE\r\n"
+				+ "		HAVING STORE_CODE = ? AND DELIVERY_CODE = 1\r\n"
 				+ "		order by 구분";
 		try {
 			con = DbUtil.getConnection();
