@@ -25,6 +25,12 @@ public interface ReviewDAO {
 	 */
 	List<ReviewDTO> reviewSelectAll(String user_id) throws SQLException;
 	
+	
+	/**
+	 * 가게의 리뷰 모든 리뷰 출력
+	 */
+	List<ReviewDTO> storeReview(int store_code) throws SQLException;
+	
 	/**
 	 * 후기 목록조회(유저의 모든 리뷰)
 	 */

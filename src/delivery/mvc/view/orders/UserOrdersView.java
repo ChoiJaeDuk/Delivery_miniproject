@@ -322,7 +322,7 @@ public class UserOrdersView {
 				menu(storeCode, user_id);
 				break;
 			case 2:
-				StoreReviewView.review(0,userId);
+				StoreReviewView.review(storeCode,userId);
 				break;
 			case 3:
 				deliveryMenu(userId);
