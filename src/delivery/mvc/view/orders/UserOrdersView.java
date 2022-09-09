@@ -351,7 +351,7 @@ public class UserOrdersView {
 		MenuController.menuSelectByAllByUser(store_code);
 		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
-		System.out.println("1.주문하기          2.장바구니(결제)          3.뒤로가기");
+		System.out.println("1.장바구니 담기            2.장바구니(결제)          3.뒤로가기");
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
 		
