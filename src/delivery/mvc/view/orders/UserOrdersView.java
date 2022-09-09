@@ -20,12 +20,9 @@ public class UserOrdersView {
 	 *  양식,중식,한식 검색
 	 *  가게, 메뉴 검색
 	 */
-	public static void deliveryMenu(String user_id) {
+	public static void deliveryMenu(String user_id) {		
 		
-		
-		while(true) {
-			
-		
+		while(true) {		
 			
 			System.out.println("--------------------------------------------------------------------");
 			System.out.println("1.양식   2.중식   3.한식   4.가게 검색   5.메뉴 검색   6. 뒤로가기  ");
@@ -45,7 +42,7 @@ public class UserOrdersView {
 					break;
 				case 4:
 					UserCategorySelect.totalStoreList(); 				
-					storeSelect(9, 0); //두번째 인수 index는 0이면 전체 가게 목록 select, 1이면 %메뉴% 포함한 가게목록 select
+					storeSelect(category, 0); //두번째 인수 index는 0이면 전체 가게 목록 select, 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 5:
 					menuName = UserCategorySelect.menuSelect();
@@ -59,10 +56,7 @@ public class UserOrdersView {
 				default:
 					   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 				
-			}
-			
-						
-			
+			}						
 		}//while끝
 	}
 
@@ -72,8 +66,6 @@ public class UserOrdersView {
 	 * 음식 카테고리 
 	 */
 	public static void category(int category, String user_id) {
-		
-	
 		
 		switch(category) {
 			case 1:
@@ -121,8 +113,6 @@ public class UserOrdersView {
 			default:
 			   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 		}//switch끝
-		
-		
 	}
 
 	
@@ -130,11 +120,9 @@ public class UserOrdersView {
 	 * 하위 카테고리 - 가게목록
 	 */
 	public static void subFood(int subFood, String user_id) {
-		
 	
-
-			
 			switch(subFood) {
+			
 				case 4:
 					System.out.println("----------------------------------------------------------------\n");
 					System.out.println("                       [ 피자 가게 목록 ]                       \n");
@@ -214,7 +202,6 @@ public class UserOrdersView {
 					   category(category, user_id);
 		
 			}//switch끝
-		
 	}//subFood메소드끝
 	
 	
@@ -228,12 +215,9 @@ public class UserOrdersView {
 		switch(subFoodList) {//subFoodList에 가게목록을 담아서 리턴해준다.
 			case 4:
 				StoresController.storesSelectByCategory("",subFoodList);
-				
-				
 				storeSelect(subFoodList, 2); //int index
 				break;
 			case 5:
-				
 				StoresController.storesSelectByCategory("",subFoodList);
 				storeSelect(subFoodList, 2);
 				break;
@@ -241,39 +225,32 @@ public class UserOrdersView {
 				StoresController.storesSelectByCategory("",subFoodList);
 				storeSelect(subFoodList, 2);
 				break;
-			case 7:
-				System.out.println("면 가게목록");
+			case 7:			
 				StoresController.storesSelectByCategory("",subFoodList);
 				storeSelect(subFoodList, 2);
 				break;
-			case 8:
-				System.out.println("요리 가게목록");
+			case 8:				
 				StoresController.storesSelectByCategory("",subFoodList);
 				storeSelect(subFoodList, 2);
 				break;
-			case 9:
-				System.out.println("밥 가게목록");
+			case 9:				
 				StoresController.storesSelectByCategory("",subFoodList);
 				storeSelect(subFoodList, 2);
 				break;
-			case 10:
-				System.out.println("찌개 가게목록");
+			case 10:				
 				StoresController.storesSelectByCategory("",subFoodList);
 				storeSelect(subFoodList, 2);
 				break;
-			case 11:
-				System.out.println("볶음 가게목록");
+			case 11:				
 				StoresController.storesSelectByCategory("",subFoodList);
 				storeSelect(subFoodList, 2);
 				break;
-			case 12:
-				System.out.println("찜/탕 가게목록");
+			case 12:				
 				StoresController.storesSelectByCategory("",subFoodList);
 				storeSelect(subFoodList, 2);
 				break;
 			
 		}//switch끝
-		
 		return subFoodList;
 	}
 	
@@ -306,14 +283,14 @@ public class UserOrdersView {
 				break;
 			
 			case 3:
-				deliveryMenu(userId);
-				
+				if(index[0] ==0)
+					deliveryMenu(userId);
+				else if(index[0] ==1)
+					deliveryMenu(userId);
+				else if(index[0] ==2)
+					category(category, userId);
 				return;
-			case 4 :
-				category(category, userId);
-				
-				break;
-		
+			
 			default:
 				   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 				   subFood(storeSelect, userId);
@@ -348,8 +325,10 @@ public class UserOrdersView {
 				StoreReviewView.review(0,userId);
 				break;
 			case 3:
-				//deliveryMenu();
-				//subFoodList(subFoodList[0]); //[0]의미는 뭘까.....? 초기화?????? //수정을 못하겠어요 !!!!!
+				deliveryMenu(userId);
+				//subFoodList(storeCode); 
+				//storeSelect(storeCode);
+				//subFood(storeCode,user_id);
 				return;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
