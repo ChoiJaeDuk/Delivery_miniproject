@@ -27,6 +27,15 @@ public class ReviewServiceImpl implements ReviewService {
 		return list;
 	}
 	
+
+
+	@Override
+	public List<ReviewDTO> storeReview(int store_code) throws SQLException {
+		List<ReviewDTO> list = reviewDAO.storeReview(store_code);
+		if(list.size() == 0 || list.isEmpty()) throw new SQLException(store_code + "의 후기가 없습니다.");
+		return list;
+	}
+	
 	@Override
 	public List<ReviewDTO> reviewUserAll(String user_id) throws SQLException {
 		List<ReviewDTO> list = reviewDAO.reviewUserAll(user_id);
@@ -86,6 +95,7 @@ public class ReviewServiceImpl implements ReviewService {
 		if(result == 0) throw new SQLException("댓글 삭제를 실패했습니다.");
 		
 	}
+
 
 
 }

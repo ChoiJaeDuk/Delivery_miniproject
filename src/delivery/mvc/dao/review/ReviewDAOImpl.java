@@ -81,6 +81,42 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return list;
 	}
 	
+	/**
+	 * 가게의 리뷰 모든 리뷰 출력
+	 */
+	public List<ReviewDTO> storeReview(int store_code) throws SQLException{
+		Connection con = null;
+		PreparedStatement ps =null;
+		ResultSet rs= null;
+		
+		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+		String sql = "select review_code, r.user_id,  star_grade, review_detail, post_date, reply\r\n"
+				+ "from review r join stores s \r\n"
+				+ "on r.store_code = s.store_code \r\n"
+				+ "join users u on s.users_id = u.user_id\r\n"
+				+ "where s.store_code = ?";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, store_code);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				ReviewDTO review = new ReviewDTO(rs.getInt(1), 0, rs.getString(2), 0, 
+						rs.getString(4), rs.getString(5), rs.getInt(3), rs.getString(6));
+				list.add(review);
+			}
+			
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		
+		return list;
+		
+	}
+	
 	
 	/**
 	 * 본인이 작성한 후기 조회

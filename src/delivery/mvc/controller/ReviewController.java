@@ -44,6 +44,18 @@ public class ReviewController {
 	}
 	
 	/**
+	 * 가게의 리뷰 모든 리뷰 출력
+	 */
+	public static void storeReview(int store_code){
+		try {
+			List<ReviewDTO> list = reviewService.storeReview(store_code);
+			SuccessView.reviewListStore(list);
+		} catch (Exception e) {
+			FailView.errorMessage(e.getMessage()); 
+		}
+		
+	}
+	/**
 	 * 유저가 작성한 모든 후기 목록조회 (인수 : 유저아이디)
 	 */
 	public static void reviewUserAll(String user_id) {
