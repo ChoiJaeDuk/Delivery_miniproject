@@ -221,11 +221,6 @@ public class UserOrdersView {
 	
 
 	public static int subFoodList(int subFoodList) {
-		
-		SessionSet ss = SessionSet.getInstance();
-		System.out.println(ss.getSet()); 
-		System.out.println();
-		
 
 		System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");

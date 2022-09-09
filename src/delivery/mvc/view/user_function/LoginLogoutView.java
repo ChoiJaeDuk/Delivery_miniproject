@@ -21,9 +21,6 @@ public class LoginLogoutView {
 
 	public static void login() {
 
-		SessionSet ss = SessionSet.getInstance();
-		System.out.println(ss.getSet()); // []
-
 		System.out.print("* * * 아이디를 입력해주세요. >> ");
 		userId = sc.nextLine();
 

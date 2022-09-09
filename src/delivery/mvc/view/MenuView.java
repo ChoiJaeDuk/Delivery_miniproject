@@ -15,9 +15,6 @@ public class MenuView {
 		
 		while (true) {
 			
-			SessionSet ss = SessionSet.getInstance();
-			System.out.println(ss.getSet()); // []
-
 			MenuView.printMenu();
 			int menu = Integer.parseInt(sc.nextLine());
 			
