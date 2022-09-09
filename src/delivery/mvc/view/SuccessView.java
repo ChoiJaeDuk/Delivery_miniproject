@@ -140,9 +140,10 @@ public class SuccessView {
 		for (ReviewDTO reviewDTO: reviewSelectAll) {
 			System.out.println(
 					"   "+ reviewDTO.getReview_code()+
-					"          "+reviewDTO.getUser_id()+
-					"       "+reviewDTO.getStar_grade()+"/"+reviewDTO.getReview_detail()+
-					"          "+reviewDTO.getPost_date());
+					"                "+reviewDTO.getUser_id()+
+					"            "+reviewDTO.getStar_grade()+"/"+reviewDTO.getReview_detail()+
+					"           "+ reviewDTO.getReply() +
+					"             "+reviewDTO.getPost_date());
 		}
 	}
 	

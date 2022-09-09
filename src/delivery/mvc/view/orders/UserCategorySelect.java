@@ -10,9 +10,8 @@ public class UserCategorySelect {
 
 
 	/**
-	 * 가게조회 레이아웃
+	 *  가게조회 레이아웃
 	 */
-	
 	public static void selectLayout() {
 		System.out.println("----------------------------------------------------------------\n");
 		System.out.println("                          [ 가게 목록 ]                         \n");
@@ -21,27 +20,21 @@ public class UserCategorySelect {
 	}
 	
 	/**
-	 * 전체 가게 목록 조회
-	 * @param storeDTO 
+	 *  전체 가게 목록 조회
 	 */
 	public static void totalStoreList() {
 		selectLayout();
-		//StoresController.storesInfoSelectAll();
-		//StoresController.storesSelectAll("");
 		StoresController.storesSelectAll("");// 가게이름!! 연결해줘야해
-		//UserOrdersView.storeSelect(9,0);
-		
 	}
 	
 	/**
-	 * %메뉴% 검색 -가게 목록 조회
+	 *  %메뉴% 검색 --> 가게 목록 조회
 	 */
 	public static String menuSelect() {
 		System.out.println("* * * 메뉴이름을 입력해주세요. >> ");
 		String menuName =sc.nextLine();
 		
-			selectLayout();
-
+		selectLayout();
 		StoresController.storesSelectByMenu("", menuName);
 		
 		return menuName;
