@@ -24,33 +24,33 @@ public class UsersView {
 	}
 
 	public static void users(String usersId) {
+		
 		usersPrintMenu(usersId);
 	
 		while (true) {
 			int users = Integer.parseInt(sc.nextLine());
 
 			switch (users) {
-			case 1:
-				UserOrdersView.deliveryMenu(usersId);// 배달
-				break;
-				
-			case 2:
-				UserBascketView.bascket(usersId);// 장바구니 조회
-				break;
-				
-			case 3:
-				MypageView.mypage(usersId);// 마이페이지
-				break;
-				
-			case 4:
-				LoginLogoutView.logOut(usersId);// 로그아웃
-				return;
-
-			default:
-				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");// 그 외 번호 입력 시 오류메세지
-				break;
+				case 1:
+					UserOrdersView.deliveryMenu(usersId);// 배달
+					break;
+					
+				case 2:
+					UserBascketView.bascket(usersId);// 장바구니 조회
+					break;
+					
+				case 3:
+					MypageView.mypage(usersId);// 마이페이지
+					break;
+					
+				case 4:
+					LoginLogoutView.logOut(usersId);// 로그아웃
+					return;
+	
+				default:
+					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");// 그 외 번호 입력 시 오류메세지
+					break;
 			}// switch끝
 		} // while끝
 	}
-
 }

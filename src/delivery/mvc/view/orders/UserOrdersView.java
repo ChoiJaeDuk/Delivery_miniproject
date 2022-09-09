@@ -20,8 +20,8 @@ public class UserOrdersView {
 	 *  양식,중식,한식 검색
 	 *  가게, 메뉴 검색
 	 */
+	
 	public static void deliveryMenu(String user_id) {		
-		
 		while(true) {		
 			
 			System.out.println("--------------------------------------------------------------------");
@@ -42,12 +42,11 @@ public class UserOrdersView {
 					break;
 				case 4:
 					UserCategorySelect.totalStoreList(); 				
-					storeSelect(category, 0); //두번째 인수 index는 0이면 전체 가게 목록 select, 1이면 %메뉴% 포함한 가게목록 select
+					storeSelect(category, 0); //두번째 인수 index는 0이면 전체 가게 목록 select
 					break;
 				case 5:
 					menuName = UserCategorySelect.menuSelect();
-					storeSelect(9, 1);//두번째 인수 index는 0이면 전체 가게 목록 select , 1이면 %메뉴% 포함한 가게목록 select
-
+					storeSelect(9, 1); //두번째 인수 index는 1이면 %메뉴% 포함한 가게목록 select
 					break;
 				case 6:
 					UsersView.users(user_id);
@@ -55,7 +54,6 @@ public class UserOrdersView {
 					
 				default:
 					   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				
 			}						
 		}//while끝
 	}
@@ -65,6 +63,7 @@ public class UserOrdersView {
 	/**
 	 * 음식 카테고리 
 	 */
+	
 	public static void category(int category, String user_id) {
 		
 		switch(category) {
@@ -85,8 +84,7 @@ public class UserOrdersView {
 				System.out.println("                            [ 중식 ]                            \n");
 				System.out.println("----------------------------------------------------------------");
 				System.out.println("7.면             8.요리             9.밥             13.뒤로가기");
-				System.out.println("----------------------------------------------------------------\n");
-				
+				System.out.println("----------------------------------------------------------------\n");				
 				System.out.println("* * * 번호를 입력해주세요. >> ");
 				category =Integer.parseInt(sc.nextLine());
 				
@@ -98,8 +96,7 @@ public class UserOrdersView {
 				System.out.println("                            [ 한식 ]                            \n");
 				System.out.println("----------------------------------------------------------------");
 				System.out.println("10.찌개           11.볶음          12.찜/탕          13.뒤로가기");
-				System.out.println("----------------------------------------------------------------\n");
-				
+				System.out.println("----------------------------------------------------------------\n");				
 				System.out.println("* * * 번호를 입력해주세요. >> ");
 				category =Integer.parseInt(sc.nextLine());
 				
@@ -255,7 +252,7 @@ public class UserOrdersView {
 	}
 	
 	
-	public static void storeSelect(int subFoodList, int ...index ) {//index=0이면arragne(), =1 menuarrage() 9,2
+	public static void storeSelect(int subFoodList, int ...index ) {//index=0이면arragne(), =1이면menuarrage(), =2이면categoryArrange()
 		
 		SessionSet ss = SessionSet.getInstance();
 		String userId = ss.getSet().iterator().next().getSessionId();
@@ -274,11 +271,11 @@ public class UserOrdersView {
 				stores(storeCode, userId);
 				break;
 			case 2:
-				if (index[0] == 0)
-					StoreArrange.arrange(); // 전체가게조회 --> 전체 가게목록을 정렬해서 출력해야함.
-				else if (index[0] == 1)
-					StoreArrange.menuarrange(menuName); // %메뉴%를 파는 가게 목록 정렬하기...
-				else if(index[0] == 2) // 하위카테고리(예:피자)만 파는 가게목록을 띄워줘야함. ???? 사용자 입력값에 따라 가게목록 호출해야하는데.....어렵다...
+				if (index[0] == 0) // 전체가게조회 --> 전체 가게목록을 정렬
+					StoreArrange.arrange(); 
+				else if (index[0] == 1) // %메뉴%를 파는 가게 목록 정렬
+					StoreArrange.menuarrange(menuName); 
+				else if(index[0] == 2) // 하위카테고리(예:피자)만 파는 가게목록 정렬 띄워줘야함. 사용자 입력값에 따라 가게목록 호출해야하는데.....어렵다...
 					StoreArrange.categoryArrange(subFoodList);
 				break;
 			
@@ -306,11 +303,11 @@ public class UserOrdersView {
 	public static void stores(int storeCode, String user_id) {
 		SessionSet ss = SessionSet.getInstance();
 		String userId = ss.getSet().iterator().next().getSessionId();
-	
 				
 		System.out.println("----------------------------------------------------------------");
 		
-		StoresController.storeSelcetByCode(storeCode);  // 회원이 가게를 선택하면 해당 가게 간단한 소개 
+		StoresController.storeSelcetByCode(storeCode);  // 회원이 가게를 선택하면 해당 가게 간단한 소개
+		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		System.out.println("1.메뉴 선택             2.후기             3.뒤로가기           ");
 		System.out.println("----------------------------------------------------------------");
@@ -326,9 +323,6 @@ public class UserOrdersView {
 				break;
 			case 3:
 				deliveryMenu(userId);
-				//subFoodList(storeCode); 
-				//storeSelect(storeCode);
-				//subFood(storeCode,user_id);
 				return;
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
@@ -343,11 +337,14 @@ public class UserOrdersView {
 	/**
 	 * 메뉴  //세션아이디 계속 가지고 가야하나요 ?(주석 오류)
 	 */
+	
 	public static void menu(int store_code, String user_id) {
-		System.out.println("\n\n----------------------------------------------------------------");
-		System.out.println("                            [ 메뉴 ]                            \n");
-		System.out.println("메뉴코드                      메뉴이름                      가격");
+		System.out.println("\n\n");
 		System.out.println("----------------------------------------------------------------");
+		System.out.println("                            [ 메뉴 ]                            \n");
+		System.out.println("메뉴코드                    메뉴이름                      가격");
+		System.out.println("----------------------------------------------------------------");
+		
 		MenuController.menuSelectByAllByUser(store_code);
 		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
@@ -359,25 +356,20 @@ public class UserOrdersView {
 		switch(menu) {
 			case 1:			
 				System.out.println("* * * 메뉴코드를 입력해주세요. >> ");
-	            int menu_code = Integer.parseInt(sc.nextLine());
-	            
+	            int menu_code = Integer.parseInt(sc.nextLine());	            
 	            System.out.println("* * * 수량을 입력해주세요. >> ");
 	            int num = Integer.parseInt(sc.nextLine());
 	            
-	            BasketController.basketInsert(new BasketDTO(user_id, menu_code, num));
-	            
+	            BasketController.basketInsert(new BasketDTO(user_id, menu_code, num));	            
 				menu(store_code,user_id);
 				break;
 				
 			case 2:
-
 				UserBascketView.bascket(user_id);
-
 				break;
 				
 			case 3:
-				stores(store_code, user_id);
-				
+				stores(store_code, user_id);				
 				break;
 				
 			default :
