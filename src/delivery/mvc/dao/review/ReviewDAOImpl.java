@@ -263,7 +263,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "UPDATE REVIEW SET reply = null WHERE REVIEW_CODE= ?";
+		String sql = "UPDATE REVIEW SET reply = '  ' WHERE REVIEW_CODE= ?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
