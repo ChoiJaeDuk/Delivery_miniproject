@@ -523,7 +523,7 @@ public class StoresDAOImpl implements StoresDAO {
 		List<MenuDTO> list = new ArrayList<MenuDTO>();
 		String sql = "SELECT menu.menu_code, menu.menu_name, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
 				+ "FROM  MENU left JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE \r\n"
-				+ "join stores on menu.store_code = stores.store_code\r\n"
+				+ "join stores on menu.store_code = stores.store_code join ORDERS on order_line.order_code = orders.order_code\r\n"
 				+ "GROUP BY menu.menu_code, menu.menu_name, users_id, delivery_code\r\n"
 				+ "HAVING users_id = ? AND DELIVERY_CODE = 1";
 		

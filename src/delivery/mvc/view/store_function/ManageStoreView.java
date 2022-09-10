@@ -285,10 +285,7 @@ public class ManageStoreView {
 	 * 4. 후기관리 
 	 * */
 	
-	public static void manageReview	(String user_id) {
-//		StoresDAO storesDAO = new StoresDAOImpl();
-//		 StoresDTO storecode = storesDAO.storeSelectById(user_id);
-		
+	public static void manageReview	(String user_id) {		
 		
 		reviewList(user_id);
 		System.out.println("        1. 댓글작성      2. 댓글수정       3. 댓글삭제       4. 뒤로가기          ");
