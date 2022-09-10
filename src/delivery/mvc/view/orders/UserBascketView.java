@@ -22,6 +22,7 @@ public class UserBascketView {
 			System.out.println();
 			System.out.println("메뉴 코드     가게이름              메뉴이름           수량     가격");
 			System.out.println("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+			
 			BasketController.basketMenuSelect(user_id);
 		
 			System.out.println("--------------------------------------------------------------------");
@@ -79,6 +80,7 @@ public class UserBascketView {
 	/**
 	 * 장바구니 주문하기
 	 */
+	
 	public static void bascketOrder(String user_id) {
 		System.out.println("* * * 주문이 완료되었습니다. >> ");
 		System.out.println("* * * 주문 승인을 대기 중입니다. >> \n\n");

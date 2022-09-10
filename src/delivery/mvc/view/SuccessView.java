@@ -372,7 +372,11 @@ public class SuccessView {
 	 * */
 	public static void recentOrderLine(List<OrdersDTO> recentOrderLine) {
 		for (OrdersDTO orderDTO:recentOrderLine) {
-			System.out.println(orderDTO.getOrder_code()+"\t"+orderDTO.getStoresDTO().getStore_name()+"\t"+orderDTO.getOrder_date()+"\t"+orderDTO.getOrder_total_price());
+			System.out.println(
+					"  "+orderDTO.getOrder_code()+
+					"               "+orderDTO.getStoresDTO().getStore_name()+
+					"          "+orderDTO.getOrder_date()+
+					"          "+orderDTO.getOrder_total_price());
 		}		
 	}
 	

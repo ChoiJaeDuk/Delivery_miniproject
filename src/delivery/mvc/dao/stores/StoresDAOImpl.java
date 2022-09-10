@@ -177,29 +177,22 @@ public class StoresDAOImpl implements StoresDAO {
 				+ "HAVING S.STORE_CODE = ?" + arrange;
 		
 		try {
-			
 			con = DbUtil.getConnection();
 			menuList = this.storeCodeSelectByMenu(con, menu_name);
 		
 			for(MenuDTO m: menuList) {
-				
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, m.getStore_code());
-				
 				rs = ps.executeQuery();
 				
 				while(rs.next()) {
-					
 					stores = new StoresDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6));				
 					list.add(stores);
 				}
-				
 			}
 		}finally {
-			
 			DbUtil.dbClose(con, ps, rs);
 		}
-		
 		return list;
 	}
 	
@@ -211,24 +204,19 @@ public class StoresDAOImpl implements StoresDAO {
 		String sql = "SELECT DISTINCT STORE_CODE FROM MENU WHERE MENU_NAME LIKE ?";
 		
 		try {
-			
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, "%"+menu_name+"%");
-			
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				
 				MenuDTO menu = new MenuDTO(rs.getInt(1));
 				menuList.add(menu);
-			
 			}
 			
 		}finally {
 			DbUtil.dbClose(null, ps, rs);
 		}
-		
 		return menuList;
 	}
 	
