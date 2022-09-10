@@ -75,33 +75,30 @@ public class OrdersDAOImpl implements OrdersDAO {
 	 * 林巩惑技 殿废窍扁 
 	 * OrdersDTO俊 orderlinelist按眉 积己秦具窃.
 	 * */
-	public int[] orderLineInsert(Connection con  , OrdersDTO orders) throws SQLException{
-			
-		  PreparedStatement ps=null;
-		  String sql="INSERT INTO ORDER_LINE VALUES(ORDER_LINE_CODE_SEQ.NEXTVAL,ORDER_CODE_SEQ.CURRVAL,?,?)";
-		  int result [] = null;
-		 try {
-			 ps = con.prepareStatement(sql);
-		//	 for( OrderLineDTO orderline : orders.getOrderLineList()) {
-				 bascketlist = basketDao.basketSelectAll(orders.getUser_id());
-				 for (BasketDTO bascket : bascketlist) {
-						
-					 ps.setInt(1, bascket.getMenu_code());
-					 ps.setInt(2, bascket.getBasket_quantity());
-					 ps.addBatch();
-					 ps.clearParameters();
-				 }
-			   
-		//  }
-		  result = ps.executeBatch();//老褒贸府
-		  
-		   
-    }finally {
-    	DbUtil.dbClose(null, ps, null);
-    }
-		
+	
+	public int[] orderLineInsert(Connection con, OrdersDTO orders) throws SQLException {
+
+		PreparedStatement ps = null;
+		String sql = "INSERT INTO ORDER_LINE VALUES(ORDER_LINE_CODE_SEQ.NEXTVAL,ORDER_CODE_SEQ.CURRVAL,?,?)";
+		int result[] = null;
+		try {
+			ps = con.prepareStatement(sql);
+			// for( OrderLineDTO orderline : orders.getOrderLineList()) {
+			bascketlist = basketDao.basketSelectAll(orders.getUser_id());
+			for (BasketDTO bascket : bascketlist) {
+
+				ps.setInt(1, bascket.getMenu_code());
+				ps.setInt(2, bascket.getBasket_quantity());
+				ps.addBatch();
+				ps.clearParameters();
+			}
+			// }
+			result = ps.executeBatch();// 老褒贸府
+
+		} finally {
+			DbUtil.dbClose(null, ps, null);
+		}
 		return result;
-		
 	}
 	
 	/**
