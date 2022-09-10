@@ -11,27 +11,22 @@ public class FindView {
 
 	
 	public static void find() {
-				
 		while (true) {
-			
 			FindView.idPw();
+			
 			int menu = Integer.parseInt(sc.nextLine());
 			
 			switch (menu) {
 			case 1:
 				FindView.findId(); //아이디 찾기
 				break;
-				
 			case 2:
 				FindView.findPw();// 비밀번호찾기
 				return;
-				
 			case 3:
 				MenuView.printMenu();// 뒤로가기
-				
 			}
 		}//while끝
-		
 	}
 	
 	/**
@@ -40,12 +35,11 @@ public class FindView {
 	
 	public static void idPw() {
 		System.out.println("--------------------------------------------------------------------");
-		System.out.println("                              [ 아이디 * 비밀번호 찾기 ]            ");
+		System.out.println("                     [ 아이디 * 비밀번호 찾기 ]                     ");
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("1.아이디 찾기    2.비밀번호 찾기     3.뒤로가기");
 		System.out.println("--------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
-		
 	}
 	
 	
@@ -65,7 +59,6 @@ public class FindView {
 	}
 	
 	
-	
 	/**
 	 * 비밀번호 /////// 새로받을 
 	 */
@@ -80,12 +73,10 @@ public class FindView {
 		System.out.print("* * * 주민등록번호를 입력해주세요. >> ");
 		String usersJumin = sc.nextLine();
 
-
 		System.out.print("* * * 새로운 비밀번호를 입력해주세요. >> ");
 		String newpwd = sc.nextLine();
 		
-
-		//비밀번호 찾기/재설정 UsersController 
-				UsersController.searchPwd(usersId, usersName, usersJumin, newpwd);
+		//비밀번호 찾기=재설정 UsersController 
+		UsersController.searchPwd(usersId, usersName, usersJumin, newpwd);
 	}
 }

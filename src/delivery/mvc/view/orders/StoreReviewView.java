@@ -15,7 +15,6 @@ public class StoreReviewView {
 		
 		ReviewController.reviewSelectAll(userId);
 		//ReviewController.storeReview(storeCode);
-		//System.out.println(storeCode);
 		
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = =");
 		UserOrdersView.stores(storeCode, userId);

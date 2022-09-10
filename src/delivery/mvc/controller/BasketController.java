@@ -20,13 +20,14 @@ public class BasketController {
 	 */
 	public static void basketMenuSelect(String user_id) {
 		try {
-			List<MenuDTO> list = service.basketMenuSelect(user_id);
-			
+			List<MenuDTO> list = service.basketMenuSelect(user_id);			
 			SuccessView.basketMenuSelect(list);
 		} catch (SQLException e) {
 			FailView.errorMessage("장바구니가 비어있습니다.");
 		}
 	}//basketMenuSelect() end
+	
+	
 	
 	/**
 	 * 작성자 : 박해원
