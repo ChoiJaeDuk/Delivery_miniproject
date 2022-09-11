@@ -256,7 +256,7 @@ public class UserOrdersView {
 		
 		SessionSet ss = SessionSet.getInstance();
 		String userId = ss.getSet().iterator().next().getSessionId();
-		
+		while(true){
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("1.가게선택                   2.정렬                   3.뒤로가기");
 		System.out.println("----------------------------------------------------------------");
@@ -290,9 +290,11 @@ public class UserOrdersView {
 			
 			default:
 				   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-				   subFood(storeSelect, userId);
-				   return;
-		}//switch끝
+//				   subFood(storeSelect, userId);
+				   storeSelect(9,1);
+				   break;
+			}//switch끝
+		}
 	}
 
 	
