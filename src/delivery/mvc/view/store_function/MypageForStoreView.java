@@ -46,6 +46,9 @@ public class MypageForStoreView {
 	public static void updateStoreInfo(String users_id) {
 		System.out.println("* * * 비밀번호를  입력해주세요. >>  ");
 		String pwd = sc.nextLine();
+		int result = UsersController.pwdCheck(users_id, pwd);
+		if(result==9999) updateStoreInfo(users_id);
+		
 		System.out.println("* * * 수정할 가게 이름을 입력해주세요 >> ");
 		String newName = sc.nextLine();
 		System.out.println("* * * 수정할 가게 주소를 입력해주세요 >> ");
@@ -64,10 +67,8 @@ public class MypageForStoreView {
 			int menu=Integer.parseInt(sc.nextLine()) ;
 			switch(menu) {
 				case 1:
-					int result = UsersController.pwdCheck(users_id, pwd);
-					if(result == 1) update(stores);
-					
-					//수정하기
+					 update(stores);
+			
 					printMenu(users_id);
 					break;
 				case 2:

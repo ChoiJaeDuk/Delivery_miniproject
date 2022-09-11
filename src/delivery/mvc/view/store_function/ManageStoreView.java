@@ -346,7 +346,7 @@ public class ManageStoreView {
 	 4-2 댓글수정
 */ 
 	public static void updateReply(String user_id) {
-		menuList(user_id);
+		reviewList(user_id);
 		System.out.println("* * * 수정할 후기 코드를 입력해주세요 >> ");
 		String no = sc.nextLine();
 		System.out.println("* * * 변경할 댓글내용을 입력해주세요 >> ");
@@ -361,7 +361,7 @@ public class ManageStoreView {
 	 *4-3 댓글삭제
 	*/
 	public static void deleteReply(String user_id) {
-		menuList(user_id);
+		reviewList(user_id);
 		System.out.println("* * * 삭제할 후기 코드를 입력해주세요 >> ");
 		String no = sc.nextLine();
 		

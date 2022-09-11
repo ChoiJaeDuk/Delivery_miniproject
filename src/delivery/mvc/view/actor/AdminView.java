@@ -30,7 +30,7 @@ public class AdminView {
 			case 3:
 				UsersController.usersLogout(userId);
 				//LoginLogoutView.logOut(userId);
-				return;
+				break;
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 				admin(userId);

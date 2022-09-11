@@ -27,7 +27,7 @@ public class AdminControlView {
 				System.out.println("* * * 가게 코드를 입력해주세요. >> ");
 				int storeCode = Integer.parseInt(sc.nextLine());
 				storeControl(storeCode, userId);//가게관리
-				storeState();//가게 정보 업데이트 후 다시 조회!
+				//storeState();//가게 정보 업데이트 후 다시 조회!
 								
 				break;
 				
@@ -40,7 +40,7 @@ public class AdminControlView {
 			default :
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 				adminControl(userId);
-				break;
+				return;
 		}//switch끝
 	}
 	
