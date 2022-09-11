@@ -21,7 +21,7 @@ public class OrdersServiceImpl implements OrdersService {
 		int menuCode = 0;
 		int basket_total_price = 0;
 		List<MenuDTO> menuList = basketDao.basketMenuSelect(user_id);
-		System.out.println(basket_total_price);
+	
 		for(MenuDTO menu : menuList) {
 			menuCode = menu.getMenu_code();
 			basket_total_price += menu.getTotal_price();	
