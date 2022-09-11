@@ -332,7 +332,7 @@ public class UsersDAOImpl implements UsersDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "UPDATE ORDERS SET DELIVERY_CODE = 3 WHERE ORDER_CODE = ?";
+		String sql = "UPDATE ORDERS SET DELIVERY_CODE = 4 WHERE ORDER_CODE = ?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
