@@ -1,0 +1,19 @@
+diff a/src/delivery/mvc/dao/stores/StoresDAOImpl.java b/src/delivery/mvc/dao/stores/StoresDAOImpl.java	(rejected hunks)
+@@ -561,11 +561,12 @@
+ 		ResultSet rs = null;
+ 		List<OrdersDTO> list = new ArrayList<OrdersDTO>();
+ 		String sql = "SELECT TO_CHAR(ORDERS.ORDER_DATE,'MM') as ��, SUM(ORDER_LINE.ORDER_QUANTITY*MENU.MENU_PRICE) AS TOTAL_PROFIT\r\n"
+-				+ "		FROM ORDERS JOIN MENU ON ORDERS.STORE_CODE = MENU.STORE_CODE\r\n"
+-				+ "		JOIN ORDER_LINE ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE join stores on stores.store_code = menu.store_code\r\n"
+-				+ "		GROUP BY MENU.MENU_CODE, stores.users_id, to_char(orders.order_date,'MM'), orders.delivery_code\r\n"
+-				+ "		HAVING stores.users_id = ? and menu.menu_code = ? AND DELIVERY_CODE = 1\r\n"
+-				+ "		order by ��";
++				+ "FROM ORDERS JOIN ORDER_LINE ON ORDER_LINE.ORDER_CODE = ORDERS.ORDER_CODE \r\n"
++				+ "JOIN MENU ON ORDER_LINE.MENU_CODE = MENU.MENU_CODE\r\n"
++				+ "join stores on stores.store_code = menu.store_code\r\n"
++				+ "GROUP BY MENU.MENU_CODE, stores.users_id, to_char(orders.order_date,'MM'), orders.delivery_code \r\n"
++				+ "HAVING stores.users_id = ? and MENU.menu_code = ? AND DELIVERY_CODE = 1\r\n"
++				+ "order by ��;";
+ 		
+ 		try {
+ 			

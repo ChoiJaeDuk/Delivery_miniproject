@@ -120,7 +120,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 			con = DbUtil.getConnection();
 			ps= con.prepareStatement("SELECT O.ORDER_CODE, O.USER_ID, O.USER_PHONE, O.DELIVERY_ADDR, D.DELIVERY_STATUS\r\n"
 					+ "FROM  ORDERS O ,DELIVERY_STATUS D \r\n"
-					+ "WHERE O.DELIVERY_CODE = D.DELIVERY_CODE AND O.STORE_CODE = ?");
+					+ "WHERE O.DELIVERY_CODE = D.DELIVERY_CODE AND O.STORE_CODE = ? ORDER BY DELIVERY_STATUS");
 			
 			ps.setInt(1, store_code);
 		    rs = ps.executeQuery(); 
