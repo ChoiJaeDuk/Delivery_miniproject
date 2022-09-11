@@ -33,21 +33,21 @@ public class UserOrdersView {
 			switch(category) {
 				case 1:
 					category(category, user_id);
-					break;
+					return;
 				case 2:
 					category(category, user_id);
-					break;
+					return;
 				case 3:
 					category(category, user_id);
-					break;
+					return;
 				case 4:
 					UserCategorySelect.totalStoreList(); 				
 					storeSelect(category, 0); //두번째 인수 index는 0이면 전체 가게 목록 select
-					break;
+					return;
 				case 5:
 					menuName = UserCategorySelect.menuSelect();
 					storeSelect(9, 1); //두번째 인수 index는 1이면 %메뉴% 포함한 가게목록 select
-					break;
+					return;
 				case 6:
 					UsersView.users(user_id);
 					return;
