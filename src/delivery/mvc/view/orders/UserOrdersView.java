@@ -109,6 +109,7 @@ public class UserOrdersView {
 		
 			default:
 			   System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
+			   category(category, user_id);
 		}//switch끝
 	}
 

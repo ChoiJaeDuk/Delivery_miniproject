@@ -132,7 +132,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                               [ 주문내역 ]                                 \n");
 		System.out.println("----------------------------------------------------------------------------");
-		System.out.println("1.주문코드      2.주문날짜      3.총 가격      4.배송상태     5.예상배송시간");
+		System.out.println("  주문코드        주문날짜           총 가격          배송상태         예상배송시간");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
 
 		UsersController.selectOrderList(userId);
@@ -171,7 +171,7 @@ public class MypageView {
 		System.out.println("----------------------------------------------------------------------------\n");
 		System.out.println("                             [ 주문상세보기 ]                               \n");
 		System.out.println("----------------------------------------------------------------------------");
-		System.out.println("1.주문내역_상세코드    2.가게이름        3.메뉴이름        4.수량     5.단가");
+		System.out.println("주문내역_상세코드    가게이름        메뉴이름        수량     단가");
 		System.out.println("= = = = = = = = = = =  = = = = = = = = = = = = = = = = = = = = = = = = = = =");
 
 		UsersController.selectDelivery_time(order_code);
