@@ -6,6 +6,8 @@ import delivery.mvc.dao.basket.BasketDAO;
 import delivery.mvc.dao.basket.BasketDAOImpl;
 import delivery.mvc.dao.orders.OrdersDAO;
 import delivery.mvc.dao.orders.OrdersDAOImpl;
+import delivery.mvc.dao.stores.StoresDAO;
+import delivery.mvc.dao.stores.StoresDAOImpl;
 import delivery.mvc.dao.users.UsersDAO;
 import delivery.mvc.dao.users.UsersDAOImpl;
 import delivery.mvc.dto.MenuDTO;
@@ -16,6 +18,7 @@ public class OrdersServiceImpl implements OrdersService {
 	OrdersDAO ordersDao = new OrdersDAOImpl();
 	BasketDAO basketDao = new BasketDAOImpl();
 	UsersDAO usersDao = new UsersDAOImpl();
+	StoresDAO storeDao = new StoresDAOImpl();
 	@Override
 	public void orderInsert(String user_id) throws SQLException {
 		int menuCode = 0;
@@ -40,7 +43,8 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 	
 	@Override
-	public List<OrdersDTO> selectOrderList(int store_code) throws SQLException {
+	public List<OrdersDTO> selectOrderList(String userid) throws SQLException {
+		int store_code = storeDao.storeSelectById(userid).getStore_code();
 		List<OrdersDTO> list = ordersDao.selectOrderList(store_code);
 		if(list == null || list.size() == 0)throw new SQLException("주문 내역이 없습니다.");
 		return list;

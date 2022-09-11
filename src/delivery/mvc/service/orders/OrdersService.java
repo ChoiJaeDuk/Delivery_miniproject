@@ -17,7 +17,7 @@ public interface OrdersService {
 	/**
 	 * 33p 
 	 * */
-	public List<OrdersDTO> selectOrderList(int store_code) throws SQLException;
+	public List<OrdersDTO> selectOrderList(String userid) throws SQLException;
 
 	
 	/**

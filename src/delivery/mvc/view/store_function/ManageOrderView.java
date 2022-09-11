@@ -33,7 +33,7 @@ private static Scanner sc= new Scanner(System.in);
 	}
 	
 	public static void printMenu(String userid) {
-		orderList();
+		orderList(userid);
 		System.out.println("         	1. 주문상세보기         2. 배달관리          3. 뒤로가기              ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
@@ -102,7 +102,7 @@ private static Scanner sc= new Scanner(System.in);
 	public static void manageDelivery(String userid) {
 		System.out.print("* * * 주문코드를 입력해주세요. >>");
 		String orderCode = sc.nextLine();
-		orderList();
+		orderList(userid);
 		System.out.println("       	1. 배달시작하기         2. 배달완료하기          3. 뒤로가기              ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("* * * 번호를 입력해주세요. >> ");
@@ -150,13 +150,13 @@ private static Scanner sc= new Scanner(System.in);
 	}
 	
 	
-	public static void orderList() {
+	public static void orderList(String userid) {
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [ 주 문 목 록 ]                                    ");
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("        주문코드      회원 ID       전화번호        주소       배달상태           ");
 		System.out.println("----------------------------------------------------------------------------------");
-		OrdersController.selectOrderList(2);
+		OrdersController.selectOrderList(userid);
 		System.out.println("----------------------------------------------------------------------------------");
 	}
 	

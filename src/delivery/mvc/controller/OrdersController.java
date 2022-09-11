@@ -29,9 +29,9 @@ public class OrdersController {
 	/**
 	 * 주문 내역 조회 
 	 * */
-	public static void selectOrderList(int store_code) {
+	public static void selectOrderList(String userid) {
 		try {
-			List<OrdersDTO> list = orderService.selectOrderList(store_code);
+			List<OrdersDTO> list = orderService.selectOrderList(userid);
 			
 			SuccessView.selectOrderList(list);		
 			

@@ -20,7 +20,7 @@ public class UsersDTO {
 
 
 
-	public UsersDTO(String users_phone,String users_addr) {
+	public UsersDTO(String users_addr,String users_phone) {
 		super();
 		this.user_addr = users_addr;
 		this.user_phone = users_phone;
