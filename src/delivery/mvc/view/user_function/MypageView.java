@@ -25,12 +25,12 @@ public class MypageView {
 		int mypageForStore = Integer.parseInt(sc.nextLine());
 		switch (mypageForStore) {
 		case 1:
-			System.out.println("* * * 비밀번호를 입력해주세요. >> ");
-			String usersPwd = sc.nextLine();
-			int result = UsersController.pwdCheck(userId, usersPwd);// 컨트롤러 호출, 비밀번호 인증하기!
-			if (result == 1)
+			//System.out.println("* * * 비밀번호를 입력해주세요. >> ");
+			//String usersPwd = sc.nextLine();
+			//int result = UsersController.pwdCheck(userId, usersPwd);// 컨트롤러 호출, 비밀번호 인증하기!
+			//if (result == 1)
 				personalInfo();
-			mypage(userId);
+			//mypage(userId);
 			break;
 		case 2:
 			orders(userId);
@@ -60,6 +60,14 @@ public class MypageView {
 	private static void personalInfo() {
 		SessionSet ss = SessionSet.getInstance();
 		String userId = ss.getSet().iterator().next().getSessionId();
+		
+		boolean run = true;
+	      while(run) {
+	         System.out.println("* * * 비밀번호를 입력해주세요. >> ");
+	         String oldusersPwd = sc.nextLine();
+	         int pwresult = UsersController.pwdCheck(userId, oldusersPwd);// 컨트롤러 호출, 비밀번호 인증하기!
+	         if (pwresult == 1) run=false;
+	      }
 
 		while (true) {
 			System.out.println("----------------------------------------------------------------------------");

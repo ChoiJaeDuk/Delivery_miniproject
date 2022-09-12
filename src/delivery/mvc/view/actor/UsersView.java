@@ -45,7 +45,7 @@ public class UsersView {
 					
 				case 4:
 					LoginLogoutView.logOut(usersId);// 로그아웃
-					return;
+					break;
 	
 				default:
 					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");// 그 외 번호 입력 시 오류메세지
