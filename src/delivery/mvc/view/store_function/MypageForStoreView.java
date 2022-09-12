@@ -25,14 +25,11 @@ public class MypageForStoreView {
 				return;
 				
 			case 2 : 
-
 				StoreView.printMenuForStores(users_id);//뒤로가기
-
 				return;
 				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
-
 				mypageForStore(users_id);
 
 				break;	
@@ -40,9 +37,10 @@ public class MypageForStoreView {
 
 		}
 	}
-	
-	//비번 맞을때랑 아닐때 따로 메소드 짜야되는지
-	
+
+	/**
+	 * 판매자 정보수정
+	 * */
 	public static void updateStoreInfo(String users_id) {
 		System.out.println("* * * 비밀번호를  입력해주세요. >>  ");
 		String pwd = sc.nextLine();
@@ -93,8 +91,6 @@ public class MypageForStoreView {
 	}
 	
 	
-	
-	
 	public static void printMenu(String users_id) {
 		storeDetail(users_id);
 		System.out.println("                1. 판매자 정보 수정                  2. 뒤로가기                  ");
@@ -104,9 +100,7 @@ public class MypageForStoreView {
 		}
 	
 	
-	public static void storeDetail(String users_id) {
-		
-		
+	public static void storeDetail(String users_id) {	
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                              "+users_id+"가게입니다.                                    ");	
 		System.out.println("----------------------------------------------------------------------------------");

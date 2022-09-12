@@ -24,13 +24,15 @@ public class AdminView {
 			case 1:
 				AdminControlView.adminControl(userId);
 				break;
+				
 			case 2:
 				ReviewControlView.storeList(userId);
 				break;
+				
 			case 3:
 				UsersController.usersLogout(userId);
-				//LoginLogoutView.logOut(userId);
 				break;
+				
 			default:
 				System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 				admin(userId);

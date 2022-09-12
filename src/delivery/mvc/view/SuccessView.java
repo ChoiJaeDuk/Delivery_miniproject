@@ -38,7 +38,7 @@ public class SuccessView {
 	}
 	
 	/**
-	 * 회원이 가게코드로 검색했을 때 가게 소개가 출려되어야합니다.
+	 * 회원이 가게코드로 검색했을 때 가게 소개가 출력되어야합니다.
 	 */
 	public static void userSelectStore(StoresDTO storeDTO) {
 		System.out.println("----------------------------------------------------------------\n");
@@ -49,33 +49,12 @@ public class SuccessView {
 	
 	
 	/**
-	 * 아이디로 가게 정보  -- 위치 
+	 * 아이디로 가게 정보
 	 * */
 	public static void storeSelectById(StoresDTO stores) {
 		System.out.printf("%40s\n",stores.getStore_detail() );
 	}
-	
-	/**
-	 * 메뉴로 가게정보 검색56,57
-	 * */
-	/*public static void storeSelectByMenu(List<StoresDTO> storesSelectByMenu) {
-		//가게목록
-		
-		for(StoresDTO storesDTO:storesSelectByMenu) {
-			System.out.println(storesDTO);
-			}
-		}*/
-	
-	
-	/**
-	 * 카테고리별 가게정보 검색 45
-	 * */
-	/*public static void storesSelectByCategory(List<StoresDTO> storesSelectByCategory) {
-		for(StoresDTO storesDTO:storesSelectByCategory) {
-			System.out.println(storesDTO);
-			}
-		}*/
-	
+
 	/**
 	 * 매출현황조회 10 
 	 * 
@@ -123,7 +102,7 @@ public class SuccessView {
 	
 	
 	/**
-	 * 후기조회 ----위치
+	 * 후기조회 
 	 * 13 : 운영자가 조회하는 한 가게의 모든 후기
 	 * 47 : 회원이 조회하는 가게별 전체 후기 = 한 가게의 모든 후기
 	 * */
@@ -139,7 +118,7 @@ public class SuccessView {
 	}
 	
 	/**
-	 * 후기조회  ---정렬 도와줘요~~
+	 * 후기조회
 	 * 28,29,30,31 : 판매자가 조회하는 본인 가게의 전체 후기 = 한 가게의 모든 후기
 	 */
 	
@@ -166,7 +145,7 @@ public class SuccessView {
 	}
 	
 	/**
-	 * 메뉴등록 19 -
+	 * 메뉴등록 19 
 	 * */
 	
 	public static void insertMenu(StoresDTO store) {
@@ -231,7 +210,7 @@ public class SuccessView {
 	
 	
 	/**
-	 * 주문관리 33,36-------------------------------------
+	 * 주문관리 33,36
 	 * */
 	public static void selectOrderList( List<OrdersDTO> selectOrderList) {
 		for(OrdersDTO orderDTO:selectOrderList) {
@@ -263,7 +242,7 @@ public class SuccessView {
 	
 
 	/**
-	 * 마이페이지 383940 --전화번소랑 주소만 조회하면 됨
+	 * 마이페이지 383940 --전화번소랑 주소만 조회
 	 * */
 	public static void storeInfoMypage (List<StoresDTO> storesInfoSelectAll) {
 		
@@ -275,7 +254,7 @@ public class SuccessView {
 
 	
 	
-	//4647 회원-가게소개
+	
 	/**
 	 * 후기를 위한 가게선택하면 해당 가게의 이름+가게소개 layout
 	 */
@@ -290,7 +269,7 @@ public class SuccessView {
 	
 	
 	/**
-	 * 메뉴 전체조회 49 - 회원 시점 --정렬
+	 * 메뉴 전체조회 49 - 회원 시점
 	 * */
 	public static void menuPrintAll(List<MenuDTO> menuSelectAll) {
 	
@@ -304,7 +283,7 @@ public class SuccessView {
 	}
 	
 	/**
-	 * 장바구니 조회 50-53 --위치
+	 * 장바구니 조회 50-53 
 	 * */
 	public static void basketPrintAll(List<BasketDTO> basketSelectAll)  {
 		int total_price=0;
@@ -369,7 +348,7 @@ public class SuccessView {
 	   }
 	
 	/**
-	 * 주문내역 64- 회원이 보는
+	 * 주문내역 64- 회원이 보는 주문내역
 	 * */
 	public static void printOrderList(List<OrdersDTO> selectOrderList) {
 		for (OrdersDTO orderDTO : selectOrderList) {
@@ -396,7 +375,7 @@ public class SuccessView {
 	}
 	
 	/**
-	 * 내가(회원 작성한 후기 목록 66, 6869
+	 * 회원이 작성한 후기 목록 66, 6869
 	 * */
 	   public static void reviewListByUserId(List<ReviewDTO> reviewListByUserId) {
 		      for (ReviewDTO reviewDTO:reviewListByUserId) {
@@ -435,11 +414,12 @@ public class SuccessView {
 	
 	
 	/**
-	 * 메세지 INSERT, UP, DE
+	 * 메세지 INSERT, UPDATE, DELETE
 	 * */
 	public static void getmessagePrint(String message) {
 		System.out.println(message);
 	}
+	
 	/**
 	 * 메뉴별 월별 조회
 	 * */
