@@ -266,7 +266,7 @@ public class UsersDAOImpl implements UsersDAO {
 		
 		String sql = "SELECT DISTINCT OL.ORDER_CODE, ORDER_DATE, ORDER_TOTAL_PRICE, DELIVERY_STATUS, TO_CHAR(ORDER_DELIVERY_TIME , 'YY-MM-DD HH:MI')\r\n"
 				+ "FROM ORDERS O JOIN DELIVERY_STATUS D ON O.DELIVERY_CODE = D.DELIVERY_CODE JOIN ORDER_LINE OL ON O.ORDER_CODE = OL.ORDER_CODE\r\n"
-				+ "WHERE o.user_id = ?";		
+				+ "WHERE o.user_id = ? ORDER BY OL.ORDER_CODE DESC";		
 		
 		try {
 			con = DbUtil.getConnection();
