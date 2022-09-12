@@ -15,6 +15,10 @@ import util.DbUtil;
 
 public class ReviewDAOImpl implements ReviewDAO {
 	private Properties proFile = DbUtil.getProFile();
+	
+	/**
+	 * 관리자의 후기 조회
+	 */
 	@Override
 	public List<ReviewDTO> reviewAdmintAll(int store_code) throws SQLException {
 		Connection con = null;
@@ -48,7 +52,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	
 	
 	/**
-	 * 가게코드를 받고 가게코드의 회원아이디
+	 * 후기 목록조회 (해당 가게의 리뷰)
 	 */
 	@Override
 	public List<ReviewDTO> reviewSelectAll(String user_id) throws SQLException {
@@ -119,7 +123,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	
 	
 	/**
-	 * 본인이 작성한 후기 조회
+	 * 후기 목록조회(유저의 모든 리뷰)
 	 */
 	@Override
 	public List<ReviewDTO> reviewUserAll(String user_id) throws SQLException {
@@ -153,7 +157,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return list;
 	}
 	
-
+	/**
+	 * 고객 후기 작성
+	 */
 	@Override
 	public int reviewInsert(ReviewDTO reviewDTO) throws SQLException {
 		int result = 0;
@@ -183,6 +189,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return result;
 	}
 	
+	/**
+	 * 후기에 대한 판매자 댓글 업데이트(리플 작성 업데이트 공통)
+	 */
 	@Override
 	public int replyUpdate(String reply, int review_code) throws SQLException {
 		int result = 0;
@@ -206,7 +215,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 		
 		return result;
 	}
-
+	
+	/**
+	 *  후기 수정
+	 */
 	@Override
 	public int reviewUpdate(ReviewDTO reviewDTO) throws SQLException {
 		int result = 0;
@@ -232,6 +244,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return result;
 	}
 
+	/**
+	 * 후기 삭제
+	 */
 	@Override 
 	public int reviewDelete(int review_code) throws SQLException {
 		int result = 0;
@@ -256,7 +271,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return result;
 	}
 	
-
+	/**
+	 * 후기에 대한 판매자 댓글 삭제
+	 */
 	@Override
 	public int replyDelete(int review_code) throws SQLException {
 		int result = 0;
@@ -278,7 +295,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return result;
 	}
 	
-	
+	/**
+	 * 후기작성이 안된 주문건 출력
+	 */
 	public List<OrdersDTO> yetReview(String userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
@@ -351,6 +370,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 		}
 	}
 	
+	/**
+	 * ORDER_CODE에 해당하는 STORE_CODE 찾기
+	 */
 	public int storeCodeSelectByOrderCode(int order_code) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
