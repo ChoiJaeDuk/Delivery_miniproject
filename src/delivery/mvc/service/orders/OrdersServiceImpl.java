@@ -19,6 +19,11 @@ public class OrdersServiceImpl implements OrdersService {
 	BasketDAO basketDao = new BasketDAOImpl();
 	UsersDAO usersDao = new UsersDAOImpl();
 	StoresDAO storeDao = new StoresDAOImpl();
+	
+	
+	/**
+	 * 주문내역에 값을 다른메소드에서 가져와 저장후 OrdersDTO객체를 생성해 DAO의 orderInsert에 인수로 넣어준다.
+	 * */
 	@Override
 	public void orderInsert(String user_id) throws SQLException {
 		int menuCode = 0;
@@ -39,9 +44,12 @@ public class OrdersServiceImpl implements OrdersService {
 		
 		int result = ordersDao.orderInsert(orders);
 		if(result == 0 ) throw new SQLException("주문하기 실패");
-	
 	}
 	
+	
+	/**
+	 * 주문상세내역을 등록하는 메소드
+	 * */
 	@Override
 	public List<OrdersDTO> selectOrderList(String userid) throws SQLException {
 		int store_code = storeDao.storeSelectById(userid).getStore_code();
@@ -50,12 +58,18 @@ public class OrdersServiceImpl implements OrdersService {
 		return list;
 	}
 
+	/**
+	 * 판매자가 배달 승인,거부를 선택하면 Orders테이블의 delivery_code와 승인시간(SYSDATE), 예상배송대기시간 업데이트 한다.
+	 * */
 	@Override
 	public void approveOrder(OrdersDTO orders, int delivery_time) throws SQLException {
 		int result = ordersDao.approveOrder(orders, delivery_time);
 		if(result == 0) throw new SQLException("주문하기 실패");	
 	}
 
+	/**
+	 *  order_code를 받아 해당되는 주문코드의 주문 상세를 조회한다.
+	 * */
 	@Override
 	public List<MenuDTO> selectOrderLine(int order_code) throws SQLException {
 		List<MenuDTO> list = ordersDao.selectOrderLine(order_code);
@@ -64,6 +78,9 @@ public class OrdersServiceImpl implements OrdersService {
 		
 	}
 
+	/**
+	 * 판매자가 배달시작, 완료를 입력하면 주문내역의 delivery_code가 업데이트 된다.
+	 * */
 	@Override
 	public void orderStatusUpdate(int order_code, int order_status_code) throws SQLException {
 		int result = ordersDao.orderStatusUpdate(order_code, order_status_code);

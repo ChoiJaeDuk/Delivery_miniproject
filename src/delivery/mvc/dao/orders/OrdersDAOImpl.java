@@ -21,10 +21,12 @@ public class OrdersDAOImpl implements OrdersDAO {
 	BasketDAO basketDao = new BasketDAOImpl();
 	List<BasketDTO> bascketlist = new ArrayList<BasketDTO>(); 
 	List<OrdersDTO> ordersList = new ArrayList<OrdersDTO>();
+	
 	/**
-	 * Orders 값 삽입한다 (데이터값 삽입하는 것이기 때문에 리턴값 없음!)
-	 * 총 가격(order_total_price)는 장바구니에서 가져올 예정!!!!
-	 * INSERT INTO ORDERS VALUES(ORDER_CODE_SEQ.NEXTVAL,?, ?, SYSDATE, ?,NULL,NULL,?)
+	 * Orders 테이블에 주문내역을 등록한다.
+	 * 이 과정에서 OrderLine (주문상세)을 등록하고
+	 * basketDelete(장바구니삭제) 해당 userid의 장바구니 비우기를 트랜잭션 처리한다.
+	 * @return 값이 0 이면 등록 실패.
 	 * */
 	@Override
 	public int orderInsert(OrdersDTO orders) throws SQLException {
@@ -72,10 +74,8 @@ public class OrdersDAOImpl implements OrdersDAO {
 	
 	
 	/**
-	 * 주문상세 등록하기 
-	 * OrdersDTO에 orderlinelist객체 생성해야함.
+	 * 주문상세내역을 등록하는 메소드
 	 * */
-	
 	public int[] orderLineInsert(Connection con, OrdersDTO orders) throws SQLException {
 
 		PreparedStatement ps = null;
@@ -101,9 +101,9 @@ public class OrdersDAOImpl implements OrdersDAO {
 		return result;
 	}
 	
+	
 	/**
-	 * Store_Code를 입력받아 해당되는 데이터 리스트를 반환한다
-	 * ppt 33p 주문목록 불러오기
+	 * Store_Code를 입력받아 해당되는 주문내역 리스트를 리턴한다.
 	 * */
 	@Override
 	public List<OrdersDTO> selectOrderList(int store_code)throws SQLException{
@@ -142,9 +142,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 
 	
 	/**
-	 * 판매자가 배달 승인,거부 값 입력  Orders테이블의 delivery_code와 승인시간(SYSDATE), 예상배송대기시간 업데이트 한다.
-	 * ppt 34p 주문 승인 취소하기
-	 * UPDATE ORDERS SET DELIVERY_CODE = ?, ORDER_APPROVAL_TIME = CURRENT_DATE ,ORDER_DELIVERY_TIME = (CURRENT_DATE + ?/(24*60)) WHERE ORDER_CODE = ?
+	 * 판매자가 배달 승인,거부를 선택하면 Orders테이블의 delivery_code와 승인시간(SYSDATE), 예상배송대기시간 업데이트 한다.
 	 * */
 	@Override
 	public int approveOrder(OrdersDTO orders, int delivery_time) throws SQLException {
@@ -173,8 +171,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 	
 	
 	/**
-	 *  user_id를 받아 해당되는 주문 상세를 조회한다.
-	 * ppt 35p 주문상세보기
+	 *  order_code를 받아 해당되는 주문코드의 주문 상세를 조회한다.
 	 * */
 	public List<MenuDTO> selectOrderLine(int order_code) throws SQLException{
 		Connection con=null;
@@ -213,9 +210,7 @@ public class OrdersDAOImpl implements OrdersDAO {
 	
 	
 	/**
-	 * 회원이 주문을 환불신청한다.
-	 * UPDATE ORDERS SET DELIVERY_CODE = 3 WHERE ORDER_CODE = ?
-	 * ppt 65p
+	 * 회원이 주문을 환불신청을 하면 주문내역의 delivery_code가 4(취소)상태로 바뀐다.
 	 * */
 	@Override
 	public int orderStatusUpdate(int order_code, int order_status_code) throws SQLException {
@@ -238,37 +233,11 @@ public class OrdersDAOImpl implements OrdersDAO {
 		}
 		return result;
 	}
-	
-	
-	
-	
+
+
 	/**
-	 * 주문내역에 입력할 총가격 값 가져오기
-	 * Select sum(m.menu_price * b.basket_quantity) as total_price from menu m , bascket b where m.menu_code = b.menu_code and b.user_id = ?
+	 * menuCode와 user_id를 통해 store_code값을 리턴하는 메소드
 	 * */
-	public int totalPriceSelect(String user_id) throws SQLException{
-		Connection con=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		int bascket_totalPrice = 0;
-		try {
-			con = DbUtil.getConnection();
-			ps= con.prepareStatement("Select sum(m.menu_price * b.basket_quantity) as total_price from menu m , bascket b where m.menu_code = b.menu_code and b.user_id = ?");
-			ps.setString(1, user_id);
-		    rs = ps.executeQuery(); 
-		    
-		    if(rs.next()) {
-		    	bascket_totalPrice = rs.getInt(1);
-		    }
-		    
-		}finally {
-			DbUtil.dbClose(null, ps, rs);
-		}
-		return bascket_totalPrice;
-	}
-
-
-
 	@Override
 	public int selectStoreCodeByMenuCode(int menuCode ,String user_id) throws SQLException {
 		Connection con=null;

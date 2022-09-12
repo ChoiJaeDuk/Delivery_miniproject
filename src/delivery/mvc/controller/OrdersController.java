@@ -12,6 +12,7 @@ import delivery.mvc.view.SuccessView;
 
 public class OrdersController {
 	private static OrdersService orderService = new OrdersServiceImpl();
+	
 	/**
 	 * 주문하기 주문내역과 주문 상세내역을 삽입하고 성공시 장바구니를 초기화한다.
 	 * */
@@ -68,6 +69,10 @@ public class OrdersController {
 		}
 	}
 	
+	
+	/**
+	 * 판매자가 배달시작, 배달완료를 선택시 주문내역의 delivery_code가 업데이트된다.
+	 * */
 	public static void orderStatusUpdate(int order_code, int order_status_code) {
 		try {
 			orderService.orderStatusUpdate(order_code, order_status_code);
