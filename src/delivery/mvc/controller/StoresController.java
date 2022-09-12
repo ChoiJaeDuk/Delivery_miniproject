@@ -14,8 +14,10 @@ import delivery.mvc.view.SuccessView;
 public class StoresController {
 	private static StoresService storesService = new StoresServiceImpl();
 	
+	/**
+	 * 운영자가 보는 가게 목록 (가게이름과 코드만)
+	 * */
 	
-	//운영자가 보는 가게 목록 6p -가게이름과 코드만
 	public static void storesInfoSelectAll(String arrange) {
 		try {
 			List<StoresDTO> list = storesService.storesInfoSelectAll(arrange);
@@ -27,6 +29,9 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 후기관리에 필요한 가게 목록 
+	 * */
 	public static void storesNameCodeSelectAll(String arrange) {
 		try {
 			List<StoresDTO> list = storesService.storesInfoSelectAll(arrange);
@@ -39,7 +44,9 @@ public class StoresController {
 	}
 	
 	
-	//회원이 가게 조회
+	/**
+	 * 회원이 가게 조회
+	 * */
 	public static void storesSelectAll(String arrange) {
 		try {
 
@@ -54,9 +61,10 @@ public class StoresController {
 		}
 		
 	}
-
 	
-	//가게코드로 가게 정보 받기 
+	/**
+	 * 가게코드로 가게 정보 받기 
+	 * */
 	public static void storeSelcetByCode(int store_code) {
 		try {
 			StoresDTO stores = storesService.storeSelcetByCode(store_code);
@@ -67,7 +75,9 @@ public class StoresController {
 		}
 	}
 	
-	//아이디로 가게 정보
+	/**
+	 * 아이디로 가게 정보
+	 * */
 	public static void storeSelectById(String user_id) {
 		try {
 			StoresDTO stores = storesService.storeSelectById(user_id);
@@ -78,7 +88,9 @@ public class StoresController {
 		}
 	}
 	
-	//설명 : 가게 오픈 정보 출력
+	/**
+	 * 가게 오픈 정보 출력
+	 * */
 	public static void storeSelectStatus(String user_id) {
 		try {
 			StoresDTO stores = storesService.storeSelectById(user_id);
@@ -90,6 +102,9 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 메뉴이름과 정렬에 따른 가게 목록 
+	 * */
 	public static void storesSelectByMenu(String arrange, String menu_name){
 
 		try {
@@ -101,6 +116,9 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 카테고리 코드와 정렬에 따른 가게 목록 
+	 * */
 	public static void storesSelectByCategory(String arrange, int category_code){
 		
 		
@@ -130,6 +148,9 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 판매자 가게 정보 수정
+	 * */
 	public static void storeUpdate(StoresDTO storesDTO){
 		try {
 			storesService.storeUpdate(storesDTO);
@@ -140,6 +161,9 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 가게 오픈 설정 변경
+	 * */
 	public static void storeStatusUpdate(int store_status, String user_id){
 		try {
 			storesService.storeStatusUpdate(store_status,user_id);
@@ -150,6 +174,9 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 가게 등록 신청 
+	 * */
 	public static void storeRegis(StoresDTO storesDTO){
 		
 		try {
@@ -165,6 +192,9 @@ public class StoresController {
 		
 	}
 	
+	/**
+	 * 가게 등록신청 결과 확인
+	 * */
 	public static void regisCheck(String userid) {
 		try {
 			StoresDTO store = storesService.storeSelectById(userid);
@@ -174,6 +204,9 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 전제 가게 매출 조회
+	 * */
 	public static void storesSales() {
 		try {
 			List<StoresDTO> list = storesService.storesSales();
@@ -184,6 +217,9 @@ public class StoresController {
 		}
 	}
 	
+	/**
+	 * 가게당 월별 매출 조회
+	 * */
 	public static void storesSalesByMonth(int store_code) {
 		try {
 			List<OrdersDTO> list = storesService.storesSalesByMonth(store_code);
@@ -195,8 +231,9 @@ public class StoresController {
 		}
 	}
 	
-	
-	
+	/**
+	 * 가게당 메뉴당 매출 조회
+	 * */
 	public static void menuSales(String users_id) {
 		try {
 			List<MenuDTO> list = storesService.menuSales(users_id);
@@ -207,7 +244,9 @@ public class StoresController {
 		}
 	}
 	
-	
+	/**
+	 * 가게당 메뉴당 월별 매출 조회
+	 * */
 	public static void menuSalesByMonth(String users_id, int menu_code) {
 		try {
 			List<OrdersDTO> list = storesService.menuSalesByMonth(users_id, menu_code);
