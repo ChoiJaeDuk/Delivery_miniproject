@@ -292,7 +292,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 				+ "left outer join review \r\n"
 				+ "on review.order_code = orders.order_code join stores\r\n"
 				+ "on stores.store_code = orders.store_code \r\n"
-				+ "where review.order_code is null and orders.user_id = ?";
+				+ "where review.order_code is null and orders.user_id = ? and orders.delivery_code = 1";
 		
 		try {
 			con = DbUtil.getConnection();
