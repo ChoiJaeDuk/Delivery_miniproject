@@ -17,8 +17,7 @@ public class MenuController {
 	private static StoresService storeservice = new StoresServiceImpl();
 
 	/**
-	 * 작성자 : 박해원
-	 * 설명 : 해당 가게의 메뉴를 출력함 - 판매자 시점
+	 * 해당 가게의 메뉴를 출력함 - 판매자 시점
 	 */
 	public static void menuSelectByAll(int store_id) {
 		try {
@@ -30,8 +29,7 @@ public class MenuController {
 	}//menuSelectByAll() end
 	
 	/**
-	 * 작성자 : 박해원
-	 * 설명 : 해당 가게의 메뉴를 출력함 - 회원 시점
+	 * 해당 가게의 메뉴를 출력함 - 회원 시점
 	 */
 	public static void menuSelectByAllByUser(int store_id) {
 		try {
@@ -45,8 +43,7 @@ public class MenuController {
 	}//menuSelectByAll() end
 
 	/**
-	 * 작성자 : 박해원
-	 * 설명 : 해당 가게 코드를 기준으로 카테고리를 출력함
+	 * 해당 가게 코드를 기준으로 카테고리를 출력함
 	 */
 	public static void menuSelectByStore(String user_id) {
 		try {
@@ -58,8 +55,7 @@ public class MenuController {
 	}
 	
 	/**
-	 * 작성자 : 박해원
-	 * 설명 : 판매자 기준의 메뉴를 출력함
+	 * 판매자 기준의 메뉴를 출력함
 	 */
 	public static void menuSelectByMenu(String user_id) {
 		try {
@@ -71,8 +67,7 @@ public class MenuController {
 	}
 		
 	/**
-	 * 작성자 : 박해원
-	 * 설명 : 해당 가게에서 작성한 메뉴 정보를 데이터베이스에 저장함
+	 * 해당 가게에서 작성한 메뉴 정보를 데이터베이스에 저장함
 	 */
 	public static void menuInsert(MenuDTO menu, String user_id) {
 		try {
@@ -86,8 +81,7 @@ public class MenuController {
 	}//menuInsert end
 
 	/**
-	 * 작성자 : 박해원
-	 * 설명 : 해당 가게의 메뉴 정보를 수정함
+	 * 해당 가게의 메뉴 정보를 수정함
 	 */
 	public static void menuUpdate(MenuDTO menu) {
 		try {
@@ -101,8 +95,7 @@ public class MenuController {
 	}//menuUpdate end
 
 	/**
-	 * 작성자 : 박해원
-	 * 설명 : 해당 가게의 메뉴를 삭제함
+	 * 해당 가게의 메뉴를 삭제함
 	 */
 	public static void menuDelete(int menu_code) {
 		try {

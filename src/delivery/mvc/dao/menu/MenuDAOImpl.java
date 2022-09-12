@@ -13,8 +13,7 @@ import util.DbUtil;
 public class MenuDAOImpl implements MenuDAO {
 
 	/**
-	 * 작성자 : 박해원
-	 * 설명 : 회원이 가게정보를 검색하는 메소드
+	 * 회원이 가게정보를 검색하는 메소드
 	 */
 	@Override
 	public List<MenuDTO> menuSelectAll(int store_code) throws SQLException {
@@ -44,6 +43,9 @@ public class MenuDAOImpl implements MenuDAO {
 		return list;
 	}
 
+	/**
+	 * 메뉴 등록
+	 */
 	@Override
 	public int menuInsert(MenuDTO menu) throws SQLException {
 		Connection con = null;
@@ -65,6 +67,9 @@ public class MenuDAOImpl implements MenuDAO {
 		return result;
 	}
 
+	/**
+	 * 메뉴 수정
+	 */
 	@Override
 	public int menuUpdate(MenuDTO menu) throws SQLException {
 		Connection con = null;
@@ -85,6 +90,9 @@ public class MenuDAOImpl implements MenuDAO {
 		return result;
 	}
 
+	/**
+	 * 메뉴 삭제
+	 */
 	@Override
 	public int menuDelete(int menu_code) throws SQLException {
 		Connection con = null;

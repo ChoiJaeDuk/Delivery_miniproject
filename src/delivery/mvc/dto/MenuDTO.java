@@ -2,6 +2,9 @@ package delivery.mvc.dto;
 
 import delivery.mvc.dto.BasketDTO;
 
+/**
+ * 메뉴 객체화
+ */
 public class MenuDTO {
 	//필드
 	private int menu_code;

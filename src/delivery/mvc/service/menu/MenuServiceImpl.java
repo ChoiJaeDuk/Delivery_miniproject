@@ -10,6 +10,9 @@ import delivery.mvc.dto.MenuDTO;
 public class MenuServiceImpl implements MenuService {
 	private MenuDAO menuDAO= new MenuDAOImpl();
 
+	/**
+	 * 해당 가게의 메뉴 전체 검색
+	 */
 	@Override
 	public List<MenuDTO> menuSelectAll(int store_id) throws SQLException {
 		List<MenuDTO> list = menuDAO.menuSelectAll(store_id);
@@ -17,18 +20,27 @@ public class MenuServiceImpl implements MenuService {
 		return list;
 	}
 
+	/**
+	 * 메뉴 등록
+	 */
 	@Override
 	public void menuInsert(MenuDTO menu) throws SQLException {
 		int result = menuDAO.menuInsert(menu);
 		if(result==0) throw new SQLException("등록 실패");
 	}
 
+	/**
+	 * 메뉴 수정
+	 */
 	@Override
 	public void menuUpdate(MenuDTO menu) throws SQLException {
 		int result = menuDAO.menuUpdate(menu);
 		if(result==0) throw new SQLException("변경 실패");
 	}
 
+	/**
+	 * 메뉴 삭제
+	 */
 	@Override
 	public void menuDelete(int menu_code) throws SQLException {
 		int result = menuDAO.menuDelete(menu_code);

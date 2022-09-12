@@ -17,6 +17,9 @@ import util.DbUtil;
 public class BasketDAOImpl implements BasketDAO {
 	private Properties proFile = DbUtil.getProFile();
 
+	/**
+	 * 기본적인 회원의 장바구니의 모든 정보를 검색
+	 */
 	@Override
 	public List<BasketDTO> basketSelectAll(String user_id) throws SQLException {
 		Connection con = null;
@@ -46,7 +49,7 @@ public class BasketDAOImpl implements BasketDAO {
 	}
 
 	/**
-	 * 이게 장바구니 검색인듯
+	 * 회원의 장바구니를 검색(조인)
 	 */
 	@Override
 	public List<MenuDTO> basketMenuSelect(String users_id) throws SQLException {
@@ -80,12 +83,16 @@ public class BasketDAOImpl implements BasketDAO {
 		return list;
 	}
 
+	/**
+	 * 장바구니 등록
+	 */
 	@Override
 	public int basketInsert(BasketDTO basket) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = "insert into bascket values(bascket_code_seq.nextval, ?, ?, ?, sysdate)";
 		int result = 0;
+		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -103,6 +110,9 @@ public class BasketDAOImpl implements BasketDAO {
 		return result;
 	}
 	
+	/**
+	 * 장바구니 중복 체크
+	 */
 	private int storeCheck(Connection con, String user_id, int menu_code) throws SQLException{
 		PreparedStatement ps = null;
 		String sql = "select NVL(nullif((select distinct store_code from bascket join menu on bascket.menu_code = menu.menu_code where user_id = ?),(select store_code from menu where menu_code =?)),0) result from dual";
@@ -111,23 +121,21 @@ public class BasketDAOImpl implements BasketDAO {
 		
 		try {
 			ps = con.prepareStatement(sql);
-			
+
 			ps.setString(1, user_id);
 			ps.setInt(2, menu_code);
 			
 			rs = ps.executeQuery();
 			if(rs.next()) result = rs.getInt(1);
-			
-			
 		}finally {
 			DbUtil.dbClose(null, ps);
 		}
-		
-		
 		return result;
-		
 	}
 
+	/**
+	 * 장바구니 수량 수정
+	 */
 	@Override
 	public int basketUpdate(BasketDTO basket, int num) throws SQLException {
 		Connection con = null;
@@ -147,6 +155,9 @@ public class BasketDAOImpl implements BasketDAO {
 		return result;
 	}
 
+	/**
+	 * 해당 회원의 장바구니 삭제
+	 */
 	@Override
 	public int  basketDelete(int menu_code, String user_id) throws SQLException {
 		Connection con = null;
@@ -166,7 +177,7 @@ public class BasketDAOImpl implements BasketDAO {
 	}
 
 	/**
-	 * 장바구니 결제하기
+	 * 장바구니 결제하기(트랜잭션 전용)
 	 */
 	@Override
 	public int basketDelete(Connection con, OrdersDTO orders) throws SQLException {
@@ -184,7 +195,9 @@ public class BasketDAOImpl implements BasketDAO {
 		return result;
 	}
 	
-	
+	/**
+	 * 해당 회원의 가게코드 검색
+	 */
 	public BasketDTO basketSelectScoreCode(String user_id) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
