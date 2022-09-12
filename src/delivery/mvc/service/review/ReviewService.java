@@ -8,7 +8,7 @@ import delivery.mvc.dto.ReviewDTO;
 
 public interface ReviewService {
 	/**
-	 * 운영자 후기 조회
+	 * 관리자의 후기 조회
 	 */
 	public List<ReviewDTO> reviewAdmintAll(int store_code) throws SQLException;
 	
@@ -48,11 +48,18 @@ public interface ReviewService {
 	void reviewDelete(int review_code) throws SQLException;
 	
 	/**
-	 * 후기가 없는 주문건 출력
+	 * 후기작성이 안된 주문건 출력
 	 */
 	List<OrdersDTO> yetReview(String userId) throws SQLException;
 
+	/**
+	 * 후기에 대한 판매자 댓글 업데이트
+	 */
 	void replyUpdate(String reply, int review_code) throws SQLException;
+
+	/**
+	 * 후기에 대한 판매자 댓글 삭제
+	 */
 	void replyDelete(int review_code) throws SQLException;
 	
 }

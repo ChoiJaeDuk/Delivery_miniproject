@@ -19,6 +19,9 @@ import util.DbUtil;
 public class UsersDAOImpl implements UsersDAO {
 	private Properties proFile = DbUtil.getProFile();
 
+	/**
+	 * 로그인(계정의 아이디와 비밀번호를 입력받아 유효성검사를 함)
+	 */
 	@Override
 	public UsersDTO usersLogin(String user_id, String user_pwd) throws SQLException {
 		Connection con = null;
@@ -50,14 +53,20 @@ public class UsersDAOImpl implements UsersDAO {
 		return usersDTO;
 	}
 
-	@Override //??????????????@@@@@@@@@@@@@@@@@@@@@
+	/**
+	 * 로그아웃
+	 */
+	@Override 
 	public void usersLogout() throws SQLException {
 	    UsersDTO user = null;
 	    System.out.println("로그아웃되었습니다.");
 
 	}
 
-	@Override//중복체크?
+	/**
+	 * 회원가입(입력받은 정보를 DB에 등록 시킴)
+	 */
+	@Override
 	public int join(UsersDTO usersDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -90,8 +99,12 @@ public class UsersDAOImpl implements UsersDAO {
 		
 		return result;
 	}
-
-	@Override // return String 
+	
+	
+	/**
+	 * 아이디 찾기(이름과 주민을 입력받아 일치하는 id를 출력함)
+	 */
+	@Override
 	public String searchId(String user_name, String user_jumin) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -121,7 +134,12 @@ public class UsersDAOImpl implements UsersDAO {
 		
 		return result;
 	}
+	
 
+
+	/**
+	 * 비밀번호 찾기(새로운 비밀번호 설정)
+	 */
 	@Override
 	public int searchPwd(String user_id, String user_name, String user_jumin, String newpwd) throws SQLException {
 		Connection con = null;
@@ -155,7 +173,11 @@ public class UsersDAOImpl implements UsersDAO {
 		
 		return result;
 	}
-
+	
+	
+	/**
+	 * 개인정보 수정(닉네임)
+	 */
 	@Override
 	public int nickUpdate(String newNick, String user_id) throws SQLException {
 		Connection con = null;
@@ -180,6 +202,10 @@ public class UsersDAOImpl implements UsersDAO {
 		return result;
 	}
 	
+	
+	/**
+	 * 개인정보 수정(주소)
+	 */
 	@Override
 	public int addrUpdate(String newAddr, String user_id) throws SQLException {
 		Connection con = null;
@@ -204,6 +230,10 @@ public class UsersDAOImpl implements UsersDAO {
 		return result;
 	}
 
+	
+	/**
+	 * 개인정보 수정(폰번호)
+	 */
 	@Override
 	public int phoneUpdate(String newPhone, String user_id) throws SQLException {
 		Connection con = null;
@@ -227,7 +257,11 @@ public class UsersDAOImpl implements UsersDAO {
 		
 		return result;
 	}
-
+	
+	
+	/**
+	 * 개인정보 수정(비번)
+	 */
 	@Override
 	public int pwdUpdate(String oldPwd, String newPwd) throws SQLException {
 		Connection con = null;
@@ -253,6 +287,9 @@ public class UsersDAOImpl implements UsersDAO {
 	}
 	
 	
+	/**
+	 * 주문 상세보기(order_line)
+	 */
 	@Override
 	public List<OrdersDTO> selectOrderList(String user_id) throws SQLException {
 		Connection con = null;
@@ -288,7 +325,9 @@ public class UsersDAOImpl implements UsersDAO {
 		return listO;
 	}
 	
-
+	/**
+	 * 주문 리스트(order)
+	 */
 	@Override
 	public List<OrderLineDTO> selectDelivery_time(int order_code) throws SQLException {
 		Connection con = null;
@@ -326,7 +365,10 @@ public class UsersDAOImpl implements UsersDAO {
 		return listOL;
 	}
 
-	@Override // 환불은 주문코드로하는 것이 맞을거 같습니다.
+	/**
+	 * 환불&주문 취소(ORDER_CODE를 입력 받아 ORDER.DELIVERY_CODE를 4(취소)로 변경)
+	 */
+	@Override 
 	public int cancelOrder(int order_code) throws SQLException {
 		int result = 0;
 		Connection con = null;
@@ -349,7 +391,9 @@ public class UsersDAOImpl implements UsersDAO {
 		return result;
 	}
 
-	
+	/**
+	 * 비밀번호 확인(비밀번호 유효성 검사)
+	 */
 	@Override
 	public String pwdCheck(String user_id, String input_pwd) throws SQLException {
 		String sql = "select USER_PWD FROM USERS WHERE USER_ID = ? AND user_pwd = ?";
@@ -426,6 +470,9 @@ public class UsersDAOImpl implements UsersDAO {
 		}
 	}
 		
+	/**
+	 * 주문시 주문내역에 들어갈 주문자의 주소와 전화번호를 가져오기 위한 메소드
+	 * */
 	public UsersDTO selectUserInfoByID(String user_id) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps=null;
@@ -450,7 +497,9 @@ public class UsersDAOImpl implements UsersDAO {
 	
 	}
 	
-	
+	/**
+	 * 회원정보 (마이페이지의 회정보출력)
+	 */
 	public UsersDTO selectUserInfoAllPrint(String user_id) throws SQLException{
 		Connection con=null;
 		PreparedStatement ps=null;
