@@ -204,7 +204,9 @@ public class UserOrdersView {
 	
 	
 	
-
+	/**
+	 * 하위카테고리 가게목록 - 레이아웃!
+	 */
 	public static int subFoodList(int subFoodList) {
 
 		System.out.println("가게코드    가게이름      배달팁          후기/평점       주문건");		
@@ -252,7 +254,9 @@ public class UserOrdersView {
 		return subFoodList;
 	}
 	
-	
+	/**
+	 * 가게 선택, 가게 정렬
+	 */
 	public static void storeSelect(int subFoodList, int ...index ) {//index=0이면arragne(), =1이면menuarrage(), =2이면categoryArrange()
 		
 		SessionSet ss = SessionSet.getInstance();
@@ -338,7 +342,7 @@ public class UserOrdersView {
 	
 	
 	/**
-	 * 메뉴  //세션아이디 계속 가지고 가야하나요 ?(주석 오류)
+	 * 메뉴
 	 */
 	
 	public static void menu(int store_code, String user_id) {
