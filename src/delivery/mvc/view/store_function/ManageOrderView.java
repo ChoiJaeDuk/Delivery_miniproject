@@ -18,15 +18,15 @@ private static Scanner sc= new Scanner(System.in);
 			
 			switch (menu) {
 			case 1:
-				ManageOrderView.orderDetail(userid);//주문상세보기
+				ManageOrderView.orderDetail(userid);
 				break;
 				
 			case 2:
-				ManageOrderView.manageDelivery(userid);//배달관리
+				ManageOrderView.manageDelivery(userid);
 				break;
 			
 			case 3:	
-				StoreView.printMenuForStores(userid);//종료 
+				StoreView.printMenuForStores(userid);
 				break;
 			}
 		}

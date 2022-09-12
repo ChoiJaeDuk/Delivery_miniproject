@@ -52,7 +52,7 @@ public class StoreView {
 	}
 	
 	
-
+	
 	public static void printMenuForStores(String users_id) { 
 	
 		while(true) {
@@ -67,19 +67,20 @@ public class StoreView {
 			switch(menu) {
 				case 1 :
 					ManageStoreView.manageStore(users_id);//가게관리
-					return; //함수를 빠저나간다.
-					//break;
+					return; 
 					
 				case 2 :
-					ManageOrderView.manageOrder(users_id);//주문관리
-					
+					ManageOrderView.manageOrder(users_id); //주문관리
 					return;
+					
 				case 3 :
 					MypageForStoreView.mypageForStore(users_id);//마이페이지
 					return;
+					
 				case 4 :
-					UsersController.usersLogout(users_id);
-					MenuView.menu();//로그아웃
+					UsersController.usersLogout(users_id);//로그아웃
+					MenuView.menu();
+					
 				default:
 					System.out.println("* * * 번호를 잘못 입력하셨습니다.\n\n");
 					printMenuForStores(users_id);

@@ -60,7 +60,7 @@ public class FindView {
 	
 	
 	/**
-	 * 비밀번호 /////// 새로받을 
+	 * 비밀번호  
 	 */
 	
 	public static void findPw() {
@@ -76,7 +76,9 @@ public class FindView {
 		System.out.print("* * * 새로운 비밀번호를 입력해주세요. >> ");
 		String newpwd = sc.nextLine();
 		
-		//비밀번호 찾기=재설정 UsersController 
+		/**
+		 * 비밀번호 찾기=재설정 UsersController 
+		 * */
 		UsersController.searchPwd(usersId, usersName, usersJumin, newpwd);
 	}
 }

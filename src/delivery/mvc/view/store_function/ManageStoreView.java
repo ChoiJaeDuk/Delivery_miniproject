@@ -27,20 +27,23 @@ public class ManageStoreView {
 			
 			switch (menuno) {
 			case 1:
-				ManageStoreView.storeStatus(users_id);//오픈 클로즈
+				ManageStoreView.storeStatus(users_id);
 				break;
 				
 			case 2:
-				ManageStoreView.manageMenu(users_id);//메뉴관리
+				ManageStoreView.manageMenu(users_id);
 				break;
+				
 			case 3:
-				ManageStoreView.salesStatistics(users_id);//판매통계
+				ManageStoreView.salesStatistics(users_id);
 				break;
+				
 			case 4:
-				ManageStoreView.manageReview(users_id);// 후기관리
+				ManageStoreView.manageReview(users_id);
 				break;
+				
 			case 5:	
-				StoreView.printMenuForStores(users_id);//종료 
+				StoreView.printMenuForStores(users_id);
 				break;
 				
 			default:
@@ -65,15 +68,7 @@ public class ManageStoreView {
 	 * 1. open/close 상태 설정하기
 	 * */
 	public static void storeStatus(String user_id) { //세션
-		//StoresDTO store = new StoresDTO();
-		//String user_id =null;
-		//String status = null;
-		//if(store.getStore_status() == 0 ) status = "close";
-		//else status = "open";
-		
-	//	SessionSet ss = SessionSet.getInstance();
-	//	String userId = ss.getSet().iterator().next().getSessionId();
-		//System.out.println(userId);
+
 		
 		System.out.println("----------------------------------------------------------------------------------");
 		System.out.println("                               [open/close 상태 ]                                 ");

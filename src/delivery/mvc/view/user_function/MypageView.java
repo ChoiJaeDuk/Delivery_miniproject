@@ -387,7 +387,7 @@ public class MypageView {
 	}
 
 	/**
-	 * 판매자신청서 제출 최종확인 질문!!!
+	 * 판매자신청서
 	 * 
 	 * @param userId
 	 */
